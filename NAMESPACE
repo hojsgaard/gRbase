@@ -1,0 +1,245 @@
+useDynLib(gRbase)
+
+exportPattern("^[[:alpha:]]+")
+
+importClassesFrom(Matrix, Matrix)
+importMethodsFrom(graph, plot)
+importMethodsFrom(graph, plot)
+
+importFrom("methods", "as", "new")
+
+importFrom(Rcpp, evalCpp)
+importFrom(methods, setOldClass) # because of setOldClass("igraph")
+
+importMethodsFrom(Matrix, t, isSymmetric, diag)
+importFrom(Matrix, Matrix)
+
+importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
+importFrom(graph, edges, nodes)
+importFrom("stats", "as.formula", "cov", "cov2cor", "delete.response",
+           "deviance", "formula", "runif", "terms", "xtabs")
+importFrom("utils", "str")
+importFrom("graphics", "plot")
+
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+importFrom(methods, setOldClass) # because of setOldClass("igraph")
+
+importClassesFrom(Matrix, Matrix)
+importMethodsFrom(Matrix, t, isSymmetric, diag)
+importFrom(Matrix, Matrix)
+
+importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
+importFrom(graph, edges, nodes)
+importFrom("stats", "as.formula", "cov", "cov2cor", "delete.response",
+           "deviance", "formula", "runif", "terms", "xtabs")
+importFrom("utils", "str")
+importFrom("graphics", "plot")
+importFrom(magrittr,"%>%")
+export("%>%")
+
+export("%a/%")
+export("%a*%")
+export("%a+%")
+export("%a-%")
+##export("%am%")
+
+
+
+
+S3method(coerceGraph, dgCMatrix)
+S3method(coerceGraph, graphNEL)
+S3method(coerceGraph, igraph)
+S3method(coerceGraph, matrix)
+
+S3method(as.gmData, array)
+S3method(as.gmData, data.frame)
+S3method(as.gmData, table)
+
+S3method(is.DAG, default)
+S3method(is.DAG, graphNEL)
+S3method(is.DG, default)
+S3method(is.DG, graphNEL)
+S3method(is.TUG, default)
+S3method(is.TUG, graphNEL)
+S3method(is.UG, default)
+S3method(is.UG, graphNEL)
+
+S3method(valueLabels, gmData)
+S3method(valueLabels, default)
+## S3method(valueLabels, array)
+## S3method(valueLabels, parray)
+S3method("valueLabels<-", gmData)
+
+
+S3method(dataOrigin, gmData)
+
+S3method(edgeList, default)
+S3method("description<-", gmData)
+S3method(fit, ggm)
+S3method(fit, hllm)
+S3method(getCliques, graphNEL)
+S3method(getCliques, default)
+
+S3method(varNames, default)
+## S3method(varNames, array)
+## S3method(varNames, parray)
+S3method(varNames, gmData)
+
+S3method("varNames<-", gmData)
+S3method(varTypes, gmData)
+S3method("varTypes<-", gmData)
+
+S3method(isGraphical, default)
+S3method(jTree, default)
+S3method(latent, gmData)
+S3method("latent<-", gmData)
+S3method(mcs, default)
+S3method(mcsmarked, default)
+S3method(minimalTriang, default)
+S3method(moralize, default)
+S3method(mpd, default)
+##S3method(print, parray)
+S3method(print, ripOrder)
+S3method(rip, default)
+S3method(shortNames, gmData)
+S3method("shortNames<-", gmData)
+S3method(stepwise, hllm)
+S3method(summary, gRfit)
+S3method(print, gRfit)
+
+S3method(vpar, Matrix)
+S3method(vpar, matrix)
+S3method(vpar, graphNEL)
+
+S3method(getFit, gRfit)
+S3method("getFit<-", gRfit)
+
+S3method(gmData, gModel)
+S3method("gmData<-", gModel)
+
+S3method(summary, gmData)
+S3method(print, gmData)
+S3method(print, gModel)
+S3method(ordinal, gmData)
+S3method(update, gModel)
+S3method(topoSort, default)
+S3method(triangulate, default)
+
+
+S3method("formula<-", gModel)
+S3method(iplot, graphNEL)
+
+S3method(nLevels, default)
+
+S3method(nLevels, gmData)
+S3method("nLevels<-", gmData)
+
+S3method(nominal, gmData)
+S3method("ordinal<-", gmData)
+S3method("nominal<-", gmData)
+S3method(observations, gmData)
+S3method("observations<-", gmData)
+
+S3method(plot, ripOrder)
+
+S3method(isDecomposable, default)
+S3method(nonEdgeList, default)
+
+S3method(coerceGraph, dgCMatrix)
+S3method(coerceGraph, graphNEL)
+S3method(coerceGraph, igraph)
+S3method(coerceGraph, matrix)
+
+S3method(as.gmData, array)
+S3method(as.gmData, data.frame)
+S3method(as.gmData, table)
+
+S3method(is.DAG, default)
+S3method(is.DAG, graphNEL)
+S3method(is.DG, default)
+S3method(is.DG, graphNEL)
+S3method(is.TUG, default)
+S3method(is.TUG, graphNEL)
+S3method(is.UG, default)
+S3method(is.UG, graphNEL)
+
+
+S3method(valueLabels, gmData)
+S3method(valueLabels, default)
+S3method("valueLabels<-", gmData)
+
+
+S3method(dataOrigin, gmData)
+
+S3method(edgeList, default)
+S3method("description<-", gmData)
+S3method(fit, ggm)
+S3method(fit, hllm)
+S3method(getCliques, graphNEL)
+S3method(getCliques, default)
+
+S3method(varNames, gmData)
+S3method(varNames, default)
+
+S3method("varNames<-", gmData)
+S3method(varTypes, gmData)
+S3method("varTypes<-", gmData)
+
+S3method(isGraphical, default)
+S3method(jTree, default)
+S3method(latent, gmData)
+S3method("latent<-", gmData)
+S3method(mcs, default)
+S3method(mcsmarked, default)
+S3method(minimalTriang, default)
+S3method(moralize, default)
+S3method(mpd, default)
+#S3method(print, parray)
+S3method(print, ripOrder)
+S3method(rip, default)
+S3method(shortNames, gmData)
+S3method("shortNames<-", gmData)
+S3method(stepwise, hllm)
+S3method(summary, gRfit)
+S3method(print, gRfit)
+
+S3method(vpar, Matrix)
+S3method(vpar, matrix)
+S3method(vpar, graphNEL)
+
+S3method(getFit, gRfit)
+S3method("getFit<-", gRfit)
+
+S3method(gmData, gModel)
+S3method("gmData<-", gModel)
+
+S3method(summary, gmData)
+S3method(print, gmData)
+S3method(print, gModel)
+S3method(ordinal, gmData)
+S3method(update, gModel)
+S3method(topoSort, default)
+S3method(triangulate, default)
+
+
+S3method("formula<-", gModel)
+S3method(iplot, graphNEL)
+S3method(nLevels, default)
+S3method(nLevels, gmData)
+
+
+S3method("nLevels<-", gmData)
+
+S3method(nominal, gmData)
+S3method("ordinal<-", gmData)
+S3method("nominal<-", gmData)
+S3method(observations, gmData)
+S3method("observations<-", gmData)
+
+S3method(plot, ripOrder)
+
+S3method(isDecomposable, default)
+S3method(nonEdgeList, default)

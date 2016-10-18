@@ -1,0 +1,6 @@
+* ripMAT: Need C++-implementation
+
+* is.adjMAT: Need C-implementation
+
+* everything in file yyyPrim.R should be removed, but first when downstream
+  packages do not use them anymore
