@@ -9,7 +9,7 @@ os:
 - linux
 - osx
 before_install:
-- tlmgr install boxedminipage
+- if [ "$TRAVIS_OS_NAME" == "linux" ]; then tlmgr install boxedminipage; fi
 deploy:
   provider: releases
   skip_cleanup: true
