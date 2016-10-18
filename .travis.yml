@@ -8,3 +8,12 @@ bioc_packages:
 os:
 - linux
 - osx
+before_install:
+- tlmgr install boxedminipage.sty
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  file: gRbase_*.t*gz
+  on:
+tags: true
