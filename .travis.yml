@@ -2,6 +2,9 @@ language: R
 cache: packages
 sudo: false
 bioc_packages:
-  - graph
-  - RBGL
-  - Rgraphviz
+- graph
+- RBGL
+- Rgraphviz
+os:
+- linux
+- osx
