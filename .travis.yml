@@ -9,7 +9,7 @@ os:
 - linux
 - osx
 before_install:
-- tlmgr install boxedminipage.sty
+- tlmgr install boxedminipage
 deploy:
   provider: releases
   skip_cleanup: true
