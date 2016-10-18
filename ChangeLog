@@ -1,3 +1,7 @@
+
+	
+	* Class parray removed on arrays
+	
 2016-10-16 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* gRbase rewritten using roxygen

@@ -14,7 +14,7 @@
 #' topoSortMAT_ triangulateMAT_ do_getcq_dense do_getcq_sparse do_mcs_dense
 #' do_mcs_sparse getCliquesDec_ rip_internal sp_setXtf1 solveSPD adjList2adjMAT
 #' adjList2ftList adjList2ftM adjList2tfList adjList2tfM glist2setMAT
-#' varNames.default nLevels.default valueLabels.default print.parray
+#' varNames.default nLevels.default valueLabels.default 
 #' print.ripOrder plot.ripOrder maxClique colSumsPrim intersectPrim matchPrim
 #' outerPrim setdiffPrim uniquePrim unlistPrim rowSumsPrim lapplyV2I lapplyI2V
 #' lapplyMatch isGSD_glist properties_glist aperm2 cell2entry entry2cell

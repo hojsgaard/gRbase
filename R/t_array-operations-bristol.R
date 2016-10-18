@@ -102,7 +102,7 @@ tableOp <- function(tab1, tab2, op="*"){
   dim(pot1)      <- di.new[perm]
   dimnames(pot1) <- dn.new[perm]
 
-  class(pot1) <- c("parray","array")
+    ##class(pot1) <- c("parray","array")
   pot1
 }
 
@@ -156,7 +156,7 @@ tableOp <- function(tab1, tab2, op="*"){
     ttab1[!is.finite(ttab1)] <- 0
   dim(ttab1)      <- di.new[perm]
   dimnames(ttab1) <- dn.new[perm]
-  class(ttab1) <- c("parray","array")
+    ##class(ttab1) <- c("parray","array")
   ttab1
 }
 
@@ -238,7 +238,7 @@ tableSlice <-  function (tab, margin, level, impose)
         ans[] <- impose
     }
     ans <- array(ans, dim=sapply(dn[-mar.idx], length), dimnames=dn[-mar.idx])
-    class(ans) <- c("parray","array")
+    ##class(ans) <- c("parray","array")
     ans
 }
 

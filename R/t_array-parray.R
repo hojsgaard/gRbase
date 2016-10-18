@@ -1,18 +1,18 @@
 ######################################################
 ####
-#### A parray is an array in the sense that it is a
+#### A named array is an array in the sense that it is a
 #### vector with a dim and a dimnames attribute.
 ####
 ######################################################
 
-#' @title Representation of and operations on multidimensional tables
+#' @title Representation of and operations on multidimensional arrays
 #' 
-#' @description General representation of multidimensional tables (by \code{parray}
-#' objects).
+#' @description General representation of multidimensional arrays (with named
+#'     dimnames, also called named arrays.)
 #' 
 #' @name old-parray
 #' 
-#' @details A \code{parray} object represents a table defined by a set of variables and
+#' @details A named array object represents a table defined by a set of variables and
 #' their levels, together with the values of the table. E.g. f(a,b,c) can be a
 #' table with a,b,c representing levels of binary variable
 #' 
@@ -24,23 +24,19 @@
 #' If \code{smooth} is positive then \code{smooth} is added to \code{values}
 #' before normalization takes place.
 #' 
-#' \code{as.parray} can be used for coercing an array or an xtabs to a parray
-#' object.
-#' 
 #' @aliases parray as.parray data2parray
 #' @param varNames Names of variables defining table; can be a right hand sided
 #'     formula.
 #' @param levels Either 1) a vector with number of levels of the factors in
 #'     varNames or 2) a list with specification of the levels of the factors in
 #'     varNames. See 'examples' below.
-#' @param values Values to go into the parray
+#' @param values Values to go into the array
 #' @param normalize Either "none", "first" or "all". Should result be
 #'     normalized, see 'Details' below.
 #' @param smooth Should values be smoothed, see 'Details' below.
-#' @return An object of class \code{parray}.
+#' @return A a named array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{tableOp}}, \code{\link{tableMargin}},
-#'     \code{\link{tableOp}} % \code{\link{tableOp}}
+#' @seealso \code{\link{is.named.array}}, \code{\link{armarg}}
 #' @keywords utilities
 #' @examples
 #'  
@@ -134,7 +130,7 @@ as.parray  <- function(values, normalize="none", smooth=0){
   } else {
     ans <- values
   }
-  class(ans) <- c("parray","array")
+    ##class(ans) <- c("parray","array")
 
   switch(normalize,
     "first"={
