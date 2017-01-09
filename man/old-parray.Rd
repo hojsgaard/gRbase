@@ -5,7 +5,7 @@
 \alias{data2parray}
 \alias{old-parray}
 \alias{parray}
-\title{Representation of and operations on multidimensional tables}
+\title{Representation of and operations on multidimensional arrays}
 \usage{
 parray(varNames, levels, values = 1, normalize = "none", smooth = 0)
 
@@ -19,7 +19,7 @@ formula.}
 varNames or 2) a list with specification of the levels of the factors in
 varNames. See 'examples' below.}
 
-\item{values}{Values to go into the parray}
+\item{values}{Values to go into the array}
 
 \item{normalize}{Either "none", "first" or "all". Should result be
 normalized, see 'Details' below.}
@@ -27,14 +27,14 @@ normalized, see 'Details' below.}
 \item{smooth}{Should values be smoothed, see 'Details' below.}
 }
 \value{
-An object of class \code{parray}.
+A a named array.
 }
 \description{
-General representation of multidimensional tables (by \code{parray}
-objects).
+General representation of multidimensional arrays (with named
+    dimnames, also called named arrays.)
 }
 \details{
-A \code{parray} object represents a table defined by a set of variables and
+A named array object represents a table defined by a set of variables and
 their levels, together with the values of the table. E.g. f(a,b,c) can be a
 table with a,b,c representing levels of binary variable
 
@@ -45,9 +45,6 @@ If \code{normalize="all"} then the sum over all entries of f(a,b,c) is one.
 
 If \code{smooth} is positive then \code{smooth} is added to \code{values}
 before normalization takes place.
-
-\code{as.parray} can be used for coercing an array or an xtabs to a parray
-object.
 }
 \examples{
  
@@ -89,8 +86,7 @@ data2parray(UCBAdmissions,c(1,2), normalize="first")
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \seealso{
-\code{\link{tableOp}}, \code{\link{tableMargin}},
-    \code{\link{tableOp}} % \code{\link{tableOp}}
+\code{\link{is.named.array}}, \code{\link{armarg}}
 }
 \keyword{utilities}
 

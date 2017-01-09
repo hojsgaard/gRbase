@@ -14,9 +14,9 @@
 \title{Create  RIP ordering of the cliques of  an undirected graph;
     create junction tree.}
 \usage{
-rip(object, root = NULL, nLevels = NULL)
+rip(object, ...)
 
-\method{rip}{default}(object, root = NULL, nLevels = NULL)
+\method{rip}{default}(object, root = NULL, nLevels = NULL, ...)
 
 ripMAT(amat, root = NULL, nLevels = rep(2, ncol(amat)))
 
@@ -31,6 +31,8 @@ jTreeMAT(amat, nLevels = rep(2, ncol(amat)), ...)
 \code{graphNEL} object, an \code{igraph}, a (dense)
 \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
+\item{...}{Additional arguments; currently not used}
+
 \item{root}{A vector of variables. The first variable in the
 perfect ordering will be the first variable on 'root'. The
 ordering of the variables given in 'root' will be followed as
@@ -42,8 +44,6 @@ triangulation using a "minimum clique weight heuristic". See
 section 'details'.}
 
 \item{amat}{Adjacency matrix}
-
-\item{...}{Additional arguments; currently not used}
 }
 \value{
 \code{rip} returns a list (an object of class
@@ -84,13 +84,13 @@ rip(uG)
 jTree(uG)
 
 ## Sparse adjacency matrix
-uG <- ug(c("me","ve","al"),c("al","an","st"), result="Matrix")
+uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="Matrix")
 mcs(uG)
 rip(uG)
 jTree(uG)
 
 ## Non--decomposable graph
-uG <- ug(~1:2+2:3+3:4+4:5+5:1)
+uG <- ug(~1:2 + 2:3 + 3:4 + 4:5 + 5:1)
 mcs(uG)
 rip(uG)
 jTree(uG)

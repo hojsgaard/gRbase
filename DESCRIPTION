@@ -33,6 +33,7 @@ License: GPL (>= 2)
 URL: http://people.math.aau.dk/~sorenh/software/gR/
 ByteCompile: Yes
 Encoding: UTF-8
+VignetteBuilder: knitr
 Depends:
     R (>= 3.0.2),
     methods
@@ -45,6 +46,7 @@ Imports:
     Rcpp (>= 0.11.1)
 Suggests:
     Rgraphviz,
-    microbenchmark
+    microbenchmark,
+		knitr
 LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
 RoxygenNote: 5.0.1

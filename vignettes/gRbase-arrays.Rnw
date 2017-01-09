@@ -1,9 +1,10 @@
+%\VignetteEngine{knitr::knitr} 
 %\VignetteIndexEntry{gRbase-arrayops: Array operations in gRbase}
 %\VignettePackage{gRbase}
 
 \documentclass[10pt]{article}
 %\usepackage[T1]{fontenc}
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
 %\usepackage{inputenx}
 \usepackage{boxedminipage,color,a4wide,url}
 
@@ -27,9 +28,16 @@
 \setlength{\fancyvrbtopsep}{0pt}
 \setlength{\fancyvrbpartopsep}{0pt}
 
-\SweaveOpts{keep.source=T}
 
-<<echo=FALSE,print=FALSE>>=
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+tidy=FALSE
+)
+@
+
+
+<<echo=FALSE>>=
 #require( gRbase )
 prettyVersion <- packageDescription("gRbase")$Version
 prettyDate <- format(Sys.Date())
@@ -46,28 +54,28 @@ prettyDate <- format(Sys.Date())
 
 \definecolor{darkred}{rgb}{.7,0,0}
 \definecolor{midnightblue}{rgb}{0.098,0.098,0.439}
-
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{midnightblue}}
-}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{darkred}}
-}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{blue}}
-}
-
-\fvset{listparameters={\setlength{\topsep}{-2pt}}}
-\renewenvironment{Schunk}{\linespread{.95}}{}
+%% 
+%% \DefineVerbatimEnvironment{Sinput}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{midnightblue}}
+%% }
+%% \DefineVerbatimEnvironment{Soutput}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{darkred}}
+%% }
+%% \DefineVerbatimEnvironment{Scode}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{blue}}
+%% }
+%% 
+%%\fvset{listparameters={\setlength{\topsep}{-2pt}}}
+%%\renewenvironment{Schunk}{\linespread{.95}}{}
 
 
 
@@ -77,7 +85,6 @@ prettyDate <- format(Sys.Date())
 
 \tableofcontents
 
-@
 <<echo=F>>=
 library(gRbase)
 ##load_all("../gRbase")
@@ -115,7 +122,6 @@ The documentation of \R\ states the following about arrays:
 
 Arrays appear for example in connection with cross classified
 data. For example
-@ 
 <<>>=
 HairEyeColor
 @ %def 
@@ -124,7 +130,6 @@ HairEyeColor
 Data is a contingency table; a cross classified table of counts. In
 \R\ lingo, data is a \code{table} object, but it is also an array because
 it has a \code{dim} attribute:
-@ 
 <<>>=
 class( HairEyeColor )
 is.array( HairEyeColor )
@@ -133,7 +138,6 @@ dim( HairEyeColor )
 
 The array also has a
 \code{dimnames} attribute and the list of \verb'dimnames' has names:
-@ 
 <<>>=
 dimnames( HairEyeColor )
 @ %def 
@@ -143,13 +147,11 @@ varies fastest. The \verb'dimnames' attributes are important for many of the fun
 \grbase\ described in the following sections.
 
 Presence of named dimnames can be checked with \rr{is.named.array()}
-@ 
 <<>>=
 is.named.array( HairEyeColor )
 @ %def 
 
 To limit output we shall only consider two hair colours and three eye colours.
-@ 
 <<>>=
 hec <- do.call("[", c(list(HairEyeColor), list(1:2, 1:3, TRUE), drop=FALSE))
 hec <- HairEyeColor[1:2, 1:3, ]
@@ -159,7 +161,6 @@ hec
 A more compact view of data can be achieved with \code{ftable()}.
 Since \grbase\ imports the pipe operator \verb'%>%' from
 the \pkg{magrittr} package we will in this note do:
-@ 
 <<>>=
 flat <- function(x) {ftable(x, row.vars=1)}
 hec %>% flat
@@ -169,7 +170,6 @@ hec %>% flat
 \subsection{Defining arrays}
 
 Arrays can be defined in different ways using standard \R\ code:
-@ 
 <<>>=
 z1 <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
 di <- c(2, 3, 2)
@@ -183,7 +183,6 @@ z2 <- array( c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29),
 @ %def 
 where the \code{dimnames} part in both cases is optional. 
 Another way is to use \rr{newar()} from \grbase:
-@ 
 <<>>=
 counts <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
 z3 <- newar( ~ Hair:Eye:Sex, levels = dn, value = counts) 
@@ -193,7 +192,6 @@ z4 <- newar(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
 Notice that \code{dn} when used in \rr{newar()} 
 is allowed to contain superfluous elements. Default
 \code{dimnames} are generated with
-@ 
 <<>>=
 z5 <- newar(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
 z5 %>% flat
@@ -204,13 +202,11 @@ Using \rr{newar()}, arrays can be normalized in two ways:
 Normalization can be over the first variable for \emph{each}
 configuration of all other variables or over all configurations. For
 example:
-@ 
 <<>>=
 z6 <- newar(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts, normalize="first")
 z6 %>% flat
 @ %def 
 The same can be achived with\rr{arnormalize()}
-@ 
 <<>>=
 arnormalize(z5, "first") %>% flat
 @ %def 
@@ -230,21 +226,18 @@ $(h,e,s)$-entry of $T_{HES}$ as $T_{HES}(h,e,s)$.
 
 A reorganization of the table can be made with \rr{arperm} (similar
 to \code{aperm()}), but \rr{arperm} allows for a formula:
-@ 
 <<>>=
 arperm(hec, ~Eye:Sex:Hair) %>% flat 
 @ %def 
 
 Alternative forms (that will also work for \rr{aperm()}):
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 arperm(hec, c("Eye", "Sex", "Hair")) %>% flat
 arperm(hec, c(2,3,1)) %>% flat
 @ %def 
 
 Notice that abbreviation is allowed
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 arperm(hec, ~Ey:Se:Ha) %>% flat 
 arperm(hec, c("Ey", "Se", "Ha")) %>% flat
 @ %def 
@@ -257,7 +250,6 @@ We can subset arrays (this will also be called ``slicing'') in
 different ways. Notice that the result is not necessarily an
 array. Using standard \R\ code we can do:
 
-@ 
 <<>>=
 hec[, 2:3, ]  %>% flat
 is.array( hec[, 2:3, ] ) 
@@ -266,30 +258,26 @@ is.array( hec[1, , 1] )
 @ %def 
 
 Programmatically we can do the above as
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 do.call("[", c(list(hec), list(TRUE, 2:3, TRUE)))  %>% flat
 do.call("[", c(list(hec), list(1, TRUE, 1)))  %>% flat
 @ %def 
 
 
 \grbase\ provides a wrapper for this, for example:
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 arslice_prim(hec, slice=list(TRUE, 2:3, TRUE))  %>% flat
 @ %def 
 
 
 Using \rr{arslice()} from \grbase\ the following are equivalent
-@ 
-<<results=verbatim>>=
+<<results='markup'>>=
 hec[, 2:3, ] %>% flat
 arslice(hec, slice=list(c(2,3)), margin=2) %>% flat
 @ %def 
 
 Alternative forms:
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 arslice(hec, slice=list(Eye=2:3)) %>% flat
 arslice(hec, slice=list(Eye=c("Blue","Hazel")))  %>% flat
 @ %def 
@@ -298,7 +286,6 @@ arslice(hec, slice=list(Eye=c("Blue","Hazel")))  %>% flat
 The virtue of \rr{arslice} comes from the flexibility when
 specifying the slice:\footnote{Currently names can not be abbreviated,
 but that might be added later.}
-@ 
 <<>>=
 arslice(hec, slice=list(Eye=c(2,3), Sex="Female")) %>% flat
 arslice(hec, slice=list(Eye=c(2,3), Sex="Female"), drop=FALSE) %>% flat
@@ -306,14 +293,12 @@ arslice(hec, slice=list(Eye=c(2,3), Sex="Female"), drop=FALSE) %>% flat
 
 If slicing leads to a one dimensional array, the output will by
 default not be an array but a vector (without a dim attribute)
-@ 
 <<>>=
 z <- arslice(hec, slice=list(Hair=1, Sex="Female")); z 
 is.array( z )
 @ %def 
 
 The output can be forced to be an array with
-@ 
 <<>>=
 z <- arslice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); z
 is.array( z )
@@ -333,14 +318,12 @@ values
 
 With \grbase\ we can do\footnote{FIXME: Should allow for abbreviations in
   formula and character vector specifications.}:
-@
 <<>>=
 he <- armarg(hec, ~Hair:Eye); he %>% flat       
 @ %def
 
 Alternative forms include
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 hs <- armarg(hec, c("Hair","Sex")); hs 
 es <- armarg(hec, c(2,3)); es
 @ %def 
@@ -356,13 +339,11 @@ extend $T_{HE}$ to have a third dimension, e.g.\ \code{Sex}. That is
 \end{displaymath}
 so $\tilde T_{HES}(h,e,s)$ is constant as a function of $s$. 
 With \grbase\ this is done with \rr{arexpand()}:
-@ 
 <<>>=
 arexpand(he, list(Sex=c("Male", "Female"))) %>% flat
 @ %def 
 Notice that the added dimensions come ``at the end''. The following versions produce the same result:
-@ 
-<<results=hide>>=
+<<results='hide'>>=
 arexpand(he, dimnames(hs)) %>% flat
 arexpand(he, hs) %>% flat
 @ %def 
@@ -382,15 +363,13 @@ $\tilde T_{HES}$ with entries
 \end{displaymath}
 
 With \grbase\ this is done with \rr{armult()}:
-@ 
 <<>>=
 armult(he, hs) %>% flat
 @ %def 
 
 
 The quotient, sum and difference is defined similarly:
-@ 
-<<>>= 
+<<>>=
 ardiv(he, hs)  %>% flat 
 aradd(he, hs)  %>% flat
 arsubt(he, hs) %>% flat
@@ -398,7 +377,6 @@ arsubt(he, hs) %>% flat
 
 Multiplication and addition of a list of arrays is accomplished with
 \rr{arprod()} and \rr{arsum()}:
-@ 
 <<>>=
 arprod( he, hs, es ) %>% flat
 arsum( he, hs, es ) %>% flat
@@ -412,7 +390,6 @@ Two arrays are defined to be identical 1) if they have the same dimnames
 and 2) if, possibly after a permutation, all values are identical (up to
 a small numerical difference):
 
-@ 
 <<>>=
 hec2 <- arperm(hec, 3:1)
 arequal(hec, hec2)
@@ -422,13 +399,11 @@ A visual comparison of the entries of two arrays with the same
 dimnames is much easier if the dimnames are in the same order.
 For example, the following provides the fitted cell counts under a
 specific log--linear model:
-@ 
 <<>>=
 hec3 <- ardiv( armult( he, es ), armarg( hec, "Eye" ) )
 hec3 %>% flat
 @ %def 
 Comparing these with the observed data is tricky because of the ordering:
-@ 
 <<>>=
 hec %>% flat
 @ %def 
@@ -437,7 +412,6 @@ The function \rr{aralign()} will align the first array to have the same
 variable order as the second array which makes a visual comparison
 easier:\footnote{FIXME: aralign should be modified so that the second
   argument can also be a list of dimnames} 
-@ 
 <<>>=
 aralign(hec3, hec)  %>% flat
 @ %def 
@@ -470,7 +444,6 @@ as follows
 (notice that the vertical conditioning bar ($|$) is replaced by the
 horizontal underscore:
 
-@ 
 <<>>=
 yn <- c("y","n")
 lev <- list(rain=yn, sprinkler=yn, wet=yn)
@@ -486,20 +459,17 @@ w_sr %>% flat
 The joint distribution $p(r,s,w)=p(r)p(s|r)p(w|s,r)$ can be obtained
 with \rr{arprod()}:
 ways:
-@
 <<>>=
 joint <- arprod( r, s_r, w_sr ); joint %>% flat
 @ %def
 
 What is the probability that it rains given that the grass is wet? We
 find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$ with \rr{ardist()}
-@
 <<>>=
 rw <- armarg(joint, ~rain+wet)
 ardist(rw, cond=~wet)
 @ %def
 
-@ 
 <<eval=F>>=
 ## Alternative:
 ardiv( rw, armarg(rw, ~wet))
@@ -509,7 +479,6 @@ rw %a/% (rw %am% ~wet)
 
 
 Alternative computation using 
-@
 <<>>=
 x <- arslice_mult(rw, slice=list(wet="y")); x
 p <- armarg(x, ~rain); p  ## Unnormalized
@@ -520,7 +489,6 @@ ardist( p )           ## Normalized
 \label{sec:ips}
 
 We consider the $3$--way \code{lizard} data from \grbase:
-@
 <<>>=
 data( lizard, package="gRbase" )
 lizard
@@ -552,7 +520,6 @@ shows that the equation $m(d,h)=n(d,h)$ is satisfied.
 
 A rudimentary implementation of iterative proportional scaling for
 log--linear models is straight forward:
-@
 <<>>=
 myips <- function(indata, glist){
     fit   <- indata
@@ -599,14 +566,12 @@ mapped into an entry of a vector.
 For example, cell $(2,3,1)$
 (\verb|Hair=Brown|,\verb|Eye=Hazel|,\verb|Sex=Male|) must be mapped to
 entry $4$ in
-@ 
 <<>>=
 hec
 c(hec)
 @ %def 
 
 For illustration we do:
-@ 
 <<>>=
 cell2name <- function(cell, dimnames){
     unlist(lapply(1:length(cell), function(m) dimnames[[m]][cell[m]]))
@@ -624,7 +589,6 @@ entry is provided by \rr{cell2entry()}. The reverse operation, going
 from an entry to a cell (which is much less needed) is provided by
 \rr {entry2cell()}.
 
-@ 
 <<>>=
 cell2entry(c(2,3,1), dim=c( 2, 3, 2 ))
 entry2cell(6, dim=c( 2, 3, 2 ))
@@ -635,7 +599,6 @@ Given a cell, say $i=(2,3,1)$ in a $2\times 3\times 2$ array we often want to fi
 the table following the convention that the first factor varies
 fastest, that is $(1,1,2)$. This is provided by
 \rr{nextCell()}.
-@
 <<>>=
 nextCell(c(2,3,1), dim=c( 2, 3, 2 ))
 @ %def
@@ -654,7 +617,6 @@ Given that we look at cells for which for which the index in dimension $2$ is at
 cell, what is then the next cell that also satisfies this
 constraint. This is provided by
 \rr{nextCellSlice()}.\footnote{FIXME: sliceset should be called margin.}
-@ 
 <<>>=
 nextCellSlice(c(1,3,1), sliceset=2, dim=c( 2, 3, 2 ))
 nextCellSlice(c(2,3,1), sliceset=2, dim=c( 2, 3, 2 ))
@@ -664,14 +626,12 @@ nextCellSlice(c(2,3,1), sliceset=2, dim=c( 2, 3, 2 ))
 Given that in dimension $2$ we look at level $3$. We want to find
 entries for the cells of the form $(j,3,l)$.\footnote{FIXME:slicecell and
   sliceset should be renamed}
-@
 <<>>=
 slice2entry(slicecell=3, sliceset=2, dim=c( 2, 3, 2 ))
 @ %def
 
 To verify that we indeed get the right cells:
 
-@
 <<>>=
 r <- slice2entry(slicecell=3, sliceset=2, dim=c( 2, 3, 2 ))
 lapply(lapply(r, entry2cell, c( 2, 3, 2 )),
@@ -760,14 +720,12 @@ lapply(lapply(r, entry2cell, c( 2, 3, 2 )),
 Using the operations above we can obtain the combinations of the
 factors as a matrix:
 
-@ 
 <<>>=
 head( factGrid( c(2, 3, 2) ), 6 )
 @ %def 
 
 A similar dataframe can also be obtained with the standard \R\
 function \code{expand.grid} (but \code{factGrid} is faster)
-@ 
 <<>>=
 head( expand.grid(list(1:2,1:3,1:2)), 6 )
 @ %def 

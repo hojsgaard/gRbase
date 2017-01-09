@@ -29,7 +29,7 @@ variable, tree diameter at breast height (DBH).
 }
 \examples{
 data(ashtrees)
-## maybe str(ashtrees) ; plot(ashtrees) ...
+head(ashtrees)
 
 }
 \references{

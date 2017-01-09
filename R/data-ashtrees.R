@@ -31,6 +31,6 @@
 #'
 #' @examples
 #' data(ashtrees)
-#' ## maybe str(ashtrees) ; plot(ashtrees) ...
+#' head(ashtrees)
 #' 
 "ashtrees"

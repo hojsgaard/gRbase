@@ -45,6 +45,7 @@
 #' @param ... Additional arguments; currently not used
 #' @return \code{rip} returns a list (an object of class
 #'     \code{ripOrder}. A print method exists for such objects.)
+#' 
 #' @note The workhorse is the \code{ripMAT()} function. The
 #'     \code{nLevels} argument to the \code{rip} functions has no
 #'     meaning.
@@ -70,52 +71,54 @@
 #' jTree(uG)
 #' 
 #' ## Sparse adjacency matrix
-#' uG <- ug(c("me","ve","al"),c("al","an","st"), result="Matrix")
+#' uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="Matrix")
 #' mcs(uG)
 #' rip(uG)
 #' jTree(uG)
 #' 
 #' ## Non--decomposable graph
-#' uG <- ug(~1:2+2:3+3:4+4:5+5:1)
+#' uG <- ug(~1:2 + 2:3 + 3:4 + 4:5 + 5:1)
 #' mcs(uG)
 #' rip(uG)
 #' jTree(uG)
 #' 
 #' 
-#' @export rip
-rip <- function(object, root=NULL, nLevels=NULL){
+
+#' @rdname graph-rip
+rip <- function(object, ...){
   UseMethod("rip")
 }
 
 #' @rdname graph-rip
-rip.default <- function(object, root=NULL, nLevels=NULL){
+rip.default <- function(object, root=NULL, nLevels=NULL, ...){
     cls <- match.arg(class( object ),
-                     c("graphNEL","igraph","matrix","dgCMatrix"))
+                     c("graphNEL", "igraph", "matrix", "dgCMatrix"))
     switch(cls,
-           "graphNEL" ={
-               if (graph::edgemode(object)=="directed"){
-                   stop("Graph must be undirected")
-               }
-               ripMAT(graphNEL2dgCMatrix(object), root=root, nLevels=nLevels)
-           },
-           "igraph"   ={
-               if (igraph::is.directed(object)){
-                   stop("Graph must be undirected")
-               }
-               ripMAT(igraph::get.adjacency(object), root=root, nLevels=nLevels)
-           },
            "dgCMatrix"=,
            "matrix"   ={
                ripMAT(object, root=root, nLevels=nLevels)
-           })
+           },
+           "graphNEL" ={
+               if (graph::edgemode(object)=="directed")
+                   stop("Graph must be undirected")
+               ripMAT(graphNEL2dgCMatrix(object), root=root, nLevels=nLevels)
+           },
+           "igraph" ={
+               if (igraph::is.directed(object))
+                   stop("Graph must be undirected")               
+               ripMAT(igraph::get.adjacency(object), root=root, nLevels=nLevels)
+           }
+           )
 }
 
 #' @rdname graph-rip
 ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
 
-  ## mcs.idx: The enumeration of nodes in vn
-  ## so 1,2,8 ... means that nodes 1,2,8... come first in the elimination
-  ## mcs.vn: corresponding ordering of nodes
+    #cat("ripMAT\n")
+    
+    ## mcs.idx: The enumeration of nodes in vn
+    ## so 1,2,8 ... means that nodes 1,2,8... come first in the elimination
+    ## mcs.vn: corresponding ordering of nodes
 
   mcs.vn <- mcsMAT(amat, root=root)
   if (length(mcs.vn)==0)

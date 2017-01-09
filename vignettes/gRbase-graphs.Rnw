@@ -1,11 +1,12 @@
-% \VignetteIndexEntry{gRbase-graphs: Graphs in the gRbase package}
-% \VignetteDepends{gRbase}
-% \VignetteKeyword{graphs}
+%\VignetteEngine{knitr::knitr} 
+%\VignetteIndexEntry{gRbase-graphs: Graphs in the gRbase package}
+%\VignetteDepends{gRbase}
+%\VignetteKeyword{graphs}
 
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 
 %\usepackage[T1]{fontenc}
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
 \usepackage{boxedminipage,color,a4wide,url}
 %\usepackage[utf8]{inputenc}
 %\usepackage{inputenx}
@@ -20,7 +21,7 @@
 \def\graphnel{\texttt{graphNEL}}
 \def\R{\texttt{R}}
 
-<<echo=FALSE,print=FALSE>>=
+<<echo=FALSE>>=
 require( gRbase )
 prettyVersion <- packageDescription("gRbase")$Version
 prettyDate <- format(Sys.Date())
@@ -35,39 +36,46 @@ prettyDate <- format(Sys.Date())
 
 %\SweaveInput{Rmarkup.STY}
 
-\definecolor{darkred}{rgb}{.7,0,0}
-\definecolor{midnightblue}{rgb}{0.098,0.098,0.439}
-
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{midnightblue}}
-}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{darkred}}
-}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{
-  fontfamily=tt,
-  %%fontseries=b,
-  %% xleftmargin=2em,
-  formatcom={\color{blue}}
-}
-
-\fvset{listparameters={\setlength{\topsep}{-2pt}}}
-\renewenvironment{Schunk}{\linespread{.90}}{}
+%% \definecolor{darkred}{rgb}{.7,0,0}
+%% \definecolor{midnightblue}{rgb}{0.098,0.098,0.439}
+%% 
+%% \DefineVerbatimEnvironment{Sinput}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{midnightblue}}
+%% }
+%% \DefineVerbatimEnvironment{Soutput}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{darkred}}
+%% }
+%% \DefineVerbatimEnvironment{Scode}{Verbatim}{
+%%   fontfamily=tt,
+%%   %%fontseries=b,
+%%   %% xleftmargin=2em,
+%%   formatcom={\color{blue}}
+%% }
+%% 
+%%\fvset{listparameters={\setlength{\topsep}{-2pt}}}
+%\renewenvironment{Schunk}{\linespread{.90}}{}
 
 
 \maketitle
 
-\SweaveOpts{prefix.string=fig/graph,keep.source=T,height=4}
-\setkeys{Gin}{width=0.6\textwidth}
 
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+               fig.path='fig/graph',tidy=FALSE, 
+               fig.height=2
+)
 @
-<<echo=FALSE>>=
+
+%\setkeys{Gin}{width=0.6\textwidth}
+
+<<echo=FALSE, warning=FALSE>>=
 dir.create("fig")
 oopt <- options()
 options("digits"=4, "width"=80, "prompt"="R> ", "continue"="  ")
@@ -171,7 +179,7 @@ and ``\code{*}'' can be used interchangably):
 
 
 %% @
-%% <<fig=T>>=
+%% <<>>=
 %% plot( ug11 )
 %% @ %def
 
@@ -193,30 +201,27 @@ and ``\code{*}'' can be used interchangably):
 %% @ %def
 
 
-@
 <<>>=
-ug11 <- ug( ~a*b + b*c*d)
-ug12 <- ug( c("a","b"), c("b","c","d") )
-ug13 <- ug( list( c("a","b"), c("b","c","d") ) )
+uG11 <- ug( ~a:b + b:c:d)
+uG12 <- ug( c("a", "b"), c("b", "c", "d") )
+uG13 <- ug( list( c("a", "b"), c("b", "c", "d") ) )
 @ %def
 
 
 Default is to return a \code{graphNEL} object (for which there is a
 plot method):
 
-@
-<<fig=T>>=
-ug11
-nodes(ug11)
-str( edges(ug11) )
-plot( ug11 )
+<<>>=
+uG11
+nodes(uG11)
+str( edges(uG11) )
+plot( uG11 )
 @ %def
 
 Matrix representations are obtained with:
-@
-<<print=T>>=
-ug11m <- ug( ~a*b + b*c*d, result="matrix")
-ug11M <- ug( ~a*b + b*c*d, result="dgCMatrix")
+<<>>=
+uG11m <- ug( ~a:b + b:c:d, result="matrix")
+uG11M <- ug( ~a:b + b:c:d, result="dgCMatrix")
 @ %def
 
 \subsection{Directed acyclic graphs (DAGs)}
@@ -226,19 +231,18 @@ The
 following specifications are equivalent (notice that ``\code{:}''
 and ``\code{*}'' can be used interchangably):
 
-@
 <<>>=
-dag11 <- dag( ~a*b + b*c*d)
-dag12 <- dag( c("a","b"), c("b","c","d") )
-dag13 <- dag( list( c("a","b"), c("b","c","d") ) )
+daG11 <- dag( ~a:b + b:c:d)
+daG12 <- dag( c("a", "b"), c("b", "c", "d") )
+daG13 <- dag( list( c("a", "b"), c("b", "c", "d") ) )
 @ %def
 
 
 %% <<print=F>>=
-%% dag11 <- dag(~a + b:a + c:a:b + d:c:e + e:a + g:f)
-%% dag12 <- dag("a", c("b","a"), c("c","a","b"), c("d","c","e"),
+%% daG11 <- dag(~a + b:a + c:a:b + d:c:e + e:a + g:f)
+%% daG12 <- dag("a", c("b","a"), c("c","a","b"), c("d","c","e"),
 %%              c("e","a"),c("g","f"))
-%% dag13 <- dag(~a, ~b:a,  ~c:a:b, ~d:c:e, ~e:a, ~g:f)
+%% daG13 <- dag(~a, ~b:a,  ~c:a:b, ~d:c:e, ~e:a, ~g:f)
 %% dag14 <- dagList(list( "a", c("b","a"), c("c","a","b"), c("d","c","e"),
 %%                       c("e","a"),c("g","f") ))
 %% @
@@ -246,20 +250,18 @@ dag13 <- dag( list( c("a","b"), c("b","c","d") ) )
 The syntax rules are that \texttt{\~{ }a} (and \code{"a"}) means that ``a'' has no parents while
 \texttt{\~{ }c:a:b} (and \code{c("c","a","b")}) means that ``c'' has parents ``a'' and
 ``b''.
-@
-<<fig=T>>=
-dag11
-nodes( dag11 )
-str( edges( dag11 ) )
-plot( dag11 )
+<<>>=
+daG11
+nodes( daG11 )
+str( edges( daG11 ) )
+plot( daG11 )
 @ %def
 
 
 Matrix representations are obtained with:
-@
 <<>>=
-dag11m <- dag( ~a*b + b*c*d, result="matrix")
-dag11M <- dag( ~a*b + b*c*d, result="dgCMatrix")
+daG11m <- dag( ~a:b + b:c:d, result="matrix")
+daG11M <- dag( ~a:b + b:c:d, result="dgCMatrix")
 @ %def
 
 
@@ -271,7 +273,6 @@ dag11M <- dag( ~a*b + b*c*d, result="dgCMatrix")
 
 The \code{dag()} function allows for creation of directed
 graphs which are not DAGs. Consider
-@
 <<>>=
 d1.bi <- dag(~a:b + b:a)
 edgemode( d1.bi )
@@ -280,21 +281,18 @@ str( edges(d1.bi) )
 This graph is not DAG because there is an edge from \code{a} to
 \code{b} and from \code{b} to \code{a}; i.e., the edge is bidirected.
 Likewise we may create:
-@
 <<>>=
-d2.cyc <- dag(~a:b+b:c+c:a)
+d2.cyc <- dag(~a:b + b:c + c:a)
 @ %def
 
-@
-<<fig=T>>=
+<<>>=
 par(mfrow=c(1,2)); plot(d1.bi); plot(d2.cyc)
 @ %def
 
 Notice: Supplying \code{dag()} with \code{forceCheck=TRUE} forces \code{dag()}
 to check if the graph is acyclic:
-@
-<<results=verbatim>>=
-print( try( dag(~a:b+b:c+c:a, forceCheck=TRUE) ) )
+<<results='markup', eval=F>>=
+dag(~a:b + b:c + c:a, forceCheck=TRUE)
 @ %def
 
 \subsection{Graph properties}
@@ -304,14 +302,14 @@ print( try( dag(~a:b+b:c+c:a, forceCheck=TRUE) ) )
 %% are many different methods for such objects, for example:
 %% @
 %% <<>>=
-%% str( graph::nodes( ug11 ) )
-%% str( graph::edges( ug11 ) )
-%% graph::edgeMatrix( ug11 )
+%% str( graph::nodes( uG11 ) )
+%% str( graph::edges( uG11 ) )
+%% graph::edgeMatrix( uG11 )
 %% @ %def
 %% and
 %% @
 %% <<>>=
-%% str( RBGL::maxClique( ug11 ) )
+%% str( RBGL::maxClique( uG11 ) )
 %% @ %def
 
 
@@ -371,8 +369,8 @@ the \graph\ package):
 %%     c(is.UG=is.UG(x), is.TUG=is.TUG(x), is.DG=is.DG(x), is.DAG=is.DAG(x),
 %%       isD=graph::isDirected(x))
 %% }
-%% properties( ug11 )
-%% properties( dag11 )
+%% properties( uG11 )
+%% properties( daG11 )
 %% properties( d1.bi )
 %% properties( d2.cyc )
 %% @ %def
@@ -384,46 +382,49 @@ the \graph\ package):
 
 Graphs can be coerced between differente representations using
 \code{as()}; for example:
-@
 <<>>=
-(mat <- as(ug11, "matrix"))
-(Mat <- as(mat, "dgCMatrix"))
-(NEL <- as(Mat, "graphNEL"))
+mat <- as(uG11, "matrix")
+Mat <- as(mat, "dgCMatrix")
+NEL <- as(Mat, "graphNEL")
 @ %def
 
+%% <<>>=
+%% (mat <- as(uG11, "matrix"))
+%% (Mat <- as(mat, "dgCMatrix"))
+%% (NEL <- as(Mat, "graphNEL"))
+%% @ %def
+%% 
+
 Faster (generally) coercion can be obtained with
-@
 <<>>=
-mat <- coerceGraph(ug11, "matrix")
-Mat <- coerceGraph(ug11, "dgCMatrix")
+mat <- coerceGraph(uG11, "matrix")
+Mat <- coerceGraph(uG11, "dgCMatrix")
 NEL <- coerceGraph(mat, "graphNEL")
 @ %def
-and
-@
+and, at a lower level,
 <<>>=
-mat <- graphNEL2M(ug11, result="matrix")
-Mat <- graphNEL2M(ug11, result="dgCMatrix")
+mat <- graphNEL2M(uG11, result="matrix")
+Mat <- graphNEL2M(uG11, result="dgCMatrix")
 NEL <- M2graphNEL(mat)
 @ %def
 
-
-@
-<<>>=
-if( require(microbenchmark) ){
-  microbenchmark(as(ug11, "matrix"), coerceGraph(ug11, "matrix"), graphNEL2M(ug11),
-                 as(ug11, "dgCMatrix"), coerceGraph(ug11, "dgCMatrix"),
-                 graphNEL2M(ug11, result="Matrix"),
-                 as(mat, "graphNEL"), coerceGraph(mat, "graphNEL"), M2graphNEL(mat))
-}
-@ %def
-
-
 We also have
-@
 <<>>=
-str( edges(as(mat,"graphNEL")) )
 str( M2adjList(mat) )
 @ %def
+
+
+%% <<>>=
+%% if( require(microbenchmark) ){
+%%   microbenchmark(as(uG11, "matrix"), coerceGraph(uG11, "matrix"), graphNEL2M(uG11),
+%%                  as(uG11, "dgCMatrix"), coerceGraph(uG11, "dgCMatrix"),
+%%                  graphNEL2M(uG11, result="Matrix"),
+%%                  as(mat, "graphNEL"), coerceGraph(mat, "graphNEL"), M2graphNEL(mat), 
+%%                  times=10)
+%% }
+%% @ %def
+%% 
+
 
 
 
@@ -442,29 +443,25 @@ str( M2adjList(mat) )
 
 A moralized directed acyclic graph is obtained with
 
-@
 <<>>=
-dag11.mor <- moralize(dag11)
+daG11.mor <- moralize(daG11)
 @ %def
 
-@
-<<fig=T>>=
-par(mfrow=c(1,2)); plot(dag11); plot(dag11.mor)
+<<>>=
+par(mfrow=c(1,2)); plot(daG11); plot(daG11.mor)
 @ %def
 
 We can work with a matrix representation too. Default is that the
 output representation is the same as the input representation, but
 this can be changed:
-@
 <<>>=
-moralize( dag11m )
-moralize( dag11, result="matrix" )
+moralize( daG11m, result="dgCMatrix" )
 @ %def
 
 
 
 
-\subsection{Topological sort}
+\subsection{Topological sort - is a directed graph a DAG?}
 \label{sec:topological-sort}
 
 A topological ordering of a directed graph is a linear ordering of its
@@ -472,24 +469,21 @@ vertices such that, for every edge ($u \rightarrow v$), $u$ comes before $v$ in 
 ordering. A topological ordering is possible if and only if the graph
 has no directed cycles, that is, if it is a directed acyclic graph
 (DAG). Any DAG has at least one topological ordering.
-@
 <<>>=
-topoSort(dag11)
-topoSort(dag11m)
-topoSort(dag11M)
+topoSort(daG11)
+topoSort(daG11m)
+topoSort(daG11M)
 @ %def
 
 
 The following graph has a cycle and hence a topological ordering can
 not be made:
-@
 <<>>=
-topoSort(dag(~a:b+b:c+c:a))
+topoSort(dag(~a:b + b:c + c:a))
 @ %def
 
 Likewise for an undirected graph (recall that we regard an undirected
 edge as a bidirected edge):
-@
 <<>>=
 topoSort( ug( ~a:b ) )
 @ %def
@@ -506,28 +500,28 @@ Finding the cliques of a general graph is an NP--complete
 problem. Finding the cliques of triangulated graph is linear in the
 number of cliques.
 
-@
 <<>>=
-str( getCliques(ug11) )
-str( getCliques(ug11m) )
-str( getCliques(ug11M) )
+str( getCliques(uG11) )
+str( getCliques(uG11m) )
+str( getCliques(uG11M) )
 @ %def
 
 For \graphnel\ objects one may also use the \code{maxClique()} function
 in \rbgl, but \code{getCliques()} applies also to matrices and it is
-substantially faster:
-@
-<<>>=
-if (require(microbenchmark)){
-    microbenchmark(
-        RBGL::maxClique( ug11 ), getCliques( ug11 ), getCliques( ug11m ),
-        getCliques( ug11M ))}
-@ %def
+substantially faster.
+%% 
+%% <<>>=
+%% if (require(microbenchmark)){
+%%     microbenchmark(
+%%         RBGL::maxClique( uG11 ), getCliques( uG11 ), 
+%%         getCliques( uG11m ), getCliques( uG11M ),
+%%         times=10)}
+%% @ %def
+%% 
 
 
 
-
-\subsection{Perfect ordering, maximum cardinality search and triangulation}
+\subsection{Perfect ordering and maximum cardinality search}
 \label{sec:maxim-card-search}
 
 An undirected graph is triangulated (or chordal) if it has no
@@ -537,52 +531,48 @@ exists) can be obtained with Maximum
 Cardinality Search. If \code{character(0)} is returned the graph is not
 triangulated. Otherwise a perfect ordering of the nodes is returned.
 
-@
-<<print=F>>=
-mcs(ug11)
-mcs(ug11m)
-mcs(ug11M)
+<<>>=
+mcs(uG11)
+mcs(uG11m)
+mcs(uG11M)
 @ %def
 
 In some applications it is convenient to retain control over the
 ordering (if it exists). For example:
-@
 <<>>=
-mcs(ug11, root=c("a","c"))
+mcs(uG11, root=c("a","c"))
 @ %def
 The desired ordering (specified by \code{root}) is followed as far as
 possible (here only to the first variable \code{"a"}). Notice the
 output when applying \code{mcs()} to a directed
 graph:\footnote{Perhaps better to signal an error.}
-@
 <<>>=
-mcs( dag11 )
-mcs( as(dag11, "matrix") )
+mcs( daG11 )
+mcs( as(daG11, "matrix") )
 @ %def
 
+\subsection{Triangulation}
+\label{sec:triangulation}
 
 Any undirected graph can be triangulated by adding edges to the graph,
 so called fill-ins:
 
-<<print=T>>=
-ug11.nc <- ug( ~a:b:c + c:d + d:e + a:e + f:g )
-mcs(ug11.nc)
-(tug11.nc  <- triangulate(ug11.nc))
-mcs(tug11.nc)
+<<>>=
+uG <- ug( ~a:b:c + c:d + d:e + a:e + f:g )
+mcs(uG)
+(tuG  <- triangulate(uG))
+mcs(tuG)
 @
 
+<< >>= 
+(tuG  <- triangulate(uG))
 @
-<<fig=T>>=
-par(mfrow=c(1,2)); plot(ug11.nc); plot(tug11.nc)
+
+
+
+<<>>=
+par(mfrow=c(1,2)); plot(uG); plot(tuG)
 @ %def
-
-%% Default is that the output representation is the same as the input
-%% representation, but this can be changed:
-%% @
-%% <<>>=
-%% class( triangulate( ug11, result = "matrix" ) )
-%% class( triangulate( ug11, result = "dgCMatrix" ) )
-%% @ %def
 
 \subsection{RIP ordering / junction tree}
 \label{sec:rip-ordering-}
@@ -590,21 +580,33 @@ par(mfrow=c(1,2)); plot(ug11.nc); plot(tug11.nc)
 A RIP--ordering of the cliques of a triangulated graph can be obtained
 as:
 
-@
 <<>>=
-rp <- rip(tug11.nc); rp
+rp <- rip(tuG); rp
 @ %def
 
-@
-<<fig=T>>=
+<<>>=
 plot( rp )
 @ %def
+
+There is more information in a RIP-object:
+<< >>= 
+names(rp)
+rp$nodes
+rp$host
+rp$children
+str(rp$separators)
+@
+
+The \code{host} component tells for each node, a clique in which the node can be found
+
 
 %% See also:
 %% @
 %% <<>>=
 %% str( rp )
 %% @ %def
+
+
 
 The function \code{jTree} takes an undirected graph as input;
 triangulates it if it is not already so and then finds a RIP--ordering.
@@ -619,38 +621,32 @@ smallest number of fill-ins. The minimum triangulation is unique, but
 finding the minimum triangulation is NP-hard.)
 
 For example, this graph has two 4--cycles:
-@
 <<>>=
-g1 <- ug(~a:b+b:c+c:d+d:e+e:f+a:f+b:e)
+g1 <- ug(~a:b + b:c + c:d + d:e + e:f + a:f + b:e)
 g1mt <- minimalTriang(g1) # A minimal triangulation
 @ %def
 
-@
-<<fig=T>>=
+<<>>=
 par(mfrow = c(1,2)); plot(g1); plot(g1mt)
 @ %def
 
 The following graph is also a triangulation of \code{g1}, and from
 this a minimal triangulation can be obtained:
-@
 <<>>=
-g2 <- ug(~a:b:e:f+b:c:d:e)
+g2 <- ug(~a:b:e:f + b:c:d:e)
 g1mt2 <- minimalTriang(g1, tobject=g2)
 @ %def
 
-@
-<<fig=T>>=
+<<>>=
 par(mfrow = c(1,2)); plot(g2); plot(g1mt2)
 @ %def
 
 The junction tree of a maximum prime subgraph decomposition is obtained with:
-@
 <<>>=
 mm <- mpd( g1 ); mm
 @ %def
 
-@
-<<fig=T>>=
+<<>>=
 par(mfrow = c(1,2))
 plot(subGraph(mm$cliques[[1]], g1))
 plot(subGraph(mm$cliques[[2]], g1))
@@ -670,14 +666,14 @@ represented as adjacency matrices.
 Consider finding the cliques of an undirected graph
 represented as a \graphnel\ object or as a matrix:
 
-@
 <<>>=
 if(require(microbenchmark)){
     microbenchmark(
-        RBGL::maxClique(ug11),
-        getCliques(ug11),
-        getCliques(ug11m),
-        getCliques(ug11M)  ) }
+        RBGL::maxClique(uG11),
+        getCliques(uG11),
+        getCliques(uG11m),
+        getCliques(uG11M),
+        times=10) }
 @ %def
 
 
@@ -692,7 +688,6 @@ representation uses a $0$ to represent a ``missing edge''. The sparse
 matrix representation is clearly only superior to the standard matrix
 representation if the graph is sparse:
 
-@
 <<>>=
 V <- 1:300
 M <- 1:10
@@ -700,16 +695,18 @@ M <- 1:10
 ##
 g1 <- randomGraph(V, M, 0.05)
 length(edgeList(g1))
-s<-c(NEL=object.size(g1), dense=object.size(as(g1, "matrix")),
-     sparse=object.size(as(g1, "dgCMatrix")))
-s/max(s)
+s <- c(NEL=object.size(g1), 
+       dense=object.size(as(g1, "matrix")),
+       sparse=object.size(as(g1, "dgCMatrix")))
+s / max(s)
 ## More dense graph
 ##
 g1 <- randomGraph(V, M, 0.5)
 length(edgeList(g1))
-s <- c(NEL=object.size(g1), dense=object.size(as(g1, "matrix")),
+s <- c(NEL=object.size(g1), 
+       dense=object.size(as(g1, "matrix")),
        sparse=object.size(as(g1, "dgCMatrix")))
-s/max(s)
+s / max(s)
 @ %def
 
 
@@ -726,7 +723,6 @@ various graph operations available in \grbase, \graph\ and
 described above\footnote{Actually not quite yet, but it will be so in
   the future.}  and 2) \code{querygraph()} provides a unified
 interface to the graph operations. The general syntax is
-@
 <<>>=
 args(querygraph)
 @ %def
@@ -734,7 +730,6 @@ args(querygraph)
 
 
 
-@
 <<echo=FALSE>>=
 #rm(print.list)
 options("width"=85)
@@ -886,7 +881,7 @@ options("width"=85)
 
 % \subsubsection{Subgraph}
 % @
-% <<fig=T>>=
+% <<>>=
 % queryg(ug1, "subgraph", c("a","b","c","f"))
 % plot(queryg(ug1, "subgraph", c("a","b","c","f")))
 % @ %def
@@ -919,7 +914,7 @@ options("width"=85)
 
 % % Graphs are displayed with \code{plot}:
 % % @
-% % <<fig=T>>=
+% % <<>>=
 % % plot(dag1)
 % % @ %def
 
@@ -976,7 +971,7 @@ options("width"=85)
 
 % \subsubsection{Subgraph}
 % @
-% <<fig=T>>=
+% <<>>=
 % queryg(dag1, "subgraph", c("a","b","c","f"))
 % plot(queryg(dag1, "subgraph", c("a","b","c","f")))
 % @ %def
@@ -987,7 +982,7 @@ options("width"=85)
 % \subsection{Moralization}
 % \label{sec:moralize}
 
-% <<fig=T>>=
+% <<>>=
 % moralize(dag1)
 % plot(moralize(dag1))
 % @
