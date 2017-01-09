@@ -263,14 +263,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // do_triangulate_elo
-SpMat do_triangulate_elo(SpMat X, SEXP ELO_);
-RcppExport SEXP gRbase_do_triangulate_elo(SEXP XSEXP, SEXP ELO_SEXP) {
+SEXP do_triangulate_elo(SEXP X_, SEXP ELO_);
+RcppExport SEXP gRbase_do_triangulate_elo(SEXP X_SEXP, SEXP ELO_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SpMat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type X_(X_SEXP);
     Rcpp::traits::input_parameter< SEXP >::type ELO_(ELO_SEXP);
-    rcpp_result_gen = Rcpp::wrap(do_triangulate_elo(X, ELO_));
+    rcpp_result_gen = Rcpp::wrap(do_triangulate_elo(X_, ELO_));
     return rcpp_result_gen;
 END_RCPP
 }

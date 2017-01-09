@@ -32,13 +32,18 @@ typedef SpVec::InnerIterator InIter;
 
 using namespace Rcpp;
 
-// [[Rcpp::export]]
-SpMat do_triangulate_elo ( SpMat X, SEXP ELO_ ){
+//SpMat do_triangulate_elo ( SpMat X, SEXP ELO_ ){
 
-	int i, v, nrX(X.rows()), n_anbr, n_nbr_obs = -1;
-	//  if (X.cols() != nrX) throw std::invalid_argument("Sparse matrix X must be square");
+// [[Rcpp::export]]
+SEXP do_triangulate_elo ( SEXP X_, SEXP ELO_ ){
+
+	SpMat   X(as<SpMat>(X_));
 	Eigen::VectorXd ELO(as<Eigen::VectorXd>(ELO_));
 	bool pp=false;
+	int i, v, nrX(X.rows()), n_anbr, n_nbr_obs = -1;
+	//  if (X.cols() != nrX) throw std::invalid_argument("Sparse matrix X must be square");
+
+
 	
 	//if (pp) Rf_PrintValue(wrap(X));	
 	
@@ -96,6 +101,6 @@ SpMat do_triangulate_elo ( SpMat X, SEXP ELO_ ){
 		//print(wrap(anbr_));
 	}
 	X.prune(0.0);
-	return( X );
+	return( wrap(X) );
 }
 

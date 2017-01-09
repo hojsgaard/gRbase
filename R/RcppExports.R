@@ -41,8 +41,8 @@ topoSortMAT_ <- function(adjmat_) {
     .Call('gRbase_topoSortMAT_', PACKAGE = 'gRbase', adjmat_)
 }
 
-do_triangulate_elo <- function(X, ELO_) {
-    .Call('gRbase_do_triangulate_elo', PACKAGE = 'gRbase', X, ELO_)
+do_triangulate_elo <- function(X_, ELO_) {
+    .Call('gRbase_do_triangulate_elo', PACKAGE = 'gRbase', X_, ELO_)
 }
 
 triangulateMAT_ <- function(adjmat_, nstates_) {
