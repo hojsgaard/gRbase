@@ -21,6 +21,7 @@
 #'     tabEqual arEqual tabMarg tabCondProb tabAlign aralign tabPerm arPerm
 #'     tabSlice tabSlice2 arSlice tabSlicePrim arSlicePrim tabSliceMult
 #'     arSliceMult tabExpand arexpand tabSlice2Entries tabSlice2Entries_
+#'
 #' @param tab,tab1,tab2 Multidimensional arrays.
 #' @param perm A vector of indices or dimnames giving the desired permutiation.
 #' @param marg Specification of marginal; either a character vector, a numeric
@@ -155,7 +156,11 @@ armarg <- tabMarg
 #' @rdname array-operations
 arequal <- tabEqual
 
+#' @rdname array-operations
+"%a==%" <- function(tab1, tab2){tabEqual(tab1,tab2)}
 
+#' @rdname array-operations
+"%a_%" <- function(tab1, marg){tabMarg(tab1,marg)}
 
 
 ## #############################################################

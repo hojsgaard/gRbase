@@ -1,6 +1,14 @@
+2017-01-20 Søren Højsgaard <sorenh@math.aau.dk>
+	
+	* %a==%, %a/0%, %a_% (tabMarg added)
 
+	* Bug in tabDiv0 fixed
+
+	* Misc stuff to facilitate gRain improvements
 	
 	* Class parray removed on arrays
+
+	* Version 1.8-2 uploaded
 	
 2016-10-16 Søren Højsgaard <sorenh@math.aau.dk>
 

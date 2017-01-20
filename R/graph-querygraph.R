@@ -162,7 +162,7 @@ children <- function(set, object){
 ## graphNEL based
 #' @rdname graph-query
 closure <- function(set, object){
-  uniquePrim(c(set, unlist(graph::adj(object, set))))
+  unique.default(c(set, unlist(graph::adj(object, set))))
 }
 
 ## graphNEL based

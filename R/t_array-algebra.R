@@ -10,8 +10,8 @@
 #' 
 #' @param a,a1,a2,... Arrays (with named dimnames)
 #' 
-#' @aliases %a+% %a-% %a*% %a/% tabAdd tabSubt tabMult tabDiv tabDiv0
-#'
+#' @aliases %a+% %a-% %a*% %a/% %a/0% tabAdd tabSubt tabMult tabDiv tabDiv0
+#' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @examples
 #' hec <- HairEyeColor
@@ -39,6 +39,8 @@
 "%a*%" <- function(a1, a2){tabMult(a1,a2)}
 #' @rdname array-algebra
 "%a/%" <- function(a1, a2){tabDiv(a1,a2)}
+#' @rdname array-algebra
+"%a/0%" <- function(a1, a2){tabDiv0(a1,a2)}
 
 #' @rdname array-algebra
 aradd <- function(a1, a2){ tabAdd(a1, a2) }

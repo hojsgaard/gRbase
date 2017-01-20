@@ -8,9 +8,11 @@ unlistPrim <- function(l){    #OK
 
 
 setdiffPrim <- function (x, y){
-  unique.default(if (length(x) || length(y))
-                 x[match(x, y, 0L) == 0L]
-  else x)
+    unique.default(
+        if (length(x) || length(y))
+            x[match(x, y, 0L) == 0L]
+        else x
+    )
 }
 
 intersectPrim <- function (x, y){

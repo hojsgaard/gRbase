@@ -4,6 +4,7 @@
 \alias{\%a*\%}
 \alias{\%a+\%}
 \alias{\%a-\%}
+\alias{\%a/0\%}
 \alias{\%a/\%}
 \alias{aradd}
 \alias{ardiv}
@@ -27,6 +28,8 @@ a1 \%a-\% a2
 a1 \%a*\% a2
 
 a1 \%a/\% a2
+
+a1 \%a/0\% a2
 
 aradd(a1, a2)
 

@@ -541,8 +541,10 @@ NumericVector tabDiv__(NumericVector tab1, NumericVector tab2){
   return out;
 }
 
+
 //[[Rcpp::export]]
 NumericVector tabDiv0__(NumericVector tab1, NumericVector tab2){
+	//Rcout << "tabDiv0__\n";
 	if (!dimnames_match_( tab1, tab2)) ::Rf_error("dimnames do not match");
   NumericVector out = tabExpand__(tab1, tab2);
   double xx;
@@ -552,7 +554,8 @@ NumericVector tabDiv0__(NumericVector tab1, NumericVector tab2){
       zz = i+k*n2;
       //cout << "i=" << i << " k=" << k << " zz=" << zz << endl;
       xx = out[zz] / tab2[i] ;
-      if (std::isinf( xx )) out[zz] = 0;  else out[zz]=xx;
+			//Rcout << "xx: " << xx << std::endl;
+      if (std::isinf( xx ) || NumericVector::is_na(xx)) out[zz] = 0;  else out[zz]=xx;
     }
   }
   return out;
@@ -670,64 +673,64 @@ NumericVector tabListAdd__(const List & lst){
 
 
 
-/*** R
-library(gRbase)
-t1<- array(1:4, dim=c(2,2), dimnames=list(A=c(1,2), B=c(1,2)))
-t2<- array(11:14, dim=c(2,2), dimnames=list(C=c("c1","c2"), B=c(1,2)))
-t3<- array(1:8, dim=c(2,2,2), dimnames=list(A=c(1,2), B=c(1,2), D=1:2))
+// /*** R
+// library(gRbase)
+// t1<- array(1:4, dim=c(2,2), dimnames=list(A=c(1,2), B=c(1,2)))
+// t2<- array(11:14, dim=c(2,2), dimnames=list(C=c("c1","c2"), B=c(1,2)))
+// t3<- array(1:8, dim=c(2,2,2), dimnames=list(A=c(1,2), B=c(1,2), D=1:2))
 
 
-tabExpand(t1, t2)
+// tabExpand(t1, t2)
 
-tabExpand(t1, t1)
-tabExpand(t1, aperm(t1, 2:1))
+// tabExpand(t1, t1)
+// tabExpand(t1, aperm(t1, 2:1))
 
-tabExpand(t3, t1)
-tabExpand(aperm(t3,3:1), t1)
-
-
-#t1mod <- tabExpand(t1, t2); t1mod
-r1 <- tabMult( t1, t2 )
-r2 <- tableOp( t1, t2 )
-#rr <- alignArrays(r1, r2)
-#max(abs(rr[[1]]-rr[[2]]))
-
-r1 <- tabMult( t1, t1 )
-r2 <- tableOp( t1, t1 )
-#rr <- alignArrays(r1, r2)
-#max(abs(rr[[1]]-rr[[2]]))
-
-r1 <- tabMult( t1, aperm(t1,2:1) )
-r2 <- tableOp( t1, aperm(t1,2:1) )
-#rr <- alignArrays(r1, r2)
-#max(abs(rr[[1]]-rr[[2]]))
-
-r1 <- tabMult( t3, t1 )
-r2 <- tableOp( t3, t1 )
-#rr <- alignArrays(r1, r2)
-#max(abs(rr[[1]]-rr[[2]]))
+// tabExpand(t3, t1)
+// tabExpand(aperm(t3,3:1), t1)
 
 
-r1 <- tabMult( t3, aperm(t1,2:1) )
-r2 <- tableOp( t3, aperm(t1,2:1) )
-#rr <- alignArrays(r1, r2)
-#max(abs(rr[[1]]-rr[[2]]))
+// #t1mod <- tabExpand(t1, t2); t1mod
+// r1 <- tabMult( t1, t2 )
+// r2 <- tableOp( t1, t2 )
+// #rr <- alignArrays(r1, r2)
+// #max(abs(rr[[1]]-rr[[2]]))
+
+// r1 <- tabMult( t1, t1 )
+// r2 <- tableOp( t1, t1 )
+// #rr <- alignArrays(r1, r2)
+// #max(abs(rr[[1]]-rr[[2]]))
+
+// r1 <- tabMult( t1, aperm(t1,2:1) )
+// r2 <- tableOp( t1, aperm(t1,2:1) )
+// #rr <- alignArrays(r1, r2)
+// #max(abs(rr[[1]]-rr[[2]]))
+
+// r1 <- tabMult( t3, t1 )
+// r2 <- tableOp( t3, t1 )
+// #rr <- alignArrays(r1, r2)
+// #max(abs(rr[[1]]-rr[[2]]))
 
 
-library(microbenchmark)
-microbenchmark(tableOp(t1,t2), tabMult(t1,t2))
-
-microbenchmark(tableOp(t3,t2), tabMult(t3,t2))
-
-
-microbenchmark(tableOp(t3,t1), tabMult(t3,t1))
-microbenchmark(tableOp(t1,t3), tabMult(t1,t3))
+// r1 <- tabMult( t3, aperm(t1,2:1) )
+// r2 <- tableOp( t3, aperm(t1,2:1) )
+// #rr <- alignArrays(r1, r2)
+// #max(abs(rr[[1]]-rr[[2]]))
 
 
+// library(microbenchmark)
+// microbenchmark(tableOp(t1,t2), tabMult(t1,t2))
+
+// microbenchmark(tableOp(t3,t2), tabMult(t3,t2))
+
+
+// microbenchmark(tableOp(t3,t1), tabMult(t3,t1))
+// microbenchmark(tableOp(t1,t3), tabMult(t1,t3))
 
 
 
- */
+
+
+//  */
 
 
 
