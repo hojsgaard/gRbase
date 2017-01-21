@@ -6,11 +6,11 @@
 % granted to the public domain
 \documentclass[10pt,landscape]{article}
 %\documentclass[10pt,portrait]{article}
-\usepackage{pslatex}
-\usepackage{graphicx}
+%\usepackage{pslatex}
+%\usepackage{graphicx}
 \usepackage{multicol}
-\usepackage{calc}
-\usepackage{color}
+%\usepackage{calc}
+%\usepackage{color}
 
 % Turn off header and footer
 \pagestyle{empty}
