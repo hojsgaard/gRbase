@@ -11,9 +11,11 @@
 #'
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #'
-#' @seealso \code{\link{arperm}}, \code{\link{armarg}}, \code{\link{armult}},
-#' \code{\link{ardiv}}, \code{\link{aradd}}, \code{\link{arsubt}}, \code{\link{arsum}},
-#' \code{\link{arprod}}
+## #' @aliases arslice_entries arslice_prim
+#' 
+#' @seealso \code{\link{ar_perm}}, \code{\link{ar_marg}}, \code{\link{ar_mult}},
+#' \code{\link{ar_div}}, \code{\link{ar_add}}, \code{\link{ar_subt}}, \code{\link{ar_sum}},
+#' \code{\link{ar_prod}}
 #' 
 NULL
 
@@ -82,19 +84,28 @@ tabSliceMult <- function(tab, slice, val=1, comp=0){
 #'     result will by default be a vector with no dim attribute unless
 #'     as.array is TRUE.
 #' 
-arslice <- tabSlice
+
+## #' @rdname array-slice
+## .arslice <- tabSlice
 
 #' @rdname array-slice
-arslice_prim <- tabSlicePrim
+ar_slice <- tabSlice
+
+## #' @rdname array-slice
+## .arslice_prim <- tabSlicePrim
+
+#' @rdname array-slice
+ar_slice_prim <- tabSlicePrim
 
 
 #' @rdname array-slice
+#' 
 #' @param val The values that entries in the slice will be multiplied
 #'     with.
 #' @param comp The values that entries NOT in the slice will be
 #'     multiplied with.
 
-arslice_mult <- tabSliceMult
+ar_slice_mult <- tabSliceMult
 
 tabSlice2Entries <- function(tab, slice, complement=FALSE){
     tab[] <- 1:length(tab)
@@ -114,24 +125,28 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
 #' s = list(Hair=c("Black","Brown"), Eye=c("Brown", "Blue"))
 #'
 #' ## arslice
-#' s1 = arslice(x, slice=s)
+#' s1 = ar_slice(x, slice=s)
 #' s1
 #'
-#' ## arslice_entries
-#' arslice_entries(x, slice=s)
-#' arslice_entries(x, slice=s, complement=TRUE)
+#' ## ar_slice_entries
+#' ar_slice_entries(x, slice=s)
+#' ar_slice_entries(x, slice=s, complement=TRUE)
 #'
-#' ## arslice_mult
-#' s2 = arslice_mult(x, slice=s)
+#' ## ar_slice_mult
+#' s2 = ar_slice_mult(x, slice=s)
 #' s2
 #'
 #' ## arslice_prim does the same as arslice - faster, but the function is less
 #' # flexible
 #' sp = list(c(1,2), c(1,2), TRUE)
-#' arslice_prim(x, slice=sp)
-#' arslice(x, slice=s)
+#' ar_slice_prim(x, slice=sp)
+#' ar_slice(x, slice=s)
 #' if ( require(microbenchmark) ){
-#'   microbenchmark(arslice_prim(x, slice=sp), arslice(x, slice=s))
+#'   microbenchmark(ar_slice_prim(x, slice=sp), ar_slice(x, slice=s))
 #' }
 
-arslice_entries <- tabSlice2Entries
+#' @rdname array-slice
+ar_slice_entries <- tabSlice2Entries
+
+.arslice_entries <- tabSlice2Entries
+

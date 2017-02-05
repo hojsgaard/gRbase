@@ -19,12 +19,10 @@ stepwise(object, ...)
 \arguments{
 \item{object}{An object}
 
-\item{\dots}{Additional arguments which depends on the class of the
-object}
+\item{\dots}{Additional arguments which depends on the class of the object}
 }
 \value{
-The value returned depends on the class of the first
-    argument.
+The value returned depends on the class of the first argument.
 }
 \description{
 \code{compile} and \code{propagate} are generic
@@ -35,8 +33,8 @@ The value returned depends on the class of the first
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \references{
-Højsgaard, Søren; Edwards, David; Lauritzen, Steffen
-    (2012): Graphical Models with R, Springer
+Højsgaard, Søren; Edwards, David; Lauritzen, Steffen (2012):
+    Graphical Models with R, Springer
 }
 \seealso{
 \code{\link[gRain]{compile.grain}},

@@ -6,19 +6,21 @@
 \alias{\%a-\%}
 \alias{\%a/0\%}
 \alias{\%a/\%}
-\alias{aradd}
-\alias{ardiv}
-\alias{ardiv0}
-\alias{armult}
-\alias{arprod}
+\alias{ar_add}
+\alias{ar_div}
+\alias{ar_div0}
+\alias{ar_mult}
+\alias{ar_prod}
+\alias{ar_subt}
+\alias{ar_sum}
 \alias{array-algebra}
-\alias{arsubt}
-\alias{arsum}
 \alias{tabAdd}
 \alias{tabDiv}
 \alias{tabDiv0}
 \alias{tabMult}
+\alias{tabProd}
 \alias{tabSubt}
+\alias{tabSum}
 \title{Array algebra}
 \usage{
 a1 \%a+\% a2
@@ -31,19 +33,19 @@ a1 \%a/\% a2
 
 a1 \%a/0\% a2
 
-aradd(a1, a2)
+ar_add(a1, a2)
 
-arsubt(a1, a2)
+ar_subt(a1, a2)
 
-armult(a1, a2)
+ar_mult(a1, a2)
 
-ardiv(a1, a2)
+ar_div(a1, a2)
 
-ardiv0(a1, a2)
+ar_div0(a1, a2)
 
-arsum(...)
+ar_sum(...)
 
-arprod(...)
+ar_prod(...)
 }
 \arguments{
 \item{a, a1, a2, ...}{Arrays (with named dimnames)}
@@ -53,9 +55,9 @@ Addition, subtraction etc. of arrays
 }
 \examples{
 hec <- HairEyeColor
-a1 <- armarg(hec, c("Hair", "Eye"))
-a2 <- armarg(hec, c("Hair", "Sex"))
-a3 <- armarg(hec, c("Eye", "Sex"))
+a1 <- ar_marg(hec, c("Hair", "Eye"))
+a2 <- ar_marg(hec, c("Hair", "Sex"))
+a3 <- ar_marg(hec, c("Eye", "Sex"))
 
 ## Binary operations
 a1 \%a+\% a2
@@ -63,8 +65,8 @@ a1 \%a-\% a2
 a1 \%a*\% a2
 a1 \%a/\% a2
 
-arsum(a1, a2, a3)
-arprod(a1, a2, a3)
+ar_sum(a1, a2, a3)
+ar_prod(a1, a2, a3)
 
 }
 \author{

@@ -2,8 +2,6 @@
 ##
 ## Multiway arrays
 ##
-## FIXME: "tab" needs new name; arnew? arcreate? newar?
-##
 ## ##################################################################
 
 #' @title Create multidimensional arrays
@@ -35,18 +33,18 @@
 #' @param smooth Should values be smoothed, see 'Details' below.
 #' @return An array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{arperm}}, \code{\link{aradd}}, \code{\link{arprod}} etc.
+#' @seealso \code{\link{ar_perm}}, \code{\link{ar_add}}, \code{\link{ar_prod}} etc.
 #' @keywords utilities
 #' @examples
 #' 
 #' universe <- list(gender=c('male','female'),
 #'                  answer=c('yes','no'),
 #'                  rain=c('yes','no'))
-#' t1 <- newar(c("gender","answer"), levels=universe, values=1:4)
+#' t1 <- ar_new(c("gender","answer"), levels=universe, values=1:4)
 #' t1
-#' t2 <- newar(~gender:answer, levels=universe, values=1:4)
+#' t2 <- ar_new(~gender:answer, levels=universe, values=1:4)
 #' t2
-#' t3 <- newar(~gender:answer, c(2,2), values=1:4)
+#' t3 <- ar_new(~gender:answer, c(2,2), values=1:4)
 #' t3
 #' 
 #' ## Extract arrays from dataframe (much like xtabs() but with more flexibility)
@@ -60,12 +58,12 @@
 #' universe <- list(gender=c('male','female'),
 #'                  answer=c('yes','no'),
 #'                  rain=c('yes','no'))
-#' t1 <- newar(c("gender","answer"), levels=universe, values=1:4)
+#' t1 <- ar_new(c("gender","answer"), levels=universe, values=1:4)
 #'
 #' t1
-#' t2 <- newar(~gender:answer, levels=universe, values=1:4)
+#' t2 <- ar_new(~gender:answer, levels=universe, values=1:4)
 #' t2
-#' t3 <- newar(~gender:answer, c(2,2), values=1:4)
+#' t3 <- ar_new(~gender:answer, c(2,2), values=1:4)
 #' t3
 NULL
 
@@ -98,7 +96,7 @@ tab <- function(names, levels, values, normalize="none", smooth=0){
     if (is.atomic(values) && !is.object(values)){
         out <- array(values, dim=di, dimnames=dn)
     }
-    arnormalize( out, normalize )
+    tabNormalize( out, normalize )
 }
 
 .make.dimnames <- function(names, levels){
@@ -122,9 +120,13 @@ tab <- function(names, levels, values, normalize="none", smooth=0){
     dn
 }
 
+
+## FIXME newar is used in gRain. Next gRain version will use tab in stead of newar, and then it can go from here
 #' @rdname array-create
 newar <- tab
 
+#' @rdname array-create
+ar_new <- tab
 
 #' Convert dataframe to contingency table
 #'
@@ -165,7 +167,7 @@ df2xtabs <- function(indata, names=NULL, normalize="none", smooth=0){
         out <- out + smooth
 
     if (normalize != "none")
-        arnormalize( out, normalize )
+        tabNormalize( out, normalize )
     else
         out
 }

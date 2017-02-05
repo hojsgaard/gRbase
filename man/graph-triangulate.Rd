@@ -85,8 +85,8 @@ tuG2 <- triangulate(uG2)
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \seealso{
-\code{\link{ug}} \code{\link{dag}} \code{\link{mcs}},
-    \code{\link{mcsMAT}} \code{\link{rip}}, \code{\link{ripMAT}},
+\code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},
+    \code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
     \code{\link{moralize}}, \code{\link{moralizeMAT}}
 }
 \keyword{utilities}

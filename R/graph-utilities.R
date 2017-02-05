@@ -8,9 +8,8 @@
 
 #' @title Find edges in a graph and edges not in a graph.
 #'
-#' @description Returns the edges of a graph (or edges not in a graph)
-#' where the graph can be either a graphNEL object or an adjacency
-#' matrix.
+#' @description Returns the edges of a graph (or edges not in a graph) where the
+#'     graph can be either a graphNEL object or an adjacency matrix.
 #'
 #' @name graph-edgeList
 #'
@@ -21,7 +20,7 @@
 #'
 #'
 #' ## A graph with edges
-#' g  <- ug(~a:b+b:c+c:d)
+#' g  <- ug(~a:b + b:c + c:d)
 #' gm <- graphNEL2M(g)
 
 #' edgeList(g)
@@ -37,7 +36,7 @@
 #' nonEdgeListMAT(gm)
 
 #' ## A graph without edges
-#' g  <- ug(~a+b+c)
+#' g  <- ug(~a + b + c)
 #' gm <- graphNEL2M(g)
 
 #' edgeList(g)
@@ -72,7 +71,7 @@ edgeListMAT <- function(adjmat, matrix=FALSE){
             symMAT2ftM_( adjmat )
         } else {
             MAT2ftM_( adjmat )
-    }
+    } 
 
     di <- dim(ans)
     ans <- colnames(adjmat)[ans]
@@ -138,8 +137,8 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
 #' @examples
 #' 
 #' ## DAGs
-#' dagMAT <- dag(~a:b:c+c:d:e, result="matrix")
-#' dagNEL <- dag(~a:b:c+c:d:e, result="NEL")
+#' dagMAT <- dag(~a:b:c + c:d:e, result="matrix")
+#' dagNEL <- dag(~a:b:c + c:d:e, result="NEL")
 
 #' vpar(dagMAT)
 #' vpar(dagNEL)
@@ -147,8 +146,8 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
 #' vpar(dagNEL, getv=FALSE)
 
 #' ## Undirected graphs
-#' ugMAT <- ug(~a:b:c+c:d:e, result="matrix")
-#' ugNEL <- ug(~a:b:c+c:d:e, result="NEL")
+#' ugMAT <- ug(~a:b:c + c:d:e, result="matrix")
+#' ugNEL <- ug(~a:b:c + c:d:e, result="NEL")
 
 #' \dontrun{
 #' ## This will fail because the adjacency matrix is symmetric and the
@@ -170,6 +169,55 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
 #' vpar(ugNEL,FALSE)
 #' }
 
+
+vchi <- function(object, getv=TRUE, forceCheck=TRUE){
+  UseMethod("vchi")
+}
+
+#' @rdname graph-vpar
+vchiMAT <- function(object, getv=TRUE, forceCheck=TRUE){
+  if (forceCheck && !is.adjMAT(object))
+    stop("Matrix is not adjacency matrix... \n")
+  if (forceCheck && isSymmetric(object))
+    stop("Graph is undirected; (v, pa(v)) does not exist...\n")
+
+  vn <- rownames(object)
+  out <- lapply(seq_along(vn),
+                function(j) vn[c(j, which(object[j, ]!=0))])
+  names(out) <- vn
+
+  if (!getv) # Don't want v, just pa(v)
+      lapply(out, function(x)x[-1])
+  else
+      out
+}
+
+
+#' @rdname graph-vpar
+vchi.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
+    if (forceCheck && graph::edgemode(object)=="undirected")
+        stop("Graph is undirected; (v,pa(v)) does not exist...\n")
+
+    ch <- graph::edges(object) ## Nodes and their children
+    vn <- names(ch)
+
+
+    out <- lapply(seq_along(ch), function(i) c(vn[i], ch[[i]]))
+    names(out) <- vn
+    out
+
+    if (!getv) # Don't want v, just pa(v)
+        lapply(out, function(x)x[-1])
+    else
+        out
+}
+
+#' @rdname graph-vpar
+vchi.Matrix <- vchiMAT
+#' @rdname graph-vpar
+vchi.matrix <- vchiMAT
+
+#' @rdname graph-vpar
 vpar <- function(object, getv=TRUE, forceCheck=TRUE){
   UseMethod("vpar")
 }
@@ -178,42 +226,43 @@ vpar <- function(object, getv=TRUE, forceCheck=TRUE){
 vparMAT <- function(object, getv=TRUE, forceCheck=TRUE){
   if (forceCheck && !is.adjMAT(object))
     stop("Matrix is not adjacency matrix... \n")
-  if(forceCheck && isSymmetric(object))
-    stop("Graph is undirected; (v,pa(v)) does not exist...\n")
+  if (forceCheck && isSymmetric(object))
+    stop("Graph is undirected; (v, pa(v)) does not exist...\n")
 
   vn <- rownames(object)
-  ##idx <- seq_along(vn)
-  ans <- vector("list", length(vn))
-  if (getv){
-      for (jj in seq_along(vn)) {
-          ans[[jj]] <- vn[c(jj, which(object[, jj]!=0))]
-      }
-  } else {
-      for (jj in seq_along(vn)) {
-          ans[[jj]] <- vn[object[, jj] != 0]
-      }
-  }
-  names(ans) <- vn
-  ans
+  out <- lapply(seq_along(vn),
+                function(j) vn[c(j, which(object[, j]!=0))])
+  names(out) <- vn
+
+  if (!getv) # Don't want v, just pa(v)
+      lapply(out, function(x)x[-1])
+  else
+      out
 }
+
 
 #' @rdname graph-vpar
 vpar.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
     if (forceCheck && graph::edgemode(object)=="undirected")
         stop("Graph is undirected; (v,pa(v)) does not exist...\n")
 
-    ee <- graph::edges(object)
-    vn <- names(ee)
-    tf <- do.call(rbind, # matrix in to-from form
-                  lapply(1:length(ee),
-                         function(ii) names2pairs( ee[[ii]], vn[ii],
-                                                  sort=FALSE, result="matrix")))
+    ch <- graph::edges(object) ## Nodes and their children
+    vn <- names(ch)
+    tf <- lapply(seq_along(ch),
+                 function(i)
+                     names2pairsM( ch[[i]], vn[i],
+                                  sort=FALSE, result="matrix"))
 
-    ans <- lapply(1:length(vn), function(ii) c(vn[ii], tf[tf[,1]==vn[ii],2]))
-    names(ans) <- vn
-    if (!getv)
-        ans<-lapply(ans, function(x)x[-1])
-    return(ans)
+    tf <- do.call(rbind, tf) # matrix in to-from form
+    out <- lapply(seq_along(ch),
+                  function(i)
+                      c(vn[i], tf[tf[, 1] == vn[i], 2]))
+    names(out) <- vn
+
+    if (!getv) # Don't want v, just pa(v)
+        lapply(out, function(x)x[-1])
+    else
+        out
 }
 
 #' @rdname graph-vpar
@@ -258,15 +307,15 @@ vpar.matrix <- vparMAT
 #' @examples
 #' 
 #' ## graphNEL
-#' uG1 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a)
+#' uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 #' getCliques(uG1)
 #' 
 #' ## adjacency matrix
-#' uG2 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a, result="matrix")
+#' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
 #' getCliques(uG2)
 #' 
 #' ## adjacency matrix (sparse)
-#' uG3 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a, result="Matrix")
+#' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
 #' getCliques(uG3)
 #' 
 #' 

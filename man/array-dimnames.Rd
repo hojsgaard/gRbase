@@ -7,13 +7,9 @@
 \title{Check compatibility of dimnames}
 \usage{
 dimnames_match(a1, a2)
-
-dimnames_match_(tab1, tab2, verbose = FALSE)
 }
 \arguments{
-\item{a1, a2, tab1, tab2}{Arrays with named dimnames.}
-
-\item{verbose}{Should errors be printed.}
+\item{a1, a2}{Arrays with named dimnames.}
 }
 \description{
 Check that the intersection of dimnames of two arrays are
@@ -21,23 +17,23 @@ Check that the intersection of dimnames of two arrays are
 }
 \examples{
 
-ar1 = newar(c("a","b"), levels=c(2,3))
-ar2 = newar(c("c","a"), levels=c(2,2))
+ar1 = ar_new(c("a", "b"), levels=c(2, 3))
+ar2 = ar_new(c("c", "a"), levels=c(2, 2))
 ar1
 ar2
 ## dimension a has levels a1,a2 in both ar1 and ar2.
 # Hence we have a match.
 dimnames_match(ar1, ar2)
 
-ar1 = newar(c("a","b"), levels=c(2,3))
-ar2 = newar(c("c","a"), levels=c(2,3))
+ar1 = ar_new(c("a", "b"), levels=c(2, 3))
+ar2 = ar_new(c("c", "a"), levels=c(2, 3))
 ar1
 ar2
 ## dimension a has levels a1,a2 in ar1 and levels a1,a2,a3 in ar2.
 # Hence we do not have a match.
 dimnames_match(ar1, ar2)
 
-ar2 = newar(c("c","a"), levels=list(c=c("c1","c2"), a=c("a2","a1")))
+ar2 = ar_new(c("c", "a"), levels=list(c=c("c1", "c2"), a=c("a2", "a1")))
 ar2
 ## dimension a has levels a1,a2 in ar1 and levels a2,a1 in ar2.
 # Hence we do not have a match.

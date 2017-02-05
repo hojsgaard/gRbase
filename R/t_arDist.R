@@ -8,17 +8,19 @@
 ## ########################################################################
 #' @title Marginalize and condition in multidimensional array.
 #' 
-#' @description Marginalize and condition in a multidimensional array which is
-#'     assumed to represent a discrete multivariate distribution.
+#' @description Marginalize and condition in a multidimensional
+#' array which is assumed to represent a discrete multivariate
+#' distribution.
 #'
 #' @name array-distribution
+#' 
 ## ########################################################################
 #'
-#' @aliases ardist tabDist
+#' @aliases tabDist 
 #' 
-#' @note \code{ardist} is a recent addition and its functionality (and name) may
-#'     change. \code{ardist} is based on calling \code{arMarg} and
-#'     \code{arSlice}.
+#' @note \code{ar_dist} is a recent addition and its functionality (and name) may
+#'     change. \code{ar_dist} is based on calling \code{ar_marg} and
+#'     \code{ar_slice}.
 #' 
 #' @param tab Multidimensional array with dimnames.
 #' @param marg A specification of the desired margin; a character vector, a
@@ -30,7 +32,7 @@
 #' @param normalize Should the result be normalized to sum to 1.
 #' @return A multidimensional array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{newar}}, \code{\link{armarg}}, \code{\link{arslice}} etc.
+#' @seealso \code{\link{ar_new}}, \code{\link{ar_marg}}, \code{\link{ar_slice}} etc.
 #' @keywords utilities
 #' @examples
 #' 
@@ -40,40 +42,40 @@
 #' ## We need dimnames, and names on the dimnames
 #' 
 #' ## Marginalize:
-#' ardist(hec, marg= ~Hair + Eye)
-#' ardist(hec, marg= ~Hair:Eye)
-#' ardist(hec, marg= c("Hair", "Eye"))
-#' ardist(hec, marg= 1:2)
+#' ar_dist(hec, marg= ~Hair + Eye)
+#' ar_dist(hec, marg= ~Hair:Eye)
+#' ar_dist(hec, marg= c("Hair", "Eye"))
+#' ar_dist(hec, marg= 1:2)
 #' 
-#' ardist(hec, marg= ~Hair + Eye, normalize=FALSE)
+#' ar_dist(hec, marg= ~Hair + Eye, normalize=FALSE)
 #' 
 #' ## Condition
-#' ardist(hec, cond= ~Sex + Hair)
-#' ardist(hec, cond= ~Sex:Hair)
-#' ardist(hec, cond= c("Sex", "Hair"))
-#' ardist(hec, cond= c(3,1))
+#' ar_dist(hec, cond= ~Sex + Hair)
+#' ar_dist(hec, cond= ~Sex:Hair)
+#' ar_dist(hec, cond= c("Sex", "Hair"))
+#' ar_dist(hec, cond= c(3,1))
 #' 
-#' ardist(hec, cond= list(Hair="Black"))
-#' ardist(hec, cond= list(Hair=1))
+#' ar_dist(hec, cond= list(Hair="Black"))
+#' ar_dist(hec, cond= list(Hair=1))
 #' 
 #' \dontrun{
 #' ## This will fail
-#' ardist(hec, cond= list(Hair=c("Black", "Brown")))
-#' ardist(hec, cond= list(Hair=1:2))
+#' ar_dist(hec, cond= list(Hair=c("Black", "Brown")))
+#' ar_dist(hec, cond= list(Hair=1:2))
 #' }
 #' ## But this will do the trick
-#' a <- arslice(hec, slice=list(Hair=c("Black", "Brown")))
-#' ardist(a, cond=~Hair)
+#' a <- ar_slice(hec, slice=list(Hair=c("Black", "Brown")))
+#' ar_dist(a, cond=~Hair)
 #' 
 #' ## Combined
-#' ardist(hec, marg=~Hair+Eye, cond=~Sex)
-#' ardist(hec, marg=~Hair+Eye, cond="Sex")
+#' ar_dist(hec, marg=~Hair+Eye, cond=~Sex)
+#' ar_dist(hec, marg=~Hair+Eye, cond="Sex")
 #' 
-#' ardist(hec, marg=~Hair+Eye, cond=list(Sex="Male"))
-#' ardist(hec, marg=~Hair+Eye, cond=list(Sex="Male"), normalize=FALSE)
+#' ar_dist(hec, marg=~Hair+Eye, cond=list(Sex="Male"))
+#' ar_dist(hec, marg=~Hair+Eye, cond=list(Sex="Male"), normalize=FALSE)
 #' 
-#' ardist(hec, cond=list(Sex="Male"))
-#' ardist(hec, cond=list(Sex="Male"), normalize=FALSE)
+#' ar_dist(hec, cond=list(Sex="Male"))
+#' ar_dist(hec, cond=list(Sex="Male"), normalize=FALSE)
 #' 
 NULL
 
@@ -163,7 +165,11 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
 }
 
 #' @rdname array-distribution
-ardist <- tabDist
+ar_dist <- tabDist
+
+## #' @rdname array-distribution
+## .ardist <- tabDist
+
 
 #' @title Normalize an array
 #' 
@@ -175,9 +181,9 @@ ardist <- tabDist
 #' @param type Either "none", "first", or "all"
 #' @return An array
 #' @examples
-#' arnormalize( HairEyeColor, type="first")
-#' arnormalize( HairEyeColor, type="all")
-arnormalize <- function(tab, type="none"){
+#' ar_normalize( HairEyeColor, type="first")
+#' ar_normalize( HairEyeColor, type="all")
+tabNormalize <- function(tab, type="none"){
     switch(type,
            "first"={
                if (length(dim(tab))>1){
@@ -194,7 +200,8 @@ arnormalize <- function(tab, type="none"){
     tab
 }
 
-
+#' @rdname array-normalize
+ar_normalize <- tabNormalize
 
 
 

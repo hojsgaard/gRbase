@@ -40,11 +40,14 @@ importFrom("graphics", "plot")
 importFrom(magrittr,"%>%")
 export("%>%")
 
-export("%a/%")
-export("%a*%")
 export("%a+%")
 export("%a-%")
-##export("%am%")
+export("%a*%")
+export("%a/%")
+export("%a/0%")
+export("%a==%")
+export("%a_%")
+export("%a^%")
 
 
 
@@ -113,6 +116,9 @@ S3method(print, gRfit)
 S3method(vpar, Matrix)
 S3method(vpar, matrix)
 S3method(vpar, graphNEL)
+S3method(vchi, Matrix)
+S3method(vchi, matrix)
+S3method(vchi, graphNEL)
 
 S3method(getFit, gRfit)
 S3method("getFit<-", gRfit)
@@ -206,9 +212,6 @@ S3method(stepwise, hllm)
 S3method(summary, gRfit)
 S3method(print, gRfit)
 
-S3method(vpar, Matrix)
-S3method(vpar, matrix)
-S3method(vpar, graphNEL)
 
 S3method(getFit, gRfit)
 S3method("getFit<-", gRfit)
@@ -223,6 +226,11 @@ S3method(ordinal, gmData)
 S3method(update, gModel)
 S3method(topoSort, default)
 S3method(triangulate, default)
+
+
+S3method(triang, default)
+S3method(triang_elo, default)
+S3method(triang_mcwh, default)
 
 
 S3method("formula<-", gModel)

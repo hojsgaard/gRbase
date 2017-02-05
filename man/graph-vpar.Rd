@@ -2,6 +2,11 @@
 % Please edit documentation in R/graph-utilities.R
 \name{graph-vpar}
 \alias{graph-vpar}
+\alias{vchi}
+\alias{vchi.Matrix}
+\alias{vchi.graphNEL}
+\alias{vchi.matrix}
+\alias{vchiMAT}
 \alias{vpar}
 \alias{vpar.Matrix}
 \alias{vpar.graphNEL}
@@ -9,6 +14,16 @@
 \alias{vparMAT}
 \title{List of vertices and their parents for graph.}
 \usage{
+vchi(object, getv = TRUE, forceCheck = TRUE)
+
+vchiMAT(object, getv = TRUE, forceCheck = TRUE)
+
+\method{vchi}{graphNEL}(object, getv = TRUE, forceCheck = TRUE)
+
+\method{vchi}{Matrix}(object, getv = TRUE, forceCheck = TRUE)
+
+\method{vchi}{matrix}(object, getv = TRUE, forceCheck = TRUE)
+
 vpar(object, getv = TRUE, forceCheck = TRUE)
 
 vparMAT(object, getv = TRUE, forceCheck = TRUE)
@@ -42,15 +57,15 @@ Get list of vertices and their parents for graph.
 \examples{
 
 ## DAGs
-dagMAT <- dag(~a:b:c+c:d:e, result="matrix")
-dagNEL <- dag(~a:b:c+c:d:e, result="NEL")
+dagMAT <- dag(~a:b:c + c:d:e, result="matrix")
+dagNEL <- dag(~a:b:c + c:d:e, result="NEL")
 vpar(dagMAT)
 vpar(dagNEL)
 vpar(dagMAT, getv=FALSE)
 vpar(dagNEL, getv=FALSE)
 ## Undirected graphs
-ugMAT <- ug(~a:b:c+c:d:e, result="matrix")
-ugNEL <- ug(~a:b:c+c:d:e, result="NEL")
+ugMAT <- ug(~a:b:c + c:d:e, result="matrix")
+ugNEL <- ug(~a:b:c + c:d:e, result="NEL")
 \dontrun{
 ## This will fail because the adjacency matrix is symmetric and the
 ## graphNEL has undirected edges

@@ -86,7 +86,7 @@ data2parray(UCBAdmissions,c(1,2), normalize="first")
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \seealso{
-\code{\link{is.named.array}}, \code{\link{armarg}}
+\code{\link{is.named.array}}, \code{\link{ar_marg}}
 }
 \keyword{utilities}
 

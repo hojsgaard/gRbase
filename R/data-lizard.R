@@ -22,10 +22,10 @@
 #' # Datasets lizardRAW and lizardDF are generated with the following code
 #' #lizardAGG <- as.data.frame(lizard)
 #' #f   <- lizardAGG$Freq
-#' #idx <- unlist(mapply(function(i,n) rep(i,n),1:8,f))
+#' #idx <- unlist(mapply(function(i, n) rep(i, n), 1:8, f))
 #' #set.seed(0805)
 #' #idx <- sample(idx)
-#' #lizardRAW <- as.data.frame(lizardAGG[idx,1:3])
+#' #lizardRAW <- as.data.frame(lizardAGG[idx, 1:3])
 #' #rownames(lizardRAW) <- 1:NROW(lizardRAW)
 #' 
 #' 

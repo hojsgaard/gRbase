@@ -35,18 +35,18 @@ s <-simulateArray(x,1000)
 xtabs(~., as.data.frame(s))
 
 ## Simulate from slice defined by that dimension 1 is fixed at level 2
-s <-simulateArray(x,6000,1,2)
+s <-simulateArray(x, 6000, 1, 2)
 xtabs(~., as.data.frame(s))
 
 ## 2x2x2 array
-x <- parray(c("a","b","c"), levels=c(2,2,2), values=1:8)
+x <- parray(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
 
 ## Simulate from entire array
-s <-simulateArray(x,36000)
+s <-simulateArray(x, 36000)
 xtabs(~., as.data.frame(s))
 
 ## Simulate from slice defined by that dimension 3 is fixed at level 1
-s <-simulateArray(x,10000,3,1)
+s <-simulateArray(x, 10000, 3, 1)
 xtabs(~., as.data.frame(s))
 
 

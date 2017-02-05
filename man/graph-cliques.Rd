@@ -43,15 +43,15 @@ The workhorse is the \code{maxCliqueMAT} function which calls the
 \examples{
 
 ## graphNEL
-uG1 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a)
+uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 getCliques(uG1)
 
 ## adjacency matrix
-uG2 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a, result="matrix")
+uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
 getCliques(uG2)
 
 ## adjacency matrix (sparse)
-uG3 <- ug(~a:b+b:c+c:d+d:e+e:f+f:a, result="Matrix")
+uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
 getCliques(uG3)
 
 

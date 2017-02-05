@@ -2,19 +2,15 @@
 % Please edit documentation in R/t_array-operations.R
 \name{array-operations}
 \alias{\%a==\%}
+\alias{\%a^\%}
 \alias{\%a_\%}
-\alias{aperm__}
-\alias{arEqual}
-\alias{arExt}
-\alias{arPerm}
-\alias{arSlice}
-\alias{arSliceMult}
-\alias{arSlicePrim}
-\alias{aralign}
-\alias{arequal}
-\alias{arexpand}
-\alias{armarg}
-\alias{arperm}
+\alias{ar_align}
+\alias{ar_equal}
+\alias{ar_expand}
+\alias{ar_marg}
+\alias{ar_perm}
+\alias{ar_prod_list}
+\alias{ar_sum_list}
 \alias{array-operations}
 \alias{tabAdd__}
 \alias{tabAlign}
@@ -46,30 +42,40 @@
 \alias{tabSubt__}
 \title{Operations on multidimensional arrays.}
 \usage{
-arperm(tab, perm)
+ar_perm(tab, perm)
 
-armarg(tab, marg)
+ar_prod_list(lst)
 
-arequal(tab1, tab2, eps = 1e-12)
+ar_sum_list(lst)
+
+ar_marg(tab, marg)
+
+ar_equal(tab1, tab2, eps = 1e-12)
 
 tab1 \%a==\% tab2
 
 tab1 \%a_\% marg
 
-arexpand(tab1, tab2)
+tab1 \%a^\% extra
 
-aralign(tab1, tab2)
+ar_expand(tab1, tab2)
+
+ar_align(tab1, tab2)
 }
 \arguments{
 \item{tab, tab1, tab2}{Multidimensional arrays.}
 
 \item{perm}{A vector of indices or dimnames giving the desired permutiation.}
 
+\item{lst}{List of arrays.}
+
 \item{marg}{Specification of marginal; either a character vector, a numeric
-vector or a right hand sided formula For \code{arperm} and \code{ararg}
+vector or a right hand sided formula For \code{ar_perm} and \code{ar_marg}
 it can also be a right hand sided formula.}
 
 \item{eps}{Criterion for checking equality of two arrays.}
+
+\item{extra}{List defining the extra dimensions.}
 }
 \value{
 Most functions here return a multidimensional array.
@@ -80,7 +86,7 @@ Operations like marginalize, permute, slicing etc on
     with a dim and a dimnames attribute.
 }
 \details{
-\code{perm} in \code{arperm()} can be a vector of indices
+\code{perm} in \code{ar_perm()} can be a vector of indices
     (as in Rs own \code{aperm()}) but also a vector of
     dimnames. Currently there is no checking that the dimnames are
     actually in the array, so please take care.
@@ -92,29 +98,29 @@ ar2 <- array(1:8, dim=c(2,2,2), dimnames=list("b"=1:2,"c"=1:2,"d"=1:2))
 
 ## ## armarg ##
 ## Marginalize down to the bc-array
-armarg(ar1, 2:3)
-armarg(ar1, c("b","c"))
-armarg(ar1, ~b + c)
+ar_marg(ar1, 2:3)
+ar_marg(ar1, c("b","c"))
+ar_marg(ar1, ~b + c)
 
 ## This gives an error
-## armarg(ar1, c(2,5))
-## armarg(ar1, c("b","w"))
-## armarg(ar1, ~b + w)
+## ar_marg(ar1, c(2,5))
+## ar_marg(ar1, c("b","w"))
+## ar_marg(ar1, ~b + w)
  
-## ## arperm ##
-arperm(ar1, 1:3)      ## No change - an abc-table
-arperm(ar1, c(2,3,1)) ## A bca-table
-arperm(ar1, ~b + c + a)
+## ## ar_perm ##
+ar_perm(ar1, 1:3)      ## No change - an abc-table
+ar_perm(ar1, c(2,3,1)) ## A bca-table
+ar_perm(ar1, ~b + c + a)
 
 ## This gives error
-## arperm(ar1, c(2,1))
-## arperm(ar1, c(2,1,5))
-## arperm(ar1, c(2,1,NA))
+## ar_perm(ar1, c(2,1))
+## ar_perm(ar1, c(2,1,5))
+## ar_perm(ar1, c(2,1,NA))
 
-## ## armult etc ##
+## ## ar_mult etc ##
 ## Multiply two arrays
-out <- armult(ar1, ar2)
-out <- arperm(out, ~a+b+c+d) ## Just for comparison below
+out <- ar_mult(ar1, ar2)
+out <- ar_perm(out, ~a + b + c + d) ## Just for comparison below
 ftable(out)
 ## Alternative approch
 df1 <- as.data.frame.table(ar1)
@@ -124,33 +130,38 @@ df3 <- transform(df3, Freq=Freq.x*Freq.y)
 ar3 <- xtabs(Freq ~ a + b + c + d, data=df3)
 ftable(ar3)
 
-## ## arexpand ##
-ar1.e <- arexpand(ar1, ar2)
+## ## ar_expand ##
+ar1.e <- ar_expand(ar1, ar2)
 ## ar1.e has dimnames b,c,d,a; values are simply replicated for each
 ## level of d.
 dimnames(ar1.e)
 ftable(ar1.e, row.vars="d")
 
 ## ## aralign ##
-ar2.e <- arexpand(ar2, ar1)
+ar2.e <- ar_expand(ar2, ar1)
 names(dimnames(ar2.e))
 names(dimnames(ar1.e))
-out <- aralign(ar1.e, ar2.e)
+out <- ar_align(ar1.e, ar2.e)
 names(dimnames(out)) ## Same as ar2.e
 
-## arexpand:
+
+aa = ar_new(~a, levels=2, values=c(1,100))
+ar_expand(aa, list(b=1:2))
+aa \%a^\% list(b=1:2)
+
+## ar_expand:
 ar1 <- array(1:8, dim=c(2,2,2), dimnames=list("a"=1:2,"b"=1:2,"c"=1:2))
 ar2 <- array(1:8, dim=c(2,2,2), dimnames=list("b"=1:2,"c"=1:2,"d"=1:2))
 
-arexpand(ar1, ar2) \%>\% ftable(row.vars=1) ## Same as
-## arexpand(ar1, dimnames(ar2)) \%>\% ftable(row.vars=1) 
+ar_expand(ar1, ar2) \%>\% ftable(row.vars=1) ## Same as
+## ar_expand(ar1, dimnames(ar2)) \%>\% ftable(row.vars=1) 
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \seealso{
-\code{\link{aperm}}, \code{\link{arslice}},
-    \code{\link{arslice_entries}}
+\code{\link{aperm}}, \code{\link{ar_perm}}, \code{\link{ar_slice}},
+    \code{\link{ar_slice_entries}}
 }
 \keyword{utilities}
 

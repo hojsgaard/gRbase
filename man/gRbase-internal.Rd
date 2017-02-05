@@ -33,6 +33,7 @@
 \alias{isdagMAT_}
 \alias{issymMAT_}
 \alias{isugMAT_}
+\alias{aperm__}
 
 \alias{as.named.array}
 

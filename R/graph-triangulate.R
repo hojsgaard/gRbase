@@ -48,8 +48,8 @@
 #' 
 #' Currently there is no check for that the graph is undirected.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{ug}} \code{\link{dag}} \code{\link{mcs}},
-#'     \code{\link{mcsMAT}} \code{\link{rip}}, \code{\link{ripMAT}},
+#' @seealso \code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},
+#'     \code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
 #'     \code{\link{moralize}}, \code{\link{moralizeMAT}}
 #' @keywords utilities
 #' @examples

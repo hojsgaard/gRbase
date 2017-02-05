@@ -7,6 +7,8 @@
 %\usepackage[latin1]{inputenc}
 %\usepackage{inputenx}
 \usepackage{boxedminipage,color,a4wide,url}
+\usepackage[T1]{fontenc}
+
 
 \def\code#1{\texttt{#1}}
 \def\R{\texttt{R}}
@@ -28,6 +30,11 @@
 \setlength{\fancyvrbtopsep}{0pt}
 \setlength{\fancyvrbpartopsep}{0pt}
 
+
+\usepackage{etoolbox} 
+\makeatletter 
+\preto{\@verbatim}{\topsep=-10pt \partopsep=-10pt } 
+\makeatother
 
 <<include=FALSE>>=
 library(knitr)
@@ -87,13 +94,11 @@ prettyDate <- format(Sys.Date())
 
 <<echo=F>>=
 library(gRbase)
-##load_all("../gRbase")
-options("width"=100)
+options("width"=100, "digits"=4)
 options(useFancyQuotes="UTF-8")
-##options(prompt=" ", "continue"="   ")
+#chk = 'markup'
+chk = 'hide'
 @ %def
-
-
 
 
 \section{Introduction}
@@ -120,44 +125,32 @@ The documentation of \R\ states the following about arrays:
 \subsection{Cross classified data - contingency tables}
 \label{sec:new}
 
-Arrays appear for example in connection with cross classified
-data. For example
-<<>>=
-HairEyeColor
-@ %def 
+Arrays appear for example in connection with cross classified data. The array
+\code{hec} below is an excerpt of the \code{HairEyeColor} array in \R:
 
-
-Data is a contingency table; a cross classified table of counts. In
-\R\ lingo, data is a \code{table} object, but it is also an array because
-it has a \code{dim} attribute:
-<<>>=
-class( HairEyeColor )
-is.array( HairEyeColor )
-dim( HairEyeColor )
-@ %def 
-
-The array also has a
-\code{dimnames} attribute and the list of \verb'dimnames' has names:
-<<>>=
-dimnames( HairEyeColor )
-@ %def 
-
-Notice from the output above that the first variable (\code{Hair})
-varies fastest. The \verb'dimnames' attributes are important for many of the functions from
-\grbase\ described in the following sections.
-
-Presence of named dimnames can be checked with \rr{is.named.array()}
-<<>>=
-is.named.array( HairEyeColor )
-@ %def 
-
-To limit output we shall only consider two hair colours and three eye colours.
-<<>>=
-hec <- do.call("[", c(list(HairEyeColor), list(1:2, 1:3, TRUE), drop=FALSE))
-hec <- HairEyeColor[1:2, 1:3, ]
+<< >>= 
+hec <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29) 
+dim(hec) <- c(2, 3, 2)
+dimnames(hec) <- list(Hair = c("Black", "Brown"), 
+                      Eye = c("Brown", "Blue", "Hazel"), 
+                      Sex = c("Male", "Female"))
 hec
+@
+
+Above, \code{hec} is an array because it has a \code{dim} attribute. Moreover,
+\code{hec} also has a \code{dimnames} attribute naming the levels of each
+dimension. Notice that each dimension is given a name.
+
+An array with named dimensions is in this package called a \emph{named array}; this can be checked with
+\rr{is.named.array()}
+<<>>=
+is.named.array( hec )
 @ %def 
 
+The functionality described below relies heavily on arrays having named dimensions.
+
+
+Printing arrays takes up a lot of space. 
 A more compact view of data can be achieved with \code{ftable()}.
 Since \grbase\ imports the pipe operator \verb'%>%' from
 the \pkg{magrittr} package we will in this note do:
@@ -166,6 +159,66 @@ flat <- function(x) {ftable(x, row.vars=1)}
 hec %>% flat
 @ %def 
 
+
+
+
+
+
+
+
+%%
+%%Arrays appear for example in connection with cross classified
+%%data. For example
+%%<<>>=
+%%HairEyeColor
+%%@ %def 
+%%
+%%Data is a contingency table; a cross classified table of counts. In
+%%\R\ lingo, data is a \code{table} object, but it is also an array because
+%%it has a \code{dim} attribute:
+%%<<>>=
+%%class( HairEyeColor )
+%%is.array( HairEyeColor )
+%%dim( HairEyeColor )
+%%@ %def 
+%%
+%%The array also has a
+%%\code{dimnames} attribute and the list of \verb'dimnames' has names:
+%%<<>>=
+%%dimnames( HairEyeColor )
+%%@ %def 
+%%
+%%
+%%Notice from the output above that the first variable (\code{Hair})
+%%varies fastest. The \verb'dimnames' attributes are important for many of the functions from
+%%\grbase\ described in the following sections.
+%%
+%%\subsection{Named arrays}
+%%\label{sec:named-arrays}
+%%
+%%An array with named dimnames is in this package called a \emph{named array}; this can be checked with
+%%\rr{is.named.array()}
+%%<<>>=
+%%is.named.array( HairEyeColor )
+%%@ %def 
+%%
+%%
+%%
+%%To limit output we shall only consider two hair colours and three eye colours.
+%%<<>>=
+%%hec <- do.call("[", c(list(HairEyeColor), list(1:2, 1:3, TRUE), drop=FALSE))
+%%hec <- HairEyeColor[1:2, 1:3, ]
+%%hec
+%%@ %def 
+%%
+%%A more compact view of data can be achieved with \code{ftable()}.
+%%Since \grbase\ imports the pipe operator \verb'%>%' from
+%%the \pkg{magrittr} package we will in this note do:
+%%<<>>=
+%%flat <- function(x) {ftable(x, row.vars=1)}
+%%hec %>% flat
+%%@ %def 
+%%
 
 \subsection{Defining arrays}
 
@@ -182,37 +235,33 @@ z2 <- array( c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29),
             dim=di, dimnames=dn)
 @ %def 
 where the \code{dimnames} part in both cases is optional. 
-Another way is to use \rr{newar()} from \grbase:
+Another way is to use \rr{ar\_new()} from \grbase:
 <<>>=
 counts <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
-z3 <- newar( ~ Hair:Eye:Sex, levels = dn, value = counts) 
-z4 <- newar(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
+z3 <- ar_new( ~ Hair:Eye:Sex, levels = dn, value = counts) 
+z4 <- ar_new(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
 @ %def 
 
-Notice that \code{dn} when used in \rr{newar()} 
+Notice that \code{dn} when used in \rr{ar\_new()} 
 is allowed to contain superfluous elements. Default
 \code{dimnames} are generated with
 <<>>=
-z5 <- newar(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
+z5 <- ar_new(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
 z5 %>% flat
 @ %def 
 
 
-Using \rr{newar()}, arrays can be normalized in two ways:
+Using \rr{ar\_new()}, arrays can be normalized in two ways:
 Normalization can be over the first variable for \emph{each}
 configuration of all other variables or over all configurations. For
 example:
 <<>>=
-z6 <- newar(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts, normalize="first")
+z6 <- ar_new(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts, normalize="first")
 z6 %>% flat
 @ %def 
-The same can be achived with\rr{arnormalize()}
-<<>>=
-arnormalize(z5, "first") %>% flat
-@ %def 
 
 
-\section{Operations on single arrays}
+\section{Operations on arrays}
 \label{sec:operations-arrays}
 
 In the following we shall denote the dimnames 
@@ -221,25 +270,13 @@ denote a configuration of these variables. The contingency table above
 shall be denoted by $T_{HES}$ and we shall refer to the
 $(h,e,s)$-entry of $T_{HES}$ as $T_{HES}(h,e,s)$. 
 
-\subsection{Permuting an array}
-\label{sec:permuting-an-array}
+\subsection{Normalizing an array}
+\label{sec:numarlizing-an-array}
 
-A reorganization of the table can be made with \rr{arperm} (similar
-to \code{aperm()}), but \rr{arperm} allows for a formula:
+Normalize an array with  \rr{ar\_normalize()}
 <<>>=
-arperm(hec, ~Eye:Sex:Hair) %>% flat 
-@ %def 
-
-Alternative forms (that will also work for \rr{aperm()}):
-<<results='hide'>>=
-arperm(hec, c("Eye", "Sex", "Hair")) %>% flat
-arperm(hec, c(2,3,1)) %>% flat
-@ %def 
-
-Notice that abbreviation is allowed
-<<results='hide'>>=
-arperm(hec, ~Ey:Se:Ha) %>% flat 
-arperm(hec, c("Ey", "Se", "Ha")) %>% flat
+ar_normalize(z5, "first") %>% flat
+ar_normalize(z5, "all") %>% flat
 @ %def 
 
 
@@ -248,176 +285,290 @@ arperm(hec, c("Ey", "Se", "Ha")) %>% flat
 
 We can subset arrays (this will also be called ``slicing'') in
 different ways. Notice that the result is not necessarily an
-array. Using standard \R\ code we can do:
+array. Slicing can be done using standard \R\ code or using \rr{ar\_slice}.
+The virtue of \rr{ar\_slice} comes from the flexibility when
+specifying the slice:
+
+The following leads from the original $2\times 3 \times 2$
+array to a $2 \times 2 \times 2$
+array by cutting away the \code{Eye=Brown} slice of the array:
+
+<< >>= 
+ar_slice(hec, slice=list(Eye=c("Blue", "Hazel")))  %>% flat
+@
+
+Levels can be written as numerics.\footnote{Currently names can not be
+  abbreviated, but that might be added later.}
+<<results=chk>>=
+ar_slice(hec, slice=list(Eye=2:3, Sex="Female"))
+@ 
+
+%%Alternative forms:
+%%<<results='hide'>>=
+%%ar_slice(hec, slice=list(Eye=2:3)) %>% flat
+%%ar_slice(hec, slice=list(Eye=c("Blue","Hazel")))  %>% flat
+%%@ %def 
+%%
+
+Suppose we pick the \code{Sex=Female} slice of \code{hec}. This slice can be
+regarded as a $2 \times 3$ array or as $2 \times 3 \times 1$ array.
 
 <<>>=
-hec[, 2:3, ]  %>% flat
-is.array( hec[, 2:3, ] ) 
-hec[1, , 1]
-is.array( hec[1, , 1] )
+# 2 x 3 array : 
+ar_slice(hec, slice=list(Sex="Female")) %>% flat
+# 2 x 3 x 1 array :
+ar_slice(hec, slice=list(Sex="Female"), drop=FALSE) %>% flat
+@ %def 
+
+%%
+%%<<>>=
+%%ar_slice(hec, slice=list(Eye=c(2, 3), Sex="Female")) %>% flat
+%%ar_slice(hec, slice=list(Eye=c(2, 3), Sex="Female"), drop=FALSE) %>% flat
+%%@ %def 
+%%
+
+If slicing leads to a one dimensional array, the output will by
+default not be an array but a vector (without a dim attribute). However, 
+the result can be forced to be a 1--dimensional array:
+<<results=chk>>=
+## A vector:
+z <- ar_slice(hec, slice=list(Hair=1, Sex="Female")); z 
+## A 1-dimensional array:
+z <- ar_slice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); z
+@ %def 
+
+
+%%The output can be forced to be an array with
+%%<<>>=
+%%z <- ar_slice(hec, slice=list(Hair=1, Sex="Female"), drop=F); z
+%%dim( z )
+%%@ %def 
+%%
+
+
+
+Slicing using standard \R\ code can be done as follows:
+
+<<>>=
+hec[, 2:3, ]  %>% flat  ## A 2 x 2 x 2 array
+hec[1, , 1]             ## A vector
+hec[1, , 1, drop=FALSE] ## A 1 x 3 x 1 array
 @ %def 
 
 Programmatically we can do the above as
-<<results='hide'>>=
+<<results=chk>>=
 do.call("[", c(list(hec), list(TRUE, 2:3, TRUE)))  %>% flat
-do.call("[", c(list(hec), list(1, TRUE, 1)))  %>% flat
+do.call("[", c(list(hec), list(1, TRUE, 1))) 
+do.call("[", c(list(hec), list(1, TRUE, 1), drop=FALSE)) 
+@ %def 
+
+\grbase\ provides two alterntives for each of these three cases above:
+<<results=chk>>=
+ar_slice_prim(hec, slice=list(TRUE, 2:3, TRUE))  %>% flat
+ar_slice(hec, slice=list(c(2, 3)), margin=2) %>% flat
+
+ar_slice_prim(hec, slice=list(1, TRUE, 1))  
+ar_slice(hec, slice=list(1, 1), margin=c(1,3)) 
+
+ar_slice_prim(hec, slice=list(1, TRUE, 1), drop=FALSE)  
+ar_slice(hec, slice=list(1, 1), margin=c(1,3), drop=FALSE) 
 @ %def 
 
 
-\grbase\ provides a wrapper for this, for example:
-<<results='hide'>>=
-arslice_prim(hec, slice=list(TRUE, 2:3, TRUE))  %>% flat
-@ %def 
-
-
-Using \rr{arslice()} from \grbase\ the following are equivalent
-<<results='markup'>>=
-hec[, 2:3, ] %>% flat
-arslice(hec, slice=list(c(2,3)), margin=2) %>% flat
-@ %def 
-
-Alternative forms:
-<<results='hide'>>=
-arslice(hec, slice=list(Eye=2:3)) %>% flat
-arslice(hec, slice=list(Eye=c("Blue","Hazel")))  %>% flat
-@ %def 
-
-
-The virtue of \rr{arslice} comes from the flexibility when
-specifying the slice:\footnote{Currently names can not be abbreviated,
-but that might be added later.}
-<<>>=
-arslice(hec, slice=list(Eye=c(2,3), Sex="Female")) %>% flat
-arslice(hec, slice=list(Eye=c(2,3), Sex="Female"), drop=FALSE) %>% flat
-@ %def 
-
-If slicing leads to a one dimensional array, the output will by
-default not be an array but a vector (without a dim attribute)
-<<>>=
-z <- arslice(hec, slice=list(Hair=1, Sex="Female")); z 
-is.array( z )
-@ %def 
-
-The output can be forced to be an array with
-<<>>=
-z <- arslice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); z
-is.array( z )
-@ %def 
-
-
-
-
-\subsection{Collapsing arrays}
+\subsection{Collapsing  and inflating arrays}
 \label{sec:collapsing-arrays}
 
-The $HE$--marginal table $T_{HE}$ is defined to be the table with
+Collapsing: The $HE$--marginal array $T_{HE}$ of $T_{HES}$ is  the array with
 values
 \begin{displaymath}
   T_{HE}(h,e) = \sum_s T_{HES}(h,e,s)
 \end{displaymath}
-
-With \grbase\ we can do\footnote{FIXME: Should allow for abbreviations in
-  formula and character vector specifications.}:
-<<>>=
-he <- armarg(hec, ~Hair:Eye); he %>% flat       
-@ %def
-
-Alternative forms include
-<<results='hide'>>=
-hs <- armarg(hec, c("Hair","Sex")); hs 
-es <- armarg(hec, c(2,3)); es
-@ %def 
-
-
-\subsection{Inflating arrays}
-\label{sec:inflating-arrays}
-
-The ``opposite'' operation is to extend an array. For example, we can
+Inflating: The ``opposite'' operation is to extend an array. For example, we can
 extend $T_{HE}$ to have a third dimension, e.g.\ \code{Sex}. That is
 \begin{displaymath}
-  \tilde T_{HES}(h,e,s) = T_{HE}(h,e)
+  \tilde T_{SHE}(s,h,e) = T_{HE}(h,e)
 \end{displaymath}
-so $\tilde T_{HES}(h,e,s)$ is constant as a function of $s$. 
-With \grbase\ this is done with \rr{arexpand()}:
+so $\tilde T_{SHE}(s,h,e)$ is constant as a function of $s$. 
+
+With \grbase\ we can collapse with\footnote{FIXME: Should allow for abbreviations in
+  formula and character vector specifications.}:
 <<>>=
-arexpand(he, list(Sex=c("Male", "Female"))) %>% flat
-@ %def 
-Notice that the added dimensions come ``at the end''. The following versions produce the same result:
-<<results='hide'>>=
-arexpand(he, dimnames(hs)) %>% flat
-arexpand(he, hs) %>% flat
-@ %def 
+he <- hec %a_% ~Hair:Eye; he %>% flat       
+@
 
+<<results=chk>>=
+## Alternatives
+he <- ar_marg(hec, ~Hair:Eye); he
+hs <- ar_marg(hec, c("Hair", "Sex"))
+es <- ar_marg(hec, c(2, 3))
+@
 
-
-\section{Operations on two or more arrays}
-\label{sec:oper-two-arrays}
-
-\subsection{Multiplication, addition etc:  $+$, $-$, $*$, $/$}
-\label{sec:mult-addt-etc}
-
-The product of two arrays $T_{HE}$ and $T_{HS}$ is defined to be the array
-$\tilde T_{HES}$ with entries
-\begin{displaymath}
-  \tilde T_{HES}(h,e,s)= T_{HE}(h,e) T_{HS}(h,s)
-\end{displaymath}
-
-With \grbase\ this is done with \rr{armult()}:
+With \grbase\ we can inflate with \rr{ar\_expand()}:
 <<>>=
-armult(he, hs) %>% flat
+she <- he %a^% list(Sex=c("Male", "Female"))
+she %>% flat
 @ %def 
 
+<<results=chk>>=
+## Alternatives
+she <- ar_expand(he, list(Sex=c("Male", "Female")))
+ar_expand(he, dimnames(hs)) %>% flat
+ar_expand(he, hs) %>% flat
+@
 
-The quotient, sum and difference is defined similarly:
+\subsection{Permuting an array}
+\label{sec:permuting-an-array}
+
+A reorganization of the table can be made with \rr{ar\_perm} (similar
+to \code{aperm()}), but \rr{arperm} allows for a formula and for variable abbreviation:
 <<>>=
-ardiv(he, hs)  %>% flat 
-aradd(he, hs)  %>% flat
-arsubt(he, hs) %>% flat
+ar_perm(hec, ~Eye:Sex:Hair) %>% flat 
 @ %def 
 
-Multiplication and addition of a list of arrays is accomplished with
-\rr{arprod()} and \rr{arsum()}:
-<<>>=
-arprod( he, hs, es ) %>% flat
-arsum( he, hs, es ) %>% flat
+Alternative forms (the first two also works for \code{aperm}):
+<<results=chk>>=
+ar_perm(hec, c("Eye", "Sex", "Hair")) 
+ar_perm(hec, c(2,3,1)) 
+ar_perm(hec, ~Ey:Se:Ha) 
+ar_perm(hec, c("Ey", "Se", "Ha"))
 @ %def 
 
-
-\subsection{Miscellaneous}
-\label{sec:miscellaneous}
+\subsection{Equality}
+\label{sec:equality}
 
 Two arrays are defined to be identical 1) if they have the same dimnames
 and 2) if, possibly after a permutation, all values are identical (up to
 a small numerical difference):
 
 <<>>=
-hec2 <- arperm(hec, 3:1)
-arequal(hec, hec2)
+hec2 <- ar_perm(hec, 3:1)
+hec %a==% hec2
 @ %def 
 
-A visual comparison of the entries of two arrays with the same
-dimnames is much easier if the dimnames are in the same order.
-For example, the following provides the fitted cell counts under a
-specific log--linear model:
+<<results=chk>>= 
+## Alternative
+ar_equal(hec, hec2)
+@
+
+\subsection{Aligning}
+\label{sec:aligning}
+
+We can align one array according to the ordering of another:\footnote{FIXME; see
+  \code{ar\_expand()}}
+<<results=chk>>= 
+hec2 <- ar_perm(hec, 3:1)
+ar_align(hec2, hec)  
+## ar_align(hec2, dimnames(hec))
+## ar_align(hec2, names(dimnames(hec)))
+@
+
+
+
+
+%\section{Operations on two or more arrays}
+%\label{sec:oper-two-arrays}
+
+\subsection{Multiplication, addition etc:  $+$, $-$, $*$, $/$}
+\label{sec:mult-addt-etc}
+
+The sum of two arrays $T_{HE}$ and $T_{HS}$ is defined to be the array
+$\tilde T_{HES}$ with entries
+\begin{displaymath}
+  \tilde T_{HES}(h,e,s)= T_{HE}(h,e) + T_{HS}(h,s)
+\end{displaymath}
+The difference, product and quotient is defined similarly:
+
+With \grbase\ this is done with \rr{ar\_mult()}:
 <<>>=
-hec3 <- ardiv( armult( he, es ), armarg( hec, "Eye" ) )
-hec3 %>% flat
-@ %def 
-Comparing these with the observed data is tricky because of the ordering:
-<<>>=
-hec %>% flat
+she <- he %a+% hs 
+she %>% flat
 @ %def 
 
-The function \rr{aralign()} will align the first array to have the same
-variable order as the second array which makes a visual comparison
-easier:\footnote{FIXME: aralign should be modified so that the second
-  argument can also be a list of dimnames} 
-<<>>=
-aralign(hec3, hec)  %>% flat
+Likewise
+<<results=chk>>= 
+he %a+% hs
+he %a-% hs
+he %a*% hs
+he %a/% hs
+he %a/0% hs ## Convention 0/0 = 0
+@
+
+<<results=chk>>=
+ar_add(he, hs)  %>% flat
+ar_subt(he, hs) %>% flat
+ar_mult(he, hs) %>% flat
+ar_div(he, hs)  %>% flat 
+ar_div0(he, hs)  %>% flat ## Convention 0/0 = 0
 @ %def 
 
 
+Multiplication and addition of a list of multiple arrays is accomplished with
+\rr{ar\_prod()} and \rr{ar\_sum()} (much like \rr{prod()} and \rr{sum()}):
+<<results=chk>>=
+ar_sum( he, hs, es )  
+ar_prod( he, hs, es ) 
+@ %def 
 
+Lists of arrays are processed with
+<<results=chk>>= 
+ar_sum_list( list(he, hs, es) )
+ar_prod_list( list(he, hs, es) )
+@
+
+\subsection{An array as a probability density}
+\label{sec:an-array-as}
+
+If an array consists of non--negative numbers then it may be regarded as an
+(unnormalized) discrete multivariate density. With this view, the following
+examples should be self explanatory:
+<< >>= 
+ar_dist(hec) %>% flat
+ar_dist(hec, marg=~Hair:Eye) %>% flat
+ar_dist(hec, cond=~Eye) %>% flat
+ar_dist(hec, marg=~Hair, cond=~Sex) %>% flat
+@
+
+\subsection{Miscellaneous}
+\label{sec:miscellaneous-1}
+
+Multiply values in a slice by some number and all other values by another number:
+<< >>= 
+ar_slice_mult(hec, list(Sex="Female"), val=10, comp=0) %>% flat
+@
+
+
+
+
+
+
+%% 
+%%For example, the following provides the fitted cell counts under a
+%%specific log--linear model:
+%%<<>>=
+%%hec3 <- ar_div( ar_mult( he, es ), ar_marg( hec, "Eye" ) )
+%%hec3 %>% flat
+%%@ %def 
+%%Comparing these with the observed data is tricky because of the ordering:
+%%<<>>=
+%%hec %>% flat
+%%@ %def 
+%%
+%%The function \rr{ar\_align()} will align the first array to have the same
+%%variable order as the second array which makes a visual comparison
+%%easier:\footnote{FIXME: aralign should be modified so that the second
+%%  argument can also be a list of dimnames} 
+%%<<>>=
+%%ar_align(hec3, hec)  %>% flat
+%%ar_perm(hec3, names(dimnames(hec)))  %>% flat
+%%@ %def 
+%%
+%%<< >>= 
+%%microbenchmark::microbenchmark(
+%%                    ar_align(hec3, hec),
+%%                    ar_perm(hec3, names(dimnames(hec)))
+%%                    )
+%%@
+%%
 
 
 \section{Examples}
@@ -447,9 +598,9 @@ horizontal underscore:
 <<>>=
 yn <- c("y","n")
 lev <- list(rain=yn, sprinkler=yn, wet=yn)
-r <- newar( ~rain, levels = lev, values = c(.2, .8) )
-s_r <- newar( ~sprinkler:rain, levels = lev, values = c(.01,.99, .4, .6) )
-w_sr <- newar( ~wet:sprinkler:rain, levels = lev, 
+r <- ar_new( ~rain, levels = lev, values = c(.2, .8) )
+s_r <- ar_new( ~sprinkler:rain, levels = lev, values = c(.01, .99, .4, .6) )
+w_sr <- ar_new( ~wet:sprinkler:rain, levels = lev, 
              values = c(.99, .01, .8, .2, .9, .1, 0, 1))
 r 
 s_r  %>% flat
@@ -457,32 +608,30 @@ w_sr %>% flat
 @ %def 
 
 The joint distribution $p(r,s,w)=p(r)p(s|r)p(w|s,r)$ can be obtained
-with \rr{arprod()}:
+with \rr{ar\_prod()}:
 ways:
 <<>>=
-joint <- arprod( r, s_r, w_sr ); joint %>% flat
+joint <- ar_prod( r, s_r, w_sr ); joint %>% flat
 @ %def
 
 What is the probability that it rains given that the grass is wet? We
-find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$ with \rr{ardist()}
+find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$. Can be done in various ways: with \rr{ar\_dist()}
 <<>>=
-rw <- armarg(joint, ~rain+wet)
-ardist(rw, cond=~wet)
+ar_dist(joint, marg=~rain, cond=~wet)
 @ %def
 
-<<eval=F>>=
+<<results='hide'>>=
 ## Alternative:
-ardiv( rw, armarg(rw, ~wet))
+rw <- ar_marg(joint, ~rain + wet)
+ar_div( rw, ar_marg(rw, ~wet))
 ## or
-rw %a/% (rw %am% ~wet)
+rw %a/% (rw %a_% ~wet)
 @ %def 
 
-
-Alternative computation using 
 <<>>=
-x <- arslice_mult(rw, slice=list(wet="y")); x
-p <- armarg(x, ~rain); p  ## Unnormalized
-ardist( p )           ## Normalized
+## Alternative:
+x <- ar_slice_mult(rw, slice=list(wet="y")); x
+ar_dist(x, marg=~rain)
 @ %def
 
 \subsection{Iterative Proportional Scaling (IPS)}
@@ -491,7 +640,7 @@ ardist( p )           ## Normalized
 We consider the $3$--way \code{lizard} data from \grbase:
 <<>>=
 data( lizard, package="gRbase" )
-lizard
+lizard %>% flat
 @ %def
 
 Consider the two factor log--linear model for the \verb'lizard'
@@ -525,19 +674,19 @@ myips <- function(indata, glist){
     fit   <- indata
     fit[] <-  1
     ## List of sufficient marginal tables
-    md    <- lapply(glist, function(g) armarg(indata, g))
+    md    <- lapply(glist, function(g) ar_marg(indata, g))
 
     for (i in 1:4){
         for (j in seq_along(glist)){
-            mf  <- armarg(fit, glist[[j]])
-            ## adj <- ardiv( md[[ j ]], mf)
-            ## fit <- armult( fit, adj )
+            mf  <- ar_marg(fit, glist[[j]])
+            # adj <- ar_div( md[[ j ]], mf)
+            # fit <- ar_mult( fit, adj )
             ## or
             adj <- md[[ j ]] %a/% mf
             fit <- fit %a*% adj
         }
     }
-    pearson <- sum( (fit-indata)^2 / fit)
+    pearson <- sum( (fit - indata)^2 / fit)
     list(pearson=pearson, fit=fit)
 }
 
@@ -564,7 +713,7 @@ $(j,k,l)$ in the array (which is really just a vector), the cell is
 mapped into an entry of a vector. 
 
 For example, cell $(2,3,1)$
-(\verb|Hair=Brown|,\verb|Eye=Hazel|,\verb|Sex=Male|) must be mapped to
+(\verb|Hair=Brown|, \verb|Eye=Hazel|, \verb|Sex=Male|) must be mapped to
 entry $4$ in
 <<>>=
 hec
@@ -727,7 +876,7 @@ head( factGrid( c(2, 3, 2) ), 6 )
 A similar dataframe can also be obtained with the standard \R\
 function \code{expand.grid} (but \code{factGrid} is faster)
 <<>>=
-head( expand.grid(list(1:2,1:3,1:2)), 6 )
+head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
 @ %def 
 
 

@@ -36,7 +36,7 @@
 #' @param smooth Should values be smoothed, see 'Details' below.
 #' @return A a named array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{is.named.array}}, \code{\link{armarg}}
+#' @seealso \code{\link{is.named.array}}, \code{\link{ar_marg}}
 #' @keywords utilities
 #' @examples
 #'  

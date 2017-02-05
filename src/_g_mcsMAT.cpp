@@ -1,6 +1,8 @@
 /*
   Maximum cardinality search on undirected graph. If fail, first returned value is -1
-  Known issues: No check for symmetry, code not templated
+  Known issues: No check for symmetry, code not templated.
+
+  Author: Soren Hojsgaard
 */
 
 // #include <iostream>

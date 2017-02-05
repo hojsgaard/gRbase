@@ -49,29 +49,30 @@ is_dimnames_ <- is_dimnames_
 #'
 #' @aliases dimnames_match_
 #' 
-#' @param a1,a2,tab1,tab2 Arrays with named dimnames.
-#' @param verbose Should errors be printed.
+#' @param a1,a2 Arrays with named dimnames.
+## #' @param tab1,tab2 Arrays with named dimnames.
+## #' @param verbose Should errors be printed.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk} 
 #' @seealso \code{\link{is.named.array}}
 #' @examples
 #' 
-#' ar1 = newar(c("a","b"), levels=c(2,3))
-#' ar2 = newar(c("c","a"), levels=c(2,2))
+#' ar1 = ar_new(c("a", "b"), levels=c(2, 3))
+#' ar2 = ar_new(c("c", "a"), levels=c(2, 2))
 #' ar1
 #' ar2
 #' ## dimension a has levels a1,a2 in both ar1 and ar2.
 #' # Hence we have a match.
 #' dimnames_match(ar1, ar2)
 #' 
-#' ar1 = newar(c("a","b"), levels=c(2,3))
-#' ar2 = newar(c("c","a"), levels=c(2,3))
+#' ar1 = ar_new(c("a", "b"), levels=c(2, 3))
+#' ar2 = ar_new(c("c", "a"), levels=c(2, 3))
 #' ar1
 #' ar2
 #' ## dimension a has levels a1,a2 in ar1 and levels a1,a2,a3 in ar2.
 #' # Hence we do not have a match.
 #' dimnames_match(ar1, ar2)
 #' 
-#' ar2 = newar(c("c","a"), levels=list(c=c("c1","c2"), a=c("a2","a1")))
+#' ar2 = ar_new(c("c", "a"), levels=list(c=c("c1", "c2"), a=c("a2", "a1")))
 #' ar2
 #' ## dimension a has levels a1,a2 in ar1 and levels a2,a1 in ar2.
 #' # Hence we do not have a match.
@@ -101,7 +102,6 @@ dimnames_match <- function( a1, a2 ){
     }   
 }
 
-#' @rdname array-dimnames
-#' 
-dimnames_match_ <- dimnames_match_ 
+## #' @rdname array-dimnames 
+## dimnames_match_ <- dimnames_match_ 
 

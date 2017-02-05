@@ -30,15 +30,14 @@ nonEdgeListMAT(adjmat, matrix = FALSE)
 \item{adjmat}{An adjacency matrix.}
 }
 \description{
-Returns the edges of a graph (or edges not in a graph)
-where the graph can be either a graphNEL object or an adjacency
-matrix.
+Returns the edges of a graph (or edges not in a graph) where the
+    graph can be either a graphNEL object or an adjacency matrix.
 }
 \examples{
 
 
 ## A graph with edges
-g  <- ug(~a:b+b:c+c:d)
+g  <- ug(~a:b + b:c + c:d)
 gm <- graphNEL2M(g)
 edgeList(g)
 edgeList(gm)
@@ -50,7 +49,7 @@ nonEdgeList(g)
 nonEdgeList(gm)
 nonEdgeListMAT(gm)
 ## A graph without edges
-g  <- ug(~a+b+c)
+g  <- ug(~a + b + c)
 gm <- graphNEL2M(g)
 edgeList(g)
 edgeList(gm)

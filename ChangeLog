@@ -1,45 +1,51 @@
-2017-01-20 Søren Højsgaard <sorenh@math.aau.dk>
-	
-	* %a==%, %a/0%, %a_% (tabMarg added)
+2017-02-05 Søren Højsgaard <sorenh@math.aau.dk>
+
+	* Added %a==%, %a/0%, %a_% (tabMarg) %a^% tabExpand
+
+	* arxxx functions renamed to ar_xxx
+
+	* vchi (v, ch(v)) added
 
 	* Bug in tabDiv0 fixed
 
+	* gRain-array vignette rewritten
+
 	* Misc stuff to facilitate gRain improvements
-	
+
+	* triang methods added to facilitat triang_mcwh and triang_elo
+	  (triangulation where an elimination order is given).
+
 	* Class parray removed on arrays
 
 	* Version 1.8-2 uploaded
-	
+
 2016-10-16 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* gRbase rewritten using roxygen
-
 	* New naming conventions for array-operations: The internal
 	implementation names are like tabPerm, tabAdd etc. (they are visible to
 	the user and are used in eg. gRain). But the names intended to be
 	used by users are arperm aradd etc.
-
 	* In binary array operations it is now being checked that the
 	dimnames match.
-
 	* Version 1.8-1 uploaded
 
 2016-02-14 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Fixed quotes in DESRIPTION file
 	* Version 1.7-5 uploaded.
-	
+
 2016-02-14 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Fixed issue about isinf in cpp files
 	* Version 1.7-4 uploaded.
-	
+
 2015-12-31 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* moralizeMAT fails if matrix does not have dimnames. Fixed
 	now. Thanks to David Edwards for reporting bug.
 	* Version 1.7-3 uploaded.
-	
+
 2015-10-10 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Corrected use of log and fabs in c++ code; thanks to BDR for

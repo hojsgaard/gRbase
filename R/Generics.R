@@ -14,15 +14,13 @@
 #' 
 #' @aliases compile propagate
 #' @param object An object
-#' @param \dots Additional arguments which depends on the class of the
-#'     object
-#' @return The value returned depends on the class of the first
-#'     argument.
+#' @param \dots Additional arguments which depends on the class of the object
+#' @return The value returned depends on the class of the first argument.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link[gRain]{compile.grain}},
 #'     \code{\link[gRain]{propagate.grain}}
-#' @references Højsgaard, Søren; Edwards, David; Lauritzen, Steffen
-#'     (2012): Graphical Models with R, Springer
+#' @references Højsgaard, Søren; Edwards, David; Lauritzen, Steffen (2012):
+#'     Graphical Models with R, Springer
 #' @keywords utilities
 
 #' @rdname gRbase-generics
