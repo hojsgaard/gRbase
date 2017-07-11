@@ -5,6 +5,8 @@
 \alias{minimalTriang}
 \alias{minimalTriang.default}
 \alias{minimalTriangMAT}
+\alias{minimalTriang.default}
+\alias{minimalTriangMAT}
 \title{Minimal triangulation of an undirected graph}
 \usage{
 minimalTriang(object, tobject = triangulate(object), result = NULL,
@@ -74,10 +76,6 @@ g1m <- ug(~a:b+b:c+c:d+d:e+e:f+a:f+b:e, result="matrix")
 x<-minimalTriangMAT(g1m)
 
 }
-\author{
-Clive Bowsher <C.Bowsher@statslab.cam.ac.uk> with modifications by
-    Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \references{
 Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
     Subgraph Decomposition of Bayesian Networks. IEEE TRANSACTIONS ON
@@ -87,5 +85,8 @@ Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
 \seealso{
 \code{\link{mpd}}, \code{\link{rip}}, \code{\link{triangulate}}
 }
+\author{
+Clive Bowsher <C.Bowsher@statslab.cam.ac.uk> with modifications by
+    Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

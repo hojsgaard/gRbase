@@ -2,10 +2,13 @@
 % Please edit documentation in R/graph-properties.R
 \name{graph-gcproperties}
 \alias{graph-gcproperties}
-\alias{isDecomposable}
-\alias{isDecomposable.default}
 \alias{isGraphical}
 \alias{isGraphical.default}
+\alias{isDecomposable}
+\alias{isDecomposable.default}
+\alias{isGraphical.default}
+\alias{isDecomposable}
+\alias{isDecomposable.default}
 \title{Properties of a generating class (for defining a graph)}
 \usage{
 isGraphical(x)
@@ -72,12 +75,11 @@ isDecomposable( f )
 
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{mcs}}, \code{\link{rip}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{models}
 \keyword{utilities}
-

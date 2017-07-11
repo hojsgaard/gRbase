@@ -55,4 +55,3 @@ xtabs(~., as.data.frame(s))
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \keyword{utilities}
-

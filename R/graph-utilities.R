@@ -341,7 +341,7 @@ getCliques.default <- function(object){
 maxCliqueMAT <- function(amat){
   vn <- dimnames(amat)[[2L]]
   em <- t.default( MAT2ftM_( amat ) )
-  maxClique(nodes=vn, edgeMat=em)
+  RBGL::maxClique(nodes=vn, edgeMat=em)
 }
 
 ## FIXME: getCliques.graphNEL; graphNEL2dgCMatrix

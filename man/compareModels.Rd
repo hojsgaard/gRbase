@@ -24,4 +24,3 @@ The value returned depends on the class of the first
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \keyword{utilities}
-

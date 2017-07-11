@@ -2,41 +2,27 @@ useDynLib(gRbase)
 
 exportPattern("^[[:alpha:]]+")
 
-importClassesFrom(Matrix, Matrix)
-importMethodsFrom(graph, plot)
-importMethodsFrom(graph, plot)
-
-importFrom("methods", "as", "new")
-
 importFrom(Rcpp, evalCpp)
-importFrom(methods, setOldClass) # because of setOldClass("igraph")
+
+importFrom("methods", "as", "new", "setOldClass")
 
 importMethodsFrom(Matrix, t, isSymmetric, diag)
 importFrom(Matrix, Matrix)
+importClassesFrom(Matrix, Matrix)
 
-importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+##importMethodsFrom(graph, plot)
+##importFrom(graph, edges, nodes)
+##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+
 importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
-importFrom(graph, edges, nodes)
-importFrom("stats", "as.formula", "cov", "cov2cor", "delete.response",
-           "deviance", "formula", "runif", "terms", "xtabs")
-importFrom("utils", "str")
-importFrom("graphics", "plot")
 
 exportPattern("^[[:alpha:]]+")
-importFrom(Rcpp, evalCpp)
-importFrom(methods, setOldClass) # because of setOldClass("igraph")
 
-importClassesFrom(Matrix, Matrix)
-importMethodsFrom(Matrix, t, isSymmetric, diag)
-importFrom(Matrix, Matrix)
-
-importFrom("RBGL", "maxClique", "is.triangulated", "separates")
-importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
-importFrom(graph, edges, nodes)
 importFrom("stats", "as.formula", "cov", "cov2cor", "delete.response",
            "deviance", "formula", "runif", "terms", "xtabs")
 importFrom("utils", "str")
 importFrom("graphics", "plot")
+
 importFrom(magrittr,"%>%")
 export("%>%")
 
@@ -48,8 +34,6 @@ export("%a/0%")
 export("%a==%")
 export("%a_%")
 export("%a^%")
-
-
 
 
 S3method(coerceGraph, dgCMatrix)

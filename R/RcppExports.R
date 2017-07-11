@@ -133,6 +133,109 @@ adjList2dgCMatrix <- function(LL) {
     .Call('gRbase_adjList2dgCMatrix', PACKAGE = 'gRbase', LL)
 }
 
+#' @title table cell operations.
+#' @description low level table cell operations
+#' @name tableCell
+#' @param cell Vector giving the cell, eg c(1,1,2) in 3-way table.
+#' @param dim  Vector giving array dimension, eg c(2,2,2).
+#' @param perm Vector giving permutaion of array, eg. c(1,3,2).
+#' @param slice_set Vector giving the margin of a table, eg. c(2,3)
+#' @param slice_cell Vector giving the corresponding cell of marginal table, eg. c(1,2)
+NULL
+
+#' @rdname tableCell
+cell2entry_ <- function(cell, dim) {
+    .Call('gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
+}
+
+#' @rdname tableCell
+next_cell_ <- function(cell, dim) {
+    .Call('gRbase_next_cell_', PACKAGE = 'gRbase', cell, dim)
+}
+
+#' @rdname tableCell
+next_cell_slice_ <- function(cell, dim, slice_set) {
+    .Call('gRbase_next_cell_slice_', PACKAGE = 'gRbase', cell, dim, slice_set)
+}
+
+#' @rdname tableCell
+slice2entry_ <- function(slice_cell, slice_set, dim) {
+    .Call('gRbase_slice2entry_', PACKAGE = 'gRbase', slice_cell, slice_set, dim)
+}
+
+#' @rdname tableCell
+get_cell_number_ <- function(cell, dim, perm) {
+    .Call('gRbase_get_cell_number_', PACKAGE = 'gRbase', cell, dim, perm)
+}
+
+#' @rdname tableCell
+perm_cell_entries_ <- function(perm, dim) {
+    .Call('gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
+}
+
+#' @title Internal Rcpp functions
+#' @description Automatically generated documentation of Rcpp functions.
+#' @name internal
+#' @aliases tab_list_mult_ tab_list_add_ tab_op_ tab_add_ tab_subt_
+#' tab_mult_ tab_div_ tab_div0_ tab_equal_
+NULL
+
+tabPerm__ <- function(tab, perm) {
+    .Call('gRbase_tabPerm__', PACKAGE = 'gRbase', tab, perm)
+}
+
+tab_perm_ <- function(tab, perm) {
+    .Call('gRbase_tab_perm_', PACKAGE = 'gRbase', tab, perm)
+}
+
+tab_expand_ <- function(tab, aux) {
+    .Call('gRbase_tab_expand_', PACKAGE = 'gRbase', tab, aux)
+}
+
+tab_align_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_align_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_marg_ <- function(tab, marg) {
+    .Call('gRbase_tab_marg_', PACKAGE = 'gRbase', tab, marg)
+}
+
+tab_op_ <- function(tab1, tab2, op = '*') {
+    .Call('gRbase_tab_op_', PACKAGE = 'gRbase', tab1, tab2, op)
+}
+
+tab_add_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_add_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_subt_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_subt_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_mult_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_mult_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_div_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_div_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_div0_ <- function(tab1, tab2) {
+    .Call('gRbase_tab_div0_', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+tab_equal_ <- function(tab1, tab2, eps = 1e-12) {
+    .Call('gRbase_tab_equal_', PACKAGE = 'gRbase', tab1, tab2, eps)
+}
+
+tab_list_mult_ <- function(lst) {
+    .Call('gRbase_tab_list_mult_', PACKAGE = 'gRbase', lst)
+}
+
+tab_list_add_ <- function(lst) {
+    .Call('gRbase_tab_list_add_', PACKAGE = 'gRbase', lst)
+}
+
 is_number_vector_ <- function(obj) {
     .Call('gRbase_is_number_vector_', PACKAGE = 'gRbase', obj)
 }
@@ -147,102 +250,6 @@ is_named_array_ <- function(obj) {
 
 dimnames_match_ <- function(tab1, tab2, verbose = FALSE) {
     .Call('gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
-}
-
-cell2entry_cpp <- function(cell, dim) {
-    .Call('gRbase_cell2entry_cpp', PACKAGE = 'gRbase', cell, dim)
-}
-
-cell2entry2_cpp <- function(cell, plevels) {
-    .Call('gRbase_cell2entry2_cpp', PACKAGE = 'gRbase', cell, plevels)
-}
-
-nextCell_cpp <- function(cell, dim) {
-    .Call('gRbase_nextCell_cpp', PACKAGE = 'gRbase', cell, dim)
-}
-
-nextCellSlicePrim_cpp <- function(cell, dim, sliceIndic) {
-    .Call('gRbase_nextCellSlicePrim_cpp', PACKAGE = 'gRbase', cell, dim, sliceIndic)
-}
-
-nextCellSlice_cpp <- function(cell, dim, sliceSet) {
-    .Call('gRbase_nextCellSlice_cpp', PACKAGE = 'gRbase', cell, dim, sliceSet)
-}
-
-slice2entry_cpp <- function(sliceCell, sliceSet, dim) {
-    .Call('gRbase_slice2entry_cpp', PACKAGE = 'gRbase', sliceCell, sliceSet, dim)
-}
-
-getCellNumberPrim_cpp <- function(cell, perm, pvec) {
-    .Call('gRbase_getCellNumberPrim_cpp', PACKAGE = 'gRbase', cell, perm, pvec)
-}
-
-getCellNumber_cpp <- function(cell, dim, perm) {
-    .Call('gRbase_getCellNumber_cpp', PACKAGE = 'gRbase', cell, dim, perm)
-}
-
-permuteCellEntries_cpp <- function(perm, dim) {
-    .Call('gRbase_permuteCellEntries_cpp', PACKAGE = 'gRbase', perm, dim)
-}
-
-.testOperations <- function(t1, t2) {
-    .Call('gRbase_testOperations', PACKAGE = 'gRbase', t1, t2)
-}
-
-aperm__ <- function(tab, perm) {
-    .Call('gRbase_aperm__', PACKAGE = 'gRbase', tab, perm)
-}
-
-tabPerm__ <- function(tab, perm) {
-    .Call('gRbase_tabPerm__', PACKAGE = 'gRbase', tab, perm)
-}
-
-tabExpand__ <- function(tab1, tab2) {
-    .Call('gRbase_tabExpand__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabAlign__ <- function(tab1, tab2) {
-    .Call('gRbase_tabAlign__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabMarg__ <- function(tab1, marg) {
-    .Call('gRbase_tabMarg__', PACKAGE = 'gRbase', tab1, marg)
-}
-
-tabMult__ <- function(tab1, tab2) {
-    .Call('gRbase_tabMult__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabDiv__ <- function(tab1, tab2) {
-    .Call('gRbase_tabDiv__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabDiv0__ <- function(tab1, tab2) {
-    .Call('gRbase_tabDiv0__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabAdd__ <- function(tab1, tab2) {
-    .Call('gRbase_tabAdd__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabSubt__ <- function(tab1, tab2) {
-    .Call('gRbase_tabSubt__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tabOp__ <- function(tab1, tab2, op = '*') {
-    .Call('gRbase_tabOp__', PACKAGE = 'gRbase', tab1, tab2, op)
-}
-
-tabEqual__ <- function(tab1, tab2, eps = 1e-12) {
-    .Call('gRbase_tabEqual__', PACKAGE = 'gRbase', tab1, tab2, eps)
-}
-
-tabListMult__ <- function(lst) {
-    .Call('gRbase_tabListMult__', PACKAGE = 'gRbase', lst)
-}
-
-tabListAdd__ <- function(lst) {
-    .Call('gRbase_tabListAdd__', PACKAGE = 'gRbase', lst)
 }
 
 is_subsetof_ <- function(x, set) {

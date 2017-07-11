@@ -75,6 +75,53 @@ ellK <- function (K, S, n)
 
 ## FIXME: pairs2num: Cpp implementation
 pairs2num <- function(x, vn, sort=TRUE){
+    if (is.null(x)) return(NULL)
+
+    if (inherits(x, "matrix")){
+        if (dim(x)[2L] != 2)
+            stop("matrix does not have two colums")
+    }
+    else if (inherits(x, "list")){        
+        if (!(all(sapply(x, length) == 2)) )
+            stop("Not all elements in x have length 2")        
+        x <- do.call(rbind, x)
+    }
+    else if (inherits(x, "character")){
+        if (length(x) != 2)
+            stop("x does not have length 2")
+        x <- matrix(x, nrow=1)    
+    }
+
+  ## From here x should be a p x 2 matrix
+
+  dd <- dim(x)
+  if (dd[1L] == 0){
+      return(numeric(0))
+  } else {
+      if (sort){
+          i     <- x[, 2L]< x[, 1L]
+          c1    <- i + 1L
+          c2    <- -1L * (i - 1L) + 1L
+          x  <- cbind(x[cbind(seq_along(c1), c1)],
+                      x[cbind(seq_along(c2), c2)])
+        }
+      ans       <- match(x, vn)
+      dim(ans)  <- dim(x)
+      colSumsPrim(t.default(ans) * c(100000, 1))
+      ## ans[,1L] <- ans[,1L] * 100000L
+##       rowSumsPrim(ans)
+    }
+}
+
+
+
+
+## OLD VERSION
+## Codes a p x 2 matrix of characters or a list with pairs
+## of characters into a vector of numbers.
+
+## FIXME: pairs2num: Cpp implementation
+pairs2num <- function(x, vn, sort=TRUE){
   if (class(x)!="matrix"){
     if (is.null(x))
       return(NULL)
@@ -108,6 +155,10 @@ pairs2num <- function(x, vn, sort=TRUE){
     }
 }
 
+
+
+
+
 ####################################################
 ####
 #### Create all possible pairs from a vector
@@ -119,39 +170,41 @@ pairs2num <- function(x, vn, sort=TRUE){
 ####################################################
 
 ## FIXME: names2pairs: Cpp implementation (code is in mail somewhere)
+
 names2pairs <- function(x, y=NULL, sort=TRUE, result="list"){
-  result <- match.arg(result, c("list","matrix"))
+  result <- match.arg(result, c("list", "matrix"))
   lenx <- length(x)
   leny <- length(y)
-  if (leny==0){
-    if (lenx==1){
-      if (result=="matrix")
-        return(matrix(nrow=0,ncol=2))
+
+  if (leny == 0){
+    if (lenx == 1){
+      if (result == "matrix")
+        return(matrix(nrow=0, ncol=2))
       else
         return(list())
     } else {
-      cc   <- combnPrim(1:length(x),2)
-      ans  <- x[cc]
-      dim(ans) <- dim(cc)
+      cc   <- combnPrim(1:length(x), 2)
+      out  <- x[cc]
+      dim(out) <- dim(cc)
       if (sort){
-        idx <- ans[1,]>ans[2,]
-        ans[1:2,idx] <- ans[2:1,idx]
+        idx <- out[1,] > out[2, ]
+        out[1:2,idx] <- out[2:1, idx]
       }
-      if (result=="matrix")
-        return(t.default(ans))
+      if (result == "matrix")
+        return(t.default(out))
       else
-        return(colmat2list(ans))
+        return(colmat2list(out))
     }
   } else {
-    ans <- cbind(rep(x, each=leny), rep(y, times=lenx))
+    out <- cbind(rep(x, each=leny), rep(y, times=lenx))
     if (sort){
-      idx <- ans[,1]>ans[,2]
-      ans[idx, 1:2] <- ans[idx,2:1]
+      idx <- out[,1] > out[,2]
+      out[idx, 1:2] <- out[idx, 2:1]
     }
-    if (result=="matrix")
-      return(ans)
-    else
-      rowmat2list(ans)
+    if (result == "matrix")
+      return(out) 
+    else 
+      rowmat2list(out)
   }
 }
 

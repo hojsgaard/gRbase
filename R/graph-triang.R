@@ -137,8 +137,8 @@ triang_eloMAT <- function(amat, order=NULL){
     if (!inherits(amat, c("matrix", "dgCMatrix")))
         stop("'amat' must be dense or sparse dgCMatrix")
 
-    if (!is.null(order) && !inherits(order, c("character", "numeric")))
-        stop("'order' must be NULL or a character or numeric vector")
+    if (!is.null(order) && !inherits(order, c("character", "numeric", "integer")))
+        stop("'order' must be NULL or a character, numeric or integer vector")
     
     if (inherits(amat, "matrix"))
         amat <- as(amat, "dgCMatrix")
@@ -148,8 +148,6 @@ triang_eloMAT <- function(amat, order=NULL){
     if (is.null(order)) order <- seq_along(vn)
     else if (is.character(order)) order <- match(order, vn)
 
-    ## print(order)
-    
     if (any(is.na(order))) stop("NAs in order\n")
     if (max(order) > length(vn)) stop("max of order too large")
     if (min(order) < 1) stop("min of order too large")
@@ -159,9 +157,11 @@ triang_eloMAT <- function(amat, order=NULL){
     if (length(order) < length(vn))
         order <- c(order, seq_along(vn)[-order])
 
+    ##cat(sprintf("elimination order: %s\n", toString(order)))
+
     ## str(list(order, vn[order]))
 
-    triang_eloMAT_(amat, order - 1)
+    triang_eloMAT_(amat, order)
 }
 
 

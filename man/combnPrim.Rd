@@ -50,11 +50,10 @@ system.time({ for (i in 1:100) { combn(x,m, simplify=FALSE) }})
 
 
 }
-\author{
-P. T. Wallace and Søren Højsgaard
-}
 \seealso{
 \code{\link{combn}}
 }
+\author{
+P. T. Wallace and Søren Højsgaard
+}
 \keyword{utilities}
-

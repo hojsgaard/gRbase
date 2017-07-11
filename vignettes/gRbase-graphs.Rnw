@@ -86,6 +86,7 @@ options(useFancyQuotes="UTF-8")
 <<echo=F>>=
 library(gRbase)
 library(graph)
+library(Rgraphviz)
 @
 
 \tableofcontents

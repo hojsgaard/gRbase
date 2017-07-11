@@ -5,6 +5,8 @@
 \alias{mpd}
 \alias{mpd.default}
 \alias{mpdMAT}
+\alias{mpd.default}
+\alias{mpdMAT}
 \title{Maximal prime subgraph decomposition}
 \usage{
 mpd(object, tobject = minimalTriang(object), details = 0)
@@ -48,10 +50,6 @@ if (interactive()) plot(as(g1m, "graphNEL"))
 x <- mpdMAT(g1m)
 
 }
-\author{
-Clive Bowsher \email{C.Bowsher@statslab.cam.ac.uk} with
-    modifications by Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \references{
 Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
     Subgraph Decomposition of Bayesian Networks. IEEE TRANSACTIONS ON
@@ -64,5 +62,8 @@ Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
     \code{\link{rip}}, \code{\link{ripMAT}}, \code{\link{triangulate}},
     \code{\link{triangulateMAT}}
 }
+\author{
+Clive Bowsher \email{C.Bowsher@statslab.cam.ac.uk} with
+    modifications by Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

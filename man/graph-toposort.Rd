@@ -6,6 +6,8 @@
 \alias{topoSort.default}
 \alias{topoSortMAT}
 \alias{topoSort_vparList}
+\alias{topoSort.default}
+\alias{topoSortMAT}
 \title{Topological sort of vertices in directed acyclic graph}
 \usage{
 topoSort(object, index = FALSE)
@@ -45,6 +47,7 @@ A topological ordering of a directed graph is a linear
  The workhorse is the \code{topoSortMAT} function
     which takes an adjacency matrix as input
 }
+
 \examples{
 
 dagMAT  <- dag(~a:b:c+c:d:e, result="matrix")
@@ -56,11 +59,10 @@ topoSort(dagMATS)
 topoSort(dagNEL)
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{dag}}, \code{\link{ug}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

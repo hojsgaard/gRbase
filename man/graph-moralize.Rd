@@ -5,6 +5,7 @@
 \alias{moralize}
 \alias{moralize.default}
 \alias{moralizeMAT}
+\alias{moralize.default}
 \title{Moralize a directed acyclic graph}
 \usage{
 moralize(object, ...)
@@ -16,10 +17,10 @@ moralize(object, ...)
 \code{graphNEL} object, an \code{igraph}, a (dense)
 \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
+\item{\dots}{Additional arguments, currently not used}
+
 \item{result}{The representation of the moralized graph.  When NULL
 the representation will be the same as the input object.}
-
-\item{\dots}{Additional arguments, currently not used}
 }
 \value{
 A moralized graph represented either as a \code{graphNEL}, a
@@ -49,12 +50,11 @@ moralize(G)
 }
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{mcs}}, \code{\link{jTree}}, \code{\link{rip}},
     \code{\link{ug}}, \code{\link{dag}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

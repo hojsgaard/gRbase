@@ -56,10 +56,10 @@ SEXP R_colSums(SEXP X)
   PROTECT(ans = allocVector(REALSXP, ncx));
   ansptr = REAL(ans);
 
-  for (jj=0; jj<ncx; jj++){
-    sum=0;
-    for (ii=0; ii<nrx; ii++){
-      sum=sum+xptr[ii+nrx*jj];
+  for (jj = 0; jj < ncx; jj++){
+    sum = 0;
+    for (ii = 0; ii < nrx; ii++){
+      sum=sum + xptr[ii + nrx * jj];
     }
     ansptr[jj] = sum;
   }
@@ -90,18 +90,18 @@ SEXP R_colwiseProd(SEXP V, SEXP X)
   ansptr = REAL(ans);
   
   kk = 0;
-  for (jj=0; jj<ncx; jj++){
+  for (jj = 0; jj < ncx; jj++){
     //Rprintf("kk=%i len_V=%i\n", kk, len_V);
     for (ii=0; ii<nrx; ii++){
-      ansptr[ii+nrx*jj] = vptr[kk]*xptr[ii+nrx*jj];
+      ansptr[ii + nrx * jj] = vptr[kk] * xptr[ii + nrx * jj];
     }
     kk++;
-    if ((kk==len_V)){
+    if (kk == len_V){
       //Rprintf("HERE: kk=%i len_V=%i\n", kk, len_V);
       kk=0;
     }
   }
-
+  
   UNPROTECT(3);
   return(ans);
 }

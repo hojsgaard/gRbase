@@ -3,22 +3,37 @@
 \name{graph-is}
 \alias{graph-is}
 \alias{is.DAG}
-\alias{is.DAG.default}
 \alias{is.DAG.graphNEL}
+\alias{is.DAG.default}
 \alias{is.DAGMAT}
 \alias{is.DG}
-\alias{is.DG.default}
 \alias{is.DG.graphNEL}
+\alias{is.DG.default}
 \alias{is.DGMAT}
-\alias{is.TUG}
-\alias{is.TUG.default}
-\alias{is.TUG.graphNEL}
-\alias{is.TUGMAT}
 \alias{is.UG}
-\alias{is.UG.default}
 \alias{is.UG.graphNEL}
+\alias{is.UG.default}
 \alias{is.UGMAT}
+\alias{is.TUG}
+\alias{is.TUG.graphNEL}
+\alias{is.TUG.default}
+\alias{is.TUGMAT}
 \alias{is.adjMAT}
+\alias{is.DAG.graphNEL}
+\alias{is.DAG.default}
+\alias{is.DAGMAT}
+\alias{is.UG}
+\alias{is.UG.graphNEL}
+\alias{is.UG.default}
+\alias{is.UGMAT}
+\alias{is.TUG}
+\alias{is.TUG.graphNEL}
+\alias{is.TUG.default}
+\alias{is.TUGMAT}
+\alias{is.DG}
+\alias{is.DG.graphNEL}
+\alias{is.DG.default}
+\alias{is.DGMAT}
 \title{Check properties of graphs.}
 \usage{
 is.DAG(object)
@@ -159,11 +174,10 @@ is.UG(ugNEL)
 
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{dag}}, \code{\link{ug}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

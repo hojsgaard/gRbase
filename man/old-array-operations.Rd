@@ -2,16 +2,16 @@
 % Please edit documentation in R/t_array-operations-bristol.R
 \name{old-array-operations}
 \alias{old-array-operations}
-\alias{tableDiv}
-\alias{tableGetSliceIndex}
-\alias{tableMargin}
+\alias{tablePerm}
 \alias{tableMult}
+\alias{tableDiv}
 \alias{tableOp}
 \alias{tableOp2}
-\alias{tablePerm}
-\alias{tableSetSliceValue}
 \alias{tableSlice}
 \alias{tableSlicePrim}
+\alias{tableMargin}
+\alias{tableGetSliceIndex}
+\alias{tableSetSliceValue}
 \title{Array operations (2007)}
 \usage{
 tablePerm(tab, perm, resize = TRUE, keep.class = FALSE)
@@ -68,4 +68,3 @@ Array operations; created to facilitate the gRain package in
     2007. Now largely replaceable by other faster functions implemented in
     Rcpp.
 }
-

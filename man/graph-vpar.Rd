@@ -3,15 +3,15 @@
 \name{graph-vpar}
 \alias{graph-vpar}
 \alias{vchi}
-\alias{vchi.Matrix}
-\alias{vchi.graphNEL}
-\alias{vchi.matrix}
 \alias{vchiMAT}
+\alias{vchi.graphNEL}
+\alias{vchi.Matrix}
+\alias{vchi.matrix}
 \alias{vpar}
-\alias{vpar.Matrix}
-\alias{vpar.graphNEL}
-\alias{vpar.matrix}
 \alias{vparMAT}
+\alias{vpar.graphNEL}
+\alias{vpar.Matrix}
+\alias{vpar.matrix}
 \title{List of vertices and their parents for graph.}
 \usage{
 vchi(object, getv = TRUE, forceCheck = TRUE)
@@ -87,4 +87,3 @@ vpar(ugNEL,FALSE)
 \seealso{
 \code{\link{dag}}, \code{\link{ug}}
 }
-

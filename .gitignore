@@ -20,6 +20,22 @@
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+vignettes/fig/*.pdf
+
+*.log
+*.toc
+*.auc
+*.ind
+*.o
+*.so
+*.dll
+*.zip
+
+*.aux
+*.tex
+
+fig/*.pdf
+
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth

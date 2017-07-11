@@ -4,6 +4,7 @@
 \alias{graph-iplot}
 \alias{iplot}
 \alias{iplot.graphNEL}
+\alias{iplot.graphNEL}
 \title{Function for plotting graphs using the 'igraph' package.}
 \usage{
 iplot(x, ...)
@@ -29,4 +30,3 @@ iplot(UG)
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \keyword{graphics}
-

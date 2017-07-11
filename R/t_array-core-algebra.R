@@ -9,10 +9,13 @@
 ## ###############################################
 #' 
 #' @param a,a1,a2,... Arrays (with named dimnames)
+#' @param tab1,tab2 Arrays (with named dimnames)
 #' 
 #' @aliases %a+% %a-% %a*% %a/% %a/0%
-#'     tabAdd tabSubt tabMult tabDiv tabDiv0
+#'     tabAdd tabDiv tabDiv0 tabMult tabSubt  
 #'     tabSum tabProd
+#' 
+## #' tab_add_ tab_div0_ tab_div_ tab_mult_ tab_subt_ tab_op_
 #' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @examples
@@ -30,6 +33,18 @@
 #' ar_sum(a1, a2, a3)
 #' ar_prod(a1, a2, a3)
 #' 
+
+
+## ------------------------
+## Aliases for cpp functions
+## -------------------------
+tabAdd    <- tab_add_
+tabDiv    <- tab_div_
+tabDiv0   <- tab_div0_
+tabMult   <- tab_mult_
+tabSubt   <- tab_subt_
+tabListMult <- tab_list_mult_
+tabListAdd  <- tab_list_add_
 
 
 
@@ -65,7 +80,7 @@ tabSum <- function(...){
     ##message("args:"); print(args); message("-------")
     if (length(args)==0) 0
     else if (length(args)==1 && is.array(args[[1]])) args[[1]]
-    else tabListAdd__( args )
+    else tabListAdd( args )
 }
 
 ## #' @rdname array-algebra
@@ -74,7 +89,7 @@ tabProd <- function(...){
     ##message("args:"); print(args); message("-------")
     if (length(args)==0) 1
     else if (length(args)==1 && is.array(args[[1]])) args[[1]]
-    else tabListMult__( args )
+    else tabListMult( args )
 }
 
 #' @rdname array-algebra

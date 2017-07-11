@@ -5,6 +5,8 @@
 \alias{triangulate}
 \alias{triangulate.default}
 \alias{triangulateMAT}
+\alias{triangulate.default}
+\alias{triangulateMAT}
 \title{Triangulation of an undirected graph}
 \usage{
 triangulate(object, ...)
@@ -81,13 +83,12 @@ uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
 tuG2 <- triangulate(uG2)
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},
     \code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
     \code{\link{moralize}}, \code{\link{moralizeMAT}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

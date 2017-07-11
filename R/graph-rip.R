@@ -218,27 +218,29 @@ print.ripOrder <- function(x, ...){
 
 ## @rdname graph-rip
 plot.ripOrder <- function(x, ...){
-    .createJTreeGraph <- function(rip){
-        if (length(rip$cliques)>1){
-            ft <-cbind(rip$parents, 1:length(rip$parents))
-            ft <- ft[ft[,1]!=0,, drop=FALSE]
-            V <- seq_along(rip$parents)
-            if (nrow(ft)==0){
-                jt <- new("graphNEL", nodes = as.character(V), edgemode = "undirected")
-            } else {
-                jt <- graph::ftM2graphNEL(ft, V=as.character(V), edgemode="undirected")
-            }
-        } else {
-            jt <- new("graphNEL", nodes = "1", edgemode = "undirected")
-        }
-        return(jt)
-    }
-
-    plot( .createJTreeGraph( x ) )
-    ##plot(x$createGraph(x))
+    g <- .rip2ug(x)
+    Rgraphviz::plot(g)
 }
 
-.rip2dag<-function (rip) {
+
+.rip2ug <- function(rip){
+    if (length(rip$cliques) > 1){
+        ft <-cbind(rip$parents, 1:length(rip$parents))
+        ft <- ft[ft[, 1] != 0, , drop=FALSE]
+        V <- seq_along(rip$parents)
+        if (nrow(ft) == 0){
+            jt <- new("graphNEL", nodes = as.character(V), edgemode = "undirected")
+        } else {
+            jt <- graph::ftM2graphNEL(ft, V=as.character(V), edgemode="undirected")
+        }
+    } else {
+        jt <- new("graphNEL", nodes = "1", edgemode = "undirected")
+    }
+    jt
+}
+
+
+.rip2dag <- function (rip) {
   if (length(rip$cliques) > 1) {
     ft <- cbind(rip$parents, 1:length(rip$parents))
     ft <- ft[ft[, 1] != 0, , drop = FALSE]

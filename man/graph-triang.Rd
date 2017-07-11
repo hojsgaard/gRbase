@@ -4,12 +4,12 @@
 \alias{graph-triang}
 \alias{triang}
 \alias{triang.default}
+\alias{triang_mcwh}
+\alias{triang_mcwh.default}
 \alias{triang_elo}
 \alias{triang_elo.default}
 \alias{triang_eloMAT}
 \alias{triang_eloMAT_}
-\alias{triang_mcwh}
-\alias{triang_mcwh.default}
 \title{Triangulation of an undirected graph}
 \usage{
 triang(object, ...)
@@ -113,13 +113,12 @@ tuG1 <- triang(uG1, control=list(method="elo", order=c("a", "e", "f")))
 tuG1 <- triang_elo(uG1, order=c("a", "e", "f"))
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{ug}} \code{\link{dag}} \code{\link{mcs}},
     \code{\link{mcsMAT}} \code{\link{rip}}, \code{\link{ripMAT}},
     \code{\link{moralize}}, \code{\link{moralizeMAT}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

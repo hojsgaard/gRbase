@@ -2,15 +2,20 @@
 % Please edit documentation in R/graph-rip.R
 \name{graph-rip}
 \alias{graph-rip}
+\alias{rip}
+\alias{rip.default}
+\alias{ripMAT}
 \alias{jTree}
 \alias{jTree.default}
 \alias{jTreeMAT}
 \alias{junctionTree}
 \alias{junctionTree.default}
 \alias{junctionTreeMAT}
-\alias{rip}
 \alias{rip.default}
 \alias{ripMAT}
+\alias{jTree}
+\alias{jTree.default}
+\alias{jTreeMAT}
 \title{Create  RIP ordering of the cliques of  an undirected graph;
     create junction tree.}
 \usage{
@@ -97,12 +102,11 @@ jTree(uG)
 
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{mcs}} \code{\link{triangulate}}
     \code{\link{moralize}} \code{\link{ug}}, \code{\link{dag}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-

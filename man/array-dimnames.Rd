@@ -39,10 +39,9 @@ ar2
 # Hence we do not have a match.
 dimnames_match(ar1, ar2)
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{is.named.array}}
 }
-
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}

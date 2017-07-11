@@ -42,4 +42,3 @@ table(sapply(vpar(dg),length))
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \keyword{utilities}
-

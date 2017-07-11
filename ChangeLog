@@ -1,3 +1,17 @@
+2017-07-12 Søren Højsgaard <sorenh@math.aau.dk>
+
+	* Cleaning of array operations
+	
+	* Version 1.8-4 uploaded
+	
+2017-03-20 Søren Højsgaard <sorenh@math.aau.dk>
+
+	* Version 1.8-2 never made it to CRAN because of an error.
+
+	* All the registration of c-routines done
+	
+	* Version 1.8-3 uploaded
+
 2017-02-05 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Added %a==%, %a/0%, %a_% (tabMarg) %a^% tabExpand

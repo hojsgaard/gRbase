@@ -3,9 +3,9 @@
 \name{array-properties}
 \alias{array-properties}
 \alias{is.named.array}
-\alias{is_dimnames_}
 \alias{is_named_array_}
 \alias{is_number_vector_}
+\alias{is_dimnames_}
 \title{Check if object is array}
 \usage{
 is.named.array(obj)
@@ -37,4 +37,3 @@ is_number_vector_(list(1:4))
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
-

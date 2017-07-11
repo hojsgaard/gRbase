@@ -18,21 +18,23 @@
 #' @aliases tabAdd__ tabSubt__ tabMult__ tabDiv__ tabDiv0__ tabOp__ 
 #'     tabMarg__ tabEqual__ tabMarg__ tabPerm__ tabAlign__ tabExpand__
 #'     tabListAdd__ tabListMult__ tabListAdd tabListMult tabExt
-#'     tabEqual tabMarg tabCondProb tabAlign tabPerm 
+#'     tabEqual tabMarg tabCondProb tabAlign tabPerm
+#'     tab_align_ tab_expand_ tab_marg_ tab_perm_
 #'     tabSlice tabSlice2 tabSlicePrim tabSliceMult
 #'     tabExpand tabSlice2Entries tabSlice2Entries_
 #'
 #' @param tab,tab1,tab2 Multidimensional arrays.
-#' @param perm A vector of indices or dimnames giving the desired permutiation.
-#' @param marg Specification of marginal; either a character vector, a numeric
-#'     vector or a right hand sided formula For \code{ar_perm} and \code{ar_marg}
-#'     it can also be a right hand sided formula.
+#' @param perm A vector of indices or dimnames giving the desired
+#'     permutiation.
+#' @param marg Specification of marginal; either a character vector, a
+#'     numeric vector or a right hand sided formula For \code{ar_perm}
+#'     and \code{ar_marg} it can also be a right hand sided formula.
 #' @param eps Criterion for checking equality of two arrays.
 #' @param lst List of arrays.
 #' @return Most functions here return a multidimensional array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{aperm}}, \code{\link{ar_perm}}, \code{\link{ar_slice}},
-#'     \code{\link{ar_slice_entries}}
+#' @seealso \code{\link{aperm}}, \code{\link{ar_perm}},
+#'     \code{\link{ar_slice}}, \code{\link{ar_slice_entries}}
 #' @keywords utilities
 #' @examples
 #' 
@@ -91,21 +93,23 @@
 #' 
 NULL
 
-###
-### FUNCTION RENAMING (from c++ to R)
-###
 
-tabMult 	<- tabMult__
-tabDiv    <- tabDiv__
-tabDiv0   <- tabDiv0__
-tabAdd    <- tabAdd__
-tabSubt   <- tabSubt__
+## tab_align_
+## tab_equal_
+## tab_expand_
+## tab_list_add_
+## tab_list_mult_
+## tab_marg_
+## tab_perm_
 
-tabEqual  <- tabEqual__
-tabAlign  <- tabAlign__
-tabExpand <- tabExpand__  ## Rethink this
-tabListMult <- tabListMult__
-tabListAdd  <- tabListAdd__
+## ------------------------
+## Aliases for cpp functions
+## -------------------------
+tabEqual  <- tab_equal_
+tabAlign  <- tab_align_
+tabExpand <- tab_expand_  ## Rethink this
+## tabPerm   <- tab_perm_ ## NO tabPerm is defined below
+
 
 tabPerm <- function(tab, perm){
     if (!is.array(tab))
@@ -114,7 +118,7 @@ tabPerm <- function(tab, perm){
         stop("'perm' must be character or numeric vector or right hand sided formula")
     
     if ( is.numeric( perm ) ){
-        aperm__(tab, perm) ## Call C-code here
+        tab_perm_(tab, perm) ## FIXME: NEED R name here Call C-code here
     } else {
         if ( class(perm) == "formula" ){
             perm <- all.vars( perm[[2]] )
@@ -122,7 +126,7 @@ tabPerm <- function(tab, perm){
         vn <- names(dimnames( tab ))
         p <- pmatch( perm, vn )
         perm <- vn[p]
-        aperm__(tab, perm)  ## Call C-code here
+        tab_perm_(tab, perm)  # FIXME: NEED R name here Call C-code here
     }
 }
 
@@ -137,11 +141,11 @@ tabMarg <- function(tab, marg){
     if (!is.array(tab))
         stop("'tab' is not an array")
     if (is.numeric(marg) || is.character(marg)){
-        tabMarg__(tab, marg) ## Call C-code here
+        tab_marg_(tab, marg) ## Call C-code here
     } else {
         if (class(marg)== "formula"){
             marg <- all.vars(marg[[2]])
-            tabMarg__(tab, marg) ## Call C-code here
+            tab_marg_(tab, marg) ## Call C-code here
         } else {
             stop("'marg' must be character or numeric vector or a right hand sided formula")
         }
@@ -151,10 +155,10 @@ tabMarg <- function(tab, marg){
 
 
 #' @rdname array-operations
-ar_prod_list <- tabListMult__
+ar_prod_list <- tabListMult
 
 #' @rdname array-operations
-ar_sum_list <- tabListAdd__
+ar_sum_list <- tabListAdd
 
 #' @rdname array-operations
 ar_marg <- tabMarg
@@ -237,6 +241,8 @@ ar_equal <- tabEqual
 
 
 #' @rdname array-operations 
+#' @param aux Either a list with names and dimnames or a named array
+#'     from which such a list can be extracted.
 ar_expand <- tabExpand
 
 #' @rdname array-operations

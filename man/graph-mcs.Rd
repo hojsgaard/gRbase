@@ -8,6 +8,11 @@
 \alias{mcsmarked}
 \alias{mcsmarked.default}
 \alias{mcsmarkedMAT}
+\alias{mcs.default}
+\alias{mcsMAT}
+\alias{mcsmarked}
+\alias{mcsmarked.default}
+\alias{mcsmarkedMAT}
 \title{Maximum cardinality search on undirected graph.}
 \usage{
 mcs(object, root = NULL, index = FALSE)
@@ -88,12 +93,11 @@ mcsmarked(uG1, discrete=c("a","d"))
 mcsmarked(uG2, discrete=c("a","d"))
 
 }
-\author{
-Søren Højsgaard, \email{sorenh@math.aau.dk}
-}
 \seealso{
 \code{\link{moralize}}, \code{\link{jTree}},
     \code{\link{rip}}, \code{\link{ug}}, \code{\link{dag}}
 }
+\author{
+Søren Højsgaard, \email{sorenh@math.aau.dk}
+}
 \keyword{utilities}
-
