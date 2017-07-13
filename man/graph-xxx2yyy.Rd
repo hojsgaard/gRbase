@@ -2,7 +2,7 @@
 % Please edit documentation in R/graph-xxx2yyy.R
 \name{graph-xxx2yyy}
 \alias{graph-xxx2yyy}
-\alias{graphNEL2M}
+\alias{.check.that.input.is.matrix}
 \alias{glist2adjMAT}
 \alias{vpaList2adjMAT}
 \alias{vpaL2tfM}
@@ -10,7 +10,9 @@
 \alias{graphNEL2matrix}
 \alias{graphNEL2dgCMatrix}
 \alias{adjList2adjMAT}
-\alias{graphNEL2MAT}
+\alias{M2matrix}
+\alias{M2dgCMatrix}
+\alias{graphNEL2M}
 \alias{graphNEL2ftM}
 \alias{graphNEL2tfM}
 \alias{graphNEL2igraph}
@@ -25,15 +27,17 @@
 \alias{dagList2M}
 \alias{adjList2M}
 \alias{dagList2tfM}
-\alias{as.adjMAT}
 \alias{ug2dag}
-\alias{MAT2matrix}
-\alias{MAT2dgCMatrix}
+\alias{as.adjMAT}
 \title{Graph, matrix and generating class coercions}
 \usage{
-graphNEL2M(gn, result = "matrix")
+.check.that.input.is.matrix(x)
 
-graphNEL2MAT(gn, limit = 100)
+M2matrix(mat)
+
+M2dgCMatrix(mat)
+
+graphNEL2M(gn, result = "matrix")
 
 graphNEL2ftM(gn)
 
@@ -63,22 +67,17 @@ adjList2M(alist, result = "matrix")
 
 dagList2tfM(glist)
 
-as.adjMAT(gn, result = "matrix")
-
 ug2dag(gn)
 
-MAT2matrix(mat)
-
-MAT2dgCMatrix(mat)
+as.adjMAT(gn, result = "matrix")
 }
 \arguments{
+\item{mat}{Either a dense matrix or a sparse dgCMatrix.}
+
 \item{gn}{A graphNEL object}
 
 \item{result}{Either \code{"matrix"} or \code{"dgCMatrix"} (for a
 sparse matrix representation)}
-
-\item{limit}{If number of nodes is larger than \code{limit}, the
-result will be a sparse dgCMatrix; otherwise a dense matrix.}
 
 \item{amat}{Adjacency matrix}
 
@@ -92,8 +91,6 @@ means that there will be arrows from v2,...,vn to v1.}
 the row and column names of the matrix}
 
 \item{alist}{An adjacency list.}
-
-\item{mat}{Either a dense matrix or a sparse dgCMatrix.}
 }
 \value{
 An adjacency matrix (or \code{NULL} if \code{glist} has
@@ -107,10 +104,24 @@ Graph and matrix coercions where speed is an issue.
 glist <- list(1:3, 2:4, 4:5)
 am1 <- ugList2M( glist )
 am2 <- dagList2M( glist )
-if (interactive()){
+if (interactive() && require(Rgraphviz)){
   plot(as(am1, "graphNEL"))
   plot(as(am2, "graphNEL"))
 }
+
+
+m <- matrix(1:25, nrow=5)
+M <- M2dgCMatrix(m)
+m2 <- M2matrix(M)
+M2 <- M2dgCMatrix(m2)
+
+if (require(microbenchmark)){
+  microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix_(M),
+                 as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix_(m))
+}
+g <- ug(~ a:b + b:c)
+graphNEL2M(g)
+graphNEL2M(g, "dgCMatrix")
 
 
 ## Sparse and dense adjacency matrices converted to igraph
@@ -118,6 +129,7 @@ g1 <- ug(~a:b + b:c + c:d, result="matrix")
 g2 <- ug(~a:b + b:c + c:d, result="dgCMatrix")
 plot( M2igraph( g1 ) )
 plot( M2igraph( g2 ) )
+
 
 ## Sparse and dense adjacency matrices converted to graphNEL
 g1 <- ug(~a:b + b:c + c:d, result="matrix")

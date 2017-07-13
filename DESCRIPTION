@@ -3,16 +3,12 @@ Version: 1.8-4
 Title: A Package for Graphical Modelling in R
 Author: Søren Højsgaard <sorenh@math.aau.dk>
 Maintainer: Søren Højsgaard <sorenh@math.aau.dk>
-Description: The 'gRbase' package provides general features
-    which are used by other graphical modelling packages, in particular
-    by the packages 'gRain', 'gRim' and 'gRc'.
-    'gRbase' contains several data sets relevant for use in connection with
-    graphical models. Almost all data sets used in the book Graphical
-    Models with R (2012) are contained in 'gRbase'.
-    'gRbase' implements several graph algorithms (based mainly on
-    representing graphs as adjacency matrices - either in the form
-    of a standard matrix or a sparse matrix). Some graph
-    algorithms are:
+Description: The 'gRbase' package provides graphical modelling features
+    used by e.g. the packages 'gRain', 'gRim' and 'gRc'.
+    'gRbase' contains data sets relevant for use in connection with
+    graphical models (in particular all data sets used in the book Graphical
+    Models with R (2012)). 
+    'gRbase' implements graph algorithms including
     (i) maximum cardinality search (for marked and unmarked graphs).
     (ii) moralize.
     (iii) triangulate.
@@ -26,7 +22,7 @@ Description: The 'gRbase' package provides general features
     these facilities: A Common Platform for Graphical Models in R:
     The 'gRbase' Package, Journal of Statistical Software, Vol 14,
     No 17, 2005.
-    NOTICE Proper functionality of 'gRbase' requires that the packages graph,
+    NOTICE  'gRbase' requires that the packages graph,
     'Rgraphviz' and 'RBGL' are installed from 'bioconductor'; for
     installation instructions please refer to the web page given below.
 License: GPL (>= 2)
@@ -38,13 +34,13 @@ Depends:
     R (>= 3.0.2),
     methods
 Imports:
+    graph,
     igraph,
     magrittr,
     Matrix,
     Rcpp (>= 0.11.1)
 Suggests:
     Rgraphviz,
-    graph,
     RBGL,
     microbenchmark,
     knitr

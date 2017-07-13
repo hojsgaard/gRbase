@@ -6,14 +6,11 @@
 \alias{tab}
 \alias{newar}
 \alias{ar_new}
-\alias{df2xtabs}
 \title{Create multidimensional arrays}
 \usage{
 newar(names, levels, values, normalize = "none", smooth = 0)
 
 ar_new(names, levels, values, normalize = "none", smooth = 0)
-
-df2xtabs(indata, names = NULL, normalize = "none", smooth = 0)
 }
 \arguments{
 \item{names}{Names of variables defining table; a character vector or a right
@@ -29,16 +26,12 @@ hand sided formula.}
 normalized, see 'Details' below.}
 
 \item{smooth}{Should values be smoothed, see 'Details' below.}
-
-\item{indata}{A dataframe.}
 }
 \value{
 An array.
 }
 \description{
 Alternative ways of creating arrays
-
-Convert dataframe to contingency table
 }
 \details{
 If \code{normalize="first"} then for each configuration of
@@ -80,11 +73,6 @@ t2 <- ar_new(~gender:answer, levels=universe, values=1:4)
 t2
 t3 <- ar_new(~gender:answer, c(2,2), values=1:4)
 t3
-## Extract arrays from dataframe (much like xtabs() but with more flexibility)
-data(cad1) 
-df2xtabs(cad1, ~Sex:AngPec:AMI)
-df2xtabs(cad1, c("Sex","AngPec","AMI"))
-df2xtabs(cad1, c(1,2,3))
 }
 \seealso{
 \code{\link{ar_perm}}, \code{\link{ar_add}}, \code{\link{ar_prod}} etc.

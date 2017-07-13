@@ -1,3 +1,5 @@
+## FIXME: u_setops: Document with roxygen
+
 maximalSets <- function(setlist, index=FALSE){
  if (length(setlist)<=1){
     if (index)

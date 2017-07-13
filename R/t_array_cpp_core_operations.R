@@ -30,7 +30,7 @@
 #'     numeric vector or a right hand sided formula For \code{ar_perm}
 #'     and \code{ar_marg} it can also be a right hand sided formula.
 #' @param eps Criterion for checking equality of two arrays.
-#' @param lst List of arrays.
+## #' @param lst List of arrays.
 #' @return Most functions here return a multidimensional array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{aperm}}, \code{\link{ar_perm}},
@@ -94,22 +94,17 @@
 NULL
 
 
-## tab_align_
-## tab_equal_
-## tab_expand_
-## tab_list_add_
-## tab_list_mult_
-## tab_marg_
-## tab_perm_
-
 ## ------------------------
 ## Aliases for cpp functions
 ## -------------------------
 tabEqual  <- tab_equal_
 tabAlign  <- tab_align_
 tabExpand <- tab_expand_  ## Rethink this
-## tabPerm   <- tab_perm_ ## NO tabPerm is defined below
+## --- END ---
 
+## -------------------------
+## Additional functionality
+## -------------------------
 
 tabPerm <- function(tab, perm){
     if (!is.array(tab))
@@ -130,13 +125,6 @@ tabPerm <- function(tab, perm){
     }
 }
 
-
-## #' @rdname array-operations
-## .arperm <- tabPerm
-
-#' @rdname array-operations
-ar_perm <- tabPerm
-
 tabMarg <- function(tab, marg){
     if (!is.array(tab))
         stop("'tab' is not an array")
@@ -155,19 +143,19 @@ tabMarg <- function(tab, marg){
 
 
 #' @rdname array-operations
-ar_prod_list <- tabListMult
-
-#' @rdname array-operations
-ar_sum_list <- tabListAdd
-
-#' @rdname array-operations
-ar_marg <- tabMarg
-
-#' @rdname array-operations
 ar_equal <- tabEqual
 
 #' @rdname array-operations
 "%a==%" <- function(tab1, tab2){tabEqual(tab1,tab2)}
+
+
+
+#' @rdname array-operations
+ar_perm <- tabPerm
+
+#' @rdname array-operations
+ar_marg <- tabMarg
+
 
 #' @rdname array-operations
 "%a_%" <- function(tab1, marg){tabMarg(tab1, marg)}
@@ -181,6 +169,11 @@ ar_equal <- tabEqual
 #' aa %a^% list(b=1:2)
 #' 
 "%a^%" <- function(tab1, extra){tabExpand(tab1, extra)}
+
+
+
+## #' @rdname array-operations
+## .arperm <- tabPerm
 
 
 

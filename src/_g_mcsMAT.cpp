@@ -27,7 +27,7 @@ typedef MSpMat::InnerIterator InIterMat;
 
 /* ***********************************************************
   internal_mcsMAT_sp: Maximum cardinality search
-  X: Adjacency matrix
+  X: Adjacency matrix (Sparse!)
   OO_: Desired ordering; followed as far as possible.
  *************************************************************/
 

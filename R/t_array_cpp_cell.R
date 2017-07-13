@@ -1,5 +1,31 @@
+## #########################################################################
+##
+## Interface to cpp functions for indexing multidimensional arrays
+##
+## Autor: Søren Højsgaard
+##
+## Known issues:
+##
+## FIXME: Naming of arguments; e.g. that sliceset should
+## perhaps be marginal etc.
+##
+## FIXME: Should be documented with roxygen
+##
+## #########################################################################
 
+
+## --------------------------
+## Aliases for cpp functions
+## --------------------------
 cell2entry <- cell2entry_
+nextCell <- next_cell_
+nextCellSlice <- next_cell_slice_
+slice2entry <- slice2entry_
+## --- END ---
+
+## -------------------------
+## Additional functionality
+## -------------------------
 
 entry2cell <- function(entry, dim, plev=cumprod(dim)/dim){
   cell <- rep(NA, length(dim))
@@ -11,11 +37,6 @@ entry2cell <- function(entry, dim, plev=cumprod(dim)/dim){
   cell + 1
 }
 
-nextCell <- next_cell_
-
-nextCellSlice <- next_cell_slice_
-
-slice2entry <- slice2entry_
 
 ## -----------------------------------------------------------
 ## factgrid
@@ -37,8 +58,8 @@ factGrid <- function(dim, slicecell=NULL, sliceset=NULL){
 
   cell    <- rep(1, nc)
                                         #print(cell)
-  mm[1,]  <- cell
-  if (nr>1)
+  mm[1, ]  <- cell
+  if (nr > 1)
     for (ii in 2:nr){
       cell <- nextCell(cell, dim)
                                         #print(cell)
@@ -56,8 +77,8 @@ factGrid <- function(dim, slicecell=NULL, sliceset=NULL){
   cell    <- rep(1, nc)
   cell[sliceset] <- slicecell
                                         #print(cell)
-  mm[1,]  <- cell
-  if (nr>1)
+  mm[1, ]  <- cell
+  if (nr > 1)
     for (ii in 2:nr){
       cell <- nextCellSlice(cell, sliceset, dim)
                                         #print(cell)

@@ -5,7 +5,7 @@
 
 #include <Rcpp.h>
 #include "concatenate.h"          // my version of c(x,y)
-#include "_t_array_properties.h"  // my version of c(x,y)
+#include "t_array_properties.h"  // my version of c(x,y)
 
 using namespace Rcpp;
 using namespace std;
@@ -25,7 +25,7 @@ typedef Rcpp::CharacterVector chrVec;
   default: Rf_error("Unsupported type");	\
   }						\
 
-// 3/1/2015: A hack because setequal is broken
+// FIXME: 3/1/2015: A hack because setequal is broken
 bool seteq_(CharacterVector x, CharacterVector y){
   return
 	(((CharacterVector) setdiff(x,y)).length()==0) &
@@ -66,8 +66,8 @@ bool is_valid_perm_(const IntegerVector& adim, const IntegerVector& permi){
 inline IntegerVector make_prod(const int ndim, const IntegerVector& adim ){
   IntegerVector plevels = no_init( ndim );
   plevels[0] = 1;
-  for (int i=1; i < ndim; ++i){
-    plevels[i] =  adim[i-1] * plevels[i-1];
+  for (int i = 1; i < ndim; ++i){
+    plevels[i] =  adim[i - 1] * plevels[i - 1];
   }
   return plevels;
 }
@@ -147,11 +147,6 @@ Vector<RTYPE> do_aperm_gen(const Vector<RTYPE>& tab, const SEXP& perm){
   return R_NilValue ;
 }
 
-// [[Rcpp::export]]
-SEXP tabPerm__(const SEXP& tab, const SEXP& perm){
-  DISPATCH1_METHOD(do_aperm_gen, tab, perm);
-  return R_NilValue ;
-}
 
 // [[Rcpp::export]]
 SEXP tab_perm_(const SEXP& tab, const SEXP& perm){
@@ -386,10 +381,6 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
   }
   return R_NilValue ;
 }
-
-
-//SEXP tabMarg__(const SEXP& tab, const SEXP& marg){
-
 
 
 

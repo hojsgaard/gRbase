@@ -51,7 +51,6 @@
 
 ## glist2setMAT <- function(glist,vn=unique(unlist(glist))){
 
-
 #' @title Graph, matrix and generating class coercions
 #'
 #' @description Graph and matrix coercions where speed is an issue.
@@ -79,76 +78,92 @@
 #' glist <- list(1:3, 2:4, 4:5)
 #' am1 <- ugList2M( glist )
 #' am2 <- dagList2M( glist )
-#' if (interactive()){
+#' if (interactive() && require(Rgraphviz)){
 #'   plot(as(am1, "graphNEL"))
 #'   plot(as(am2, "graphNEL"))
 #' }
 #' 
 
+.check.that.input.is.matrix <- function(x){
+    if (!inherits(x, c("matrix", "dgCMatrix")))
+        stop("Input must be a matrix or a dgCMatrix\n")
+}
+
+
+## ------------------------------------------------
+##
+## Convert between matrix and dgCMatrix
+##
+## ------------------------------------------------
+
+##matrix2dgCMatrix <- matrix2dgCMatrix_
+##dgCMatrix2matrix <- dgCMatrix2matrix_
+
+## FIXME: Not too good that M2matrix_ is called directly by M2matrix
+
+#' @rdname graph-xxx2yyy
+#' @param mat Either a dense matrix or a sparse dgCMatrix.
+#'
+#' @examples
+#'
+#' m <- matrix(1:25, nrow=5)
+#' M <- M2dgCMatrix(m)
+#' m2 <- M2matrix(M)
+#' M2 <- M2dgCMatrix(m2)
+#'
+#' if (require(microbenchmark)){
+#'   microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix_(M),
+#'                  as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix_(m))
+#' }
+
+M2matrix <- function( mat ){
+    .check.that.input.is.matrix( mat )
+    M2matrix_(mat)
+}
+
+#' @rdname graph-xxx2yyy
+M2dgCMatrix <- function( mat ){
+    .check.that.input.is.matrix( mat )
+    M2dgCMatrix_(mat)
+}
+
+
 
 
 ## #################################################################
 ##
-## graphNEL 2 something
+## graphNEL2something
 ##
 ## #################################################################
 
 #' @rdname graph-xxx2yyy
 #' @param gn A graphNEL object
+#'
+#' @examples
+#' g <- ug(~ a:b + b:c)
+#' graphNEL2M(g)
+#' graphNEL2M(g, "dgCMatrix")
+#' 
 graphNEL2M <- function(gn, result="matrix"){
-    if( class(gn) != "graphNEL" )
-        stop("'gn' must be a graphNEL object...")
+    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")    
     adjList2M( graph::edges(gn), result=result )
 }
-
-#' @rdname graph-xxx2yyy
-#' @param limit If number of nodes is larger than \code{limit}, the
-#'     result will be a sparse dgCMatrix; otherwise a dense matrix.
-graphNEL2MAT <- function(gn, limit=100){
-    if( class(gn) != "graphNEL" )
-        stop("'gn' must be a graphNEL object...")
-
-    result <-
-        if ( length( graph::nodes(gn) ) > limit )
-            "dgCMatrix" else "matrix"
-
-    adjList2M( graph::edges(gn), result=result )
-}
-
-## Never used
-## #' @rdname graph-xxx2yyy
-graphNEL2matrix    <- function(gn){
-    graphNEL2M(gn, result="matrix")
-}
-
-## FIXME graphNEL2dgCMatrix to be replaced with graphNEL2M( , "matrix") Used a lot
-## #' @rdname graph-xxx2yyy
-graphNEL2dgCMatrix <- function(gn){
-    graphNEL2M(gn, result="Matrix")
-}
-
-## FIXME graphNEL2adjMAT used by HydeNet package; I do not use it.
-## FIXME graphNEL2adjMAT replace by graphNEL2M(, "matrix")
-graphNEL2adjMAT <- graphNEL2M
-
 
 #' @rdname graph-xxx2yyy
 graphNEL2ftM <- function(gn){
-    if( class(gn) != "graphNEL" )
-        stop("'gn' must be a graphNEL object...")
+    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")    
     adjList2ftM(graph::edges(gn))
 }
 
 #' @rdname graph-xxx2yyy
 graphNEL2tfM <- function(gn){
-    if( class(gn) != "graphNEL" )
-        stop("'gn' must be a graphNEL object...")
+    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")    
     adjList2tfM(graph::edges(gn))
 }
 
-
 #' @rdname graph-xxx2yyy
 graphNEL2igraph <- function( gn ){
+    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
     gg <- igraph::igraph.from.graphNEL( gn )
     igraph::V(gg)$label <- igraph::V(gg)$name
     gg
@@ -157,7 +172,7 @@ graphNEL2igraph <- function( gn ){
 
 ## #################################################################
 ##
-## matrix/dgCMatrix 2 YYY
+## matrix/dgCMatrix 2 something
 ##
 ## #################################################################
 
@@ -170,6 +185,7 @@ graphNEL2igraph <- function( gn ){
 #' g2 <- ug(~a:b + b:c + c:d, result="dgCMatrix")
 #' plot( M2igraph( g1 ) )
 #' plot( M2igraph( g2 ) )
+#' 
 M2igraph <- function( amat ){
     if (isSymmetric( amat )){
         gg <- igraph::graph.adjacency( amat , mode="undirected")
@@ -207,7 +223,7 @@ M2adjList <- function( amat ){
     .check.that.input.is.matrix( amat )
     vn <- colnames( amat )
     if (!isadjMAT_( amat ))
-        stop("' amat ' is not an adjacency matrix\n")
+        stop("' amat ' not an adjacency matrix\n")
     r  <- rowmat2list( amat )
     i  <- lapply(r, function(z) which(z!=0))
     out <- lapply(i, function(j) vn[j])
@@ -248,10 +264,9 @@ M2dagList <- function( amat ){
     .check.that.input.is.matrix( amat )
     vn <- colnames( amat )
     c  <- colmat2list( amat )
-    i  <- lapply(c, function(z) which(z!=0))
+    i  <- lapply(c, function(z) which(z != 0))
     i  <- lapply(1:length(vn), function(j) c(j, i[[j]]))
     out <- lapply(i, function(j) vn[j])
-    ##names(out) <- vn
     out
 }
 
@@ -308,10 +323,6 @@ ugList2M <- function(glist, vn=NULL, result="matrix"){
            "matrix"    = {ugList2matrix( glist, vn )}  )
 }
 
-## FIXME: glist2adjMAT Delete 
-glist2adjMAT <- ugList2M
-
-
 ## dagList2graphNEL : same as dagList( , result="graphNEL")
 
 #' @rdname graph-xxx2yyy
@@ -342,8 +353,6 @@ dagList2M <- function(glist, vn=NULL, result="matrix"){
            "matrix"    = {dagList2matrix( glist, vn )}  )
 }
 
-## FIXME vpaList2adjMAT Delete
-vpaList2adjMAT <- dagList2M
 
 #' @rdname graph-xxx2yyy
 #' @param alist An adjacency list. 
@@ -354,12 +363,6 @@ adjList2M <- function( alist, result="matrix"){
            "Matrix"   = ,
            "dgCMatrix"= {adjList2dgCMatrix( alist )})
 }
-
-## FIXME adjList2adjMAT Delete
-adjList2adjMAT <- adjList2M
-
-
-## FIXME should have as.graphNEL method as well
 
 ## vpaL2tfM: (v,pa(v))-list 2 to-from-matrix
 ## FIXME vpaL2tfM: rename to vpaList2ftM; used in topoSort
@@ -372,26 +375,20 @@ dagList2tfM <- function(glist){
 }
 
 
-.check.that.input.is.matrix <- function(x){
-    if ( !(class(x)=="matrix" || class(x)=="dgCMatrix") )
-        stop("Input must be a matrix or a dgCMatrix\n")
-}
+## ---------------------------------------------------------------
+##
+## Coerce between undirected and directed graphs when possible
+##
+## ---------------------------------------------------------------
 
-
-
-
-
-#' @rdname graph-xxx2yyy
-as.adjMAT       <- graphNEL2M
-
+## FIXME dag2ug is missing
 
 #' @rdname graph-xxx2yyy
 ug2dag <- function(gn){
-    if (class(gn) != "graphNEL")
-        stop("'gn' must be a graphNEL")
-    if (graph::edgemode(gn) != "undirected")
-        stop("Graph must have undirected edges")
-    if (length( m <- mcs(gn) )==0)
+    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
+    if (graph::edgemode(gn) != "undirected") stop("Graph must have undirected edges")
+
+    if (length( m <- mcs(gn) ) == 0)
         stop("Graph is not chordal")
 
     adjList  <- graph::adj(gn, m)
@@ -405,10 +402,33 @@ ug2dag <- function(gn){
                                 intersectPrim(adjList[[ i ]], m[ 1:i ]))
         }
     }
-
-    dg <- dagList(vparList)
-    dg
+    dagList(vparList)
 }
+
+
+
+
+
+## -----------------------------------------
+## as.functions
+## -----------------------------------------
+
+## FIXME adjList2adjMAT Delete
+adjList2adjMAT <- adjList2M
+
+
+#' @rdname graph-xxx2yyy
+as.adjMAT       <- graphNEL2M
+
+## FIXME should have as.graphNEL method as well
+
+
+
+
+
+## ------------------------------------
+## FIXME: Stuff that can be deleted
+## ------------------------------------
 
 ## Represent list of sets in a matrix...
 ## FIXME: glist2setMAT: Used in gRain 1.2-3, but not in gRain 1.2-4
@@ -422,28 +442,44 @@ glist2setMAT <- function(glist,vn=unique(unlist(glist))){
   amat
 }
 
-
-##################################################
-##
-## Convert between matrix and dgCMatrix
-##
-##################################################
-
-#' @rdname graph-xxx2yyy
-#' @param mat Either a dense matrix or a sparse dgCMatrix.
-MAT2matrix <- function( mat ){
-    .check.that.input.is.matrix( mat )
-    switch( class( mat ),
-           "matrix"    ={ mat },
-           "dgCMatrix" ={dgCMatrix2matrix( mat )})
-}
-
-#' @rdname graph-xxx2yyy
-MAT2dgCMatrix <- function( mat ){
-    .check.that.input.is.matrix( mat )
-    switch( class( mat ),
-           "matrix"    ={matrix2dgCMatrix( mat )},
-           "dgCMatrix" ={ mat })
-}
+## FIXME graphNEL2adjMAT used by HydeNet package; I do not use it.
+## FIXME graphNEL2adjMAT replace by graphNEL2M(, "matrix")
+graphNEL2adjMAT <- graphNEL2M
 
 
+
+## ## FIXME: Det der med automatisk at vælge mellem spars og dense er
+## ## noget pjat; kør med sparse hele vejen?
+
+## #' @rdname graph-xxx2yyy
+## #' @param limit If number of nodes is larger than \code{limit}, the
+## #'     result will be a sparse dgCMatrix; otherwise a dense matrix.
+## graphNEL2MAT <- function(gn, limit=100){
+##     if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
+##     result <- if (length(graph::nodes(gn)) > limit)
+##                   "dgCMatrix" else "matrix"
+    
+##     adjList2M( graph::edges(gn), result=result )
+## }
+
+## FIXME: graphNEL2matrix Delete this - Never used
+## #' @rdname graph-xxx2yyy 
+## graphNEL2matrix    <- function(gn){
+##     graphNEL2M(gn, result="matrix")
+## }
+
+
+## FIXME vpaList2adjMAT Delete
+vpaList2adjMAT <- dagList2M
+
+
+
+## FIXME graphNEL2dgCMatrix to be replaced with graphNEL2M( , "matrix") Used a lot
+## #' @rdname graph-xxx2yyy
+## graphNEL2dgCMatrix <- function(gn){
+##     graphNEL2M(gn, result="Matrix")
+## }
+
+
+## FIXME: glist2adjMAT Delete 
+glist2adjMAT <- ugList2M

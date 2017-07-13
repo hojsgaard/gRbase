@@ -17,6 +17,8 @@ extern void combnC(void *, void *, void *, void *);
 extern SEXP R_colSums(SEXP);
 extern SEXP R_colwiseProd(SEXP, SEXP);
 extern SEXP R_rowSums(SEXP);
+extern SEXP gRbase_M2dgCMatrix_(SEXP);
+extern SEXP gRbase_M2matrix_(SEXP);
 extern SEXP gRbase_MAT2ftM_(SEXP);
 extern SEXP gRbase_RcppExport_registerCCallable();
 extern SEXP gRbase_adjList2dgCMatrix(SEXP);
@@ -31,7 +33,6 @@ extern SEXP gRbase_cell2entry_(SEXP, SEXP);
 extern SEXP gRbase_colmat2list(SEXP);
 extern SEXP gRbase_dagList2dgCMatrix(SEXP, SEXP);
 extern SEXP gRbase_dagList2matrix(SEXP, SEXP);
-extern SEXP gRbase_dgCMatrix2matrix(SEXP);
 extern SEXP gRbase_dimnames_match_(SEXP, SEXP, SEXP);
 extern SEXP gRbase_do_getcq_dense(SEXP, SEXP);
 extern SEXP gRbase_do_getcq_sparse(SEXP, SEXP);
@@ -50,7 +51,6 @@ extern SEXP gRbase_isadjMAT_(SEXP);
 extern SEXP gRbase_isdagMAT_(SEXP);
 extern SEXP gRbase_issymMAT_(SEXP);
 extern SEXP gRbase_isugMAT_(SEXP);
-extern SEXP gRbase_matrix2dgCMatrix(SEXP);
 extern SEXP gRbase_mcsMAT0_(SEXP, SEXP);
 extern SEXP gRbase_mcsMAT_(SEXP, SEXP);
 extern SEXP gRbase_moralizeMAT(SEXP);
@@ -64,7 +64,6 @@ extern SEXP gRbase_slice2entry_(SEXP, SEXP, SEXP);
 extern SEXP gRbase_solveSPD(SEXP);
 extern SEXP gRbase_sp_setXtf1(SEXP, SEXP);
 extern SEXP gRbase_symMAT2ftM_(SEXP);
-extern SEXP gRbase_tabPerm__(SEXP, SEXP);
 extern SEXP gRbase_tab_add_(SEXP, SEXP);
 extern SEXP gRbase_tab_align_(SEXP, SEXP);
 extern SEXP gRbase_tab_div0_(SEXP, SEXP);
@@ -96,6 +95,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"R_colSums",                           (DL_FUNC) &R_colSums,                           1},
     {"R_colwiseProd",                       (DL_FUNC) &R_colwiseProd,                       2},
     {"R_rowSums",                           (DL_FUNC) &R_rowSums,                           1},
+    {"gRbase_M2dgCMatrix_",                 (DL_FUNC) &gRbase_M2dgCMatrix_,                 1},
+    {"gRbase_M2matrix_",                    (DL_FUNC) &gRbase_M2matrix_,                    1},
     {"gRbase_MAT2ftM_",                     (DL_FUNC) &gRbase_MAT2ftM_,                     1},
     {"gRbase_RcppExport_registerCCallable", (DL_FUNC) &gRbase_RcppExport_registerCCallable, 0},
     {"gRbase_adjList2dgCMatrix",            (DL_FUNC) &gRbase_adjList2dgCMatrix,            1},
@@ -110,7 +111,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_colmat2list",                  (DL_FUNC) &gRbase_colmat2list,                  1},
     {"gRbase_dagList2dgCMatrix",            (DL_FUNC) &gRbase_dagList2dgCMatrix,            2},
     {"gRbase_dagList2matrix",               (DL_FUNC) &gRbase_dagList2matrix,               2},
-    {"gRbase_dgCMatrix2matrix",             (DL_FUNC) &gRbase_dgCMatrix2matrix,             1},
     {"gRbase_dimnames_match_",              (DL_FUNC) &gRbase_dimnames_match_,              3},
     {"gRbase_do_getcq_dense",               (DL_FUNC) &gRbase_do_getcq_dense,               2},
     {"gRbase_do_getcq_sparse",              (DL_FUNC) &gRbase_do_getcq_sparse,              2},
@@ -129,7 +129,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_isdagMAT_",                    (DL_FUNC) &gRbase_isdagMAT_,                    1},
     {"gRbase_issymMAT_",                    (DL_FUNC) &gRbase_issymMAT_,                    1},
     {"gRbase_isugMAT_",                     (DL_FUNC) &gRbase_isugMAT_,                     1},
-    {"gRbase_matrix2dgCMatrix",             (DL_FUNC) &gRbase_matrix2dgCMatrix,             1},
     {"gRbase_mcsMAT0_",                     (DL_FUNC) &gRbase_mcsMAT0_,                     2},
     {"gRbase_mcsMAT_",                      (DL_FUNC) &gRbase_mcsMAT_,                      2},
     {"gRbase_moralizeMAT",                  (DL_FUNC) &gRbase_moralizeMAT,                  1},
@@ -143,7 +142,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_solveSPD",                     (DL_FUNC) &gRbase_solveSPD,                     1},
     {"gRbase_sp_setXtf1",                   (DL_FUNC) &gRbase_sp_setXtf1,                   2},
     {"gRbase_symMAT2ftM_",                  (DL_FUNC) &gRbase_symMAT2ftM_,                  1},
-    {"gRbase_tabPerm__",                    (DL_FUNC) &gRbase_tabPerm__,                    2},
     {"gRbase_tab_add_",                     (DL_FUNC) &gRbase_tab_add_,                     2},
     {"gRbase_tab_align_",                   (DL_FUNC) &gRbase_tab_align_,                   2},
     {"gRbase_tab_div0_",                    (DL_FUNC) &gRbase_tab_div0_,                    2},

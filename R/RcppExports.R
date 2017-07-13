@@ -73,12 +73,12 @@ isdagMAT_ <- function(A_) {
     .Call('gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
 }
 
-matrix2dgCMatrix <- function(XX_) {
-    .Call('gRbase_matrix2dgCMatrix', PACKAGE = 'gRbase', XX_)
+M2dgCMatrix_ <- function(XX_) {
+    .Call('gRbase_M2dgCMatrix_', PACKAGE = 'gRbase', XX_)
 }
 
-dgCMatrix2matrix <- function(XX_) {
-    .Call('gRbase_dgCMatrix2matrix', PACKAGE = 'gRbase', XX_)
+M2matrix_ <- function(XX_) {
+    .Call('gRbase_M2matrix_', PACKAGE = 'gRbase', XX_)
 }
 
 which_matrix_index <- function(XX_) {
@@ -133,6 +133,34 @@ adjList2dgCMatrix <- function(LL) {
     .Call('gRbase_adjList2dgCMatrix', PACKAGE = 'gRbase', LL)
 }
 
+is_subsetof_ <- function(x, set) {
+    .Call('gRbase_is_subsetof_', PACKAGE = 'gRbase', x, set)
+}
+
+get_superset_ <- function(x, setlist, all = FALSE) {
+    .Call('gRbase_get_superset_', PACKAGE = 'gRbase', x, setlist, all)
+}
+
+get_subset_ <- function(x, setlist, all = FALSE) {
+    .Call('gRbase_get_subset_', PACKAGE = 'gRbase', x, setlist, all)
+}
+
+allSubsets0__ <- function(x) {
+    .Call('gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
+}
+
+allSubsets__ <- function(x) {
+    .Call('gRbase_allSubsets__', PACKAGE = 'gRbase', x)
+}
+
+names2pairsM <- function(x, y = character(0), sort = FALSE, result = "matrix") {
+    .Call('gRbase_names2pairsM', PACKAGE = 'gRbase', x, y, sort, result)
+}
+
+solveSPD <- function(X) {
+    .Call('gRbase_solveSPD', PACKAGE = 'gRbase', X)
+}
+
 #' @title table cell operations.
 #' @description low level table cell operations
 #' @name tableCell
@@ -179,10 +207,6 @@ perm_cell_entries_ <- function(perm, dim) {
 #' @aliases tab_list_mult_ tab_list_add_ tab_op_ tab_add_ tab_subt_
 #' tab_mult_ tab_div_ tab_div0_ tab_equal_
 NULL
-
-tabPerm__ <- function(tab, perm) {
-    .Call('gRbase_tabPerm__', PACKAGE = 'gRbase', tab, perm)
-}
 
 tab_perm_ <- function(tab, perm) {
     .Call('gRbase_tab_perm_', PACKAGE = 'gRbase', tab, perm)
@@ -250,34 +274,6 @@ is_named_array_ <- function(obj) {
 
 dimnames_match_ <- function(tab1, tab2, verbose = FALSE) {
     .Call('gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
-}
-
-is_subsetof_ <- function(x, set) {
-    .Call('gRbase_is_subsetof_', PACKAGE = 'gRbase', x, set)
-}
-
-get_superset_ <- function(x, setlist, all = FALSE) {
-    .Call('gRbase_get_superset_', PACKAGE = 'gRbase', x, setlist, all)
-}
-
-get_subset_ <- function(x, setlist, all = FALSE) {
-    .Call('gRbase_get_subset_', PACKAGE = 'gRbase', x, setlist, all)
-}
-
-allSubsets0__ <- function(x) {
-    .Call('gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
-}
-
-allSubsets__ <- function(x) {
-    .Call('gRbase_allSubsets__', PACKAGE = 'gRbase', x)
-}
-
-names2pairsM <- function(x, y = character(0), sort = FALSE, result = "matrix") {
-    .Call('gRbase_names2pairsM', PACKAGE = 'gRbase', x, y, sort, result)
-}
-
-solveSPD <- function(X) {
-    .Call('gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }
 
 sp_setXtf1 <- function(XX_, TF_) {

@@ -167,41 +167,12 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
 #' @rdname array-distribution
 ar_dist <- tabDist
 
-## #' @rdname array-distribution
-## .ardist <- tabDist
 
 
-#' @title Normalize an array
-#' 
-#' @description Normalize an array in various ways.
-#'
-#' @name array-normalize
-#' 
-#' @param tab A multidimensional array
-#' @param type Either "none", "first", or "all"
-#' @return An array
-#' @examples
-#' ar_normalize( HairEyeColor, type="first")
-#' ar_normalize( HairEyeColor, type="all")
-tabNormalize <- function(tab, type="none"){
-    switch(type,
-           "first"={
-               if (length(dim(tab))>1){
-                   tab <- tabPerm(tabDiv(tab, tabMarg(tab, 2:length(dim(tab)))),
-                                  names(dimnames(tab)))
-               } else {
-                   tab <- tab / sum(tab)
-               }
-           },
-           "all"  = { tab <- tab / sum(tab) },
-           "none" = {}
-           )
-    #attr(tab, "call") <- NULL
-    tab
-}
 
-#' @rdname array-normalize
-ar_normalize <- tabNormalize
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 /*
-  Fast coercion between dense and sparse matrix
+  Fast coercion of dense matrix to sparse matrix and vice versa
 */
 
 #include <RcppEigen.h>
@@ -37,17 +37,6 @@ SEXP do_matrix2dgCMatrix( SEXP XX_ ){
   return(Xout);
 };
 
-// [[Rcpp::export]]
-SEXP matrix2dgCMatrix ( SEXP XX_ ){
-  int type = TYPEOF(XX_) ;
-  //Rf_PrintValue(wrap(type));
-  switch( type ){
-  case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
-  case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
-  case S4SXP   : return R_NilValue; // matrix - double
-  }
-  return R_NilValue ;
-}
 
 SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
   S4 DD(wrap(XX_));
@@ -60,15 +49,62 @@ SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
   return Xout;
 }
 
+
+
+// // [[Rcpp::export]]
+// SEXP matrix2dgCMatrix_ ( SEXP XX_ ){
+//   int type = TYPEOF(XX_) ;
+//   switch( type ){
+//   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
+//   case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
+//   }
+//   return R_NilValue ;
+// }
+
+// // [[Rcpp::export]]
+// SEXP dgCMatrix2matrix_ ( SEXP XX_ ){
+//   int type = TYPEOF(XX_) ;
+//   //Rf_PrintValue(wrap(type));
+//   switch( type ){
+//   case S4SXP   : return do_dgCMatrix2matrix(XX_); 
+//   }
+//   return R_NilValue ;
+// }
+
+
+
 // [[Rcpp::export]]
-SEXP dgCMatrix2matrix ( SEXP XX_ ){
+SEXP M2dgCMatrix_ ( SEXP XX_ ){
+  int type = TYPEOF(XX_) ;
+  switch( type ){
+  case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
+  case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
+  case S4SXP   : return XX_; // matrix - double
+  }
+  return R_NilValue ;
+}
+
+// [[Rcpp::export]]
+SEXP M2matrix_ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
   //Rf_PrintValue(wrap(type));
   switch( type ){
+  case INTSXP  : return XX_;   
+  case REALSXP : return XX_;
   case S4SXP   : return do_dgCMatrix2matrix(XX_); 
   }
   return R_NilValue ;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 /*** R
@@ -115,14 +151,6 @@ MAT2dgCMatrix( md )
 )
 
 
-# matrix2dgCMatrix_cpp( mi )
-# matrix2dgCMatrix_cpp( md )
-# matrix2dgCMatrix_cpp( MM )
-
-# dgCMatrix2matrix_cpp( MM )
-# dgCMatrix2matrix_cpp( md )
-# dgCMatrix2matrix_cpp( mi )
-
 require(microbenchmark)
 microbenchmark(
 as.matrix(MM),
@@ -145,18 +173,3 @@ MAT2matrix( md )
 */
 
 
-
-// // [[Rcpp::export]]
-// SEXP C_asdgCMatrix_st ( SEXP XX_ ){
-//   typedef Eigen::SparseMatrix<double> SpMat;
-//   typedef Eigen::Map<Eigen::MatrixXd> MapMatd;
-//   MapMatd X(Rcpp::as<MapMatd>(XX_));
-//   SpMat Xsparse = X.sparseView();
-//   S4 Xout(wrap(Xsparse));
-//   NumericMatrix Xin(XX_);
-//   List dn = clone(List(Xin.attr("dimnames")));
-//   if (dn.length()>0){
-//     Xout.slot("Dimnames") = dn;
-//   }
-//   return(Xout);
-// }

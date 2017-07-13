@@ -1,3 +1,5 @@
+## FIXME: u_utilities: Document with roxygen
+
 rowSumsPrim <- function(x){
 	.Call("R_rowSums", x
 	,PACKAGE="gRbase"

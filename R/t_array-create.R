@@ -99,6 +99,8 @@ tab <- function(names, levels, values, normalize="none", smooth=0){
     tabNormalize( out, normalize )
 }
 
+
+## FIXME .make.dimnames findes også (cirka) i parray. Redundans
 .make.dimnames <- function(names, levels){
     if ( !(is.atomic(names) && is.numeric(levels)) )
         stop("Can not create dimnames")
@@ -121,58 +123,10 @@ tab <- function(names, levels, values, normalize="none", smooth=0){
 }
 
 
-## FIXME newar is used in gRain. Next gRain version will use tab in stead of newar, and then it can go from here
+## FIXME newar() is used in gRain. Next gRain version will use tab() in stead of newar(), and then it can go from here
 #' @rdname array-create
 newar <- tab
 
 #' @rdname array-create
 ar_new <- tab
-
-#' Convert dataframe to contingency table
-#'
-#' @rdname array-create
-#' @param indata A dataframe.
-#' @examples
-#' ## Extract arrays from dataframe (much like xtabs() but with more flexibility)
-#' data(cad1) 
-#' df2xtabs(cad1, ~Sex:AngPec:AMI)
-#' df2xtabs(cad1, c("Sex","AngPec","AMI"))
-#' df2xtabs(cad1, c(1,2,3))
-
-df2xtabs <- function(indata, names=NULL, normalize="none", smooth=0){
-
-    if ( !( is.data.frame(indata) ) )
-        stop("'indata' must a dataframe\n")
-        
-    if (!is.null( names )) {
-        if (is.numeric( names )){
-            if (min(names)<1 || max(names)>ncol(indata)){
-                stop("columns out of range \n")
-            }
-        } else {
-            if (class(names) %in% c("formula", "character")){
-                names <- rhsf2list(names)[[1]]
-            } else {
-                stop("don't know what to do\n")
-            }
-        }
-    }
-    
-    if (is.null(names))
-        out <- xtabs(~., data=indata)
-    else
-        out <- xtabs(~., data=indata[,names, drop=FALSE])
-    
-    if (smooth > 0)
-        out <- out + smooth
-
-    if (normalize != "none")
-        tabNormalize( out, normalize )
-    else
-        out
-}
-
-
-
-
 

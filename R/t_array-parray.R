@@ -1,9 +1,9 @@
-######################################################
+############################################################################
 ####
 #### A named array is an array in the sense that it is a
 #### vector with a dim and a dimnames attribute.
 ####
-######################################################
+############################################################################
 
 #' @title Representation of and operations on multidimensional arrays
 #' 
@@ -188,46 +188,6 @@ data2parray <- function(data, varNames=NULL, normalize="none", smooth=0){
 
 
 
-## makeDimNames <- function(varNames, levels, sep=''){
-##   if (missing(varNames) || is.null(varNames))
-##     return(lapply(levels, seq))
-##   mapply(function(vv,ll){
-##     if (!is.character(ll)){
-##       if (length(ll)==1){
-##         ll <- 1:ll
-##       }
-##       ll <- paste(vv,ll,sep="")
-##     }
-##     ll
-##   }, varNames, levels, SIMPLIFY=FALSE)
-## }
-## 
-## makeDimNames <- function(varNames, levels, sep=''){
-##     if (missing(varNames) || is.null(varNames))
-##         return(lapply(levels, seq))
-##     if (length(varNames) != length(levels))
-##         stop("'varNames' and 'levels' must have the same length")
-##     if (is.list(levels)){
-##         names(levels) <- varNames
-##         return( levels )
-##     }
-##     out <- lapply(seq_along(varNames), function(i)
-##     {
-##                       ll <- levels[[ i ]]
-##                       vv <- varNames[ i ]
-##                       if (!is.character(ll)){
-##                           if (length(ll)==1){
-##                               ll <- 1:ll
-##                           }
-##                           ll <- paste(vv,ll,sep="")
-##                       }
-##                       ll
-##                   })
-##     names(out) <- varNames
-##     out
-## }
-##
-
 makeDimNames <- function(varNames, levels, sep=''){
     if (!is.character(varNames))
         stop("'varNames' is not character vector")
@@ -275,24 +235,45 @@ makeDimNames <- function(varNames, levels, sep=''){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## makeDimNames <- function(varNames, levels, sep=''){
+##   if (missing(varNames) || is.null(varNames))
+##     return(lapply(levels, seq))
+##   mapply(function(vv,ll){
+##     if (!is.character(ll)){
+##       if (length(ll)==1){
+##         ll <- 1:ll
+##       }
+##       ll <- paste(vv,ll,sep="")
+##     }
+##     ll
+##   }, varNames, levels, SIMPLIFY=FALSE)
+## }
+## 
+## makeDimNames <- function(varNames, levels, sep=''){
+##     if (missing(varNames) || is.null(varNames))
+##         return(lapply(levels, seq))
+##     if (length(varNames) != length(levels))
+##         stop("'varNames' and 'levels' must have the same length")
+##     if (is.list(levels)){
+##         names(levels) <- varNames
+##         return( levels )
+##     }
+##     out <- lapply(seq_along(varNames), function(i)
+##     {
+##                       ll <- levels[[ i ]]
+##                       vv <- varNames[ i ]
+##                       if (!is.character(ll)){
+##                           if (length(ll)==1){
+##                               ll <- 1:ll
+##                           }
+##                           ll <- paste(vv,ll,sep="")
+##                       }
+##                       ll
+##                   })
+##     names(out) <- varNames
+##     out
+## }
+##
 
 
 ## ptable <- function(varNames, levels, values=1, normalize=c("none","first","all"), smooth=0){

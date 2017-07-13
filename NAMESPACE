@@ -10,6 +10,8 @@ importMethodsFrom(Matrix, t, isSymmetric, diag)
 importFrom(Matrix, Matrix)
 importClassesFrom(Matrix, Matrix)
 
+importClassesFrom(graph, graphNEL)
+
 ##importMethodsFrom(graph, plot)
 ##importFrom(graph, edges, nodes)
 ##importFrom("RBGL", "maxClique", "is.triangulated", "separates")

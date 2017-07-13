@@ -30,9 +30,10 @@
                       'source("https://bioconductor.org/biocLite.R");',
                       'biocLite(c("graph", "RBGL", "Rgraphviz")) \n')
         packageStartupMessage(msg)        
-    } else {
-        packageStartupMessage("You are good to go\n")
     }
+    ##else {
+    ##    packageStartupMessage("You are good to go\n")
+    ##}
    options(ow)
 
 }

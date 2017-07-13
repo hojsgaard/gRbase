@@ -1,3 +1,5 @@
+// FIXME: There are two triangulate files; merge into one!
+
 /*
   Triangulation by specification of elimination order.
 

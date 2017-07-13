@@ -1,6 +1,6 @@
 /* *******************************************************
    
-  MAT2ftM and symMAT2ftM2ftM : 
+  MAT2ftM and symMAT2ftM: 
 
   Coerces dense and sparse matrices to from-to-matrix 
 
@@ -43,7 +43,7 @@ SEXP do_MAT2ftM_ ( SEXP XX_ ){
     }
   }
 
-  NumericMatrix out(sum,2);
+  NumericMatrix out(sum,2); // FIXME: Why not IntegerMatrix
   for (i=0; i<nrX; i++){
     for (j=0; j<ncX; j++){
       if(X.coeff(i,j)){
@@ -56,6 +56,33 @@ SEXP do_MAT2ftM_ ( SEXP XX_ ){
   return out;  
 }
 
+
+template <typename TT>
+SEXP do_symMAT2ftM_ ( SEXP XX_ ){
+  using Eigen::MatrixXd;
+  const TT X(as<TT>(XX_));
+
+  int i, j, kk=0, sum=0;
+  int nrX(X.rows()), ncX(X.cols());
+  for (i=0; i<nrX - 1; i++){
+    for (j=i + 1; j < ncX; j++){
+      if (X.coeff(i,j))
+	sum++;
+    }
+  }
+
+  NumericMatrix out(sum,2); // FIXME: Why not IntegerMatrix
+  for (i=0; i<nrX - 1; i++){
+    for (j=i+1; j<ncX; j++){
+      if(X.coeff(i,j)){
+	out(kk, 0) = i + 1;
+	out(kk, 1) = j + 1;
+	kk++;
+      }
+    }
+  }
+  return out;  
+}
 
 
 //[[Rcpp::export]]
@@ -71,35 +98,6 @@ SEXP MAT2ftM_ ( SEXP XX_ ){
 }
 
 
-template <typename TT>
-SEXP do_symMAT2ftM_ ( SEXP XX_ ){
-  using Eigen::MatrixXd;
-  const TT X(as<TT>(XX_));
-
-  int i, j, kk=0, sum=0;
-  int nrX(X.rows()), ncX(X.cols());
-  for (i=0; i<nrX-1; i++){
-    for (j=i+1; j<ncX; j++){
-      if (X.coeff(i,j))
-	sum++;
-    }
-  }
-
-  NumericMatrix out(sum,2);
-  for (i=0;i<nrX-1;i++){
-    for (j=i+1;j<ncX;j++){
-      if(X.coeff(i,j)){
-	out(kk,0) = i+1;
-	out(kk,1) = j+1;
-	kk++;
-      }
-    }
-  }
-  return out;  
-}
-
-
-
 //[[Rcpp::export]]
 SEXP symMAT2ftM_ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
@@ -113,6 +111,21 @@ SEXP symMAT2ftM_ ( SEXP XX_ ){
 }
 
 
+
+// // Dispatch on first argument type
+// #define DISPATCH1_METHOD(method, x1, x2)	\
+//   switch( TYPEOF(x1) ){				\
+//   case REALSXP: return method<REALSXP>(x1, x2);	\
+//   case INTSXP:  return method<INTSXP>(x1, x2);	\
+//   case STRSXP:  return method<STRSXP>(x1, x2);	\
+//   default: Rf_error("Unsupported type");	\
+//   }						\
+
+// // [[Rcpp::export]]
+// SEXP tab_perm_(const SEXP& tab, const SEXP& perm){
+//   DISPATCH1_METHOD(do_aperm_gen, tab, perm);
+//   return R_NilValue ;
+// }
 
 
 /*** R

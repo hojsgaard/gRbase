@@ -1,3 +1,5 @@
+// FIXME: There are two mcs files; what is going on? Do not remember!!!
+
 /*
   MAXIMUM CARDINALITY SEARCH on undirected graph. 
 
@@ -66,6 +68,7 @@ bool do_is_complete_sparse (const MSpMat& X, SpVec sidx){
   }
   return true;
 }
+
 
 bool do_is_complete_dense( const NumericMatrix& X, const IntegerVector& idx){
   int i, j, k;

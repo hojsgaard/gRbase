@@ -10,7 +10,7 @@
 #' 
 #' @param a,a1,a2,... Arrays (with named dimnames)
 #' @param tab1,tab2 Arrays (with named dimnames)
-#' 
+#' @param lst List of arrays.
 #' @aliases %a+% %a-% %a*% %a/% %a/0%
 #'     tabAdd tabDiv tabDiv0 tabMult tabSubt  
 #'     tabSum tabProd
@@ -34,7 +34,6 @@
 #' ar_prod(a1, a2, a3)
 #' 
 
-
 ## ------------------------
 ## Aliases for cpp functions
 ## -------------------------
@@ -45,34 +44,11 @@ tabMult   <- tab_mult_
 tabSubt   <- tab_subt_
 tabListMult <- tab_list_mult_
 tabListAdd  <- tab_list_add_
+## --- END ---
 
-
-
-#' @rdname array-algebra
-"%a+%" <- function(a1, a2){tabAdd(a1,a2)}
-#' @rdname array-algebra
-"%a-%" <- function(a1, a2){tabSubt(a1,a2)}
-#' @rdname array-algebra
-"%a*%" <- function(a1, a2){tabMult(a1,a2)}
-#' @rdname array-algebra
-"%a/%" <- function(a1, a2){tabDiv(a1,a2)}
-#' @rdname array-algebra
-"%a/0%" <- function(a1, a2){tabDiv0(a1,a2)}
-
-#' @rdname array-algebra
-ar_add <- function(a1, a2){ tabAdd(a1, a2) }
-
-#' @rdname array-algebra
-ar_subt <- function(a1, a2){ tabSubt(a1, a2) }
-
-#' @rdname array-algebra
-ar_mult <- function(a1, a2){ tabMult(a1, a2) }
-
-#' @rdname array-algebra
-ar_div <- function(a1, a2){ tabDiv(a1, a2) }
-
-#' @rdname array-algebra
-ar_div0 <- function(a1, a2){ tabDiv0(a1, a2) }
+## -------------------------
+## Additional functionality
+## -------------------------
 
 ## #' @rdname array-algebra
 tabSum <- function(...){
@@ -97,36 +73,35 @@ ar_sum <- tabSum
 #' @rdname array-algebra
 ar_prod <- tabProd
 
+#' @rdname array-algebra
+ar_prod_list <- tabListMult
+#' @rdname array-algebra
+ar_sum_list <- tabListAdd
 
-###' @rdname array-algebra
-##.aradd <- function(a1, a2){ tabAdd(a1, a2) }
-##
-###' @rdname array-algebra
-##.arsubt <- function(a1, a2){ tabSubt(a1, a2) }
-##
-###' @rdname array-algebra
-##.armult <- function(a1, a2){ tabMult(a1, a2) }
-##
-###' @rdname array-algebra
-##.ardiv <- function(a1, a2){ tabDiv(a1, a2) }
-##
-###' @rdname array-algebra
-##.ardiv0 <- function(a1, a2){ tabDiv0(a1, a2) }
-##
+#' @rdname array-algebra
+"%a+%" <- function(a1, a2){tabAdd(a1,a2)}
+#' @rdname array-algebra
+"%a-%" <- function(a1, a2){tabSubt(a1,a2)}
+#' @rdname array-algebra
+"%a*%" <- function(a1, a2){tabMult(a1,a2)}
+#' @rdname array-algebra
+"%a/%" <- function(a1, a2){tabDiv(a1,a2)}
+#' @rdname array-algebra
+"%a/0%" <- function(a1, a2){tabDiv0(a1,a2)}
+
+#' @rdname array-algebra
+ar_add <- function(a1, a2){ tabAdd(a1, a2) }
+#' @rdname array-algebra
+ar_subt <- function(a1, a2){ tabSubt(a1, a2) }
+#' @rdname array-algebra
+ar_mult <- function(a1, a2){ tabMult(a1, a2) }
+#' @rdname array-algebra
+ar_div <- function(a1, a2){ tabDiv(a1, a2) }
+#' @rdname array-algebra
+ar_div0 <- function(a1, a2){ tabDiv0(a1, a2) }
 
 
 
-## #' @rdname array-algebra
-## arAdd <- function(a1, a2){ tabAdd(a1, a2) }
-## #' @rdname array-algebra
-## arSubt <- function(a1, a2){ tabSubt(a1, a2) }
-## #' @rdname array-algebra
-## arMult <- function(a1, a2){ tabMult(a1, a2) }
-## #' @rdname array-algebra
-## arDiv <- function(a1, a2){ tabDiv(a1, a2) }
-## #' @rdname array-algebra
-## arDiv0 <- function(a1, a2){ tabDiv0(a1, a2) }
-## 
 
 
 
