@@ -85,7 +85,7 @@ querygraph <-function(object, op, set=NULL, set2=NULL, set3=NULL){
 ## adjmat based
 #' @rdname graph-query
 ancestors <- function(set, object){
-  amat  <- graphNEL2M(object)
+  amat  <- gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -108,7 +108,7 @@ ancestors <- function(set, object){
 #' @rdname graph-query
 ancestralSet <- function(set, object){
 
-  amat  <- graphNEL2M(object)
+  amat  <- gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -140,7 +140,7 @@ ancestralSet <- function(set, object){
 ## adjmat based
 #' @rdname graph-query
 parents <- function(set, object){
-  amat  <- graphNEL2M(object)
+  amat  <- gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -196,10 +196,10 @@ ancestralGraph <- function(set, object){
 #' @rdname graph-query
 is.complete <- function(object, set=NULL){
   if (is.null(set))
-    submat <- graphNEL2M(object)
+    submat <- gn2dm_(object)
   else
-    submat <- graphNEL2M(object)[set,set]
-  all(submat[upper.tri(submat)]>0)
+    submat <- gn2dm_(object)[set, set]
+  all(submat[upper.tri(submat)] > 0)
 }
 
 #' @rdname graph-query

@@ -352,6 +352,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// matrix2dgCMatrix_
+SEXP matrix2dgCMatrix_(SEXP XX_);
+RcppExport SEXP gRbase_matrix2dgCMatrix_(SEXP XX_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type XX_(XX_SEXP);
+    rcpp_result_gen = Rcpp::wrap(matrix2dgCMatrix_(XX_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dgCMatrix2matrix_
+SEXP dgCMatrix2matrix_(SEXP XX_);
+RcppExport SEXP gRbase_dgCMatrix2matrix_(SEXP XX_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type XX_(XX_SEXP);
+    rcpp_result_gen = Rcpp::wrap(dgCMatrix2matrix_(XX_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // M2dgCMatrix_
 SEXP M2dgCMatrix_(SEXP XX_);
 RcppExport SEXP gRbase_M2dgCMatrix_(SEXP XX_SEXP) {
@@ -407,22 +429,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// dagList2dgCMatrix
-SEXP dagList2dgCMatrix(List LL, CharacterVector vn);
-static SEXP gRbase_dagList2dgCMatrix_try(SEXP LLSEXP, SEXP vnSEXP) {
+// dagList2dgCMatrix_
+SEXP dagList2dgCMatrix_(List LL, CharacterVector vn);
+static SEXP gRbase_dagList2dgCMatrix__try(SEXP LLSEXP, SEXP vnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type vn(vnSEXP);
-    rcpp_result_gen = Rcpp::wrap(dagList2dgCMatrix(LL, vn));
+    rcpp_result_gen = Rcpp::wrap(dagList2dgCMatrix_(LL, vn));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_dagList2dgCMatrix(SEXP LLSEXP, SEXP vnSEXP) {
+RcppExport SEXP gRbase_dagList2dgCMatrix_(SEXP LLSEXP, SEXP vnSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_dagList2dgCMatrix_try(LLSEXP, vnSEXP));
+        rcpp_result_gen = PROTECT(gRbase_dagList2dgCMatrix__try(LLSEXP, vnSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -438,22 +460,22 @@ RcppExport SEXP gRbase_dagList2dgCMatrix(SEXP LLSEXP, SEXP vnSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// ugList2dgCMatrix
-SEXP ugList2dgCMatrix(List LL, CharacterVector vn);
-static SEXP gRbase_ugList2dgCMatrix_try(SEXP LLSEXP, SEXP vnSEXP) {
+// ugList2dgCMatrix_
+SEXP ugList2dgCMatrix_(List LL, CharacterVector vn);
+static SEXP gRbase_ugList2dgCMatrix__try(SEXP LLSEXP, SEXP vnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type vn(vnSEXP);
-    rcpp_result_gen = Rcpp::wrap(ugList2dgCMatrix(LL, vn));
+    rcpp_result_gen = Rcpp::wrap(ugList2dgCMatrix_(LL, vn));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_ugList2dgCMatrix(SEXP LLSEXP, SEXP vnSEXP) {
+RcppExport SEXP gRbase_ugList2dgCMatrix_(SEXP LLSEXP, SEXP vnSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_ugList2dgCMatrix_try(LLSEXP, vnSEXP));
+        rcpp_result_gen = PROTECT(gRbase_ugList2dgCMatrix__try(LLSEXP, vnSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -469,22 +491,22 @@ RcppExport SEXP gRbase_ugList2dgCMatrix(SEXP LLSEXP, SEXP vnSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// dagList2matrix
-SEXP dagList2matrix(List LL, CharacterVector vn);
-static SEXP gRbase_dagList2matrix_try(SEXP LLSEXP, SEXP vnSEXP) {
+// dagList2matrix_
+SEXP dagList2matrix_(List LL, CharacterVector vn);
+static SEXP gRbase_dagList2matrix__try(SEXP LLSEXP, SEXP vnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type vn(vnSEXP);
-    rcpp_result_gen = Rcpp::wrap(dagList2matrix(LL, vn));
+    rcpp_result_gen = Rcpp::wrap(dagList2matrix_(LL, vn));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_dagList2matrix(SEXP LLSEXP, SEXP vnSEXP) {
+RcppExport SEXP gRbase_dagList2matrix_(SEXP LLSEXP, SEXP vnSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_dagList2matrix_try(LLSEXP, vnSEXP));
+        rcpp_result_gen = PROTECT(gRbase_dagList2matrix__try(LLSEXP, vnSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -500,22 +522,22 @@ RcppExport SEXP gRbase_dagList2matrix(SEXP LLSEXP, SEXP vnSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// ugList2matrix
-SEXP ugList2matrix(List LL, CharacterVector vn);
-static SEXP gRbase_ugList2matrix_try(SEXP LLSEXP, SEXP vnSEXP) {
+// ugList2matrix_
+SEXP ugList2matrix_(List LL, CharacterVector vn);
+static SEXP gRbase_ugList2matrix__try(SEXP LLSEXP, SEXP vnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type vn(vnSEXP);
-    rcpp_result_gen = Rcpp::wrap(ugList2matrix(LL, vn));
+    rcpp_result_gen = Rcpp::wrap(ugList2matrix_(LL, vn));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_ugList2matrix(SEXP LLSEXP, SEXP vnSEXP) {
+RcppExport SEXP gRbase_ugList2matrix_(SEXP LLSEXP, SEXP vnSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_ugList2matrix_try(LLSEXP, vnSEXP));
+        rcpp_result_gen = PROTECT(gRbase_ugList2matrix__try(LLSEXP, vnSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -531,21 +553,21 @@ RcppExport SEXP gRbase_ugList2matrix(SEXP LLSEXP, SEXP vnSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2tfList
-List adjList2tfList(List LL);
-static SEXP gRbase_adjList2tfList_try(SEXP LLSEXP) {
+// adjList2tfList_
+List adjList2tfList_(List LL);
+static SEXP gRbase_adjList2tfList__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2tfList(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2tfList_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2tfList(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2tfList_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2tfList_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2tfList__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -561,21 +583,21 @@ RcppExport SEXP gRbase_adjList2tfList(SEXP LLSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2ftList
-List adjList2ftList(List LL);
-static SEXP gRbase_adjList2ftList_try(SEXP LLSEXP) {
+// adjList2ftList_
+List adjList2ftList_(List LL);
+static SEXP gRbase_adjList2ftList__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2ftList(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2ftList_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2ftList(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2ftList_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2ftList_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2ftList__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -591,21 +613,21 @@ RcppExport SEXP gRbase_adjList2ftList(SEXP LLSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2ftM
-CharacterMatrix adjList2ftM(List LL);
-static SEXP gRbase_adjList2ftM_try(SEXP LLSEXP) {
+// adjList2ftM_
+CharacterMatrix adjList2ftM_(List LL);
+static SEXP gRbase_adjList2ftM__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2ftM(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2ftM_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2ftM(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2ftM_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2ftM_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2ftM__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -621,21 +643,21 @@ RcppExport SEXP gRbase_adjList2ftM(SEXP LLSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2tfM
-CharacterMatrix adjList2tfM(List LL);
-static SEXP gRbase_adjList2tfM_try(SEXP LLSEXP) {
+// adjList2tfM_
+CharacterMatrix adjList2tfM_(List LL);
+static SEXP gRbase_adjList2tfM__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2tfM(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2tfM_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2tfM(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2tfM_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2tfM_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2tfM__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -651,21 +673,21 @@ RcppExport SEXP gRbase_adjList2tfM(SEXP LLSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2matrix
-SEXP adjList2matrix(List LL);
-static SEXP gRbase_adjList2matrix_try(SEXP LLSEXP) {
+// adjList2matrix_
+SEXP adjList2matrix_(List LL);
+static SEXP gRbase_adjList2matrix__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2matrix(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2matrix_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2matrix(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2matrix_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2matrix_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2matrix__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -681,21 +703,21 @@ RcppExport SEXP gRbase_adjList2matrix(SEXP LLSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// adjList2dgCMatrix
-SEXP adjList2dgCMatrix(List LL);
-static SEXP gRbase_adjList2dgCMatrix_try(SEXP LLSEXP) {
+// adjList2dgCMatrix_
+SEXP adjList2dgCMatrix_(List LL);
+static SEXP gRbase_adjList2dgCMatrix__try(SEXP LLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< List >::type LL(LLSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjList2dgCMatrix(LL));
+    rcpp_result_gen = Rcpp::wrap(adjList2dgCMatrix_(LL));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gRbase_adjList2dgCMatrix(SEXP LLSEXP) {
+RcppExport SEXP gRbase_adjList2dgCMatrix_(SEXP LLSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gRbase_adjList2dgCMatrix_try(LLSEXP));
+        rcpp_result_gen = PROTECT(gRbase_adjList2dgCMatrix__try(LLSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1553,16 +1575,16 @@ static int gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("SEXP(*do_getcq_sparse)(SEXP,const IntegerVector&)");
         signatures.insert("SEXP(*do_getcq_dense)(NumericMatrix,const IntegerVector&)");
         signatures.insert("SEXP(*getCliquesDec_)(SEXP,SEXP)");
-        signatures.insert("SEXP(*dagList2dgCMatrix)(List,CharacterVector)");
-        signatures.insert("SEXP(*ugList2dgCMatrix)(List,CharacterVector)");
-        signatures.insert("SEXP(*dagList2matrix)(List,CharacterVector)");
-        signatures.insert("SEXP(*ugList2matrix)(List,CharacterVector)");
-        signatures.insert("List(*adjList2tfList)(List)");
-        signatures.insert("List(*adjList2ftList)(List)");
-        signatures.insert("CharacterMatrix(*adjList2ftM)(List)");
-        signatures.insert("CharacterMatrix(*adjList2tfM)(List)");
-        signatures.insert("SEXP(*adjList2matrix)(List)");
-        signatures.insert("SEXP(*adjList2dgCMatrix)(List)");
+        signatures.insert("SEXP(*dagList2dgCMatrix_)(List,CharacterVector)");
+        signatures.insert("SEXP(*ugList2dgCMatrix_)(List,CharacterVector)");
+        signatures.insert("SEXP(*dagList2matrix_)(List,CharacterVector)");
+        signatures.insert("SEXP(*ugList2matrix_)(List,CharacterVector)");
+        signatures.insert("List(*adjList2tfList_)(List)");
+        signatures.insert("List(*adjList2ftList_)(List)");
+        signatures.insert("CharacterMatrix(*adjList2ftM_)(List)");
+        signatures.insert("CharacterMatrix(*adjList2tfM_)(List)");
+        signatures.insert("SEXP(*adjList2matrix_)(List)");
+        signatures.insert("SEXP(*adjList2dgCMatrix_)(List)");
         signatures.insert("bool(*is_subsetof_)(CharacterVector,CharacterVector)");
         signatures.insert("IntegerVector(*get_superset_)(CharacterVector,List,bool)");
         signatures.insert("IntegerVector(*get_subset_)(CharacterVector,List,bool)");
@@ -1600,16 +1622,16 @@ RcppExport SEXP gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "gRbase_do_getcq_sparse", (DL_FUNC)gRbase_do_getcq_sparse_try);
     R_RegisterCCallable("gRbase", "gRbase_do_getcq_dense", (DL_FUNC)gRbase_do_getcq_dense_try);
     R_RegisterCCallable("gRbase", "gRbase_getCliquesDec_", (DL_FUNC)gRbase_getCliquesDec__try);
-    R_RegisterCCallable("gRbase", "gRbase_dagList2dgCMatrix", (DL_FUNC)gRbase_dagList2dgCMatrix_try);
-    R_RegisterCCallable("gRbase", "gRbase_ugList2dgCMatrix", (DL_FUNC)gRbase_ugList2dgCMatrix_try);
-    R_RegisterCCallable("gRbase", "gRbase_dagList2matrix", (DL_FUNC)gRbase_dagList2matrix_try);
-    R_RegisterCCallable("gRbase", "gRbase_ugList2matrix", (DL_FUNC)gRbase_ugList2matrix_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2tfList", (DL_FUNC)gRbase_adjList2tfList_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2ftList", (DL_FUNC)gRbase_adjList2ftList_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2ftM", (DL_FUNC)gRbase_adjList2ftM_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2tfM", (DL_FUNC)gRbase_adjList2tfM_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2matrix", (DL_FUNC)gRbase_adjList2matrix_try);
-    R_RegisterCCallable("gRbase", "gRbase_adjList2dgCMatrix", (DL_FUNC)gRbase_adjList2dgCMatrix_try);
+    R_RegisterCCallable("gRbase", "gRbase_dagList2dgCMatrix_", (DL_FUNC)gRbase_dagList2dgCMatrix__try);
+    R_RegisterCCallable("gRbase", "gRbase_ugList2dgCMatrix_", (DL_FUNC)gRbase_ugList2dgCMatrix__try);
+    R_RegisterCCallable("gRbase", "gRbase_dagList2matrix_", (DL_FUNC)gRbase_dagList2matrix__try);
+    R_RegisterCCallable("gRbase", "gRbase_ugList2matrix_", (DL_FUNC)gRbase_ugList2matrix__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2tfList_", (DL_FUNC)gRbase_adjList2tfList__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2ftList_", (DL_FUNC)gRbase_adjList2ftList__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2ftM_", (DL_FUNC)gRbase_adjList2ftM__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2tfM_", (DL_FUNC)gRbase_adjList2tfM__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2matrix_", (DL_FUNC)gRbase_adjList2matrix__try);
+    R_RegisterCCallable("gRbase", "gRbase_adjList2dgCMatrix_", (DL_FUNC)gRbase_adjList2dgCMatrix__try);
     R_RegisterCCallable("gRbase", "gRbase_is_subsetof_", (DL_FUNC)gRbase_is_subsetof__try);
     R_RegisterCCallable("gRbase", "gRbase_get_superset_", (DL_FUNC)gRbase_get_superset__try);
     R_RegisterCCallable("gRbase", "gRbase_get_subset_", (DL_FUNC)gRbase_get_subset__try);

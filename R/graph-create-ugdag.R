@@ -73,7 +73,7 @@ ug <- function(..., result="graphNEL"){
 ugList <- function(x, result="graphNEL"){
     result <- match.arg(result, c("matrix","Matrix","dgCMatrix","igraph","NEL","graphNEL"))
     x   <- unlist(lapply(x, function(g) rhsf2list(g)), recursive=FALSE)
-    vn  <- unique.default( unlist(x, use.names=FALSE) )
+    vn  <- unique.default(unlist(x))
 
     switch(result,
            "NEL"      =,

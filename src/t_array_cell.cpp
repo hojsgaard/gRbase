@@ -8,7 +8,7 @@ typedef Rcpp::CharacterVector chrVec;
 
 //' @title table cell operations.
 //' @description low level table cell operations
-//' @name tableCell
+//' @name array-cell
 //' @param cell Vector giving the cell, eg c(1,1,2) in 3-way table.
 //' @param dim  Vector giving array dimension, eg c(2,2,2).
 //' @param perm Vector giving permutaion of array, eg. c(1,3,2).
@@ -32,7 +32,7 @@ IntegerVector make_prod( int ndim, const IntegerVector& dim ){
   return plevels;
 }
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   int ndim=dim.length();
@@ -56,7 +56,7 @@ int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
 
 // ------------------------------------------------
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim){
   numVec out_cell = clone(cell);
@@ -97,7 +97,7 @@ NumericVector next_cell_slice_prim_(const NumericVector& cell, const IntegerVect
   return out_cell;
 }
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_set){
   IntegerVector sliceIndic = make_indic( dim.length(), slice_set);
@@ -137,7 +137,7 @@ IntegerVector slice2entry_prim_(const IntegerVector& slice_cell, const IntegerVe
   return out;
 }
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_set, const IntegerVector& dim){
   IntegerVector sliceIndic = make_indic( dim.length(), slice_set);
@@ -157,7 +157,7 @@ int get_cell_number_prim_(const NumericVector& cell, const IntegerVector& perm, 
 }
 
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
   IntegerVector pvec=make_prod( dim.length(), dim );
@@ -167,7 +167,7 @@ int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const 
 // ---------------------------------
 
 
-//' @rdname tableCell
+//' @rdname array-cell
 //[[Rcpp::export]]
 IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector& dim){
 

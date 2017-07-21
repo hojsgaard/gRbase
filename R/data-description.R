@@ -7,8 +7,7 @@
 #' values representing increasing severity of symptoms, and one continuous
 #' variable, tree diameter at breast height (DBH).
 #' 
-#' 
-#' @name ashtrees
+#' @name data-ashtrees
 #' @docType data
 #' @format A data frame with 454 observations on the following 9 variables.
 #' \describe{
@@ -41,7 +40,7 @@
 #' Estimates of the percentage of body fat determined by underwater weighing
 #' and various body circumference measurements for 252 men.
 #'  
-#' @name BodyFat
+#' @name data-BodyFat
 #' @docType data
 #' @usage data(BodyFat)
 #' @format A data frame with 252 observations on the following 15
@@ -94,7 +93,6 @@
 #' Gene expression signatures for p53 mutation status in 250 breast cancer
 #' samples
 #' 
-#' 
 #' Perturbations of the p53 pathway are associated with more aggressive and
 #' therapeutically refractory tumours. We preprocessed the data using Robust
 #' Multichip Analysis (RMA). Dataset has been truncated to the 1000 most
@@ -105,7 +103,7 @@
 #' The factor \code{code} defines whether there was a mutation in the p53
 #' sequence (code=case) or not (code=control).
 #' 
-#' @name breastcancer
+#' @name data-breastcancer
 #'
 #' @docType data
 #'
@@ -139,7 +137,7 @@
 #' Information on (some of) the variables Hyperchol, Smoker, Inherit is
 #' missing.
 #' 
-#' @name cad
+#' @name data-cad
 #' @aliases cad1 cad2
 #' @docType data
 #' @format A data frame with 236 observations on the following 14 variables.
@@ -189,6 +187,7 @@
 #' Measurement of lean meat percentage of 344 pig carcasses together with
 #' auxillary information collected at three Danish slaughter houses
 #' 
+#' @name data-carcass
 #' 
 #' @aliases carcass carcassall
 #' @format carcassall: A data frame with 344 observations on the following 17
@@ -231,7 +230,7 @@
 #' Simulated data from the Chest Clinic example (also known as the Asia
 #' example) from Lauritzen and Spiegelhalter, 1988.
 #' 
-#' @name chestSim
+#' @name data-chestSim
 #'
 #' @aliases chestSim chestSim500 chestSim1000 chestSim10000
 #'     chestSim50000 chestSim100000
@@ -270,12 +269,14 @@
 #' 
 #' The \code{dietox} data frame has 861 rows and 7 columns.
 #' 
+#' @name data-dietox
 #' 
-#' @format This data frame contains the following columns: Weight, Feed, Time,
-#' Pig, Evit, Cu, Litter.
+#' @format This data frame contains the following columns: Weight,
+#'     Feed, Time, Pig, Evit, Cu, Litter.
 #' @source Lauridsen, C., Højsgaard, S., Sørensen, M.T. C. (1999)
-#' Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on Performance and
-#' Antioxidant and Oxidative Status of Pigs. J. Anim. Sci.77:906-916
+#'     Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on
+#'     Performance and Antioxidant and Oxidative Status of
+#'     Pigs. J. Anim. Sci.77:906-916
 #' @keywords datasets
 #' @examples
 #' 
@@ -288,7 +289,7 @@
 #' 
 #' A contingency table relating surgical operation, centre and severity of
 #' gastric dumping, a syndrome associated with gastric surgery.
-#' 
+#'
 #' Gastric dumping syndrome is a condition where ingested foods bypass the
 #' stomach too rapidly and enter the small intestine largely undigested. It is
 #' an undesirable side-effect of gastric surgery. The table summarizes the
@@ -299,7 +300,7 @@
 #' (removal of 50\% of gastric tissue), and gastric restriction (removal of
 #' 75\% of gastric tissue).
 #' 
-#' @name dumping
+#' @name data-dumping
 #' @docType data
 #' @format A 3x4x4 table of counts cross-classified by Symptom
 #' (none/slight/moderate), Operation (Vd/Va/Vh/Gr) and Centre (1:4).
@@ -322,8 +323,7 @@
 #' height and diameter are related, and whether and how these depend on
 #' species.
 #' 
-#' 
-#' @name lizard
+#' @name data-lizard
 #' @aliases lizard lizardRAW lizardAGG
 #' @docType data
 #' @format A 3--dimensional array with factors diam: "<=4" ">4" height: ">4.75"
@@ -353,7 +353,8 @@
 #' Mathematics marks for students
 #' 
 #' The \code{mathmark} data frame has 88 rows and 5 columns.
-#' 
+#'
+#' @name data-mathmark
 #' 
 #' @aliases mathmark math
 #' @format This data frame contains the following columns: mechanics, vectors,
@@ -376,9 +377,8 @@
 #' fungus. For each offspring 6 binary characteristics, each corresponding to a
 #' single locus, were recorded. The object of the analysis is to determine the
 #' order of the loci along the chromosome.
-#' 
-#' 
-#' @name mildew
+#'
+#' @name data-mildew
 #' @docType data
 #' @format The format is: 
 #'  table [1:2, 1:2, 1:2, 1:2, 1:2, 1:2] 0 0 0 0 3 0 1 0 0 1 ...
@@ -413,7 +413,7 @@
 #' \code{fat} + \code{protein} + \code{lactose} almost add up to \code{dm} (dry
 #' matter)
 #' 
-#' @name milkcomp
+#' @name data-milkcomp
 #' @aliases milkcomp milkcomp1
 #' @docType data
 #' 
@@ -466,7 +466,7 @@
 #' measured in liver cells, and (ii) the concentrations (in percentages) of 21
 #' hepatic fatty acids measured by gas chromatography.
 #' 
-#' @name Nutrimouse
+#' @name data-Nutrimouse
 #' @docType data
 #' @format A data frame with 40 observations on the following 143 variables.
 #'
@@ -678,7 +678,8 @@
 #' An artificial dataset. 24 rats (12 female, 12 male) have been randomized to
 #' use one of three drugs (products for loosing weight). The weightloss for
 #' each rat is noted after one and two weeks.
-#' 
+#'
+#' @name data-rats
 #' 
 #' @format A dataframe with 4 variables. Sex: "M" (male), "F" (female). Drug:
 #' "D1", "D2", "D3" (three types). W1 weightloss, week one. W2 weightloss, week
@@ -698,12 +699,15 @@
 #' risk factors for coronary thrombosis. Data are from all men employed in a
 #' car factory.
 #' 
+#' @name data-reinis
 #' 
-#' @format A table with 6 discrete variables. A: smoking, B: strenous mental
-#' work, D: strenuous physical work, E: systolic blood pressure, F: ratio of
-#' lipoproteins, G: Family anamnesis of coronary heart disease.
-#' @references Edwards and Havranek (1985): A fast procedure for model search
-#' in multidimensional contingency tables. Biometrika, 72: 339-351.
+#' @format A table with 6 discrete variables. A: smoking, B: strenous
+#'     mental work, D: strenuous physical work, E: systolic blood
+#'     pressure, F: ratio of lipoproteins, G: Family anamnesis of
+#'     coronary heart disease.
+#' @references Edwards and Havranek (1985): A fast procedure for model
+#'     search in multidimensional contingency tables. Biometrika, 72:
+#'     339-351.
 #' 
 #' Reinis et al (1981): Prognostic significance of the risk profile in the
 #' prevention of coronary heart disease. Bratis. lek. Listy. 76: 137-150.
@@ -718,7 +722,7 @@
 #' Data comes from the UCI Machine Learning Repository. The grape variety
 #' \code{Cult} is the class identifier.  
 #' 
-#' @name wine
+#' @name data-wine
 #' @docType data
 #' @format A data frame with 178 observations on the following 14 variables.
 #'   \describe{

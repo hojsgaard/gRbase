@@ -38,10 +38,10 @@ export("%a_%")
 export("%a^%")
 
 
-S3method(coerceGraph, dgCMatrix)
-S3method(coerceGraph, graphNEL)
-S3method(coerceGraph, igraph)
-S3method(coerceGraph, matrix)
+## S3method(coerceGraph, dgCMatrix)
+## S3method(coerceGraph, graphNEL)
+## S3method(coerceGraph, igraph)
+## S3method(coerceGraph, matrix)
 
 S3method(as.gmData, array)
 S3method(as.gmData, data.frame)
@@ -140,10 +140,6 @@ S3method(plot, ripOrder)
 S3method(isDecomposable, default)
 S3method(nonEdgeList, default)
 
-S3method(coerceGraph, dgCMatrix)
-S3method(coerceGraph, graphNEL)
-S3method(coerceGraph, igraph)
-S3method(coerceGraph, matrix)
 
 S3method(as.gmData, array)
 S3method(as.gmData, data.frame)
@@ -237,3 +233,8 @@ S3method(plot, ripOrder)
 
 S3method(isDecomposable, default)
 S3method(nonEdgeList, default)
+
+S3method(as_, dgCMatrix)
+S3method(as_, graphNEL)
+S3method(as_, igraph)
+S3method(as_, matrix)

@@ -21,18 +21,19 @@ extern SEXP gRbase_M2dgCMatrix_(SEXP);
 extern SEXP gRbase_M2matrix_(SEXP);
 extern SEXP gRbase_MAT2ftM_(SEXP);
 extern SEXP gRbase_RcppExport_registerCCallable();
-extern SEXP gRbase_adjList2dgCMatrix(SEXP);
-extern SEXP gRbase_adjList2ftList(SEXP);
-extern SEXP gRbase_adjList2ftM(SEXP);
-extern SEXP gRbase_adjList2matrix(SEXP);
-extern SEXP gRbase_adjList2tfList(SEXP);
-extern SEXP gRbase_adjList2tfM(SEXP);
+extern SEXP gRbase_adjList2dgCMatrix_(SEXP);
+extern SEXP gRbase_adjList2ftList_(SEXP);
+extern SEXP gRbase_adjList2ftM_(SEXP);
+extern SEXP gRbase_adjList2matrix_(SEXP);
+extern SEXP gRbase_adjList2tfList_(SEXP);
+extern SEXP gRbase_adjList2tfM_(SEXP);
 extern SEXP gRbase_allSubsets0__(SEXP);
 extern SEXP gRbase_allSubsets__(SEXP);
 extern SEXP gRbase_cell2entry_(SEXP, SEXP);
 extern SEXP gRbase_colmat2list(SEXP);
-extern SEXP gRbase_dagList2dgCMatrix(SEXP, SEXP);
-extern SEXP gRbase_dagList2matrix(SEXP, SEXP);
+extern SEXP gRbase_dagList2dgCMatrix_(SEXP, SEXP);
+extern SEXP gRbase_dagList2matrix_(SEXP, SEXP);
+extern SEXP gRbase_dgCMatrix2matrix_(SEXP);
 extern SEXP gRbase_dimnames_match_(SEXP, SEXP, SEXP);
 extern SEXP gRbase_do_getcq_dense(SEXP, SEXP);
 extern SEXP gRbase_do_getcq_sparse(SEXP, SEXP);
@@ -51,6 +52,7 @@ extern SEXP gRbase_isadjMAT_(SEXP);
 extern SEXP gRbase_isdagMAT_(SEXP);
 extern SEXP gRbase_issymMAT_(SEXP);
 extern SEXP gRbase_isugMAT_(SEXP);
+extern SEXP gRbase_matrix2dgCMatrix_(SEXP);
 extern SEXP gRbase_mcsMAT0_(SEXP, SEXP);
 extern SEXP gRbase_mcsMAT_(SEXP, SEXP);
 extern SEXP gRbase_moralizeMAT(SEXP);
@@ -79,8 +81,8 @@ extern SEXP gRbase_tab_perm_(SEXP, SEXP);
 extern SEXP gRbase_tab_subt_(SEXP, SEXP);
 extern SEXP gRbase_topoSortMAT_(SEXP);
 extern SEXP gRbase_triangulateMAT_(SEXP, SEXP);
-extern SEXP gRbase_ugList2dgCMatrix(SEXP, SEXP);
-extern SEXP gRbase_ugList2matrix(SEXP, SEXP);
+extern SEXP gRbase_ugList2dgCMatrix_(SEXP, SEXP);
+extern SEXP gRbase_ugList2matrix_(SEXP, SEXP);
 extern SEXP gRbase_which_matrix_index(SEXP);
 
 static const R_CMethodDef CEntries[] = {
@@ -99,18 +101,19 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_M2matrix_",                    (DL_FUNC) &gRbase_M2matrix_,                    1},
     {"gRbase_MAT2ftM_",                     (DL_FUNC) &gRbase_MAT2ftM_,                     1},
     {"gRbase_RcppExport_registerCCallable", (DL_FUNC) &gRbase_RcppExport_registerCCallable, 0},
-    {"gRbase_adjList2dgCMatrix",            (DL_FUNC) &gRbase_adjList2dgCMatrix,            1},
-    {"gRbase_adjList2ftList",               (DL_FUNC) &gRbase_adjList2ftList,               1},
-    {"gRbase_adjList2ftM",                  (DL_FUNC) &gRbase_adjList2ftM,                  1},
-    {"gRbase_adjList2matrix",               (DL_FUNC) &gRbase_adjList2matrix,               1},
-    {"gRbase_adjList2tfList",               (DL_FUNC) &gRbase_adjList2tfList,               1},
-    {"gRbase_adjList2tfM",                  (DL_FUNC) &gRbase_adjList2tfM,                  1},
+    {"gRbase_adjList2dgCMatrix_",           (DL_FUNC) &gRbase_adjList2dgCMatrix_,           1},
+    {"gRbase_adjList2ftList_",              (DL_FUNC) &gRbase_adjList2ftList_,              1},
+    {"gRbase_adjList2ftM_",                 (DL_FUNC) &gRbase_adjList2ftM_,                 1},
+    {"gRbase_adjList2matrix_",              (DL_FUNC) &gRbase_adjList2matrix_,              1},
+    {"gRbase_adjList2tfList_",              (DL_FUNC) &gRbase_adjList2tfList_,              1},
+    {"gRbase_adjList2tfM_",                 (DL_FUNC) &gRbase_adjList2tfM_,                 1},
     {"gRbase_allSubsets0__",                (DL_FUNC) &gRbase_allSubsets0__,                1},
     {"gRbase_allSubsets__",                 (DL_FUNC) &gRbase_allSubsets__,                 1},
     {"gRbase_cell2entry_",                  (DL_FUNC) &gRbase_cell2entry_,                  2},
     {"gRbase_colmat2list",                  (DL_FUNC) &gRbase_colmat2list,                  1},
-    {"gRbase_dagList2dgCMatrix",            (DL_FUNC) &gRbase_dagList2dgCMatrix,            2},
-    {"gRbase_dagList2matrix",               (DL_FUNC) &gRbase_dagList2matrix,               2},
+    {"gRbase_dagList2dgCMatrix_",           (DL_FUNC) &gRbase_dagList2dgCMatrix_,           2},
+    {"gRbase_dagList2matrix_",              (DL_FUNC) &gRbase_dagList2matrix_,              2},
+    {"gRbase_dgCMatrix2matrix_",            (DL_FUNC) &gRbase_dgCMatrix2matrix_,            1},
     {"gRbase_dimnames_match_",              (DL_FUNC) &gRbase_dimnames_match_,              3},
     {"gRbase_do_getcq_dense",               (DL_FUNC) &gRbase_do_getcq_dense,               2},
     {"gRbase_do_getcq_sparse",              (DL_FUNC) &gRbase_do_getcq_sparse,              2},
@@ -129,6 +132,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_isdagMAT_",                    (DL_FUNC) &gRbase_isdagMAT_,                    1},
     {"gRbase_issymMAT_",                    (DL_FUNC) &gRbase_issymMAT_,                    1},
     {"gRbase_isugMAT_",                     (DL_FUNC) &gRbase_isugMAT_,                     1},
+    {"gRbase_matrix2dgCMatrix_",            (DL_FUNC) &gRbase_matrix2dgCMatrix_,            1},
     {"gRbase_mcsMAT0_",                     (DL_FUNC) &gRbase_mcsMAT0_,                     2},
     {"gRbase_mcsMAT_",                      (DL_FUNC) &gRbase_mcsMAT_,                      2},
     {"gRbase_moralizeMAT",                  (DL_FUNC) &gRbase_moralizeMAT,                  1},
@@ -157,8 +161,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"gRbase_tab_subt_",                    (DL_FUNC) &gRbase_tab_subt_,                    2},
     {"gRbase_topoSortMAT_",                 (DL_FUNC) &gRbase_topoSortMAT_,                 1},
     {"gRbase_triangulateMAT_",              (DL_FUNC) &gRbase_triangulateMAT_,              2},
-    {"gRbase_ugList2dgCMatrix",             (DL_FUNC) &gRbase_ugList2dgCMatrix,             2},
-    {"gRbase_ugList2matrix",                (DL_FUNC) &gRbase_ugList2matrix,                2},
+    {"gRbase_ugList2dgCMatrix_",            (DL_FUNC) &gRbase_ugList2dgCMatrix_,            2},
+    {"gRbase_ugList2matrix_",               (DL_FUNC) &gRbase_ugList2matrix_,               2},
     {"gRbase_which_matrix_index",           (DL_FUNC) &gRbase_which_matrix_index,           1},
     {NULL, NULL, 0}
 };

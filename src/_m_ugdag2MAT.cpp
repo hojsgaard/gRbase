@@ -118,31 +118,31 @@ SEXP inline setnames_de( SpMat AA, CharacterVector vn) {
 }
 
 //[[Rcpp::export]]
-SEXP dagList2dgCMatrix ( List LL, CharacterVector vn ){
+SEXP dagList2dgCMatrix_( List LL, CharacterVector vn ){
   SpMat AA = do_dagList2dgCMatrix(LL, vn);
   return setnames_sp(AA, vn);
 }
 
 //[[Rcpp::export]]
-SEXP ugList2dgCMatrix ( List LL, CharacterVector vn ){
+SEXP ugList2dgCMatrix_( List LL, CharacterVector vn ){
   SpMat AA = do_ugList2dgCMatrix(LL, vn);
   return setnames_sp(AA, vn);
 }
 
 //[[Rcpp::export]]
-SEXP dagList2matrix ( List LL, CharacterVector vn ){
+SEXP dagList2matrix_( List LL, CharacterVector vn ){
   SpMat AA = do_dagList2dgCMatrix(LL, vn);
   return setnames_de(AA, vn);  // Coerces to dense as well
 }
 
 //[[Rcpp::export]]
-SEXP ugList2matrix ( List LL, CharacterVector vn ){
+SEXP ugList2matrix_( List LL, CharacterVector vn ){
   SpMat AA = do_ugList2dgCMatrix(LL, vn);
   return setnames_de(AA, vn);  // Coerces to dense as well
 }
 
 //[[Rcpp::export]]
-List adjList2tfList(List LL){
+List adjList2tfList_(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
   int mm=0;
@@ -151,10 +151,10 @@ List adjList2tfList(List LL){
   }
 
   List out(mm);
-  for (int ii=0, mm=0; ii<n; ii++){
+  for (int ii=0, mm=0; ii < n; ii++){
     String parent = NN[ii];
     CharacterVector childVec = LL[ii];
-    for (int jj=0; jj<childVec.length(); jj++){
+    for (int jj = 0; jj < childVec.length(); jj++){
       out[mm++] = CharacterVector::create( childVec[jj], parent );
     }
   }
@@ -162,7 +162,7 @@ List adjList2tfList(List LL){
 }
 
 //[[Rcpp::export]]
-List adjList2ftList(List LL){
+List adjList2ftList_(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
   int mm=0;
@@ -183,7 +183,7 @@ List adjList2ftList(List LL){
 
 
 //[[Rcpp::export]]
-CharacterMatrix adjList2ftM(List LL){
+CharacterMatrix adjList2ftM_(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
   int mm=0;
@@ -204,7 +204,7 @@ CharacterMatrix adjList2ftM(List LL){
 }
 
 //[[Rcpp::export]]
-CharacterMatrix adjList2tfM(List LL){
+CharacterMatrix adjList2tfM_(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
   int mm=0;
@@ -224,17 +224,17 @@ CharacterMatrix adjList2tfM(List LL){
 }
 
 //[[Rcpp::export]]
-SEXP adjList2matrix(List LL){
-  List tfList = adjList2tfList( LL );
+SEXP adjList2matrix_(List LL){
+  List tfList = adjList2tfList_( LL );
   CharacterVector vn = LL.names();
-  return dagList2matrix(tfList, vn);
+  return dagList2matrix_(tfList, vn);
 }
 
 //[[Rcpp::export]]
-SEXP adjList2dgCMatrix(List LL){
-  List tfList = adjList2tfList( LL );
+SEXP adjList2dgCMatrix_(List LL){
+  List tfList = adjList2tfList_( LL );
   CharacterVector vn = LL.names();
-  return dagList2dgCMatrix(tfList, vn);
+  return dagList2dgCMatrix_(tfList, vn);
 }
 
 /*** R

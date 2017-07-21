@@ -101,12 +101,12 @@ rip.default <- function(object, root=NULL, nLevels=NULL, ...){
            "graphNEL" ={
                if (graph::edgemode(object)=="directed")
                    stop("Graph must be undirected")
-               ripMAT(graphNEL2dgCMatrix(object), root=root, nLevels=nLevels)
+               ripMAT(gn2sm_(object), root=root, nLevels=nLevels)
            },
            "igraph" ={
                if (igraph::is.directed(object))
                    stop("Graph must be undirected")               
-               ripMAT(igraph::get.adjacency(object), root=root, nLevels=nLevels)
+               ripMAT(ig2sm_(object), root=root, nLevels=nLevels)
            }
            )
 }
@@ -268,10 +268,10 @@ jTree.default <-  function(object, nLevels = NULL, ...){
                      c("graphNEL","igraph","matrix","dgCMatrix"))
 
     switch(cls,
-           "graphNEL" ={jTreeMAT( graphNEL2dgCMatrix( object ), nLevels=nLevels, ... )},
-           "igraph"   ={jTreeMAT( igraph::get.adjacency( object ), nLevels=nLevels, ... )},
+           "graphNEL" ={jTreeMAT(gn2sm_(object), nLevels=nLevels, ... )},
+           "igraph"   ={jTreeMAT(ig2sm_(object), nLevels=nLevels, ... )},
            "dgCMatrix"=,
-           "matrix"   ={jTreeMAT( object, nLevels=nLevels, ... )})
+           "matrix"   ={jTreeMAT(object, nLevels=nLevels, ...)})
 }
 
 #' @rdname graph-rip

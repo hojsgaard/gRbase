@@ -79,7 +79,7 @@ The workhorse is the \code{mcsMAT} function.
 
 uG <- ug(~ me:ve + me:al + ve:al + al:an + al:st + an:st)
 mcs(uG)
-mcsMAT( graphNEL2M(uG) )
+mcsMAT(as(uG, "matrix"))
 ## Same as
 uG <- ug(~ me:ve + me:al + ve:al + al:an + al:st + an:st, result="matrix")
 mcsMAT(uG)

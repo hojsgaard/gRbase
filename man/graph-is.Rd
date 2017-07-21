@@ -69,9 +69,9 @@ is.DG(object)
 is.DGMAT(object)
 }
 \arguments{
-\item{object}{A graph represented as 1) graphNEL (from the graph package),
-2) an adjacency matrix, 3) a sparse adjacency matrix (a dgCMatrix from the
-Matrix package).}
+\item{object}{A graph represented as 1) graphNEL (from the graph
+package), 2) an adjacency matrix, 3) a sparse adjacency matrix
+(a dgCMatrix from the Matrix package).}
 }
 \description{
 Check if a graph is 1) a directed acyclic graph (DAG),

@@ -3,27 +3,19 @@
 \name{graph-coerce}
 \alias{graph-coerce}
 \alias{coerceGraph}
-\alias{coerceGraph.graphNEL}
-\alias{coerceGraph.matrix}
-\alias{coerceGraph.dgCMatrix}
-\alias{coerceGraph.igraph}
 \title{Graph coercion}
 \usage{
-coerceGraph(object, result)
-
-\method{coerceGraph}{graphNEL}(object, result)
-
-\method{coerceGraph}{matrix}(object, result)
-
-\method{coerceGraph}{dgCMatrix}(object, result)
-
-\method{coerceGraph}{igraph}(object, result)
+coerceGraph(object, Class)
 }
 \arguments{
 \item{object}{A graph object}
 
-\item{result}{The desired output type}
+\item{Class}{The desired output class}
 }
 \description{
 Methods for changing graph representations
+}
+\details{
+coerceGraph is used in the book "Graphical models with R".
+A more generic approach is as().
 }

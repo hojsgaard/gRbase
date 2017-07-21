@@ -51,27 +51,24 @@ SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
 
 
 
-// // [[Rcpp::export]]
-// SEXP matrix2dgCMatrix_ ( SEXP XX_ ){
-//   int type = TYPEOF(XX_) ;
-//   switch( type ){
-//   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
-//   case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
-//   }
-//   return R_NilValue ;
-// }
+// [[Rcpp::export]]
+SEXP matrix2dgCMatrix_ ( SEXP XX_ ){
+  int type = TYPEOF(XX_) ;
+  switch( type ){
+  case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
+  case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
+  }
+  return R_NilValue ;
+}
 
-// // [[Rcpp::export]]
-// SEXP dgCMatrix2matrix_ ( SEXP XX_ ){
-//   int type = TYPEOF(XX_) ;
-//   //Rf_PrintValue(wrap(type));
-//   switch( type ){
-//   case S4SXP   : return do_dgCMatrix2matrix(XX_); 
-//   }
-//   return R_NilValue ;
-// }
-
-
+// [[Rcpp::export]]
+SEXP dgCMatrix2matrix_ ( SEXP XX_ ){
+  int type = TYPEOF(XX_) ;
+  switch( type ){
+  case S4SXP   : return do_dgCMatrix2matrix(XX_); 
+  }
+  return R_NilValue ;
+}
 
 // [[Rcpp::export]]
 SEXP M2dgCMatrix_ ( SEXP XX_ ){

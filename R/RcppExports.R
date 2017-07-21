@@ -73,6 +73,14 @@ isdagMAT_ <- function(A_) {
     .Call('gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
 }
 
+matrix2dgCMatrix_ <- function(XX_) {
+    .Call('gRbase_matrix2dgCMatrix_', PACKAGE = 'gRbase', XX_)
+}
+
+dgCMatrix2matrix_ <- function(XX_) {
+    .Call('gRbase_dgCMatrix2matrix_', PACKAGE = 'gRbase', XX_)
+}
+
 M2dgCMatrix_ <- function(XX_) {
     .Call('gRbase_M2dgCMatrix_', PACKAGE = 'gRbase', XX_)
 }
@@ -93,44 +101,44 @@ colmat2list <- function(XX_) {
     .Call('gRbase_colmat2list', PACKAGE = 'gRbase', XX_)
 }
 
-dagList2dgCMatrix <- function(LL, vn) {
-    .Call('gRbase_dagList2dgCMatrix', PACKAGE = 'gRbase', LL, vn)
+dagList2dgCMatrix_ <- function(LL, vn) {
+    .Call('gRbase_dagList2dgCMatrix_', PACKAGE = 'gRbase', LL, vn)
 }
 
-ugList2dgCMatrix <- function(LL, vn) {
-    .Call('gRbase_ugList2dgCMatrix', PACKAGE = 'gRbase', LL, vn)
+ugList2dgCMatrix_ <- function(LL, vn) {
+    .Call('gRbase_ugList2dgCMatrix_', PACKAGE = 'gRbase', LL, vn)
 }
 
-dagList2matrix <- function(LL, vn) {
-    .Call('gRbase_dagList2matrix', PACKAGE = 'gRbase', LL, vn)
+dagList2matrix_ <- function(LL, vn) {
+    .Call('gRbase_dagList2matrix_', PACKAGE = 'gRbase', LL, vn)
 }
 
-ugList2matrix <- function(LL, vn) {
-    .Call('gRbase_ugList2matrix', PACKAGE = 'gRbase', LL, vn)
+ugList2matrix_ <- function(LL, vn) {
+    .Call('gRbase_ugList2matrix_', PACKAGE = 'gRbase', LL, vn)
 }
 
-adjList2tfList <- function(LL) {
-    .Call('gRbase_adjList2tfList', PACKAGE = 'gRbase', LL)
+adjList2tfList_ <- function(LL) {
+    .Call('gRbase_adjList2tfList_', PACKAGE = 'gRbase', LL)
 }
 
-adjList2ftList <- function(LL) {
-    .Call('gRbase_adjList2ftList', PACKAGE = 'gRbase', LL)
+adjList2ftList_ <- function(LL) {
+    .Call('gRbase_adjList2ftList_', PACKAGE = 'gRbase', LL)
 }
 
-adjList2ftM <- function(LL) {
-    .Call('gRbase_adjList2ftM', PACKAGE = 'gRbase', LL)
+adjList2ftM_ <- function(LL) {
+    .Call('gRbase_adjList2ftM_', PACKAGE = 'gRbase', LL)
 }
 
-adjList2tfM <- function(LL) {
-    .Call('gRbase_adjList2tfM', PACKAGE = 'gRbase', LL)
+adjList2tfM_ <- function(LL) {
+    .Call('gRbase_adjList2tfM_', PACKAGE = 'gRbase', LL)
 }
 
-adjList2matrix <- function(LL) {
-    .Call('gRbase_adjList2matrix', PACKAGE = 'gRbase', LL)
+adjList2matrix_ <- function(LL) {
+    .Call('gRbase_adjList2matrix_', PACKAGE = 'gRbase', LL)
 }
 
-adjList2dgCMatrix <- function(LL) {
-    .Call('gRbase_adjList2dgCMatrix', PACKAGE = 'gRbase', LL)
+adjList2dgCMatrix_ <- function(LL) {
+    .Call('gRbase_adjList2dgCMatrix_', PACKAGE = 'gRbase', LL)
 }
 
 is_subsetof_ <- function(x, set) {
@@ -163,7 +171,7 @@ solveSPD <- function(X) {
 
 #' @title table cell operations.
 #' @description low level table cell operations
-#' @name tableCell
+#' @name array-cell
 #' @param cell Vector giving the cell, eg c(1,1,2) in 3-way table.
 #' @param dim  Vector giving array dimension, eg c(2,2,2).
 #' @param perm Vector giving permutaion of array, eg. c(1,3,2).
@@ -171,32 +179,32 @@ solveSPD <- function(X) {
 #' @param slice_cell Vector giving the corresponding cell of marginal table, eg. c(1,2)
 NULL
 
-#' @rdname tableCell
+#' @rdname array-cell
 cell2entry_ <- function(cell, dim) {
     .Call('gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname tableCell
+#' @rdname array-cell
 next_cell_ <- function(cell, dim) {
     .Call('gRbase_next_cell_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname tableCell
+#' @rdname array-cell
 next_cell_slice_ <- function(cell, dim, slice_set) {
     .Call('gRbase_next_cell_slice_', PACKAGE = 'gRbase', cell, dim, slice_set)
 }
 
-#' @rdname tableCell
+#' @rdname array-cell
 slice2entry_ <- function(slice_cell, slice_set, dim) {
     .Call('gRbase_slice2entry_', PACKAGE = 'gRbase', slice_cell, slice_set, dim)
 }
 
-#' @rdname tableCell
+#' @rdname array-cell
 get_cell_number_ <- function(cell, dim, perm) {
     .Call('gRbase_get_cell_number_', PACKAGE = 'gRbase', cell, dim, perm)
 }
 
-#' @rdname tableCell
+#' @rdname array-cell
 perm_cell_entries_ <- function(perm, dim) {
     .Call('gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
 }

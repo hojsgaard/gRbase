@@ -61,8 +61,8 @@ topoSort.default <- function(object, index=FALSE){
     cls <- match.arg(class( object ),
                      c("graphNEL","igraph","matrix","dgCMatrix"))
     switch(cls,
-           "graphNEL" ={topoSortMAT(graphNEL2dgCMatrix(object), index=index) },
-           "igraph"   ={topoSortMAT(igraph::get.adjacency(object), index=index) },
+           "graphNEL" ={topoSortMAT(gn2sm_(object), index=index) },
+           "igraph"   ={topoSortMAT(ig2sm_(object), index=index) },
            "dgCMatrix"=,
            "matrix"   ={topoSortMAT(object, index=index)} )
 }

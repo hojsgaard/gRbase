@@ -2,7 +2,6 @@
 % Please edit documentation in R/t_array-create.R
 \name{array-create}
 \alias{array-create}
-\alias{df2xtabs}
 \alias{tab}
 \alias{newar}
 \alias{ar_new}

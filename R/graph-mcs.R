@@ -56,7 +56,7 @@
 #' 
 #' uG <- ug(~ me:ve + me:al + ve:al + al:an + al:st + an:st)
 #' mcs(uG)
-#' mcsMAT( graphNEL2M(uG) )
+#' mcsMAT(as(uG, "matrix"))
 #' ## Same as
 #' uG <- ug(~ me:ve + me:al + ve:al + al:an + al:st + an:st, result="matrix")
 #' mcsMAT(uG)
@@ -103,16 +103,16 @@ mcsMAT <- function (amat, vn = colnames(amat), root = NULL, index = FALSE)
     a <- mcsMAT_( amat, root2 )
 
     if (index){
-        if (a[1]<0){
+        if (a[1] < 0){
             NA
         } else {
-            a+1
+            a + 1
         }
     } else {
-        if (a[1]<0){
+        if (a[1] < 0){
             character(0)
         } else {
-            vn.old[a+1]
+            vn.old[a + 1]
         }
     }
 }
@@ -130,15 +130,15 @@ mcsmarked.default <- function (object, discrete=NULL, index = FALSE){
     switch(cls,
            "graphNEL" ={
                if (is.null(discrete))
-                   mcsMAT(graphNEL2dgCMatrix(object), index=index)
+                   mcsMAT(gn2sm_(object), index=index)
                else
-                   mcsmarkedMAT(graphNEL2dgCMatrix(object), discrete=discrete, index = index)
+                   mcsmarkedMAT(gn2sm_(object), discrete=discrete, index = index)
            },
            "igraph"   ={
                if (is.null(discrete))
-                   mcsMAT(igraph::get.adjacency(object), index=index)
+                   mcsMAT(ig2sm_(object), index=index)
                else
-                   mcsmarkedMAT(igraph::get.adjacency(object), discrete=discrete, index = index)
+                   mcsmarkedMAT(ig2sm_(object), discrete=discrete, index = index)
            },
            "dgCMatrix"=,
            "matrix"   ={
@@ -148,8 +148,6 @@ mcsmarked.default <- function (object, discrete=NULL, index = FALSE){
                    mcsmarkedMAT(object, discrete=discrete, index = index)
            })
 }
-
-
 
 ## FIXME: mcsmarkedMAT: candidate for C++ implementation.
 

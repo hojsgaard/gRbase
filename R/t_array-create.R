@@ -21,7 +21,7 @@
 #'
 #' @name array-create
 #' 
-#' @aliases df2xtabs tab
+#' @aliases tab
 #' @param names Names of variables defining table; a character vector or a right
 #'     hand sided formula.
 #' @param levels 1) a list with specification of the levels of the factors in
