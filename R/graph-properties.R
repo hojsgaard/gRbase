@@ -154,7 +154,7 @@ isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 properties_glist <- function(glist,
                              vn=unique(unlist(glist)),
                              amat=ugList2M(glist,vn=vn),
-                             cliq=maxCliqueMAT(amat)[[1]],discrete=NULL){
+                             cliq=maxCliqueMAT(amat)[[1]], discrete=NULL){
 
   isg <- all(unlist(lapply(cliq, function(sss) isin(glist, sss))))
   if (!isg){
