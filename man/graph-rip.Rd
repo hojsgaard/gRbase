@@ -89,7 +89,7 @@ rip(uG)
 jTree(uG)
 
 ## Sparse adjacency matrix
-uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="Matrix")
+uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="dgCMatrix")
 mcs(uG)
 rip(uG)
 jTree(uG)

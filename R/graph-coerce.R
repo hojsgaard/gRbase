@@ -1,10 +1,8 @@
 ## ####################################################################
 ##
-## This file implements as() and coerceGraph() for conversion between
+## Implements as() and coerceGraph() for conversion between
 ## different graph representations: graphNEL, igraph, matrix and
-## dgCMatrix. (coerceGraph methods are used in the GMwR book).
-## Generally, the coerceGraph methods are faster than the as( )
-## methods.
+## dgCMatrix.
 ##
 ## Implementation is based on the api-interface: xx2yy_ and as_()
 ##

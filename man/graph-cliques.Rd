@@ -54,7 +54,7 @@ uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
 getCliques(uG2)
 
 ## adjacency matrix (sparse)
-uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
+uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 getCliques(uG3)
 
 

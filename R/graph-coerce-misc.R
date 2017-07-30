@@ -7,8 +7,8 @@
 ## ----------------------------------
 ## Interface
 ## ----------------------------------
-matrix2dgCMatrix <- matrix2dgCMatrix_
-dgCMatrix2matrix <- dgCMatrix2matrix_
+matrix2dgCMatrix <- matrix2dgCMatrix__
+dgCMatrix2matrix <- dgCMatrix2matrix__
 
 .check.is.matrix <- function(x){
     if (!inherits(x, c("matrix", "dgCMatrix")))
@@ -28,9 +28,6 @@ dgCMatrix2matrix <- dgCMatrix2matrix_
 #' 
 #' @aliases glist2adjMAT vpaList2adjMAT vpaL2tfM graphNEL2adjMAT
 #'     graphNEL2matrix graphNEL2dgCMatrix
-#' ##    adjList2adjMAT
-#'     graphNEL2matrix_ graphNEL2dgCMatrix_
-#'     M2dgCMatrix_ M2matrix_
 #' 
 #' @param result Either \code{"matrix"} or \code{"dgCMatrix"} (for a
 #'     sparse matrix representation)
@@ -83,19 +80,19 @@ igraph2dgCMatrix  <- function(ig) ig2sm_(ig)
 #' M2 <- M2dgCMatrix(m2)
 #'
 #' if (require(microbenchmark)){
-#'   microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix_(M),
-#'                  as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix_(m))
+#'   microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix__(M),
+#'                  as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix__(m))
 #' }
 
 M2matrix <- function( mat ){
     .check.is.matrix( mat )
-    M2matrix_(mat)
+    M2matrix__(mat)
 }
 
 #' @rdname graph-coerce-misc
 M2dgCMatrix <- function( mat ){
     .check.is.matrix( mat )
-    M2dgCMatrix_(mat)
+    M2dgCMatrix__(mat)
 }
 
 ## #################################################################
@@ -227,12 +224,6 @@ graphNEL2adjMAT <- graphNEL2M
 ##   amat
 ## }
 
-
-## FIXME vpaList2adjMAT Delete
-## vpaList2adjMAT <- dagList2M
-
-## FIXME: glist2adjMAT Delete 
-## glist2adjMAT <- ugList2M
 
 
 

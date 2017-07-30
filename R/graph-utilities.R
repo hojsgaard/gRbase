@@ -77,7 +77,7 @@ edgeListMAT <- function(adjmat, matrix=FALSE){
     dim(ans) <- di
 
     if (!matrix){
-        rowmat2list(ans)
+        rowmat2list__(ans)
     } else {
         ans
     }
@@ -171,7 +171,7 @@ ug2dag <- function(gn){
 
 ## ##########################################################
 ##
-## vpar implemented for graphNEL, matrix and Matrix
+## vpar implemented for graphNEL, matrix and dgCMatrix
 ##
 ## ##########################################################
 
@@ -197,7 +197,7 @@ ug2dag <- function(gn){
 #' 
 #' ## DAGs
 #' dagMAT <- dag(~a:b:c + c:d:e, result="matrix")
-#' dagNEL <- dag(~a:b:c + c:d:e, result="NEL")
+#' dagNEL <- dag(~a:b:c + c:d:e, result="graphNEL")
 
 #' vpar(dagMAT)
 #' vpar(dagNEL)
@@ -206,7 +206,7 @@ ug2dag <- function(gn){
 
 #' ## Undirected graphs
 #' ugMAT <- ug(~a:b:c + c:d:e, result="matrix")
-#' ugNEL <- ug(~a:b:c + c:d:e, result="NEL")
+#' ugNEL <- ug(~a:b:c + c:d:e, result="graphNEL")
 
 #' \dontrun{
 #' ## This will fail because the adjacency matrix is symmetric and the
@@ -309,7 +309,7 @@ vpar.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
     vn <- names(ch)
     tf <- lapply(seq_along(ch),
                  function(i)
-                     names2pairsM( ch[[i]], vn[i],
+                     all_pairs( ch[[i]], vn[i],
                                   sort=FALSE, result="matrix"))
 
     tf <- do.call(rbind, tf) # matrix in to-from form
@@ -374,7 +374,7 @@ vpar.matrix <- vparMAT
 #' getCliques(uG2)
 #' 
 #' ## adjacency matrix (sparse)
-#' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
+#' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 #' getCliques(uG3)
 #' 
 #' 

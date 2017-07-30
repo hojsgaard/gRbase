@@ -34,11 +34,11 @@ typedef SpVec::InnerIterator InIter;
 
 using namespace Rcpp;
 
-// [[Rcpp::export]]
 SEXP do_triangulate_elo ( SEXP X_, SEXP ELO_ ){
 
   SpMat   X(as<SpMat>(X_));
   Eigen::VectorXd ELO(as<Eigen::VectorXd>(ELO_));
+
   bool pp=false;
   int i, v, nrX(X.rows()), n_anbr, n_nbr_obs = -1;
   //  if (X.cols() != nrX) throw std::invalid_argument("Sparse matrix X must be square");
@@ -108,3 +108,71 @@ SEXP do_triangulate_elo ( SEXP X_, SEXP ELO_ ){
   return( wrap(X) );
 }
 
+
+// FIXME triang_elo: Should be similar to other triangualte...
+
+// [[Rcpp::export]]
+SEXP triang_elo_MAT__ (SEXP X_, SEXP ELO_){
+  switch(TYPEOF(X_)){
+  case INTSXP  :
+  case REALSXP : ::Rf_error("Object must be sparse matrix");
+  case S4SXP   : return do_triangulate_elo(X_, ELO_);
+  }
+  return R_NilValue;
+}
+
+
+
+// // [[Rcpp::export]]
+// SEXP do_de ( SEXP XX_, SEXP OO_ ){
+//   MapMatd X(Rcpp::as<MapMatd>(XX_));
+//   SpMat Xsparse = X.sparseView();             // Output: sparse matrix
+//   S4 Xin(wrap(Xsparse));                      // Output: as S4 object
+//   //return(wrap(do_triangulate_elo(Xin, OO_)));
+//   S4 Xout(do_triangulate_elo(Xin, OO_));
+
+//   SEXP zzz=wrap(Xout);
+//   NumericMatrix ooo(zzz);
+
+//   //return(zzz);
+
+
+//   //  Eigen::MatrixXd uuu(zzz);
+//   //NumericMatrix ooo = wrap(uuu);
+//   return ooo;
+
+  
+//   //Eigen::MatrixXd yyy(wrap(zzz));
+//   //return(wrap(yyy));
+
+//   //NumericMatrix Xout2(wrap(dMat)); // FIXME : IntegerMatrix?
+//   //return Xout2;
+  
+//   // Eigen::MatrixXd dMat(Xout);
+//   // NumericMatrix out = wrap(dMat);
+//   // return(out);
+  
+//   // Xout2 = wrap(Xoutd);
+//   // return(XX_);  
+// }
+
+
+
+//   // Eigen::MatrixXd dMat(AA);
+//   // NumericMatrix Xout(wrap(dMat)); // FIXME : IntegerMatrix?
+//   // List dn = List::create(vn, vn);
+//   // Xout.attr("dimnames") = dn;
+//   // return Xout;
+
+
+
+
+// // [[Rcpp::export]]
+// SEXP triang_elo_MAT__ (SEXP X_, SEXP ELO_){
+//   switch(TYPEOF(X_)){
+//   case INTSXP  :
+//   case REALSXP : return do_de(X_, ELO_);
+//   case S4SXP   : do_triangulate_elo(X_, ELO_);
+//   }
+//   return R_NilValue;
+// }

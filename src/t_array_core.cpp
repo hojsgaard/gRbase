@@ -473,6 +473,25 @@ bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps
 
 
 
+// FIXME: ALIASES for gRain compatibility; July 2017
+
+// [[Rcpp::export]]
+SEXP tabMarg__(const SEXP& tab, const SEXP& marg){
+  return tab_marg_(tab, marg);
+}
+
+//[[Rcpp::export]]
+NumericVector tabDiv0__(const NumericVector& tab1, const NumericVector& tab2){
+  return tab_div0_(tab1, tab2);
+}
+
+//[[Rcpp::export]]
+NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
+  return tab_mult_(tab1, tab2);
+}
+
+
+
 // -----------------------------------------------------------
 //
 // Multiply and add lists of tables

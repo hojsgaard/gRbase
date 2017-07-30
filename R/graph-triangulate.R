@@ -63,7 +63,7 @@
 #' tuG2 <- triangulate(uG2)
 #' 
 #' ## adjacency matrix (sparse)
-#' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
+#' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 #' tuG2 <- triangulate(uG2)
 #' 
 #' @export triangulate
@@ -100,7 +100,7 @@ triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, .
 #' @rdname graph-triangulate
 triangulateMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
     if (is.null(nLevels)) nLevels <- rep( 2, ncol(amat) )
-    triangulateMAT_( amat, nLevels )
+    triang_mcwh_MAT__( amat, nLevels )
 }
 
 

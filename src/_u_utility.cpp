@@ -11,17 +11,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
-bool is_subsetof_(CharacterVector x, CharacterVector set){
-  if (x.length()>set.length())
-		return false;
-  else {
-    IntegerVector m = match(x,set);
-    //Rf_PrintValue(m);
-    bool out = any(is_na(m));
-		return !out;
-  }
-}
 
 IntegerVector get_superset_one_(CharacterVector x, List setlist){
   bool outb=false;
@@ -69,13 +58,6 @@ IntegerVector get_superset_all_(CharacterVector x, List setlist){
 
 
 
-//[[Rcpp::export]]
-IntegerVector get_superset_(CharacterVector x, List setlist, bool all=false){
-	if (all)
-		return get_superset_all_(x, setlist);
-	else
-		return get_superset_one_(x, setlist);
-}
 
 
 
@@ -119,17 +101,54 @@ IntegerVector get_subset_all_(CharacterVector x, List setlist){
 	return out;
 }
 
+//' @name internal
+//' @aliases is_subsetof__ get_superset__ get_subset__
 
 //[[Rcpp::export]]
-IntegerVector get_subset_(CharacterVector x, List setlist, bool all=false){
-	if (all)
-		return get_subset_all_(x, setlist);
-	else
-		return get_subset_one_(x, setlist);
+bool is_subsetof__(CharacterVector set, CharacterVector set2){
+  if (set.length() > set2.length())
+    return false;
+  else {
+    IntegerVector m = match(set, set2);
+    //Rf_PrintValue(m);
+    bool out = any(is_na(m));
+    return !out;
+  }
+}
+
+//[[Rcpp::export]]
+IntegerVector get_superset__(CharacterVector set, List setlist, bool all=false){
+  if (all)
+    return get_superset_all_(set, setlist);
+  else
+    return get_superset_one_(set, setlist);
+}
+
+//[[Rcpp::export]]
+IntegerVector get_subset__(CharacterVector set, List setlist, bool all=false){
+  if (all)
+    return get_subset_all_(set, setlist);
+  else
+    return get_subset_one_(set, setlist);
 }
 
 
+// FIXME: ALIASES for gRain compatibility, June 2017: get_superset_; get_subset_; is_subset_of_
 
+//[[Rcpp::export]]
+IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false){
+  return get_superset__(set, setlist, all);
+}
+
+//[[Rcpp::export]]
+IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false){
+  return get_subset__(set, setlist, all);
+}
+
+//[[Rcpp::export]]
+bool is_subsetof_(CharacterVector set, CharacterVector set2){
+  return is_subsetof__(set, set2);
+}
 
 
 /*** R

@@ -65,8 +65,6 @@ topoSort( daG4 )
 ## Different representations
 uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
 uG6
-uG7 <- ug(~a:b:c + c:d, result="NEL")       # same
-uG7
 uG8 <- ug(~a:b:c + c:d, result="matrix")    # dense matrix
 uG8
 uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix

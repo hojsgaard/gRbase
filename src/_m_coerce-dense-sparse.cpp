@@ -1,5 +1,8 @@
 /*
-  Fast coercion of dense matrix to sparse matrix and vice versa
+  Fast coercion of dense matrix to sparse matrix and vice versa.  A
+  bit overkill, as it is just here for speed.
+
+  Author: Soren Hojsgaard
 */
 
 #include <RcppEigen.h>
@@ -37,7 +40,6 @@ SEXP do_matrix2dgCMatrix( SEXP XX_ ){
   return(Xout);
 };
 
-
 SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
   S4 DD(wrap(XX_));
   List dn = clone(List(DD.slot("Dimnames")));
@@ -50,9 +52,11 @@ SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
 }
 
 
+//' @name internal
+//' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
 
 // [[Rcpp::export]]
-SEXP matrix2dgCMatrix_ ( SEXP XX_ ){
+SEXP matrix2dgCMatrix__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
   switch( type ){
   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
@@ -62,7 +66,7 @@ SEXP matrix2dgCMatrix_ ( SEXP XX_ ){
 }
 
 // [[Rcpp::export]]
-SEXP dgCMatrix2matrix_ ( SEXP XX_ ){
+SEXP dgCMatrix2matrix__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
   switch( type ){
   case S4SXP   : return do_dgCMatrix2matrix(XX_); 
@@ -71,7 +75,7 @@ SEXP dgCMatrix2matrix_ ( SEXP XX_ ){
 }
 
 // [[Rcpp::export]]
-SEXP M2dgCMatrix_ ( SEXP XX_ ){
+SEXP M2dgCMatrix__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
   switch( type ){
   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
@@ -82,9 +86,8 @@ SEXP M2dgCMatrix_ ( SEXP XX_ ){
 }
 
 // [[Rcpp::export]]
-SEXP M2matrix_ ( SEXP XX_ ){
+SEXP M2matrix__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
-  //Rf_PrintValue(wrap(type));
   switch( type ){
   case INTSXP  : return XX_;   
   case REALSXP : return XX_;
@@ -92,13 +95,6 @@ SEXP M2matrix_ ( SEXP XX_ ){
   }
   return R_NilValue ;
 }
-
-
-
-
-
-
-
 
 
 
@@ -113,59 +109,6 @@ mi <- diag(1:n)
 dimnames(mi) <- list(as.character(1:n), as.character(1:n))
 md <- mi; storage.mode(md)<-"double"
 MM <- as(mi, "dgCMatrix")
-
-
-MAT2matrix <- function(amat){
-  if( class(amat)=="dgCMatrix"){
-    dgCMatrix2matrix(amat)
-  } else if( class(amat)=="matrix"){
-    amat
-  } else { stop("Can not convert 'amat'")}
-}
-
-MAT2dgCMatrix <- function(amat){
-  if( class(amat)=="matrix"){
-    matrix2dgCMatrix(amat)
-  } else if( class(amat)=="dgCMatrix"){
-    amat
-  } else { stop("Can not convert 'amat'")}
-}
-
-require(microbenchmark)
-microbenchmark(
-as(MM, "dgCMatrix"),
-MAT2dgCMatrix( MM )
-)
-
-microbenchmark(
-as(mi, "dgCMatrix"),
-MAT2dgCMatrix( mi )
-)
-
-microbenchmark(
-as(md, "dgCMatrix"),
-MAT2dgCMatrix( md )
-)
-
-
-require(microbenchmark)
-microbenchmark(
-as.matrix(MM),
-MAT2matrix( MM )
-)
-
-microbenchmark(
-as.matrix( mi ),
-MAT2matrix( mi )
-)
-
-microbenchmark(
-as.matrix( md ),
-MAT2matrix( md )
-)
-
-
-
 
 */
 

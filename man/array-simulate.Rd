@@ -14,7 +14,7 @@ tabSim(x, nsim = 1, margin, value.margin)
 ar_sim(x, nsim = 1, margin, value.margin)
 }
 \arguments{
-\item{x}{An array}
+\item{x}{An array.}
 
 \item{nsim}{Number of cases to simulate}
 
@@ -35,10 +35,10 @@ The current implementation is fragile in the sense that it is
 
 
 ## 2x2 array
-x <- parray(c("a","b"), levels=c(2,2), values=1:4)
+x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
 
 ## Simulate from entire array
-s <-simulateArray(x,1000)
+s <- simulateArray(x, 1000)
 xtabs(~., as.data.frame(s))
 
 ## Simulate from slice defined by that dimension 1 is fixed at level 2

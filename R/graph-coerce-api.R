@@ -23,12 +23,10 @@
 #' ## FIXME examples coerce graph missing
 #' 
 #' @rdname graph-coerce-api
-gn2dm_ <- function(xx) adjList2matrix_(graph::edges(xx))
-## gnel2dmat
+gn2dm_ <- function(xx) adjList2matrix__(graph::edges(xx))
 
 #' @rdname graph-coerce-api
-gn2sm_ <- function(xx) adjList2dgCMatrix_(graph::edges(xx))
-## gnel2smat
+gn2sm_ <- function(xx) adjList2dgCMatrix__(graph::edges(xx))
 
 #' @rdname graph-coerce-api
 gn2ig_ <- function(xx){
@@ -36,15 +34,12 @@ gn2ig_ <- function(xx){
     igraph::V(gg)$label <- igraph::V(gg)$name
     gg
 }
-##gnel2igraph
 
 #' @rdname graph-coerce-api
 dm2gn_ <- function(xx) as(xx, "graphNEL")
-## dmat2gnel
 
 #' @rdname graph-coerce-api
-dm2sm_ <- function(xx) M2dgCMatrix_(xx)
-## dmat2smat
+dm2sm_ <- function(xx) M2dgCMatrix__(xx)
 
 #' @rdname graph-coerce-api
 dm2ig_ <- function(xx){
@@ -56,15 +51,12 @@ dm2ig_ <- function(xx){
     igraph::V(gg)$label <- igraph::V(gg)$name <- colnames( xx )
     gg
 }
-## dmat2igraph
 
 #' @rdname graph-coerce-api
 sm2gn_ <- function(xx) as(xx, "graphNEL")
-## smat2gnel
 
 #' @rdname graph-coerce-api
-sm2dm_ <- function(xx) M2dgCMatrix_(xx)
-## smat2dmat
+sm2dm_ <- function(xx) M2dgCMatrix__(xx)
 
 #' @rdname graph-coerce-api
 sm2ig_ <- function(xx){
@@ -76,19 +68,16 @@ sm2ig_ <- function(xx){
     igraph::V(gg)$label <- igraph::V(gg)$name <- colnames( xx )
     gg
 }
-## smat2igraph
 
 #' @rdname graph-coerce-api
 ig2gn_ <- function(xx) igraph::igraph.to.graphNEL(xx)
-## igraph2gnel
 
 #' @rdname graph-coerce-api
-ig2dm_ <- function(xx) M2matrix(igraph::get.adjacency(xx))
-## igraph2dmat
+ig2dm_ <- function(xx) M2matrix__(igraph::get.adjacency(xx))
 
 #' @rdname graph-coerce-api
 ig2sm_ <- function(xx) igraph::get.adjacency(xx)
-## igraph2smat
+
 
 ## -----------------------------------------------
 ##

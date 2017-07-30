@@ -1,4 +1,3 @@
-
 // **********************************************************************
 // rip_internal: Returns RIP-ordering of cliques of chordal graph
 // together with children parents; that is, the function returns a
@@ -13,7 +12,7 @@
 // **********************************************************************
 
 #include <RcppEigen.h>
-#include "mcsMAT2.h"
+#include "_g_mcsMAT2.h"
 //[[Rcpp::depends(RcppEigen)]]
 //[[Rcpp::interfaces(r,cpp)]]
 
@@ -59,7 +58,7 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
 
   CharacterVector mcs_vn( vn.size() );
   for (int i=0; i<vn.size(); ++i){
-    mcs_vn[i] = vn[ mcs0idx[i] ]; //pas på; mcs0idx er 0-based her!!!
+    mcs_vn[i] = vn[ mcs0idx[i] ]; //pas pÃ¥; mcs0idx er 0-based her!!!
   }
   //Rprintf("mcs_vn:"); Rf_PrintValue(mcs_vn);
 
@@ -130,7 +129,7 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   Notice: NO checks for being chordal
   ***************************************************** */
 
-//[[Rcpp::export]]
+
 SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
 
   MSpMat   X(as<MSpMat>(XX_));
@@ -186,7 +185,7 @@ SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
 }
 
 
-//[[Rcpp::export]]
+
 SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
 
   List vnl = clone(List(X.attr("dimnames")));
@@ -245,18 +244,18 @@ SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
 
 
 // [[Rcpp::export]]
-SEXP getCliquesDec_ ( SEXP XX_, SEXP mcs0idx_=R_NilValue ){
+SEXP getCliquesDec__ (SEXP XX_, SEXP mcs0idx_=R_NilValue){
   int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
-  IntegerVector mcs0idx ;// = mcsMAT0_( XX_ );
+  IntegerVector mcs0idx ;   // = mcsMAT0_( XX_ );
   RObject zz_ = mcs0idx_;
 
   if (zz_.isNULL())
     mcs0idx = mcsMAT0_( XX_ );
   else
     mcs0idx = mcs0idx_;
-  
   if (mcs0idx[0] < 0)
     return R_NilValue ;
+
   switch( type ){
   case INTSXP  : 
   case REALSXP : {

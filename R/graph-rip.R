@@ -71,7 +71,7 @@
 #' jTree(uG)
 #' 
 #' ## Sparse adjacency matrix
-#' uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="Matrix")
+#' uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="dgCMatrix")
 #' mcs(uG)
 #' rip(uG)
 #' jTree(uG)
@@ -276,7 +276,7 @@ jTree.default <-  function(object, nLevels = NULL, ...){
 
 #' @rdname graph-rip
 jTreeMAT <- function(amat, nLevels=rep(2,ncol(amat)), ...){
-  tug  <- triangulateMAT( amat, nLevels=nLevels, result="Matrix", ... )
+  tug  <- triangulateMAT( amat, nLevels=nLevels, result="dgCMatrix", ... )
   ripMAT( tug, nLevels=nLevels )
 }
 

@@ -97,23 +97,11 @@ list2rhsFormula <- list2rhsf <- function(f){
              .GlobalEnv)
 }
 
-allSubsets <- function(x,g.sep="+"){
-  if (length(x)==1)
-    return(x)
-  else {
-    val <- x[1]
-    for (i in 2:length(x)){
-      v <- paste(val,x[i],sep=g.sep)
-      val <- c(val,x[i],v)
-    }
-    val <- strsplit(val,paste("\\",g.sep,sep=""))
-    return(val)
-  }
-}
 
-selectOrder  <- function(x,order=2){
-  v <- allSubsets(x)
-  value <- v[lapply(v,length)==as.numeric(order)]
+## FIXME: selectOrder: About as silly an implementation as possible
+selectOrder  <- function(x, order=2){
+  v <- allSubsets(x) 
+  value <- v[lapply(v, length) == as.numeric(order)]
   return(value)
 }
 

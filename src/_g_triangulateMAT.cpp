@@ -36,7 +36,7 @@ typedef SpVec::InnerIterator InIter;
 
 using namespace Rcpp;
 
-SpMat internal_triangulateMAT_sp ( SpMat X, SEXP LL_ ){
+SpMat internal_triangulateMAT_sp (SpMat X, SEXP LL_){
   
   using namespace std;
   int dd=0, ddd=0; // debugging info
@@ -82,7 +82,7 @@ SpMat internal_triangulateMAT_sp ( SpMat X, SEXP LL_ ){
   if(ddd)Rcout << "   size_of_active_closure_space          : " << 
 	   size_of_active_closure_space.transpose() << endl;
   if(ddd)Rcout << "   n_anbr_vec (number of actice nbrs) : " << 
-					 n_anbr_vec.transpose() << endl;
+	   n_anbr_vec.transpose() << endl;
   
   if(dd)Rcout << "* Iteration \n";
   while (n_active>0){
@@ -92,12 +92,12 @@ SpMat internal_triangulateMAT_sp ( SpMat X, SEXP LL_ ){
     
     for (InIter it1(active_sp); it1; ++it1){
       if (size_of_active_closure_space[ it1.index() ] < min_spsize){
-				min_spsize = size_of_active_closure_space[ it1.index() ];
-				ii_mark    = it1.index();
+	min_spsize = size_of_active_closure_space[ it1.index() ];
+	ii_mark    = it1.index();
       }
     }  
     if(dd)Rcout << "  Node=" << ii_mark << " min_spsize=" << min_spsize << 
-						" Number of active=" << n_active << "\n";
+	    " Number of active=" << n_active << "\n";
     
     anbr_sp        = X.col(ii_mark).cwiseProduct(active_sp);  
     n_anbr        = anbr_sp.sum();
@@ -108,71 +108,73 @@ SpMat internal_triangulateMAT_sp ( SpMat X, SEXP LL_ ){
     
     if (n_anbr <= 1){ // No fill-in is necessary
       if(ddd) Rcout << "   node=" << ii_mark << 
-								": case1: At most one active nb; we are done\n";
+		": case1: At most one active nb; we are done\n";
     } else { 
       if(ddd)Rcout << "   node=" << ii_mark << 
-							 ": case2: More than one nbr; check if fill-in is necessary\n";
+	       ": case2: More than one nbr; check if fill-in is necessary\n";
       n_nbr_obs=0;
       for (InIter it2(anbr_sp); it2; ++it2){
-				for (InIter it3(anbr_sp); it3; ++it3){
-					n_nbr_obs += X.coeff(it2.index(), it3.index());
-					if (it2.index()!=it3.index()){
-						triplets.push_back(T(it2.index(), it3.index(), 1));
-						triplets.push_back(T(it3.index(), it2.index(), 1));
-					}
-				}
+	for (InIter it3(anbr_sp); it3; ++it3){
+	  n_nbr_obs += X.coeff(it2.index(), it3.index());
+	  if (it2.index()!=it3.index()){
+	    triplets.push_back(T(it2.index(), it3.index(), 1));
+	    triplets.push_back(T(it3.index(), it2.index(), 1));
+	  }
+	}
       }
       fill.setFromTriplets(triplets.begin(), triplets.end());
       
       n_nbr_need = (int) fill.sum()/2;
       if(ddd) Rcout << "   node=" << ii_mark << ": n_anbr=" <<n_anbr<< 
-								" n_nbr_obs="<<n_nbr_obs<< " n_nbr_need=" << n_nbr_need <<  "\n";
+		" n_nbr_obs="<<n_nbr_obs<< " n_nbr_need=" << n_nbr_need <<  "\n";
       triplets.clear();
       
       if( n_nbr_need == n_nbr_obs){ 
-				if(ddd)Rcout << "   node=" << ii_mark << 
-								 ": case2.1: Active boundary is complete; we are done\n";
+	if(ddd)Rcout << "   node=" << ii_mark << 
+		 ": case2.1: Active boundary is complete; we are done\n";
       } else { 
-				if(ddd)Rcout << "   node=" << ii_mark << 
-								 ": case2.2: A fill in is needed\n";
-				X += fill;
-				for (i=0; i < nrX; i++){ 
-					for (SpMat::InnerIterator _j2(X, i); _j2; ++_j2){
-						X.coeffRef(_j2.row(),_j2.col())=1;
-					}
-				}
+	if(ddd)Rcout << "   node=" << ii_mark << 
+		 ": case2.2: A fill in is needed\n";
+	X += fill;
+	for (i=0; i < nrX; i++){ 
+	  for (SpMat::InnerIterator _j2(X, i); _j2; ++_j2){
+	    X.coeffRef(_j2.row(),_j2.col())=1;
+	  }
+	}
       }
     } // end of case2
-		
+    
     
     // Update active vector
     active[ii_mark] = 0;
     active_sp        = active.sparseView();
-		
+    
     // anbr_sp : Holds the active nbrs of a given node: anbr(i)
     // for each j in anbr(i), the state space size needs revision 
     // because node i has been marked as passive
+
     if(ddd)Rcout<<"   Updating the size_of_active_closure_space\n" ;
     for (InIter _j3(anbr_sp); _j3; ++_j3){
       anbr2_sp = X.col( _j3.index() ).cwiseProduct(active_sp);
       //if(ddd) Rcout << "anbr2_sp : " << anbr2_sp.transpose();
       spsize     = L[ _j3.index() ];
       for (InIter _j2(anbr2_sp); _j2; ++_j2)
-				spsize += L[ _j2.index() ];
+	spsize += L[ _j2.index() ];
       
       size_of_active_closure_space[_j3.index()] = spsize;      
     }
     if(ddd)Rcout << "   size_of_active_closure_space (updated): " << 
-						 size_of_active_closure_space.transpose() << endl;
+	     size_of_active_closure_space.transpose() << endl;
     
     n_active--;
   } 
-	
+  
   X.makeCompressed();
   return X;
 }
 
 
+// Coerce to sparse; triangulate and coerce back to dense again.
 SEXP do_triangulateMAT_de ( SEXP XX_, SEXP OO_ ){
 
   NumericMatrix Xin(XX_);
@@ -197,13 +199,12 @@ SEXP do_triangulateMAT_sp ( SEXP XX_, SEXP OO_ ){
   
   S4 Xout(wrap( out ));
   Xout.slot("Dimnames") = dn;
-  return Xout;
-  
+  return Xout;  
 }
 
 
 // [[Rcpp::export]]
-SEXP triangulateMAT_ ( SEXP adjmat_, SEXP nstates_ ){
+SEXP triangulateMAT__ (SEXP adjmat_, SEXP nstates_){
   int type = TYPEOF(adjmat_) ;
   //Rf_PrintValue(wrap(type));
   switch( type ){
@@ -213,6 +214,25 @@ SEXP triangulateMAT_ ( SEXP adjmat_, SEXP nstates_ ){
   }
   return R_NilValue ;
 }
+
+
+// [[Rcpp::export]]
+SEXP triang_mcwh_MAT__ (SEXP adjmat_, SEXP nstates_){
+  return triangulateMAT__(adjmat_, nstates_);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

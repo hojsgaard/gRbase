@@ -12,7 +12,7 @@
 #'
 #' @name array-simulate
 #' 
-#' @param x An array
+#' @param x An array.
 #' @param nsim Number of cases to simulate
 #' @param margin,value.margin Specification of slice of array to
 #'     simulate from
@@ -25,10 +25,10 @@
 #' 
 #' 
 #' ## 2x2 array
-#' x <- parray(c("a","b"), levels=c(2,2), values=1:4)
+#' x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
 #' 
 #' ## Simulate from entire array
-#' s <-simulateArray(x,1000)
+#' s <- simulateArray(x, 1000)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## Simulate from slice defined by that dimension 1 is fixed at level 2

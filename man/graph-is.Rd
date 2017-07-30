@@ -120,14 +120,14 @@ undirected, triangulated, directed and directed acyclic.
 
 
 ## DAGs
-dagNEL  <- dag(~ a:b:c + c:d:e, result="NEL")
+dagNEL  <- dag(~ a:b:c + c:d:e, result="graphNEL")
 dagMAT  <- dag(~ a:b:c + c:d:e, result="matrix")
-dagMATS <- dag(~ a:b:c + c:d:e, result="Matrix")
+dagMATS <- dag(~ a:b:c + c:d:e, result="dgCMatrix")
 
 ## Undirected graphs
-ugNEL  <- ug(~a:b:c + c:d:e, result="NEL")
+ugNEL  <- ug(~a:b:c + c:d:e, result="graphNEL")
 ugMAT  <- ug(~a:b:c + c:d:e, result="matrix")
-ugMATS <- ug(~a:b:c + c:d:e, result="Matrix")
+ugMATS <- ug(~a:b:c + c:d:e, result="dgCMatrix")
 
 ## Is it a DAG?
 is.DAG(dagNEL)
@@ -157,9 +157,9 @@ is.TUG(ugMAT)
 is.TUG(ugMATS)
 
 ## Example where the graph is not triangulated
-ug2NEL  <- ug(~ a:b + b:c + c:d + d:a, result="NEL")
+ug2NEL  <- ug(~ a:b + b:c + c:d + d:a, result="graphNEL")
 ug2MAT  <- ug(~ a:b + b:c + c:d + d:a, result="matrix")
-ug2MATS <- ug(~ a:b + b:c + c:d + d:a, result="Matrix")
+ug2MATS <- ug(~ a:b + b:c + c:d + d:a, result="dgCMatrix")
 
 is.TUG(ug2NEL)
 is.TUG(ug2MAT)

@@ -1,4 +1,5 @@
 // FIXME: There are two mcs files; what is going on? Do not remember!!!
+// FIXME: mcsMAT0 is used in get-clices; guess mcsMAT0 is 0-based indexing.
 
 /*
   MAXIMUM CARDINALITY SEARCH on undirected graph. 
@@ -94,7 +95,7 @@ bool do_is_complete_dense( const NumericMatrix& X, const IntegerVector& idx){
   }
 }
 
-//[[Rcpp::export]]
+
 IntegerVector do_mcs_sparse  (const MSpMat& X, const IntegerVector& mcs0idx_ ){
   //const MSpMat   X(Rcpp::as<MSpMat>(XX_));
   
@@ -126,53 +127,55 @@ IntegerVector do_mcs_sparse  (const MSpMat& X, const IntegerVector& mcs0idx_ ){
     n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
   }
   
-  if(nrX>1){
-    while(count<nrX){
-      max_pas=-1;
+  if(nrX > 1){
+    while(count < nrX){
+      max_pas = -1;
       // loop over active nodes
       for (InIterVec jj_(act_s); jj_; ++jj_){
-		if ( n_pas_nbr[ jj_.index() ] > max_pas ){
-		  ii_mark = jj_.index();
-		  max_pas = n_pas_nbr[ jj_.index() ];
-		}
+	if ( n_pas_nbr[ jj_.index() ] > max_pas ){
+	  ii_mark = jj_.index();
+	  max_pas = n_pas_nbr[ jj_.index() ];
+	}
       }
-      if ((n_pas_nbr[mcs0idx[count]]==max_pas) & (act[mcs0idx[count]]!=0)){
-		ii_mark=mcs0idx[count];
+      if ((n_pas_nbr[mcs0idx[count]] == max_pas) & (act[mcs0idx[count]] != 0)){
+	ii_mark = mcs0idx[count];
       }
 	  
-      res[count] = ii_mark;
-      pas[ii_mark] = 1;           act[ii_mark] = 0;
-      pas_s = pas.sparseView();   act_s  = act.sparseView();
+      res[count]   = ii_mark;
+      pas[ii_mark] = 1;
+      act[ii_mark] = 0;
+      pas_s  = pas.sparseView();
+      act_s  = act.sparseView();
 	  
       vec1_s     = X.col(ii_mark);
       pas_nbr_s  = vec1_s.cwiseProduct(pas_s);
       npasnbr    = pas_nbr_s.sum();
 	  
       if (npasnbr>1){
-		iscomp = do_is_complete_sparse( X, pas_nbr_s );
-		if (!iscomp){
-		  is_perfect=0;
-		  break;
-		}
+	iscomp = do_is_complete_sparse( X, pas_nbr_s );
+	if (!iscomp){
+	  is_perfect = 0;
+	  break;
+	}
       }
-	  
+      
       for (InIterVec itjj(vec1_s); itjj; ++itjj){
-		vec2_s    = X.col( itjj.index() );
-		pas_nbr_s = vec2_s.cwiseProduct( pas_s );
-		n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
+	vec2_s    = X.col( itjj.index() );
+	pas_nbr_s = vec2_s.cwiseProduct( pas_s );
+	n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
       }
       count++;
     }
   }
   
-  if (is_perfect==0) res[0]=-1;
+  if (is_perfect == 0) res[0] = -1;
   return wrap( res ) ;
 }
 
 
 
 
-//[[Rcpp::export]]
+
 SEXP do_mcs_dense  ( const NumericMatrix& X, const IntegerVector& mcs0idx ){
   
   int nrX =X.rows(), count=1, i;
@@ -187,62 +190,63 @@ SEXP do_mcs_dense  ( const NumericMatrix& X, const IntegerVector& mcs0idx ){
   pas[ii_mark] = 1;  act[ii_mark] = 0;
   
   vec1 = X( _, ii_mark);
-  for (i=0; i<nrX; ++i){
-    if (vec1[i]!=0){
+  for (i=0; i < nrX; ++i){
+    if (vec1[i] != 0){
       vec2 = X( _, i);
       pas_nbr_s = vec2 * pas;
       n_pas_nbr[ i ] = sum( pas_nbr_s );
     }
   }
   
-  if(nrX>1){
-    while(count<nrX){
-      max_pas=-1;
+  if(nrX > 1){
+    while(count < nrX){
+      max_pas = -1;
       // loop over active nodes
-      for (i=0; i<nrX; ++i){
-		if (act[i]!=0){
-		  //j = act[i];
-		  if (n_pas_nbr[ i ] > max_pas){
-			ii_mark = i;
-			max_pas = n_pas_nbr[ i ];
-		  }
-		}
+      for (i=0; i < nrX; ++i){
+	if (act[i] != 0){
+	  //j = act[i];
+	  if (n_pas_nbr[ i ] > max_pas){
+	    ii_mark = i;
+	    max_pas = n_pas_nbr[ i ];
+	  }
+	}
       }
 	  
-      if ((n_pas_nbr[mcs0idx[count]]==max_pas) & (act[mcs0idx[count]]!=0)){
-		ii_mark=mcs0idx[count];
+      if ((n_pas_nbr[mcs0idx[count]] == max_pas) & (act[mcs0idx[count]] != 0)){
+	ii_mark = mcs0idx[count];
       }
 	  
-      res[count] = ii_mark;
-      pas[ii_mark] = 1; act[ii_mark] = 0;
-      vec1     = X(_, ii_mark);
-      pas_nbr_s  = vec1 * pas;
-      npasnbr    = sum( pas_nbr_s );
+      res[count]   = ii_mark;
+      pas[ii_mark] = 1;
+      act[ii_mark] = 0;
+      vec1         = X(_, ii_mark);
+      pas_nbr_s    = vec1 * pas;
+      npasnbr      = sum( pas_nbr_s );
 	  
-      if (npasnbr>1){
-		bool iscomp = do_is_complete_dense(X, pas_nbr_s);
-		if (!iscomp){
-		  is_perfect=0; break;
-		}
+      if (npasnbr > 1){
+	bool iscomp = do_is_complete_dense(X, pas_nbr_s);
+	if (!iscomp){
+	  is_perfect = 0; break;
+	}
       }
 	  
-      for (i=0; i<nrX; ++i){
-		if (vec1[i]!=0){
-		  vec2 = X(_,i);
-		  pas_nbr_s = vec2 * pas;
-		  n_pas_nbr[ i ] = sum( pas_nbr_s );
-		}
+      for (i=0; i < nrX; ++i){
+	if (vec1[i] != 0){
+	  vec2 = X(_, i);
+	  pas_nbr_s = vec2 * pas;
+	  n_pas_nbr[ i ] = sum( pas_nbr_s );
+	}
       }
       count++;
     }
   }
   
-  if (is_perfect==0) res[0]=-1;
+  if (is_perfect == 0) res[0] = -1;
   // return wrap( res ) ;
   return res;
 }
 
-// [[Rcpp::export]]
+
 SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_=R_NilValue ){
   RObject zz_ = mcs0idx_;
   IntegerVector mcs0idx;
@@ -251,26 +255,19 @@ SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_=R_NilValue ){
   case INTSXP  : 
   case REALSXP : {
     NumericMatrix X(as<NumericMatrix>(XX_));
-    if (zz_.isNULL())
-      mcs0idx = seq(0, X.ncol()-1);
-    else
-      mcs0idx = mcs0idx_;
+    if (zz_.isNULL())  mcs0idx = seq(0, X.ncol()-1);
+    else mcs0idx = mcs0idx_;
     return do_mcs_dense ( X, mcs0idx ); 
   }
   case S4SXP   : {                               
     MSpMat X(as<MSpMat>(XX_));
-    if (zz_.isNULL())
-      mcs0idx = seq(0, X.cols()-1);
-    else
-      mcs0idx = mcs0idx_;
+    if (zz_.isNULL()) mcs0idx = seq(0, X.cols()-1);
+    else mcs0idx = mcs0idx_;
     return do_mcs_sparse( X, mcs0idx );
   } 
   }
   return R_NilValue ;
 }
-
-
-
 
 /*** R
 
@@ -302,19 +299,3 @@ times=10
 
 */
 
-
-// bool do_is_complete_dense( const NumericMatrix& X, const IntegerVector idx){
-//   int i, j, nrX=X.nrow();
-
-//   for (i=0; i<nrX; ++i){
-//     if (idx[i]!=0){
-//       for (j=i+1; j<nrX; ++j){
-// 	if (idx[j]!=0){
-// 	  if (i>j)
-// 	    if( X( i, j) == 0) return false;
-// 	}
-//       }
-//     }
-//   }
-//   return true;
-// }

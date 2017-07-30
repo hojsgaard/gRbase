@@ -1,20 +1,24 @@
 ## FIXME : This .h needs updates
-## SEXP aperm__(const SEXP& tab, const SEXP& perm);
+
 SEXP tab_perm_(const SEXP& tab, const SEXP& perm);
-NumericVector tabExpand__(const NumericVector& t1, const NumericVector& t2);
-NumericVector tabAlign__(const NumericVector& t1, const NumericVector& t2, double eps=1e-12);
+SEXP tab_expand_(const SEXP& tab, const SEXP& aux);
+SEXP tab_align_(const SEXP& tab1, const SEXP& tab2);
+SEXP tab_marg_(const SEXP& tab, const SEXP& marg);
 
-NumericVector tabMult__(NumericVector t1, NumericVector t2);
-NumericVector tabDiv__(NumericVector t1, NumericVector t2);
-NumericVector tabDiv0__(NumericVector t1, NumericVector t2);
-NumericVector tabAdd__(NumericVector t1, NumericVector t2);
-NumericVector tabSubt__(NumericVector t1, NumericVector t2);
+NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, const char op='*');
+NumericVector tab_add_(const NumericVector& tab1, const NumericVector& tab2);
+NumericVector tab_subt_(const NumericVector& tab1, const NumericVector& tab2);
+NumericVector tab_mult_(const NumericVector& tab1, const NumericVector& tab2);
+NumericVector tab_div_(const NumericVector& tab1, const NumericVector& tab2);
+NumericVector tab_div0_(const NumericVector& tab1, const NumericVector& tab2);
+bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps=1e-12);
 
-bool tabEqual__(NumericVector t1, NumericVector t2, double eps=1e-12);
+// FIXME: ALIASES for gRain compatibility; July 2017
+SEXP tabMarg__(const SEXP& tab, const SEXP& marg);
+NumericVector tabDiv0__(const NumericVector& tab1, const NumericVector& tab2);
+NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2);
 
-##SEXP tabMargc__(const SEXP& t1, const SEXP& margc);
-##SEXP tabMargi__(const SEXP& t1, const SEXP& margi);
-##SEXP tabMarg__(const SEXP& t1, const SEXP& marg);
-##SEXP tab_marg_(const SEXP& t1, const SEXP& marg);
 
-SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
+
+
+

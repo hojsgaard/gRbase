@@ -9,12 +9,6 @@
 \alias{graphNEL2adjMAT}
 \alias{graphNEL2matrix}
 \alias{graphNEL2dgCMatrix}
-\alias{##}
-\alias{adjList2adjMAT}
-\alias{graphNEL2matrix_}
-\alias{graphNEL2dgCMatrix_}
-\alias{M2dgCMatrix_}
-\alias{M2matrix_}
 \alias{igraph2matrix}
 \alias{igraph2dgCMatrix}
 \alias{M2matrix}
@@ -99,8 +93,8 @@ m2 <- M2matrix(M)
 M2 <- M2dgCMatrix(m2)
 
 if (require(microbenchmark)){
-  microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix_(M),
-                 as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix_(m))
+  microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix__(M),
+                 as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix__(m))
 }
 g <- ug(~ a:b + b:c)
 graphNEL2M(g)

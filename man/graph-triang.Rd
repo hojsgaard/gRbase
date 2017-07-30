@@ -89,7 +89,7 @@ Currently there is no check for that the graph is undirected.
 ## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
-uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
+uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 
 ## Default triangulation: minimum clique weight heuristic
 # (default is that each node is given the same weight):

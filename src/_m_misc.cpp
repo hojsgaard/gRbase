@@ -1,37 +1,13 @@
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-// [[Rcpp::export]]
-SEXP which_matrix_index( SEXP XX_ ){
-  NumericMatrix X(XX_);
-  double sum=0;
-  for(int ii=0; ii<X.nrow(); ii++){
-    for (int jj=0; jj<X.ncol(); jj++){
-      sum += (X(ii,jj) != 0);
-    }
-  }
-  
-  int kk=0;
-  NumericMatrix out(sum, 2); // FIXME: should be IntegerMatrix?
-  for(int ii = 0; ii < X.nrow(); ii++){
-    for (int jj = 0; jj < X.ncol(); jj++){
-      if (X(ii,jj) != 0){
-		out(kk, 0) = ii + 1; 
-		out(kk++, 1) = jj + 1;
-      }
-    }
-  }
-  return out;
-}
-
-
 /*
   Convert matrix to list; either by row or by column:
   
   Issues: FIXME: Mot too happy about the names
 
- */
+*/
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
 
 template <typename TT>
 SEXP do_rowmat2list( SEXP XX_ ){
@@ -49,7 +25,7 @@ SEXP do_colmat2list( SEXP XX_ ){
   TT X(XX_);
   int nc=X.ncol();
   List out(nc);
-  for (int ii=0; ii<nc; ii++){
+  for (int ii=0; ii < nc; ii++){
     out[ii] =  X(_, ii);
   }
   return(out);
@@ -71,8 +47,34 @@ List do_colmat2list_str(SEXP XX_){
   return out;
 }
 
+//' @name internal
+//' @aliases which_matrix_index__ rowmat2list__ colmat2list__
+
 // [[Rcpp::export]]
-SEXP rowmat2list ( SEXP XX_ ){
+SEXP which_matrix_index__( SEXP XX_ ){
+  NumericMatrix X(XX_);
+  double sum = 0;
+  for(int ii=0; ii < X.nrow(); ii++){
+    for (int jj=0; jj < X.ncol(); jj++){
+      sum += (X(ii, jj) != 0);
+    }
+  }
+  
+  int kk=0;
+  NumericMatrix out(sum, 2); // FIXME: should be IntegerMatrix?
+  for(int ii = 0; ii < X.nrow(); ii++){
+    for (int jj = 0; jj < X.ncol(); jj++){
+      if (X(ii,jj) != 0){
+		out(kk, 0) = ii + 1; 
+		out(kk++, 1) = jj + 1;
+      }
+    }
+  }
+  return out;
+}
+
+// [[Rcpp::export]]
+SEXP rowmat2list__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
   switch( type ){
   case INTSXP  : return do_rowmat2list<IntegerMatrix>(XX_); 
@@ -83,7 +85,7 @@ SEXP rowmat2list ( SEXP XX_ ){
 }
 
 // [[Rcpp::export]]
-SEXP colmat2list ( SEXP XX_ ){
+SEXP colmat2list__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
   switch( type ){
   case INTSXP  : return do_colmat2list<IntegerMatrix>(XX_); 
@@ -92,8 +94,6 @@ SEXP colmat2list ( SEXP XX_ ){
   }                                    
   return List(0) ;
 }
-
-	
 
 
 /*** R
@@ -120,5 +120,6 @@ clist <- colmat2list(cmat); #sapply(clist, class)
 #microbenchmark(gRbase::colmat2list(imat), colmat2list(imat))
 #microbenchmark(gRbase::rowmat2list(cmat), rowmat2list(cmat))
 #microbenchmark(gRbase::colmat2list(cmat), colmat2list(cmat))
- */
+ 
+*/
 

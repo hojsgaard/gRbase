@@ -6,7 +6,7 @@
    issymMAT_ (is symmetric)
    isadjMAT_ (is square and 0's on diagonal)
    isugMAT_  (is symmetric and 0's on diagonal)
-
+   
    Author: Soren Hojsgaard, November 2014
 
 **************************************************** */

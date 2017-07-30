@@ -56,7 +56,7 @@
 #' ## graphNEL
 #' uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 #' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
-#' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="Matrix")
+#' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 #' 
 #' ## Default triangulation: minimum clique weight heuristic
 #' # (default is that each node is given the same weight):
@@ -87,7 +87,7 @@ triang <- function(object, ...)
 
 #' @rdname graph-triang
 triang.default <- function(object, control=list(), ...){
-    ctrl <- list(method="mcwh", nLevels=NULL)
+    ctrl <- list(method="mcwh", nLevels=NULL) ## DEFAULT is mcwh
     v <- setdiff(names(ctrl), names(control))
     control <- c(control, ctrl[v])
     switch(control$method,
@@ -158,7 +158,6 @@ triang_eloMAT <- function(amat, order=NULL){
         order <- c(order, seq_along(vn)[-order])
 
     ##cat(sprintf("elimination order: %s\n", toString(order)))
-
     ## str(list(order, vn[order]))
 
     triang_eloMAT_(amat, order)
@@ -167,7 +166,7 @@ triang_eloMAT <- function(amat, order=NULL){
 
 #' @rdname graph-triang
 triang_eloMAT_ <- function(amat, order){
-    out <- do_triangulate_elo(amat, order - 1)    
+    out <- triang_elo_MAT__(amat, order - 1)    
     dimnames(out) <- dimnames(amat)
     out
 }

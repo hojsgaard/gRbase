@@ -9,9 +9,6 @@
 #
 # should perhaps be called dagTopoSort
 
-
-
-
 #' @title Topological sort of vertices in directed acyclic graph
 #' 
 #' @description A topological ordering of a directed graph is a linear
@@ -58,13 +55,9 @@ topoSort <- function(object, index=FALSE){
 
 #' @rdname graph-toposort
 topoSort.default <- function(object, index=FALSE){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","igraph","matrix","dgCMatrix"))
-    switch(cls,
-           "graphNEL" ={topoSortMAT(gn2sm_(object), index=index) },
-           "igraph"   ={topoSortMAT(ig2sm_(object), index=index) },
-           "dgCMatrix"=,
-           "matrix"   ={topoSortMAT(object, index=index)} )
+    ## cls <- match.arg(class( object ),
+    ##                  c("graphNEL", "igraph", "matrix", "dgCMatrix"))
+    topoSortMAT(as_(object, "dgCMatrix"), index=index)
 }
 
 
@@ -73,60 +66,40 @@ topoSort.default <- function(object, index=FALSE){
 topoSortMAT <- function(amat, index=FALSE){
     ans <- topoSortMAT_( amat )
     if (index){
-        if (ans[1]!=-1){
-            ans
-        } else {
-            -1L
-        }
+        if (ans[1] != -1) ans
+        else -1L
     } else {
-        if (ans[1]!=-1){
-            colnames(amat)[ans]
-        } else {
-            character(0)
-        }
+        if (ans[1] != -1) colnames(amat)[ans]
+        else character(0)
     }
 }
-
 
 ## FIXME topoSort_vparList Delete?
 topoSort_vparList<- function(glist){
     ##topoSort(vpaList2adjMAT(vpaL, result="Matrix"))
-    topoSort(dagList2M(glist, result="Matrix"))
+    ##topoSort(dagList2M(glist, result="dgCMatrix"))
+    topoSortMAT(dgl2sm_(glist))
 }
 
 
 
-## topoSort.graphNEL<- function(object, index=FALSE){
-##   topoSortMAT(as(object,"Matrix"), index=index)
-## }
 
 
 
-## topoSort.matrix <- topoSort.Matrix <- function(object, index=FALSE){
-##   topoSortMAT(object, index=index)
-## }
 
-## topoSortMAT <- function(XX_, index=FALSE){
-##   if (inherits(XX_, "Matrix")){
-##     ans <- .Call("gRbase_topoSortMAT_sp", XX_ ,package="gRbase")
-##   } else {
-##     if (inherits(XX_, "matrix")){
-##       ans <- .Call("gRbase_topoSortMAT_st", XX_ ,package="gRbase")
-##     } else {
-##       stop("'XX_' must be a matrix or a sparse matrix (a 'dgCMatrix')")
-##     }
-##   }
-##   if (index){
-##     if (ans[1]!=-1){
-##       ans
-##     } else {
-##       -1L
-##     }
-##   } else {
-##     if (ans[1]!=-1){
-##       colnames(XX_)[ans]
-##     } else {
-##       character(0)
-##     }
-##   }
-## }
+
+
+
+
+
+
+
+
+
+    
+## switch(cls,
+##        "graphNEL" ={topoSortMAT(gn2sm_(object), index=index) },
+##        "igraph"   ={topoSortMAT(ig2sm_(object), index=index) },
+##        "dgCMatrix"=,
+##        "matrix"   ={topoSortMAT(object, index=index)} )
+

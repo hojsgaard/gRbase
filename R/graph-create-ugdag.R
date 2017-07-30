@@ -58,8 +58,6 @@
 #' ## Different representations
 #' uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
 #' uG6
-#' uG7 <- ug(~a:b:c + c:d, result="NEL")       # same
-#' uG7
 #' uG8 <- ug(~a:b:c + c:d, result="matrix")    # dense matrix
 #' uG8
 #' uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix
@@ -70,24 +68,26 @@ ug <- function(..., result="graphNEL"){
   ugList(list(...), result=result)
 }
 
+.spam.result <- function(result){
+    if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
+    if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
+}
+
 ugList <- function(x, result="graphNEL"){
-    result <- match.arg(result, c("matrix","Matrix","dgCMatrix","igraph","NEL","graphNEL"))
+    result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
+    .spam.result(result)
+    
     x   <- unlist(lapply(x, function(g) rhsf2list(g)), recursive=FALSE)
     vn  <- unique.default(unlist(x))
 
     switch(result,
-           "NEL"      =,
-           "graphNEL" ={ugList2graphNEL(x, vn)},
-           "Matrix"   =,
-           "dgCMatrix"={ugList2dgCMatrix(x, vn)},
-           "matrix"   ={ugList2matrix(x, vn)},
-           "igraph"   ={
-               gg <- igraph::igraph.from.graphNEL(ugList2graphNEL(x, vn))
-               igraph::V(gg)$label <- igraph::V(gg)$name
-               gg
-           })
+           "graphNEL" ={ugl2gn_(x, vn)},
+           "dgCMatrix"={ugl2sm_(x, vn)},
+           "matrix"   ={ugl2dm_(x, vn)},
+           "igraph"   ={ugl2ig_(x, vn)})
 }
 
+    
 
 ###########################
 ## Directed acyclic graphs
@@ -99,21 +99,19 @@ dag <- function(..., result="graphNEL", forceCheck=FALSE){
 }
 
 dagList <- function(x, result="graphNEL", forceCheck=FALSE){
-    result <- match.arg(result, c("matrix","Matrix","dgCMatrix","igraph","NEL","graphNEL"))
+    result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
+    .spam.result(result)
+    
     x   <- unlist(lapply(x, function(g) rhsf2list(g)), recursive=FALSE)
-    vn  <- unique(unlist(x))
+    vn  <- unique.default(unlist(x))
 
     out <- switch(result,
-                  "NEL"       =,
-                  "graphNEL"  = {dagList2graphNEL(x, vn)},
-                  "Matrix"    =,
-                  "dgCMatrix" = {dagList2dgCMatrix(x, vn)},
-                  "matrix"    = {dagList2matrix(x, vn)},
-                  "igraph"    = {
-                      gg <- igraph::igraph.from.graphNEL(dagList2graphNEL(x, vn))
-                      igraph::V(gg)$label <- igraph::V(gg)$name
-                      gg
-                  })
+                  "graphNEL"  = {dgl2gn_(x, vn)},
+                  "dgCMatrix" = {dgl2sm_(x, vn)},
+                  "matrix"    = {dgl2dm_(x, vn)},
+                  "igraph"    = {dgl2ig_(x, vn)}
+                  )
+
     if (forceCheck){
         if( length( topoSort( out )) == 0){
             stop("In dag/dagList: Graph is not a DAG", call.=FALSE)

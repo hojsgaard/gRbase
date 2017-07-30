@@ -58,14 +58,14 @@ Get list of vertices and their parents for graph.
 
 ## DAGs
 dagMAT <- dag(~a:b:c + c:d:e, result="matrix")
-dagNEL <- dag(~a:b:c + c:d:e, result="NEL")
+dagNEL <- dag(~a:b:c + c:d:e, result="graphNEL")
 vpar(dagMAT)
 vpar(dagNEL)
 vpar(dagMAT, getv=FALSE)
 vpar(dagNEL, getv=FALSE)
 ## Undirected graphs
 ugMAT <- ug(~a:b:c + c:d:e, result="matrix")
-ugNEL <- ug(~a:b:c + c:d:e, result="NEL")
+ugNEL <- ug(~a:b:c + c:d:e, result="graphNEL")
 \dontrun{
 ## This will fail because the adjacency matrix is symmetric and the
 ## graphNEL has undirected edges

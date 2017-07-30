@@ -80,9 +80,9 @@ mcs <- function(object, root=NULL, index=FALSE){
 #' @rdname graph-mcs
 mcs.default <- function(object, root=NULL, index=FALSE){
     cls <- match.arg(class( object ),
-                     c("graphNEL","matrix","dgCMatrix","igraph"))
-    mm <- coerceGraph( object, "matrix" )
-    if ( !is.UGMAT(mm) )
+                     c("graphNEL", "matrix", "dgCMatrix", "igraph"))
+    mm <- coerceGraph(object, "matrix")
+    if (!is.UGMAT(mm))
         character(0) ##FIXME: mcs.default: Should perhaps be error...
     else
         mcsMAT( mm, root=root, index=index )
@@ -94,13 +94,12 @@ mcsMAT <- function (amat, vn = colnames(amat), root = NULL, index = FALSE)
     vn.old <- vn
     if (!is.null(root)){
         vn    <- c(root, setdiffPrim(vn, root))
-        root2 <- match(vn, vn.old)-1
+        root2 <- match(vn, vn.old) - 1
     } else {
-        root2 <- 0:(ncol(amat)-1)
+        root2 <- 0:(ncol(amat) - 1)
     }
     ##cat("mcsMAT:"); print(root2)
-
-    a <- mcsMAT_( amat, root2 )
+    a <- mcsMAT__( amat, root2 )
 
     if (index){
         if (a[1] < 0){

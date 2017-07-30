@@ -1,6 +1,7 @@
 /*
   Maximum cardinality search on undirected graph. If fail, first returned value is -1
-  Known issues: No check for symmetry, code not templated.
+  
+  Known issues: FIXME: No check for symmetry, code not templated. Messy with two implementations!
 
   Author: Soren Hojsgaard
 */
@@ -79,52 +80,53 @@ SEXP internal_mcsMAT_sp ( SpMat X, SEXP OO_ ){
     pas_nbr_s = vec2_s.cwiseProduct( pas_s );
     n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
   }
-
-  if(nrX>1){
-    while(count<nrX){
-      max_pas=-1;
+  
+  if(nrX > 1){
+    while(count < nrX){
+      max_pas = -1;
       for (InIter jj_(act_s); jj_; ++jj_){
-		if ( n_pas_nbr[ jj_.index() ] > max_pas ){
-		  ii_mark = jj_.index();
-		  max_pas = n_pas_nbr[ jj_.index() ];
-		}
+	if ( n_pas_nbr[ jj_.index() ] > max_pas ){
+	  ii_mark = jj_.index();
+	  max_pas = n_pas_nbr[ jj_.index() ];
+	}
       }
-      if ((n_pas_nbr[O[count]]==max_pas) & (act[O[count]]!=0)){
-		ii_mark=O[count];
+      if ((n_pas_nbr[O[count]] == max_pas) & (act[O[count]] != 0)){
+	ii_mark = O[count];
       }
-	  
-      res[count] = ii_mark;
+      
+      res[count]   = ii_mark;
       pas[ii_mark] = 1;
       act[ii_mark] = 0;
-      pas_s = pas.sparseView();
+      pas_s  = pas.sparseView();
       act_s  = act.sparseView();
-	  
+      
       pas_nbr_s  = X.col( ii_mark ).cwiseProduct(pas_s);
       npasnbr    = pas_nbr_s.sum();
 	  
       n_nbr_obs = 0;
       n_nbr_req = 0;
       for (InIter it2(pas_nbr_s); it2; ++it2){
-		for (InIter it3(pas_nbr_s); it3; ++it3){
-		  n_nbr_req++;
-		  n_nbr_obs += X.coeff(it2.index(), it3.index());
-		}
+	for (InIter it3(pas_nbr_s); it3; ++it3){
+	  n_nbr_req++;
+	  n_nbr_obs += X.coeff(it2.index(), it3.index());
+	}
       }
       n_nbr_obs /= 2;
-      if (npasnbr==0)
-		n_nbr_req = 0;
+      if (npasnbr == 0)
+	n_nbr_req = 0;
       else
-		n_nbr_req = npasnbr*(npasnbr-1)/2;
-	  
+	n_nbr_req = npasnbr * (npasnbr - 1) / 2;
+      
       if (n_nbr_req != n_nbr_obs){
-		is_perfect=0;
-		break;
+	is_perfect=0;
+	break;
       }
+      
       vec1_s = X.col(ii_mark);
       for (InIter itjj(vec1_s); itjj; ++itjj){
-		vec2_s    = X.col( itjj.index() );
-		pas_nbr_s = vec2_s.cwiseProduct( pas_s );
-		n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
+	vec2_s    = X.col( itjj.index() );
+	pas_nbr_s = vec2_s.cwiseProduct( pas_s );
+	n_pas_nbr[ itjj.index() ] = pas_nbr_s.sum();
       }
       count++;
     }
@@ -133,12 +135,12 @@ SEXP internal_mcsMAT_sp ( SpMat X, SEXP OO_ ){
   // if(dd)Rcout << "*FINALIZE" << endl;
   
   if (is_perfect==0)
-    res[0]=-1;
+    res[0] = -1;
   return(wrap(res));
 }
 
 SEXP do_mcsMAT_de ( SEXP XX_, SEXP OO_ ){
-  MapMatd   Xd(as<MapMatd>(XX_));
+  MapMatd  Xd(as<MapMatd>(XX_));
   SpMat   X = Xd.sparseView();
   return internal_mcsMAT_sp(X, OO_);
 }
@@ -150,7 +152,7 @@ SEXP do_mcsMAT_sp ( SEXP XX_, SEXP OO_ ){
 
 
 // [[Rcpp::export]]
-SEXP mcsMAT_ ( SEXP XX_, SEXP OO_ ){
+SEXP mcsMAT__ ( SEXP XX_, SEXP OO_ ){
   int type = TYPEOF(XX_) ;
   //Rf_PrintValue(wrap(type));
   switch( type ){
