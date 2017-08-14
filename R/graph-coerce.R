@@ -22,6 +22,9 @@ setAs("graphNEL", "igraph",    function(from) gn2ig_(from))
 setAs("graphNEL", "matrix",    function(from) gn2dm_(from))
 setAs("graphNEL", "dgCMatrix", function(from) gn2sm_(from))
 
+## FIXME: After update, remove setAs("graphNEL", "Matrix", 
+setAs("graphNEL", "Matrix", function(from) gn2sm_(from))
+
 ## From matrix
 ## -----------
 setAs("matrix", "igraph", function(from) dm2ig_(from))

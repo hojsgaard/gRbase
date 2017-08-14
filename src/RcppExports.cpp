@@ -1596,18 +1596,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// sp_setXtf1
-SEXP sp_setXtf1(SEXP XX_, SEXP TF_);
-RcppExport SEXP _gRbase_sp_setXtf1(SEXP XX_SEXP, SEXP TF_SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type XX_(XX_SEXP);
-    Rcpp::traits::input_parameter< SEXP >::type TF_(TF_SEXP);
-    rcpp_result_gen = Rcpp::wrap(sp_setXtf1(XX_, TF_));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _gRbase_RcppExport_validate(const char* sig) { 

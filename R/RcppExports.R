@@ -316,10 +316,6 @@ dimnames_match_ <- function(tab1, tab2, verbose = FALSE) {
     .Call('_gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
 }
 
-sp_setXtf1 <- function(XX_, TF_) {
-    .Call('_gRbase_sp_setXtf1', PACKAGE = 'gRbase', XX_, TF_)
-}
-
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_gRbase_RcppExport_registerCCallable', PACKAGE = 'gRbase')

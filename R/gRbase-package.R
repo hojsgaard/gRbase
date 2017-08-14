@@ -352,7 +352,7 @@
 #' to rowwise which is achieved by \code{v*M}). Hence \code{colwiseProd} does
 #' the same as \code{t(v*t(M))} - but it does so faster for numeric values.
 #' 
-#' @aliases colwiseProd is_subsetof_ get_superset_ get_subset_
+#' @aliases colwiseProd is_subsetof__ get_superset__ get_subset__
 #' @return A vector or a logical.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @keywords utilities

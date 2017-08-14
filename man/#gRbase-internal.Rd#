@@ -7,8 +7,6 @@
 \alias{is_subsetof_}
 
 
-
-
 \alias{igraph-class}
 \alias{\%>\%}
 

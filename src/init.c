@@ -61,7 +61,6 @@ extern SEXP _gRbase_rip_internal(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_rowmat2list__(SEXP);
 extern SEXP _gRbase_slice2entry_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_solveSPD(SEXP);
-extern SEXP _gRbase_sp_setXtf1(SEXP, SEXP);
 extern SEXP _gRbase_symMAT2ftM_(SEXP);
 extern SEXP _gRbase_tabDiv0__(SEXP, SEXP);
 extern SEXP _gRbase_tabMarg__(SEXP, SEXP);
@@ -143,7 +142,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_rowmat2list__",                (DL_FUNC) &_gRbase_rowmat2list__,                1},
     {"_gRbase_slice2entry_",                 (DL_FUNC) &_gRbase_slice2entry_,                 3},
     {"_gRbase_solveSPD",                     (DL_FUNC) &_gRbase_solveSPD,                     1},
-    {"_gRbase_sp_setXtf1",                   (DL_FUNC) &_gRbase_sp_setXtf1,                   2},
     {"_gRbase_symMAT2ftM_",                  (DL_FUNC) &_gRbase_symMAT2ftM_,                  1},
     {"_gRbase_tabDiv0__",                    (DL_FUNC) &_gRbase_tabDiv0__,                    2},
     {"_gRbase_tabMarg__",                    (DL_FUNC) &_gRbase_tabMarg__,                    2},

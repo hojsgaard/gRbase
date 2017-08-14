@@ -13,8 +13,11 @@ importClassesFrom(Matrix, Matrix)
 importClassesFrom(graph, graphNEL)
 
 ##importMethodsFrom(graph, plot)
-##importFrom(graph, edges, nodes)
+importFrom(graph, edges, nodes)
 ##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+
+export("edges")
+export("nodes")
 
 importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
 
