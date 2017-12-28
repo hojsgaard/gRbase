@@ -1,6 +1,8 @@
 language: R
 cache: packages
 sudo: required
+dist: trusty
+group: deprecated-2017Q4
 bioc_packages:
 - graph
 - RBGL
