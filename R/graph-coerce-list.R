@@ -24,7 +24,6 @@ adjList2tfM        <- adjList2tfM__
 #'
 #' ## @aliases adl2dm adl2gn adl2ig ugl2dm ugl2gn ugl2ig ugl2sm adl2sm
 #' ##    dgl2dm dgl2gn dgl2ig dgl2sm 
-#'
 #' 
 #' @param amat Adjacency matrix (dense or sparse dgCMatrix).
 #' @param glist A list of generators where a generator is a character
@@ -35,7 +34,6 @@ adjList2tfM        <- adjList2tfM__
 #' @param vn The names of the vertices in the graphs. These will be
 #'     the row and column names of the matrix
 #' @param result FIXME
-#' 
 #' 
 ## FIXME M2adjList fails for sparse matrix
 #' @rdname graph-coerce-list
@@ -214,4 +212,6 @@ dagList2M <- dgl2M_
 #' @rdname graph-coerce-list
 adjList2M <- adl2M_
 
-
+## FIXME : For compatibility
+#' @rdname graph-coerce-list
+glist2adjMAT <- ugl2M_

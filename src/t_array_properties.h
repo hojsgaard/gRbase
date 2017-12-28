@@ -1,4 +1,4 @@
-// FIXME check this header
+
 bool is_dimnames_(const SEXP& obj);
 bool is_number_vector_(const SEXP& obj);
 bool is_named_array_(const SEXP& obj);

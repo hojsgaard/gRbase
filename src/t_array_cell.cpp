@@ -110,29 +110,33 @@ IntegerVector slice2entry_prim_(const IntegerVector& slice_cell, const IntegerVe
 				const IntegerVector& dim,
 				const IntegerVector& sliceIndic, const IntegerVector& plevels
 				){
+
+  //Rcout << "dimXXX: " << dim << std::endl;
   int i, ndim=dim.length(), entry, out_len=1;
   NumericVector cell( ndim );
+
   // Create initial cell
   for (i=0; i < ndim; i++)
     cell[i] = 1;
   for (i=0; i < slice_cell.length(); i++)
     cell[slice_set[i] - 1] = slice_cell[i];
-  
-  IntegerVector tmp( ndim );
-  tmp = dim;
+
+
+  IntegerVector tmp = clone(dim);
   for (i=0; i < slice_set.length(); i++)
     tmp[slice_set[i] - 1] = 1;
 
   for (i=0; i < ndim; i++){
     out_len *= tmp[ i ];
   }
-
+  //Rcout << "dimXXX: " << dim << std::endl;
+  
   IntegerVector out( out_len );
 
   for (i=0; i < out_len; i++){
     entry = cell2entry_prim_( cell, plevels );
     out[ i ] = entry;
-    cell  = next_cell_slice_prim_( cell, dim, sliceIndic );
+    cell  = next_cell_slice_prim_(cell, dim, sliceIndic);
   }
   return out;
 }
@@ -140,10 +144,13 @@ IntegerVector slice2entry_prim_(const IntegerVector& slice_cell, const IntegerVe
 //' @rdname array-cell
 //[[Rcpp::export]]
 IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_set, const IntegerVector& dim){
-  IntegerVector sliceIndic = make_indic( dim.length(), slice_set);
-  IntegerVector plevels    = make_prod( dim.length(), dim);
+  IntegerVector sliceIndic = make_indic(dim.length(), slice_set);
+  IntegerVector plevels    = make_prod(dim.length(), dim);
 
-  return slice2entry_prim_(slice_cell, slice_set, dim, sliceIndic, plevels);
+  //Rcout << "dim: " << dim << std::endl;
+  IntegerVector out = slice2entry_prim_(slice_cell, slice_set, dim, sliceIndic, plevels);
+  //Rcout << "dim: " << dim << std::endl;
+  return out;
 }
 
 // ---------------------------------

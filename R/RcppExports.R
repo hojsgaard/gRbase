@@ -300,12 +300,12 @@ tab_list_add_ <- function(lst) {
     .Call('_gRbase_tab_list_add_', PACKAGE = 'gRbase', lst)
 }
 
-is_number_vector_ <- function(obj) {
-    .Call('_gRbase_is_number_vector_', PACKAGE = 'gRbase', obj)
-}
-
 is_dimnames_ <- function(obj) {
     .Call('_gRbase_is_dimnames_', PACKAGE = 'gRbase', obj)
+}
+
+is_number_vector_ <- function(obj) {
+    .Call('_gRbase_is_number_vector_', PACKAGE = 'gRbase', obj)
 }
 
 is_named_array_ <- function(obj) {

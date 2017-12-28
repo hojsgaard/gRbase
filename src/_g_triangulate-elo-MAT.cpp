@@ -109,7 +109,7 @@ SEXP do_triangulate_elo ( SEXP X_, SEXP ELO_ ){
 }
 
 
-// FIXME triang_elo: Should be similar to other triangualte...
+// FIXME triang_elo: Should be similar to other triangulate...
 
 // [[Rcpp::export]]
 SEXP triang_elo_MAT__ (SEXP X_, SEXP ELO_){
@@ -120,6 +120,49 @@ SEXP triang_elo_MAT__ (SEXP X_, SEXP ELO_){
   }
   return R_NilValue;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

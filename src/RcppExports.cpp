@@ -1550,17 +1550,6 @@ RcppExport SEXP _gRbase_tab_list_add_(SEXP lstSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// is_number_vector_
-bool is_number_vector_(const SEXP& obj);
-RcppExport SEXP _gRbase_is_number_vector_(SEXP objSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const SEXP& >::type obj(objSEXP);
-    rcpp_result_gen = Rcpp::wrap(is_number_vector_(obj));
-    return rcpp_result_gen;
-END_RCPP
-}
 // is_dimnames_
 bool is_dimnames_(const SEXP& obj);
 RcppExport SEXP _gRbase_is_dimnames_(SEXP objSEXP) {
@@ -1569,6 +1558,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const SEXP& >::type obj(objSEXP);
     rcpp_result_gen = Rcpp::wrap(is_dimnames_(obj));
+    return rcpp_result_gen;
+END_RCPP
+}
+// is_number_vector_
+bool is_number_vector_(const SEXP& obj);
+RcppExport SEXP _gRbase_is_number_vector_(SEXP objSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const SEXP& >::type obj(objSEXP);
+    rcpp_result_gen = Rcpp::wrap(is_number_vector_(obj));
     return rcpp_result_gen;
 END_RCPP
 }

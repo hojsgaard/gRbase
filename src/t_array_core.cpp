@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 #include <Rcpp.h>
-#include "concatenate.h"          // my version of c(x,y)
-#include "t_array_properties.h"  // my version of c(x,y)
+#include "concatenate.h"         // my version of c(x,y)
+#include "t_array_properties.h"  
 
 using namespace Rcpp;
 using namespace std;
@@ -89,8 +89,8 @@ inline IntegerVector make_prod(const int ndim, const IntegerVector& adim ){
 
 template <int RTYPE>
 Vector<RTYPE> do_aperm_vec(const Vector<RTYPE>& tab,
-				 const IntegerVector& adim,
-				 const IntegerVector& permi){
+			   const IntegerVector& adim,
+			   const IntegerVector& permi){
 
   bool is_ok_perm = is_valid_perm_(adim, permi);
   if (!is_ok_perm) stop("invalid permutation; can not proceed");
@@ -334,7 +334,7 @@ Vector<RTYPE> do_margc_tab(const Vector<RTYPE>& tab1, const CharacterVector& mar
     for (int i=0; i < marg_idx.length(); ++i)
       margcells *= di1[marg_idx[i] - 1];
     int restcells = ncells / margcells;
-
+    
     // Create output
     Vector<RTYPE> ret = no_init( margcells );
     typedef typename traits::storage_type<RTYPE>::type storage_t;

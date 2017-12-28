@@ -2,23 +2,22 @@
 using namespace Rcpp;
 using namespace std;
 
-// Check that 'tab' is numeric or integer vector
-//[[Rcpp::export]]
-bool is_number_vector_(const SEXP& obj){
-  bool isOK = true;
-  int type = TYPEOF(obj) ; 
-  if (!(type == INTSXP | type == REALSXP))
-    isOK = false;
-  return isOK;
-}
-
-
 // Check that 'obj' is a list (should be a dimnames check, but will do for now).
 //[[Rcpp::export]]
 bool is_dimnames_(const SEXP& obj){
   bool isOK = true;
   int type = TYPEOF(obj) ; 
   if (!(type == VECSXP))
+    isOK = false;
+  return isOK;
+}
+
+// Check that 'tab' is numeric or integer vector
+//[[Rcpp::export]]
+bool is_number_vector_(const SEXP& obj){
+  bool isOK = true;
+  int type = TYPEOF(obj) ; 
+  if (!(type == INTSXP | type == REALSXP))
     isOK = false;
   return isOK;
 }
@@ -55,18 +54,10 @@ bool is_named_array_(const SEXP& obj){
   return isOK;
 }
 
-/*** R
 
-hec = hec2 = hec3 = HairEyeColor
 
-dimnames(hec2) <- NULL
-names(dimnames(hec3)) <- NULL
 
-is_named_array_(hec)
-is_named_array_(hec2)
-is_named_array_(hec3)
 
-***/
 
 //[[Rcpp::export]]
 bool dimnames_match_(const SEXP& tab1, const SEXP& tab2, bool verbose=false){
@@ -118,6 +109,21 @@ bool dimnames_match_(const SEXP& tab1, const SEXP& tab2, bool verbose=false){
   return allOK;
 }
 
+
+
+
+/*** R
+
+hec = hec2 = hec3 = HairEyeColor
+
+dimnames(hec2) <- NULL
+names(dimnames(hec3)) <- NULL
+
+is_named_array_(hec)
+is_named_array_(hec2)
+is_named_array_(hec3)
+
+***/
 
 /*** R
 
