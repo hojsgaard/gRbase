@@ -17,10 +17,10 @@
 ## --------------------------
 ## Aliases for cpp functions
 ## --------------------------
-cell2entry <- cell2entry_
-nextCell <- next_cell_
+cell2entry    <- cell2entry_
+nextCell      <- next_cell_
 nextCellSlice <- next_cell_slice_
-slice2entry <- slice2entry_
+slice2entry   <- slice2entry_
 ## --- END ---
 
 ## -------------------------
@@ -29,7 +29,7 @@ slice2entry <- slice2entry_
 
 entry2cell <- function(entry, dim, plev=cumprod(dim)/dim){
   cell <- rep(NA, length(dim))
-  rrr <- entry-1
+  rrr <- entry - 1
   for (ii in length(dim):1){
     cell[ii] <- rrr %/% plev[ii]
     rrr <- rrr %% plev[ii]

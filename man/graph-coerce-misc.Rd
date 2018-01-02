@@ -3,12 +3,7 @@
 \name{graph-coerce-misc}
 \alias{graph-coerce-misc}
 \alias{igraph2graphNEL}
-\alias{glist2adjMAT}
-\alias{vpaList2adjMAT}
-\alias{vpaL2tfM}
 \alias{graphNEL2adjMAT}
-\alias{graphNEL2matrix}
-\alias{graphNEL2dgCMatrix}
 \alias{igraph2matrix}
 \alias{igraph2dgCMatrix}
 \alias{M2matrix}

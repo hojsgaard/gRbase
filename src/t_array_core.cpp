@@ -309,6 +309,13 @@ SEXP tab_align_(const SEXP& tab1, const SEXP& tab2){
 template <int RTYPE>
 Vector<RTYPE> do_margc_tab(const Vector<RTYPE>& tab1, const CharacterVector& margc){
 
+  if (margc.length() == 0){
+    double s = sum(tab1);
+    Vector<RTYPE> out(1);
+    out(0)= s;
+    return out;    
+  }
+  
   List   dn1 = tab1.attr("dimnames");
   chrVec vn1 = dn1.names();
   intVec di1 = tab1.attr("dim");
@@ -357,6 +364,12 @@ template <int RTYPE>
 Vector<RTYPE> do_tabmarg_gen(const Vector<RTYPE>& tab, const SEXP& marg){
   int type = TYPEOF(marg) ;
   switch( type ){
+  case NILSXP  : {
+    double s = sum(tab);
+    Vector<RTYPE> out(1);
+    out(0)= s;
+    return out;
+  }    
   case INTSXP  : 
   case REALSXP : {
     chrVec vn1 = namesDimnames( tab );

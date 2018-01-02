@@ -27,6 +27,7 @@
 \alias{dagList2graphNEL}
 \alias{dagList2M}
 \alias{adjList2M}
+\alias{glist2adjMAT}
 \title{Coercion of graphs represented as lists}
 \usage{
 ugl2gn_(glist, vn = NULL)
@@ -80,6 +81,8 @@ dagList2graphNEL(glist, vn = NULL)
 dagList2M(glist, vn = NULL, result = "matrix")
 
 adjList2M(alist, result = "matrix")
+
+glist2adjMAT(glist, vn = NULL, result = "matrix")
 }
 \arguments{
 \item{glist}{A list of generators where a generator is a character

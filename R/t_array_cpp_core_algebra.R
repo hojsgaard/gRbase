@@ -37,11 +37,11 @@
 ## ------------------------
 ## Aliases for cpp functions
 ## -------------------------
-tabAdd    <- tab_add_
-tabDiv    <- tab_div_
-tabDiv0   <- tab_div0_
-tabMult   <- tab_mult_
-tabSubt   <- tab_subt_
+tabAdd      <- tab_add_
+tabDiv      <- tab_div_
+tabDiv0     <- tab_div0_
+tabMult     <- tab_mult_
+tabSubt     <- tab_subt_
 tabListMult <- tab_list_mult_
 tabListAdd  <- tab_list_add_
 ## --- END ---

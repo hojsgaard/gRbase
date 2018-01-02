@@ -102,6 +102,12 @@ ar_marg(ar1, 2:3)
 ar_marg(ar1, c("b","c"))
 ar_marg(ar1, ~b + c)
 
+## Marginalize over 'everything'
+ar_marg(ar1, NULL)
+ar_marg(ar1, ~1)
+ar_marg(ar1, character(0))
+ar_marg(ar1, integer(0))
+
 ## This gives an error
 ## ar_marg(ar1, c(2,5))
 ## ar_marg(ar1, c("b","w"))

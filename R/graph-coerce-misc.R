@@ -25,9 +25,8 @@ dgCMatrix2matrix <- dgCMatrix2matrix__
 #' @description Graph and matrix coercions where speed is an issue.
 #'
 #' @name graph-coerce-misc
-#' 
-#' @aliases glist2adjMAT vpaList2adjMAT vpaL2tfM graphNEL2adjMAT
-#'     graphNEL2matrix graphNEL2dgCMatrix
+#'
+#' @aliases  graphNEL2adjMAT 
 #' 
 #' @param result Either \code{"matrix"} or \code{"dgCMatrix"} (for a
 #'     sparse matrix representation)
@@ -52,7 +51,7 @@ dgCMatrix2matrix <- dgCMatrix2matrix__
 ## ################################################
 
 #' @rdname graph-coerce-misc
-#' @param ig igraph-object
+#' @param  ig igraph-object
 #' @details The igraph2something functions only serve to provide a
 #'     uniform coercion interface; the functions are wrappers to
 #'     \pkg{igraph} functions.
@@ -151,6 +150,7 @@ graphNEL2tfM <- function(gn){
     .check.is.graphNEL(gn)        
     adjList2tfM(graph::edges(gn))
 }
+
 
 
 
