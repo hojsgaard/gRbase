@@ -18,17 +18,19 @@
 #' @keywords utilities
 #' @examples
 #' 
-#' x <- letters[1:20]
+#' x <- letters[1:5]
 #' m <- 3
 #' 
-#' combn(x,m)
-#' combnPrim(x,m)
+#' combn(x, m)
+#' combnPrim(x, m)
 #' 
-#' combn(m,m)
-#' combnPrim(m,m)
+#' combn(m, m)
+#' combnPrim(m, m)
 #' 
-#' combn(x,m, simplify=FALSE)
-#' combnPrim(x,m, simplify=FALSE)
+#' combn(x, m, simplify=FALSE)
+#' combnPrim(x, m, simplify=FALSE)
+#'
+#' x <- letters[1:20]
 #' 
 #' system.time({ for (i in 1:100) { combnPrim(x,m) }})
 #' system.time({ for (i in 1:100) { combn(x,m) }})
