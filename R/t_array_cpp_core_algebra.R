@@ -9,15 +9,14 @@
 ## ###############################################
 #' 
 #' @param a,a1,a2,... Arrays (with named dimnames)
-#' @param tab1,tab2 Arrays (with named dimnames)
+
 #' @param lst List of arrays.
 #' @aliases %a+% %a-% %a*% %a/% %a/0%
-#'     tabAdd tabDiv tabDiv0 tabMult tabSubt  
-#'     tabSum tabProd
 #' 
 ## #' tab_add_ tab_div0_ tab_div_ tab_mult_ tab_subt_ tab_op_
 #' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
+#'
 #' @examples
 #' hec <- HairEyeColor
 #' a1 <- ar_marg(hec, c("Hair", "Eye"))
@@ -33,40 +32,6 @@
 #' ar_sum(a1, a2, a3)
 #' ar_prod(a1, a2, a3)
 #' 
-
-## ------------------------
-## Aliases for cpp functions
-## -------------------------
-tabAdd      <- tab_add_
-tabDiv      <- tab_div_
-tabDiv0     <- tab_div0_
-tabMult     <- tab_mult_
-tabSubt     <- tab_subt_
-tabListMult <- tab_list_mult_
-tabListAdd  <- tab_list_add_
-## --- END ---
-
-## -------------------------
-## Additional functionality
-## -------------------------
-
-## #' @rdname array-algebra
-tabSum <- function(...){
-    args <- list(...)
-    ##message("args:"); print(args); message("-------")
-    if (length(args)==0) 0
-    else if (length(args)==1 && is.array(args[[1]])) args[[1]]
-    else tabListAdd( args )
-}
-
-## #' @rdname array-algebra
-tabProd <- function(...){
-    args <- list(...)
-    ##message("args:"); print(args); message("-------")
-    if (length(args)==0) 1
-    else if (length(args)==1 && is.array(args[[1]])) args[[1]]
-    else tabListMult( args )
-}
 
 #' @rdname array-algebra
 ar_sum <- tabSum

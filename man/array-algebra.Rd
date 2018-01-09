@@ -2,19 +2,12 @@
 % Please edit documentation in R/t_array_cpp_core_algebra.R
 \name{array-algebra}
 \alias{array-algebra}
-\alias{tabAdd}
+\alias{ar_sum}
 \alias{\%a+\%}
 \alias{\%a-\%}
 \alias{\%a*\%}
 \alias{\%a/\%}
 \alias{\%a/0\%}
-\alias{tabDiv}
-\alias{tabDiv0}
-\alias{tabMult}
-\alias{tabSubt}
-\alias{tabSum}
-\alias{tabProd}
-\alias{ar_sum}
 \alias{ar_prod}
 \alias{ar_prod_list}
 \alias{ar_sum_list}
@@ -30,8 +23,6 @@
 \alias{ar_div0}
 \title{Array algebra}
 \usage{
-tabAdd(tab1, tab2)
-
 ar_sum(...)
 
 ar_prod(...)
@@ -61,8 +52,6 @@ ar_div(a1, a2)
 ar_div0(a1, a2)
 }
 \arguments{
-\item{tab1, tab2}{Arrays (with named dimnames)}
-
 \item{lst}{List of arrays.}
 
 \item{a, a1, a2, ...}{Arrays (with named dimnames)}

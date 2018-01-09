@@ -2,94 +2,61 @@
 % Please edit documentation in R/t_array_cpp_core_operations.R
 \name{array-operations}
 \alias{array-operations}
-\alias{tabAdd__}
-\alias{tabSubt__}
-\alias{tabMult__}
-\alias{tabDiv__}
-\alias{tabDiv0__}
-\alias{tabOp__}
-\alias{tabMarg__}
-\alias{tabEqual__}
-\alias{tabPerm__}
-\alias{tabAlign__}
-\alias{tabExpand__}
-\alias{tabListAdd__}
-\alias{tabListMult__}
-\alias{tabListAdd}
-\alias{tabListMult}
-\alias{tabExt}
-\alias{tabEqual}
-\alias{tabMarg}
-\alias{tabCondProb}
-\alias{tabAlign}
-\alias{tabPerm}
-\alias{tab_align_}
-\alias{tab_expand_}
-\alias{tab_marg_}
-\alias{tab_perm_}
-\alias{tabSlice}
-\alias{tabSlice2}
-\alias{tabSlicePrim}
-\alias{tabSliceMult}
-\alias{tabExpand}
-\alias{tabSlice2Entries}
-\alias{tabSlice2Entries_}
-\alias{ar_equal}
-\alias{\%a==\%}
+\alias{ar_expand}
+\alias{\%a^\%}
+\alias{ar_align}
+\alias{\%aa\%}
 \alias{ar_perm}
+\alias{\%ap\%}
 \alias{ar_marg}
 \alias{\%a_\%}
-\alias{\%a^\%}
-\alias{ar_expand}
-\alias{ar_align}
+\alias{ar_equal}
+\alias{\%a==\%}
 \title{Operations on multidimensional arrays.}
 \usage{
-ar_equal(tab1, tab2, eps = 1e-12)
-
-tab1 \%a==\% tab2
-
-ar_perm(tab, perm)
-
-ar_marg(tab, marg)
-
-tab1 \%a_\% marg
+ar_expand(tab, aux)
 
 tab1 \%a^\% extra
 
-ar_expand(tab, aux)
-
 ar_align(tab1, tab2)
+
+tab1 \%aa\% tab2
+
+ar_perm(tab, perm)
+
+tab1 \%ap\% perm
+
+ar_marg(tab, marg = NULL)
+
+tab1 \%a_\% marg
+
+ar_equal(tab1, tab2, eps = 1e-12)
+
+tab1 \%a==\% tab2
 }
 \arguments{
-\item{eps}{Criterion for checking equality of two arrays.}
-
 \item{tab, tab1, tab2}{Multidimensional arrays.}
-
-\item{perm}{A vector of indices or dimnames giving the desired
-permutiation.}
-
-\item{marg}{Specification of marginal; either a character vector, a
-numeric vector or a right hand sided formula For \code{ar_perm}
-and \code{ar_marg} it can also be a right hand sided formula.}
-
-\item{extra}{List defining the extra dimensions.}
 
 \item{aux}{Either a list with names and dimnames or a named array
 from which such a list can be extracted.}
+
+\item{extra}{List defining the extra dimensions.}
+
+\item{perm}{A vector of indices or dimnames or a right hand sided
+formula giving the desired permutiation.}
+
+\item{marg}{A vector of indices or dimnames or a right hand sided
+formula giving the desired marginal.}
+
+\item{eps}{Criterion for checking equality of two arrays.}
 }
 \value{
-Most functions here return a multidimensional array.
+Most functions return a multidimensional array.
 }
 \description{
 Operations like marginalize, permute, slicing etc on
     arrays A multidimensional table (an array) is here a vector
     with a dim and a dimnames attribute.
-}
-\details{
-\code{perm} in \code{ar_perm()} can be a vector of indices
-    (as in Rs own \code{aperm()}) but also a vector of
-    dimnames. Currently there is no checking that the dimnames are
-    actually in the array, so please take care.
 }
 \examples{
 
@@ -108,8 +75,8 @@ ar_marg(ar1, ~1)
 ar_marg(ar1, character(0))
 ar_marg(ar1, integer(0))
 
-## This gives an error
-## ar_marg(ar1, c(2,5))
+## This gives an error (as expected)
+## ar_marg(ar1, c(2, 5))
 ## ar_marg(ar1, c("b","w"))
 ## ar_marg(ar1, ~b + w)
  
@@ -128,6 +95,7 @@ ar_perm(ar1, ~b + c + a)
 out <- ar_mult(ar1, ar2)
 out <- ar_perm(out, ~a + b + c + d) ## Just for comparison below
 ftable(out)
+
 ## Alternative approch
 df1 <- as.data.frame.table(ar1)
 df2 <- as.data.frame.table(ar2)
@@ -142,6 +110,9 @@ ar1.e <- ar_expand(ar1, ar2)
 ## level of d.
 dimnames(ar1.e)
 ftable(ar1.e, row.vars="d")
+## ar_expand:
+ar_expand(ar1, list(u=1:2))
+ar1 \%a^\% list(u=1:2)
 
 ## ## aralign ##
 ar2.e <- ar_expand(ar2, ar1)
@@ -151,17 +122,6 @@ out <- ar_align(ar1.e, ar2.e)
 names(dimnames(out)) ## Same as ar2.e
 
 
-
-aa = ar_new(~a, levels=2, values=c(1,100))
-ar_expand(aa, list(b=1:2))
-aa \%a^\% list(b=1:2)
-
-## ar_expand:
-ar1 <- array(1:8, dim=c(2,2,2), dimnames=list("a"=1:2,"b"=1:2,"c"=1:2))
-ar2 <- array(1:8, dim=c(2,2,2), dimnames=list("b"=1:2,"c"=1:2,"d"=1:2))
-
-ar_expand(ar1, ar2) \%>\% ftable(row.vars=1) ## Same as
-## ar_expand(ar1, dimnames(ar2)) \%>\% ftable(row.vars=1) 
 }
 \seealso{
 \code{\link{aperm}}, \code{\link{ar_perm}},

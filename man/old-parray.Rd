@@ -60,7 +60,6 @@ varNames(t1)
 nLevels(t1)
 valueLabels(t1)
 
-
 ## Create 1-dimensional vector with dim and dimnames
 x1 <- 1:5
 as.parray(x1)

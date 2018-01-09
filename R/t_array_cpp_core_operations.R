@@ -10,28 +10,18 @@
 #'
 ## ####################################################################
 #' 
-#' @details \code{perm} in \code{ar_perm()} can be a vector of indices
-#'     (as in Rs own \code{aperm()}) but also a vector of
-#'     dimnames. Currently there is no checking that the dimnames are
-#'     actually in the array, so please take care.
-#' 
-#' @aliases tabAdd__ tabSubt__ tabMult__ tabDiv__ tabDiv0__ tabOp__ 
-#'     tabMarg__ tabEqual__ tabMarg__ tabPerm__ tabAlign__ tabExpand__
-#'     tabListAdd__ tabListMult__ tabListAdd tabListMult tabExt
-#'     tabEqual tabMarg tabCondProb tabAlign tabPerm
-#'     tab_align_ tab_expand_ tab_marg_ tab_perm_
-#'     tabSlice tabSlice2 tabSlicePrim tabSliceMult
-#'     tabExpand tabSlice2Entries tabSlice2Entries_
-#'
 #' @param tab,tab1,tab2 Multidimensional arrays.
-#' @param perm A vector of indices or dimnames giving the desired
-#'     permutiation.
-#' @param marg Specification of marginal; either a character vector, a
-#'     numeric vector or a right hand sided formula For \code{ar_perm}
-#'     and \code{ar_marg} it can also be a right hand sided formula.
+#' 
+#' @param perm A vector of indices or dimnames or a right hand sided
+#'     formula giving the desired permutiation.
+#' @param marg A vector of indices or dimnames or a right hand sided
+#'     formula giving the desired marginal.
 #' @param eps Criterion for checking equality of two arrays.
-## #' @param lst List of arrays.
-#' @return Most functions here return a multidimensional array.
+#' @param extra List defining the extra dimensions.
+#' @param aux Either a list with names and dimnames or a named array
+#'     from which such a list can be extracted.
+#' 
+#' @return Most functions return a multidimensional array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{aperm}}, \code{\link{ar_perm}},
 #'     \code{\link{ar_slice}}, \code{\link{ar_slice_entries}}
@@ -53,8 +43,8 @@
 #' ar_marg(ar1, character(0))
 #' ar_marg(ar1, integer(0))
 #' 
-#' ## This gives an error
-#' ## ar_marg(ar1, c(2,5))
+#' ## This gives an error (as expected)
+#' ## ar_marg(ar1, c(2, 5))
 #' ## ar_marg(ar1, c("b","w"))
 #' ## ar_marg(ar1, ~b + w)
 #'  
@@ -73,6 +63,7 @@
 #' out <- ar_mult(ar1, ar2)
 #' out <- ar_perm(out, ~a + b + c + d) ## Just for comparison below
 #' ftable(out)
+#'
 #' ## Alternative approch
 #' df1 <- as.data.frame.table(ar1)
 #' df2 <- as.data.frame.table(ar2)
@@ -87,6 +78,9 @@
 #' ## level of d.
 #' dimnames(ar1.e)
 #' ftable(ar1.e, row.vars="d")
+#' ## ar_expand:
+#' ar_expand(ar1, list(u=1:2))
+#' ar1 %a^% list(u=1:2)
 #' 
 #' ## ## aralign ##
 #' ar2.e <- ar_expand(ar2, ar1)
@@ -99,98 +93,46 @@
 #' 
 NULL
 
-
-## ------------------------
-## Aliases for cpp functions
-## -------------------------
-tabEqual  <- tab_equal_
-tabAlign  <- tab_align_
-tabExpand <- tab_expand_  ## Rethink this
-## --- END ---
-
-## -------------------------
-## Additional functionality
-## -------------------------
-
-tabPerm <- function(tab, perm){
-    if (!is.named.array(tab))
-        stop("'tab' is not a named array")
-    if ( !(is.numeric(perm) || is.character(perm) || class(perm)=="formula"))
-        stop("'perm' must be character or numeric vector or right hand sided formula")
-    
-    if ( is.numeric( perm ) ){
-        tab_perm_(tab, perm) ## FIXME: NEED R name here Call C-code here
-    } else {
-        if ( class(perm) == "formula" ){
-            perm <- all.vars( perm[[2]] )
-        }
-        vn <- names(dimnames( tab ))
-        p <- pmatch( perm, vn )
-        perm <- vn[p]
-        tab_perm_(tab, perm)  # FIXME: NEED R name here Call C-code here
-    }
-}
-
-tabMarg <- function(tab, marg){
-    if (!is.named.array(tab))
-        stop("'tab' is not a named array")
-    if (is.numeric(marg) || is.character(marg) || length(marg) == 0){
-        tab_marg_(tab, marg) ## Call C-code here
-    } else {
-        if (class(marg)== "formula"){
-            marg <- all.vars(marg[[2]])
-            tab_marg_(tab, marg) ## Call C-code here
-        } else {
-            stop("'marg' must be character or numeric vector or a right hand sided formula")
-        }
-        
-    }
-}
-
+#' @rdname array-operations
+ar_expand <- tabExpand
+#' @rdname array-operations
+"%a^%" <- function(tab1, extra){tabExpand(tab1, extra)}
 
 #' @rdname array-operations
-ar_equal <- tabEqual
-
+ar_align <- tabAlign
 #' @rdname array-operations
-"%a==%" <- function(tab1, tab2){tabEqual(tab1,tab2)}
-
-
+"%aa%" <- function(tab1, tab2){tabAlign(tab1, tab2)}
 
 #' @rdname array-operations
 ar_perm <- tabPerm
+#' @rdname array-operations
+"%ap%" <- function(tab1, perm){tabPerm(tab1, perm)}
 
 #' @rdname array-operations
 ar_marg <- tabMarg
-
-
 #' @rdname array-operations
 "%a_%" <- function(tab1, marg){tabMarg(tab1, marg)}
 
 #' @rdname array-operations
-#' @param extra List defining the extra dimensions.
-#' @examples
-#'
-#' aa = ar_new(~a, levels=2, values=c(1,100))
-#' ar_expand(aa, list(b=1:2))
-#' aa %a^% list(b=1:2)
-#' 
-"%a^%" <- function(tab1, extra){tabExpand(tab1, extra)}
+ar_equal <- tabEqual
+#' @rdname array-operations
+"%a==%" <- function(tab1, tab2){tabEqual(tab1, tab2)}
 
 
 
-## #' @rdname array-operations
-## .arperm <- tabPerm
 
 
 
-## #' @rdname array-operations
-## arMarg <- tabMarg
 
-## #' @rdname array-operations
-## .armarg <- tabMarg
 
-## #' @rdname array-operations
-## .arequal <- tabEqual
+
+
+
+
+
+
+
+
 
 
 
@@ -229,29 +171,33 @@ ar_marg <- tabMarg
 ## 
 
 
-#' @rdname array-operations
-#' @examples
-#' ## ar_expand:
-#' ar1 <- array(1:8, dim=c(2,2,2), dimnames=list("a"=1:2,"b"=1:2,"c"=1:2))
-#' ar2 <- array(1:8, dim=c(2,2,2), dimnames=list("b"=1:2,"c"=1:2,"d"=1:2))
-#'
-#' ar_expand(ar1, ar2) %>% ftable(row.vars=1) ## Same as
-#' ## ar_expand(ar1, dimnames(ar2)) %>% ftable(row.vars=1) 
 
 
-#' @rdname array-operations 
-#' @param aux Either a list with names and dimnames or a named array
-#'     from which such a list can be extracted.
-ar_expand <- tabExpand
 
-#' @rdname array-operations
-ar_align <- tabAlign
+
+
+
 
 ## #' @rdname array-operations 
 ## .arexpand <- tabExpand
 
 ## #' @rdname array-operations
 ## .aralign <- tabAlign
+## #' @rdname array-operations
+## .arperm <- tabPerm
+
+
+
+## #' @rdname array-operations
+## arMarg <- tabMarg
+
+## #' @rdname array-operations
+## .armarg <- tabMarg
+
+## #' @rdname array-operations
+## .arequal <- tabEqual
+
+
 
 
 

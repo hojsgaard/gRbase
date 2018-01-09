@@ -22,8 +22,7 @@
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @keywords utilities
 #' @examples
-#' 
-#' 
+#'  
 #' ## 2x2 array
 #' x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
 #' 
@@ -35,10 +34,9 @@
 #' s <-simulateArray(x, 6000, 1, 2)
 #' xtabs(~., as.data.frame(s))
 #' 
-#' ## 2x2x2 array
+#' ## 2 x 2 x 2 array
 #' x <- parray(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
-#' 
-#' ## Simulate from entire array
+#' #' ## Simulate from entire array
 #' s <-simulateArray(x, 36000)
 #' xtabs(~., as.data.frame(s))
 #' 
@@ -79,6 +77,5 @@ simulateArray <- function(x, nsim=1, margin, value.margin){
 
 #' @rdname array-simulate
 tabSim <- simulateArray
-
 #' @rdname array-simulate
 ar_sim <- simulateArray
