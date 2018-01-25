@@ -200,8 +200,18 @@ solveSPD <- function(X) {
 NULL
 
 #' @rdname array-cell
+make_prod <- function(ndim, dim) {
+    .Call('_gRbase_make_prod', PACKAGE = 'gRbase', ndim, dim)
+}
+
+#' @rdname array-cell
 cell2entry_ <- function(cell, dim) {
     .Call('_gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
+}
+
+#' @rdname array-cell
+cell2entry_prim_ <- function(cell, plevels) {
+    .Call('_gRbase_cell2entry_prim_', PACKAGE = 'gRbase', cell, plevels)
 }
 
 #' @rdname array-cell
@@ -227,6 +237,14 @@ get_cell_number_ <- function(cell, dim, perm) {
 #' @rdname array-cell
 perm_cell_entries_ <- function(perm, dim) {
     .Call('_gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
+}
+
+entry2cell_prim_ <- function(entry, plevels) {
+    .Call('_gRbase_entry2cell_prim_', PACKAGE = 'gRbase', entry, plevels)
+}
+
+entry2cell_ <- function(entry, dim) {
+    .Call('_gRbase_entry2cell_', PACKAGE = 'gRbase', entry, dim)
 }
 
 #' @title Internal Rcpp functions

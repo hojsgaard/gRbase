@@ -31,11 +31,14 @@ extern SEXP _gRbase_allSubsets0__(SEXP);
 extern SEXP _gRbase_allSubsets__(SEXP);
 extern SEXP _gRbase_all_pairs__(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _gRbase_cell2entry_(SEXP, SEXP);
+extern SEXP _gRbase_cell2entry_prim_(SEXP, SEXP);
 extern SEXP _gRbase_colmat2list__(SEXP);
 extern SEXP _gRbase_dagList2dgCMatrix__(SEXP, SEXP);
 extern SEXP _gRbase_dagList2matrix__(SEXP, SEXP);
 extern SEXP _gRbase_dgCMatrix2matrix__(SEXP);
 extern SEXP _gRbase_dimnames_match_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_entry2cell_(SEXP, SEXP);
+extern SEXP _gRbase_entry2cell_prim_(SEXP, SEXP);
 extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
 extern SEXP _gRbase_get_cell_number_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_subset_(SEXP, SEXP, SEXP);
@@ -51,6 +54,7 @@ extern SEXP _gRbase_isadjMAT_(SEXP);
 extern SEXP _gRbase_isdagMAT_(SEXP);
 extern SEXP _gRbase_issymMAT_(SEXP);
 extern SEXP _gRbase_isugMAT_(SEXP);
+extern SEXP _gRbase_make_prod(SEXP, SEXP);
 extern SEXP _gRbase_matrix2dgCMatrix__(SEXP);
 extern SEXP _gRbase_mcsMAT__(SEXP, SEXP);
 extern SEXP _gRbase_moralizeMAT(SEXP);
@@ -112,11 +116,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_allSubsets__",                 (DL_FUNC) &_gRbase_allSubsets__,                 1},
     {"_gRbase_all_pairs__",                  (DL_FUNC) &_gRbase_all_pairs__,                  4},
     {"_gRbase_cell2entry_",                  (DL_FUNC) &_gRbase_cell2entry_,                  2},
+    {"_gRbase_cell2entry_prim_",             (DL_FUNC) &_gRbase_cell2entry_prim_,             2},
     {"_gRbase_colmat2list__",                (DL_FUNC) &_gRbase_colmat2list__,                1},
     {"_gRbase_dagList2dgCMatrix__",          (DL_FUNC) &_gRbase_dagList2dgCMatrix__,          2},
     {"_gRbase_dagList2matrix__",             (DL_FUNC) &_gRbase_dagList2matrix__,             2},
     {"_gRbase_dgCMatrix2matrix__",           (DL_FUNC) &_gRbase_dgCMatrix2matrix__,           1},
     {"_gRbase_dimnames_match_",              (DL_FUNC) &_gRbase_dimnames_match_,              3},
+    {"_gRbase_entry2cell_",                  (DL_FUNC) &_gRbase_entry2cell_,                  2},
+    {"_gRbase_entry2cell_prim_",             (DL_FUNC) &_gRbase_entry2cell_prim_,             2},
     {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
     {"_gRbase_get_cell_number_",             (DL_FUNC) &_gRbase_get_cell_number_,             3},
     {"_gRbase_get_subset_",                  (DL_FUNC) &_gRbase_get_subset_,                  3},
@@ -132,6 +139,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
     {"_gRbase_issymMAT_",                    (DL_FUNC) &_gRbase_issymMAT_,                    1},
     {"_gRbase_isugMAT_",                     (DL_FUNC) &_gRbase_isugMAT_,                     1},
+    {"_gRbase_make_prod",                    (DL_FUNC) &_gRbase_make_prod,                    2},
     {"_gRbase_matrix2dgCMatrix__",           (DL_FUNC) &_gRbase_matrix2dgCMatrix__,           1},
     {"_gRbase_mcsMAT__",                     (DL_FUNC) &_gRbase_mcsMAT__,                     2},
     {"_gRbase_moralizeMAT",                  (DL_FUNC) &_gRbase_moralizeMAT,                  1},

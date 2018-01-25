@@ -23,6 +23,8 @@ IntegerVector make_indic(int ndim, const IntegerVector& slice){
   return indic;
 }
 
+//' @rdname array-cell
+//[[Rcpp::export]]
 IntegerVector make_prod( int ndim, const IntegerVector& dim ){
   IntegerVector plevels( ndim );
   plevels[0] = 1;
@@ -32,26 +34,40 @@ IntegerVector make_prod( int ndim, const IntegerVector& dim ){
   return plevels;
 }
 
+// //' @rdname array-cell
+// //[[Rcpp::export]]
+// int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
+//   int i, ss=1, res=cell[0] - 1;
+
+//   for (i=1; i < dim.length(); i++){
+//     ss  *=  dim[i - 1];
+//     res += (cell[i] - 1) * ss;
+//   }
+//   return res + 1;
+// }
+
+
 //' @rdname array-cell
 //[[Rcpp::export]]
 int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
-  int ndim=dim.length();
-  int i, ss=1, res=cell[0] - 1;
-
-  for (i=1; i < ndim; i++){
+  int i, ss=1;
+  double out=cell[0] - 1;
+  for (i=1; i < dim.length(); i++){
     ss  *=  dim[i - 1];
-    res += (cell[i] - 1) * ss;
+    out += (cell[i] - 1) * ss;
   }
-  return res + 1;
+  return ((int) out) + 1;
 }
 
 
+//' @rdname array-cell
+//[[Rcpp::export]]
 int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
-  int ndim=cell.length(), out=0;
-  for (int i=0; i < ndim; i++){
+  double out=0;
+  for (int i=0; i < cell.length(); ++i){
     out += (cell[i] - 1) * plevels[i];
   }
-  return out + 1;
+  return ((int) out) + 1;
 }
 
 // ------------------------------------------------
@@ -204,6 +220,32 @@ IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector&
 
 
 
+//[[Rcpp::export]]
+IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels){
+  IntegerVector cell(plevels.length());
+  int rrr = entry - 1;
+  for (int i=plevels.length()-1; i>=0; i--){
+    cell[i] = rrr / plevels[i];
+    rrr = rrr % plevels[i];
+    //Rcout << i << std::endl;
+  }
+  return cell + 1;
+}
+
+//[[Rcpp::export]]
+IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
+  IntegerVector plevels = make_prod(dim.length(), dim);
+  return entry2cell_prim_(entry, plevels);
+}
+
+
+
+
+
+
+
+
+
 
 
 /*** R
@@ -250,14 +292,14 @@ next_cell_(x, dim2222)
 x ## notice: x has changed!!!
 
 
-next_cell_slice(c(2,1,1,2),  sliceset=c(2), dim2323)
-next_cell_slice_(c(2,1,1,2),  slice_set=c(2), dim2323)
-next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
-next_cell_slice_(c(1,3,2,1),  slice_set=c(2,3), dim2323)
+#next_cell_slice(c(2,1,1,2),  sliceset=c(2), dim2323)
+#next_cell_slice_(c(2,1,1,2),  slice_set=c(2), dim2323)
+#next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
+#next_cell_slice_(c(1,3,2,1),  slice_set=c(2,3), dim2323)
 
-x<-c(1,3,2,1)
-next_cell_slice_(x,  slice_set=c(2,3), dim2323)
-x ## notice: x has changed
+#x<-c(1,3,2,1)
+#next_cell_slice_(x,  slice_set=c(2,3), dim2323)
+#x ## notice: x has changed
 
 #library(microbenchmark)
 #microbenchmark(
@@ -268,8 +310,8 @@ x ## notice: x has changed
 #)
 
 
-(r1<-slice2entry(slicecell=c(1,2), sliceset=c(2,3), dim2222))
-(r2<-slice2entry_(slice_cell=c(1,2), slice_set=c(2,3), dim2222))
+## (r1<-slice2entry(slicecell=c(1,2), sliceset=c(2,3), dim2222))
+## (r2<-slice2entry_(slice_cell=c(1,2), slice_set=c(2,3), dim2222))
 
 
 x  <- HairEyeColor
@@ -277,15 +319,15 @@ ii <- seq_along(x)
 dim(ii) <- dim(x)
 pp <- c(2,3,1)
 as.integer(aperm(ii, pp))
-permuteCellEntries_(pp, dim(x))
+#permuteCellEntries_(pp, dim(x))
 
-permuteCellEntries_(c(2,1), c(2,3))
+#permuteCellEntries_(c(2,1), c(2,3))
 
 as.integer(aperm(ii, pp))
-permuteCellEntries_(pp, c(4,4,2))
+#permuteCellEntries_(pp, c(4,4,2))
 
-library(microbenchmark)
-microbenchmark(as.integer(aperm(ii, pp)),permuteCellEntries_(pp, c(4,4,2)))
+#library(microbenchmark)
+#microbenchmark(as.integer(aperm(ii, pp)),permuteCellEntries_(pp, c(4,4,2)))
 
 */
 

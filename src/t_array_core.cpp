@@ -526,7 +526,6 @@ NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
     return out;					\
   }						\
 
-
 //[[Rcpp::export]]
 NumericVector tab_list_mult_(const List& lst){
   looplist(tab_mult_);
