@@ -97,17 +97,17 @@ ig2sm_ <- function(xx) igraph::get.adjacency(xx)
 #' as_(g, "dgCMatrix")
 #' as_(g, "igraph")
 #'
-#' if (require(microbenchmark)){
-#' microbenchmark(
-#'   as_(g, "matrix"),
-#'   coerceGraph(g, "matrix"),
-#'   as(g, "matrix"),
-#'
-#'   as_(g, "dgCMatrix"),
-#'   coerceGraph(g, "dgCMatrix"),
-#'   as(g, "dgCMatrix")
-#' )
-#' }
+## #' if (require(microbenchmark)){
+## #' microbenchmark(
+## #'   as_(g, "matrix"),
+## #'   coerceGraph(g, "matrix"),
+## #'   as(g, "matrix"),
+## #'
+## #'   as_(g, "dgCMatrix"),
+## #'   coerceGraph(g, "dgCMatrix"),
+## #'   as(g, "dgCMatrix")
+## #' )
+## #' }
 as_ <- function(object, Class){
     UseMethod("as_")
 }

@@ -54,9 +54,9 @@
 #' sp = list(c(1,2), c(1,2), TRUE)
 #' ar_slice_prim(x, slice=sp)
 #' ar_slice(x, slice=s)
-#' if ( require(microbenchmark) ){
-#'   microbenchmark(ar_slice_prim(x, slice=sp), ar_slice(x, slice=s))
-#' }
+## #' if ( require(microbenchmark) ){
+## #'   microbenchmark(ar_slice_prim(x, slice=sp), ar_slice(x, slice=s))
+## #' }
 
 NULL
 

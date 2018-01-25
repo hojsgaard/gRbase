@@ -78,10 +78,10 @@ igraph2dgCMatrix  <- function(ig) ig2sm_(ig)
 #' m2 <- M2matrix(M)
 #' M2 <- M2dgCMatrix(m2)
 #'
-#' if (require(microbenchmark)){
-#'   microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix__(M),
-#'                  as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix__(m))
-#' }
+## #' if (require(microbenchmark)){
+## #'   microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix__(M),
+## #'                  as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix__(m))
+## #' }
 
 M2matrix <- function( mat ){
     .check.is.matrix( mat )
