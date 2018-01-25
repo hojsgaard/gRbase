@@ -17,7 +17,7 @@ bool is_dimnames_(const SEXP& obj){
 bool is_number_vector_(const SEXP& obj){
   bool isOK = true;
   int type = TYPEOF(obj) ; 
-  if (!(type == INTSXP | type == REALSXP))
+  if (!((type == INTSXP) | (type == REALSXP)))
     isOK = false;
   return isOK;
 }
