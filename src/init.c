@@ -54,7 +54,7 @@ extern SEXP _gRbase_isadjMAT_(SEXP);
 extern SEXP _gRbase_isdagMAT_(SEXP);
 extern SEXP _gRbase_issymMAT_(SEXP);
 extern SEXP _gRbase_isugMAT_(SEXP);
-extern SEXP _gRbase_make_prod(SEXP, SEXP);
+extern SEXP _gRbase_make_plevels_(SEXP);
 extern SEXP _gRbase_matrix2dgCMatrix__(SEXP);
 extern SEXP _gRbase_mcsMAT__(SEXP, SEXP);
 extern SEXP _gRbase_moralizeMAT(SEXP);
@@ -139,7 +139,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
     {"_gRbase_issymMAT_",                    (DL_FUNC) &_gRbase_issymMAT_,                    1},
     {"_gRbase_isugMAT_",                     (DL_FUNC) &_gRbase_isugMAT_,                     1},
-    {"_gRbase_make_prod",                    (DL_FUNC) &_gRbase_make_prod,                    2},
+    {"_gRbase_make_plevels_",                (DL_FUNC) &_gRbase_make_plevels_,                1},
     {"_gRbase_matrix2dgCMatrix__",           (DL_FUNC) &_gRbase_matrix2dgCMatrix__,           1},
     {"_gRbase_mcsMAT__",                     (DL_FUNC) &_gRbase_mcsMAT__,                     2},
     {"_gRbase_moralizeMAT",                  (DL_FUNC) &_gRbase_moralizeMAT,                  1},

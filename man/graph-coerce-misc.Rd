@@ -87,10 +87,6 @@ M <- M2dgCMatrix(m)
 m2 <- M2matrix(M)
 M2 <- M2dgCMatrix(m2)
 
-if (require(microbenchmark)){
-  microbenchmark(as(M, "matrix"), M2matrix(M), M2matrix__(M),
-                 as(m, "dgCMatrix"), M2dgCMatrix(m), M2dgCMatrix__(m))
-}
 g <- ug(~ a:b + b:c)
 graphNEL2M(g)
 graphNEL2M(g, "dgCMatrix")

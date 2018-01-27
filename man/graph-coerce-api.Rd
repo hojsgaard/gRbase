@@ -84,17 +84,6 @@ as_(g, "matrix")
 as_(g, "dgCMatrix")
 as_(g, "igraph")
 
-if (require(microbenchmark)){
-microbenchmark(
-  as_(g, "matrix"),
-  coerceGraph(g, "matrix"),
-  as(g, "matrix"),
-
-  as_(g, "dgCMatrix"),
-  coerceGraph(g, "dgCMatrix"),
-  as(g, "dgCMatrix")
-)
-}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

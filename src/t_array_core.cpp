@@ -46,16 +46,16 @@ bool seteq_(CharacterVector x, CharacterVector y){
 // ------------------------------------------------------------
 
 // //[[Rcpp::export]]
-bool is_valid_perm_(const IntegerVector& adim, const IntegerVector& permi){
+bool is_valid_perm_(const IntegerVector& dim, const IntegerVector& permi){
   bool out = false;
-  if (adim.length() != permi.length()){
+  if (dim.length() != permi.length()){
     ::Rf_error("'perm' is of wrong length");		
   } else {
     IntegerVector perm2 = unique(permi);
     if (any(is_na(perm2))){
       ::Rf_error("value out of range in 'perm'");		
     } else {
-      if (min(perm2) == 1 && max(perm2) == adim.length()){
+      if (min(perm2) == 1 && max(perm2) == dim.length()){
 	out = true;
       } else ::Rf_error("invalid permutation");		
     }
@@ -63,10 +63,12 @@ bool is_valid_perm_(const IntegerVector& adim, const IntegerVector& permi){
   return out;
 }
 
-inline IntegerVector make_prod(const int ndim, const IntegerVector& adim ){
-  IntegerVector plevels = no_init( ndim );
+
+// This function also exists elsewhere
+inline IntegerVector make_prod__(const IntegerVector& adim ){
+  IntegerVector plevels = no_init( adim.length() );
   plevels[0] = 1;
-  for (int i = 1; i < ndim; ++i){
+  for (int i = 1; i < adim.length(); ++i){
     plevels[i] =  adim[i - 1] * plevels[i - 1];
   }
   return plevels;
@@ -99,7 +101,7 @@ Vector<RTYPE> do_aperm_vec(const Vector<RTYPE>& tab,
   Vector<RTYPE> out  = no_init( ncells );
   IntegerVector cell = no_init( ndim );
 
-  IntegerVector pvec  = make_prod( ndim, adim );
+  IntegerVector pvec  = make_prod__(adim);
   IntegerVector pvec_perm =no_init( ndim ), perm0 = no_init( ndim ),
     adim_new=no_init( ndim );
   

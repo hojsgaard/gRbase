@@ -406,17 +406,17 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
-    inline IntegerVector make_prod(int ndim, const IntegerVector& dim) {
-        typedef SEXP(*Ptr_make_prod)(SEXP,SEXP);
-        static Ptr_make_prod p_make_prod = NULL;
-        if (p_make_prod == NULL) {
-            validateSignature("IntegerVector(*make_prod)(int,const IntegerVector&)");
-            p_make_prod = (Ptr_make_prod)R_GetCCallable("gRbase", "_gRbase_make_prod");
+    inline IntegerVector make_plevels_(const IntegerVector& dim) {
+        typedef SEXP(*Ptr_make_plevels_)(SEXP);
+        static Ptr_make_plevels_ p_make_plevels_ = NULL;
+        if (p_make_plevels_ == NULL) {
+            validateSignature("IntegerVector(*make_plevels_)(const IntegerVector&)");
+            p_make_plevels_ = (Ptr_make_plevels_)R_GetCCallable("gRbase", "_gRbase_make_plevels_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_make_prod(Shield<SEXP>(Rcpp::wrap(ndim)), Shield<SEXP>(Rcpp::wrap(dim)));
+            rcpp_result_gen = p_make_plevels_(Shield<SEXP>(Rcpp::wrap(dim)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -482,7 +482,7 @@ namespace gRbase {
         return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
-    inline NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_set) {
+    inline NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_marg) {
         typedef SEXP(*Ptr_next_cell_slice_)(SEXP,SEXP,SEXP);
         static Ptr_next_cell_slice_ p_next_cell_slice_ = NULL;
         if (p_next_cell_slice_ == NULL) {
@@ -492,7 +492,7 @@ namespace gRbase {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_next_cell_slice_(Shield<SEXP>(Rcpp::wrap(cell)), Shield<SEXP>(Rcpp::wrap(dim)), Shield<SEXP>(Rcpp::wrap(slice_set)));
+            rcpp_result_gen = p_next_cell_slice_(Shield<SEXP>(Rcpp::wrap(cell)), Shield<SEXP>(Rcpp::wrap(dim)), Shield<SEXP>(Rcpp::wrap(slice_marg)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -501,7 +501,7 @@ namespace gRbase {
         return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
-    inline IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_set, const IntegerVector& dim) {
+    inline IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_marg, const IntegerVector& dim) {
         typedef SEXP(*Ptr_slice2entry_)(SEXP,SEXP,SEXP);
         static Ptr_slice2entry_ p_slice2entry_ = NULL;
         if (p_slice2entry_ == NULL) {
@@ -511,7 +511,7 @@ namespace gRbase {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_slice2entry_(Shield<SEXP>(Rcpp::wrap(slice_cell)), Shield<SEXP>(Rcpp::wrap(slice_set)), Shield<SEXP>(Rcpp::wrap(dim)));
+            rcpp_result_gen = p_slice2entry_(Shield<SEXP>(Rcpp::wrap(slice_cell)), Shield<SEXP>(Rcpp::wrap(slice_marg)), Shield<SEXP>(Rcpp::wrap(dim)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

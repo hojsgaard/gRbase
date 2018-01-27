@@ -865,22 +865,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// make_prod
-IntegerVector make_prod(int ndim, const IntegerVector& dim);
-static SEXP _gRbase_make_prod_try(SEXP ndimSEXP, SEXP dimSEXP) {
+// make_plevels_
+IntegerVector make_plevels_(const IntegerVector& dim);
+static SEXP _gRbase_make_plevels__try(SEXP dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< int >::type ndim(ndimSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type dim(dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(make_prod(ndim, dim));
+    rcpp_result_gen = Rcpp::wrap(make_plevels_(dim));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _gRbase_make_prod(SEXP ndimSEXP, SEXP dimSEXP) {
+RcppExport SEXP _gRbase_make_plevels_(SEXP dimSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_gRbase_make_prod_try(ndimSEXP, dimSEXP));
+        rcpp_result_gen = PROTECT(_gRbase_make_plevels__try(dimSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -990,22 +989,22 @@ RcppExport SEXP _gRbase_next_cell_(SEXP cellSEXP, SEXP dimSEXP) {
     return rcpp_result_gen;
 }
 // next_cell_slice_
-NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_set);
-static SEXP _gRbase_next_cell_slice__try(SEXP cellSEXP, SEXP dimSEXP, SEXP slice_setSEXP) {
+NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_marg);
+static SEXP _gRbase_next_cell_slice__try(SEXP cellSEXP, SEXP dimSEXP, SEXP slice_margSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const NumericVector& >::type cell(cellSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type dim(dimSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type slice_set(slice_setSEXP);
-    rcpp_result_gen = Rcpp::wrap(next_cell_slice_(cell, dim, slice_set));
+    Rcpp::traits::input_parameter< const IntegerVector& >::type slice_marg(slice_margSEXP);
+    rcpp_result_gen = Rcpp::wrap(next_cell_slice_(cell, dim, slice_marg));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _gRbase_next_cell_slice_(SEXP cellSEXP, SEXP dimSEXP, SEXP slice_setSEXP) {
+RcppExport SEXP _gRbase_next_cell_slice_(SEXP cellSEXP, SEXP dimSEXP, SEXP slice_margSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_gRbase_next_cell_slice__try(cellSEXP, dimSEXP, slice_setSEXP));
+        rcpp_result_gen = PROTECT(_gRbase_next_cell_slice__try(cellSEXP, dimSEXP, slice_margSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1022,22 +1021,22 @@ RcppExport SEXP _gRbase_next_cell_slice_(SEXP cellSEXP, SEXP dimSEXP, SEXP slice
     return rcpp_result_gen;
 }
 // slice2entry_
-IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_set, const IntegerVector& dim);
-static SEXP _gRbase_slice2entry__try(SEXP slice_cellSEXP, SEXP slice_setSEXP, SEXP dimSEXP) {
+IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_marg, const IntegerVector& dim);
+static SEXP _gRbase_slice2entry__try(SEXP slice_cellSEXP, SEXP slice_margSEXP, SEXP dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const IntegerVector& >::type slice_cell(slice_cellSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector& >::type slice_set(slice_setSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type slice_marg(slice_margSEXP);
     Rcpp::traits::input_parameter< const IntegerVector& >::type dim(dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(slice2entry_(slice_cell, slice_set, dim));
+    rcpp_result_gen = Rcpp::wrap(slice2entry_(slice_cell, slice_marg, dim));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _gRbase_slice2entry_(SEXP slice_cellSEXP, SEXP slice_setSEXP, SEXP dimSEXP) {
+RcppExport SEXP _gRbase_slice2entry_(SEXP slice_cellSEXP, SEXP slice_margSEXP, SEXP dimSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_gRbase_slice2entry__try(slice_cellSEXP, slice_setSEXP, dimSEXP));
+        rcpp_result_gen = PROTECT(_gRbase_slice2entry__try(slice_cellSEXP, slice_margSEXP, dimSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1745,7 +1744,7 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("bool(*is_subsetof_)(CharacterVector,CharacterVector)");
         signatures.insert("List(*allSubsets0__)(const IntegerVector&)");
         signatures.insert("SEXP(*allSubsets__)(SEXP&)");
-        signatures.insert("IntegerVector(*make_prod)(int,const IntegerVector&)");
+        signatures.insert("IntegerVector(*make_plevels_)(const IntegerVector&)");
         signatures.insert("int(*cell2entry_)(const NumericVector&,const IntegerVector&)");
         signatures.insert("int(*cell2entry_prim_)(const NumericVector&,const IntegerVector&)");
         signatures.insert("NumericVector(*next_cell_)(const NumericVector&,const IntegerVector&)");
@@ -1797,7 +1796,7 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_is_subsetof_", (DL_FUNC)_gRbase_is_subsetof__try);
     R_RegisterCCallable("gRbase", "_gRbase_allSubsets0__", (DL_FUNC)_gRbase_allSubsets0___try);
     R_RegisterCCallable("gRbase", "_gRbase_allSubsets__", (DL_FUNC)_gRbase_allSubsets___try);
-    R_RegisterCCallable("gRbase", "_gRbase_make_prod", (DL_FUNC)_gRbase_make_prod_try);
+    R_RegisterCCallable("gRbase", "_gRbase_make_plevels_", (DL_FUNC)_gRbase_make_plevels__try);
     R_RegisterCCallable("gRbase", "_gRbase_cell2entry_", (DL_FUNC)_gRbase_cell2entry__try);
     R_RegisterCCallable("gRbase", "_gRbase_cell2entry_prim_", (DL_FUNC)_gRbase_cell2entry_prim__try);
     R_RegisterCCallable("gRbase", "_gRbase_next_cell_", (DL_FUNC)_gRbase_next_cell__try);
