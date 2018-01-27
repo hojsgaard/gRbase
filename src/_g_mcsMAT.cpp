@@ -134,10 +134,11 @@ SEXP internal_mcsMAT_sp ( SpMat X, SEXP OO_ ){
 
   // if(dd)Rcout << "*FINALIZE" << endl;
   
-  if (is_perfect==0)
+  if (is_perfect == 0)
     res[0] = -1;
   return(wrap(res));
 }
+
 
 SEXP do_mcsMAT_de ( SEXP XX_, SEXP OO_ ){
   MapMatd  Xd(as<MapMatd>(XX_));
@@ -149,7 +150,6 @@ SEXP do_mcsMAT_sp ( SEXP XX_, SEXP OO_ ){
   SpMat   Xd(as<SpMat>(XX_));
   return internal_mcsMAT_sp(Xd, OO_);
 }
-
 
 // [[Rcpp::export]]
 SEXP mcsMAT__ ( SEXP XX_, SEXP OO_ ){

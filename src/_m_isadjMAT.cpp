@@ -54,8 +54,10 @@ bool do_issymMAT_ ( SEXP X_ ){
 }
 
 // [[Rcpp::export]]
-bool issymMAT_ ( SEXP A_ ){
+bool issymMAT_ ( SEXP A_ )
+{
   int type = TYPEOF(A_) ;  //Rf_PrintValue(wrap(type));
+
   switch( type ){
   case INTSXP  : return do_issymMAT_<MapMati>( A_ ); 
   case REALSXP : return do_issymMAT_<MapMatd>( A_ ); 
@@ -81,7 +83,7 @@ bool do_isugMAT_ ( SEXP X_ ){
   if (nrX!=ncX) return false;
 	
   for( i=0; i<nrX; ++i){
-    if (X.coeff(i,i) != 0){
+    if (X.coeff(i,i) != 0){ // FIXME: Fragile; need eps here
       out=false;
       break;
     } 
@@ -97,8 +99,10 @@ bool do_isugMAT_ ( SEXP X_ ){
 
 
 // [[Rcpp::export]]
-bool isugMAT_ ( SEXP A_ ){
+bool isugMAT_ ( SEXP A_ )
+{
   int type = TYPEOF(A_) ;  //Rf_PrintValue(wrap(type));
+
   switch( type ){
   case INTSXP  : return do_isugMAT_<MapMati>( A_ ); 
   case REALSXP : return do_isugMAT_<MapMatd>( A_ ); 
@@ -132,8 +136,10 @@ bool do_isadjMAT_ ( SEXP X_ ){
 }
 
 // [[Rcpp::export]]
-bool isadjMAT_ ( SEXP A_ ){
+bool isadjMAT_ ( SEXP A_ )
+{
   int type = TYPEOF(A_) ;  //Rf_PrintValue(wrap(type));
+
   switch( type ){
   case INTSXP  : return do_isadjMAT_<MapMati>( A_ ); 
   case REALSXP : return do_isadjMAT_<MapMatd>( A_ ); 
@@ -156,7 +162,7 @@ template <typename TT>
 bool do_isdagMAT_ ( SEXP X_ ){
   const TT X(as<TT>(X_));
   bool out=false;
-
+  
   if( do_isadjMAT_<TT>(X_) ){
     IntegerVector outvec = do_topoSortMAT_<TT>(X_);
     if (outvec(0) != -1) out = true;
@@ -165,8 +171,10 @@ bool do_isdagMAT_ ( SEXP X_ ){
 }
 
 // [[Rcpp::export]]
-bool isdagMAT_ ( SEXP A_ ){
+bool isdagMAT_ ( SEXP A_ )
+{
   int type = TYPEOF(A_);  //Rf_PrintValue(wrap(type));
+  
   switch( type ){
   case INTSXP  : return do_isdagMAT_<MapMati>( A_ );
   case REALSXP : return do_isdagMAT_<MapMatd>( A_ );

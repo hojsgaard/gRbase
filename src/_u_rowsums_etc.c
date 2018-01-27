@@ -1,17 +1,17 @@
 /* **************************************************************
- C code for ...
- Søren Højsgaard
+   C code for 
+   rowSumsPrim
+   colSumsPrim
+   colwiseProd
 
- FIXME: NOT SURE IF THIS IS EVER USED?
+   Søren Højsgaard
+
 ** *************************************************************/
 
 #include <string.h>
 #include <stdlib.h>
 #include <Rdefines.h>
 #include "_utils_print.h"
-
-/* ************************************************************* */
-
 
 #define getDims(A) INTEGER(coerceVector(getAttrib(A, R_DimSymbol), INTSXP))
 

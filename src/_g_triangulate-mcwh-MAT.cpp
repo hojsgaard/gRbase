@@ -15,6 +15,8 @@
 
   Known issues: Does not check if graph is undirected; code not templated
 
+  Author: Søren Højsgaard
+
 */
 
 #include <RcppEigen.h>

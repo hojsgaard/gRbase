@@ -145,9 +145,9 @@ colmat2list__ <- function(XX_) {
 #' @aliases is_subsetof__ get_superset__ get_subset__
 NULL
 
-is_subsetof__ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
-}
+#' @name internal
+#' @aliases all_pairs__
+NULL
 
 get_superset__ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
@@ -155,6 +155,10 @@ get_superset__ <- function(set, setlist, all = FALSE) {
 
 get_subset__ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+is_subsetof__ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
 }
 
 get_superset_ <- function(set, setlist, all = FALSE) {
@@ -169,20 +173,16 @@ is_subsetof_ <- function(set, set2) {
     .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
 }
 
-#' @name internal
-#' @aliases all_pairs__
-NULL
-
-all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
-    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
-}
-
 allSubsets0__ <- function(x) {
     .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
 }
 
 allSubsets__ <- function(x) {
     .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
+}
+
+all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
+    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
 }
 
 solveSPD <- function(X) {

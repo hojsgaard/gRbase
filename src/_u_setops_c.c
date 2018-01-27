@@ -1,31 +1,29 @@
 /* **********************************************************
 
-Code is used in gRbase
-
-Functions for set operations, most notably maxset and minset
-
-* maxset: Finds the maximal elements of a set, i.e. elements
-contained in other elements are discarded are marked with a 0,
-elements not contained in other sets are marked with a 1.
-
-* minset: Does the opposite of maxset
-
-* maxset and minset are used in removeRedundant in R
-
-* isin checks if an element (a vector) is contained in a set 
-(a list)
-
-* the subsetof-functions are internal.
-
-Søren Højsgaard
+   Code is used in gRbase
+   
+   Functions for set operations, most notably maxset and minset
+   
+   * maxset: Finds the maximal elements of a set, i.e. elements
+   contained in other elements are discarded are marked with a 0,
+   elements not contained in other sets are marked with a 1.
+   
+   * minset: Does the opposite of maxset
+   
+   * maxset and minset are used in removeRedundant in R
+   
+   * isin checks if an element (a vector) is contained in a set 
+   (a list)
+   
+   * the subsetof-functions are internal.
+   
+   Created while in Bristol, 2007/2008
+   Søren Højsgaard
 
 ** **********************************************************/
 
-
-
 #include <string.h>
 #include <Rdefines.h>
-
 
 void C_subsetof1(char **setxsety, int *sx, int *ex, int *sy, int *ey, int *ans);
 void C_subsetof2(char **qset, int *len_qset, 

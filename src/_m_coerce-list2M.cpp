@@ -55,14 +55,14 @@ SpMat do_dagList2dgCMatrix ( List LL, CharacterVector vn ){
     geni = match(gen, vn);
     genlen = gen.length();
     //Rf_PrintValue(gen);
-    if (genlen>1){
-      for (int jj=1; jj<genlen; jj++){
-		triplets.push_back(T(geni[jj] - 1, geni[0] - 1, 1));
+    if (genlen > 1){
+      for (int jj = 1; jj < genlen; jj++){
+	triplets.push_back(T(geni[jj] - 1, geni[0] - 1, 1));
       }
     }
   }
   fill.setFromTriplets(triplets.begin(), triplets.end());
-
+  
   for (int ii = 0; ii < fill.rows(); ii++){
     for (SpMat::InnerIterator inner_jj(fill, ii); inner_jj; ++inner_jj){
       fill.coeffRef(inner_jj.row(), inner_jj.col())=1;
@@ -79,7 +79,7 @@ SpMat do_ugList2dgCMatrix ( List LL, CharacterVector vn ){
   int ngen = LL.length(), genlen;
   CharacterVector gen;
   IntegerVector geni;
-
+  
   for (int ii=0; ii<ngen; ii++){
     gen = LL[ii];
     geni = match(gen, vn);
@@ -87,10 +87,10 @@ SpMat do_ugList2dgCMatrix ( List LL, CharacterVector vn ){
     //Rf_PrintValue(gen);
     if (genlen>1){
       for (int jj=0; jj<genlen-1; jj++){
-		for (int kk=jj+1; kk<genlen; kk++){
-		  triplets.push_back(T(geni[jj] - 1, geni[kk] - 1, 1));
-		  triplets.push_back(T(geni[kk] - 1, geni[jj] - 1, 1));
-		}
+	for (int kk=jj+1; kk<genlen; kk++){
+	  triplets.push_back(T(geni[jj] - 1, geni[kk] - 1, 1));
+	  triplets.push_back(T(geni[kk] - 1, geni[jj] - 1, 1));
+	}
       }
     }
   }
@@ -118,7 +118,6 @@ SEXP inline setnames_de( SpMat AA, CharacterVector vn) {
   Xout.attr("dimnames") = dn;
   return Xout;
 }
-
 
 //' @name internal
 //' @aliases dagList2dgCMatrix__ ugList2dgCMatrix__
