@@ -33,14 +33,6 @@ triang_mcwh_MAT__ <- function(adjmat_, nstates_) {
     .Call('_gRbase_triang_mcwh_MAT__', PACKAGE = 'gRbase', adjmat_, nstates_)
 }
 
-MAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
-symMAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
 #' @name internal
 #' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
 NULL
@@ -109,20 +101,12 @@ adjList2dgCMatrix__ <- function(LL) {
     .Call('_gRbase_adjList2dgCMatrix__', PACKAGE = 'gRbase', LL)
 }
 
-issymMAT_ <- function(A_) {
-    .Call('_gRbase_issymMAT_', PACKAGE = 'gRbase', A_)
+MAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
 }
 
-isugMAT_ <- function(A_) {
-    .Call('_gRbase_isugMAT_', PACKAGE = 'gRbase', A_)
-}
-
-isadjMAT_ <- function(A_) {
-    .Call('_gRbase_isadjMAT_', PACKAGE = 'gRbase', A_)
-}
-
-isdagMAT_ <- function(A_) {
-    .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
+symMAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
 }
 
 #' @name internal
@@ -141,48 +125,20 @@ colmat2list__ <- function(XX_) {
     .Call('_gRbase_colmat2list__', PACKAGE = 'gRbase', XX_)
 }
 
-#' @name internal
-#' @aliases is_subsetof__ get_superset__ get_subset__
-NULL
-
-#' @name internal
-#' @aliases all_pairs__
-NULL
-
-get_superset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
+issymMAT_ <- function(A_) {
+    .Call('_gRbase_issymMAT_', PACKAGE = 'gRbase', A_)
 }
 
-get_subset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
+isugMAT_ <- function(A_) {
+    .Call('_gRbase_isugMAT_', PACKAGE = 'gRbase', A_)
 }
 
-is_subsetof__ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
+isadjMAT_ <- function(A_) {
+    .Call('_gRbase_isadjMAT_', PACKAGE = 'gRbase', A_)
 }
 
-get_superset_ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-get_subset_ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset_', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-is_subsetof_ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
-}
-
-allSubsets0__ <- function(x) {
-    .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
-}
-
-allSubsets__ <- function(x) {
-    .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
-}
-
-all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
-    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
+isdagMAT_ <- function(A_) {
+    .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
 }
 
 solveSPD <- function(X) {
@@ -336,6 +292,50 @@ is_named_array_ <- function(obj) {
 
 dimnames_match_ <- function(tab1, tab2, verbose = FALSE) {
     .Call('_gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
+}
+
+#' @name internal
+#' @aliases is_subsetof__ get_superset__ get_subset__
+NULL
+
+#' @name internal
+#' @aliases all_pairs__
+NULL
+
+get_superset__ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+get_subset__ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+is_subsetof__ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
+}
+
+get_superset_ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+get_subset_ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_subset_', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+is_subsetof_ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
+}
+
+allSubsets0__ <- function(x) {
+    .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
+}
+
+allSubsets__ <- function(x) {
+    .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
+}
+
+all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
+    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
 }
 
 # Register entry points for exported C++ functions

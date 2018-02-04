@@ -22,12 +22,6 @@
 \alias{rowmat2list__}
 \alias{colmat2list__}
 \alias{internal}
-\alias{is_subsetof__}
-\alias{get_superset__}
-\alias{get_subset__}
-\alias{internal}
-\alias{all_pairs__}
-\alias{internal}
 \alias{tab_list_mult_}
 \alias{tab_list_add_}
 \alias{tab_op_}
@@ -37,6 +31,12 @@
 \alias{tab_div_}
 \alias{tab_div0_}
 \alias{tab_equal_}
+\alias{internal}
+\alias{is_subsetof__}
+\alias{get_superset__}
+\alias{get_subset__}
+\alias{internal}
+\alias{all_pairs__}
 \title{Internal Rcpp functions}
 \description{
 Automatically generated documentation of Rcpp functions.
