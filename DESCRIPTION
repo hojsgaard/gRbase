@@ -46,3 +46,4 @@ Suggests:
     knitr
 LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
 RoxygenNote: 6.0.1
+biocViews:

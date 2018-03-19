@@ -292,23 +292,23 @@ namespace gRbase {
         return Rcpp::as<int >(rcpp_result_gen);
     }
 
-    inline int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels) {
-        typedef SEXP(*Ptr_cell2entry_prim_)(SEXP,SEXP);
-        static Ptr_cell2entry_prim_ p_cell2entry_prim_ = NULL;
-        if (p_cell2entry_prim_ == NULL) {
-            validateSignature("int(*cell2entry_prim_)(const NumericVector&,const IntegerVector&)");
-            p_cell2entry_prim_ = (Ptr_cell2entry_prim_)R_GetCCallable("gRbase", "_gRbase_cell2entry_prim_");
+    inline IntegerVector entry2cell_(const int& entry, const IntegerVector& dim) {
+        typedef SEXP(*Ptr_entry2cell_)(SEXP,SEXP);
+        static Ptr_entry2cell_ p_entry2cell_ = NULL;
+        if (p_entry2cell_ == NULL) {
+            validateSignature("IntegerVector(*entry2cell_)(const int&,const IntegerVector&)");
+            p_entry2cell_ = (Ptr_entry2cell_)R_GetCCallable("gRbase", "_gRbase_entry2cell_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cell2entry_prim_(Shield<SEXP>(Rcpp::wrap(cell)), Shield<SEXP>(Rcpp::wrap(plevels)));
+            rcpp_result_gen = p_entry2cell_(Shield<SEXP>(Rcpp::wrap(entry)), Shield<SEXP>(Rcpp::wrap(dim)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<int >(rcpp_result_gen);
+        return Rcpp::as<IntegerVector >(rcpp_result_gen);
     }
 
     inline NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim) {
@@ -368,17 +368,17 @@ namespace gRbase {
         return Rcpp::as<IntegerVector >(rcpp_result_gen);
     }
 
-    inline int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm) {
-        typedef SEXP(*Ptr_get_cell_number_)(SEXP,SEXP,SEXP);
-        static Ptr_get_cell_number_ p_get_cell_number_ = NULL;
-        if (p_get_cell_number_ == NULL) {
-            validateSignature("int(*get_cell_number_)(const NumericVector&,const IntegerVector&,const IntegerVector&)");
-            p_get_cell_number_ = (Ptr_get_cell_number_)R_GetCCallable("gRbase", "_gRbase_get_cell_number_");
+    inline int cell2entry_perm_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm) {
+        typedef SEXP(*Ptr_cell2entry_perm_)(SEXP,SEXP,SEXP);
+        static Ptr_cell2entry_perm_ p_cell2entry_perm_ = NULL;
+        if (p_cell2entry_perm_ == NULL) {
+            validateSignature("int(*cell2entry_perm_)(const NumericVector&,const IntegerVector&,const IntegerVector&)");
+            p_cell2entry_perm_ = (Ptr_cell2entry_perm_)R_GetCCallable("gRbase", "_gRbase_cell2entry_perm_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_get_cell_number_(Shield<SEXP>(Rcpp::wrap(cell)), Shield<SEXP>(Rcpp::wrap(dim)), Shield<SEXP>(Rcpp::wrap(perm)));
+            rcpp_result_gen = p_cell2entry_perm_(Shield<SEXP>(Rcpp::wrap(cell)), Shield<SEXP>(Rcpp::wrap(dim)), Shield<SEXP>(Rcpp::wrap(perm)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -398,44 +398,6 @@ namespace gRbase {
         {
             RNGScope RCPP_rngScope_gen;
             rcpp_result_gen = p_perm_cell_entries_(Shield<SEXP>(Rcpp::wrap(perm)), Shield<SEXP>(Rcpp::wrap(dim)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<IntegerVector >(rcpp_result_gen);
-    }
-
-    inline IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels) {
-        typedef SEXP(*Ptr_entry2cell_prim_)(SEXP,SEXP);
-        static Ptr_entry2cell_prim_ p_entry2cell_prim_ = NULL;
-        if (p_entry2cell_prim_ == NULL) {
-            validateSignature("IntegerVector(*entry2cell_prim_)(const int&,const IntegerVector&)");
-            p_entry2cell_prim_ = (Ptr_entry2cell_prim_)R_GetCCallable("gRbase", "_gRbase_entry2cell_prim_");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_entry2cell_prim_(Shield<SEXP>(Rcpp::wrap(entry)), Shield<SEXP>(Rcpp::wrap(plevels)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<IntegerVector >(rcpp_result_gen);
-    }
-
-    inline IntegerVector entry2cell_(const int& entry, const IntegerVector& dim) {
-        typedef SEXP(*Ptr_entry2cell_)(SEXP,SEXP);
-        static Ptr_entry2cell_ p_entry2cell_ = NULL;
-        if (p_entry2cell_ == NULL) {
-            validateSignature("IntegerVector(*entry2cell_)(const int&,const IntegerVector&)");
-            p_entry2cell_ = (Ptr_entry2cell_)R_GetCCallable("gRbase", "_gRbase_entry2cell_");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_entry2cell_(Shield<SEXP>(Rcpp::wrap(entry)), Shield<SEXP>(Rcpp::wrap(dim)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

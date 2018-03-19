@@ -10,11 +10,10 @@
 #'
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #'
-## #' @aliases arslice_entries arslice_prim
-#' 
-#' @seealso \code{\link{ar_perm}}, \code{\link{ar_marg}}, \code{\link{ar_mult}},
-#' \code{\link{ar_div}}, \code{\link{ar_add}}, \code{\link{ar_subt}}, \code{\link{ar_sum}},
-#' \code{\link{ar_prod}}
+#' @seealso \code{\link{ar_perm}}, \code{\link{ar_marg}},
+#'     \code{\link{ar_mult}}, \code{\link{ar_div}},
+#'     \code{\link{ar_add}}, \code{\link{ar_subt}},
+#'     \code{\link{ar_sum}}, \code{\link{ar_prod}}
 #'
 #' @param tab An array with named dimnames.
 #' @param slice A list defining the slice.
@@ -137,17 +136,3 @@ ar_slice_mult <- tabSliceMult
 #' @rdname array-slice
 ar_slice_entries <- tabSlice2Entries
 
-## .arslice_entries <- tabSlice2Entries
-
-
-
-
-
-
-
-
-## #' @rdname array-slice
-## .arslice <- tabSlice
-
-## #' @rdname array-slice
-## .arslice_prim <- tabSlicePrim

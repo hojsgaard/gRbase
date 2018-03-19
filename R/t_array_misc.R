@@ -5,16 +5,18 @@
 ## ###################################################################
 
 ## ###################################################################
+##
 #' @title Convert dataframe to contingency table
 #'
 #' @description: Much like xtabs but with more flexibility
 #'
 #' @name df2xtabs
+##
 ## ###################################################################
 #' 
 #' @param indata A dataframe.
-#' @param names Names of variables defining table; a character vector or a right
-#'     hand sided formula.
+#' @param names Names of variables defining table; a character vector
+#'     or a right hand sided formula.
 #' @param normalize Either "none", "first" or "all". Should result be
 #'     normalized, see 'Details' below.
 #' @param smooth Should values be smoothed, see 'Details' below.
@@ -104,6 +106,7 @@ ar_norm <- tabNormalize
 ## In this case, the array is sent to a arSlice.
 
 ## ########################################################################
+##
 #' @title Marginalize and condition in multidimensional array.
 #' 
 #' @description Marginalize and condition in a multidimensional

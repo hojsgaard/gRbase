@@ -9,8 +9,8 @@ df2xtabs(indata, names = NULL, normalize = "none", smooth = 0)
 \arguments{
 \item{indata}{A dataframe.}
 
-\item{names}{Names of variables defining table; a character vector or a right
-hand sided formula.}
+\item{names}{Names of variables defining table; a character vector
+or a right hand sided formula.}
 
 \item{normalize}{Either "none", "first" or "all". Should result be
 normalized, see 'Details' below.}

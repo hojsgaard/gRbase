@@ -17,9 +17,8 @@
 #' varNames.default nLevels.default valueLabels.default 
 #' print.ripOrder plot.ripOrder maxClique colSumsPrim intersectPrim matchPrim
 #' outerPrim setdiffPrim uniquePrim unlistPrim rowSumsPrim lapplyV2I lapplyI2V
-#' lapplyMatch isGSD_glist properties_glist aperm2 cell2entry entry2cell
-#' factGrid getCellNumberC slice2entry nextCell nextCellSlice
-#' permuteCellEntries makeDimNames names2pairs all_pairs rowmat2list
+#' lapplyMatch isGSD_glist properties_glist aperm2 
+#' #' permuteCellEntries makeDimNames names2pairs all_pairs rowmat2list
 #' colmat2list matrix2list list2rhsFormula rhsFormula2list list2rhsf rhsf2list
 #' which.arr.ind which_matrix_index pairs2num showf readf dual.rep fit.ggm ggm
 #' ips outfun ell ellK addEdge dropEdge addEdge.gModel dropEdge.gModel

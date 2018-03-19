@@ -75,12 +75,12 @@
 %% ----------------------
 %% Examples of the usage of these functions are given in vignette
 
-\alias{cell2entry}
-\alias{entry2cell}
-\alias{factGrid}
-\alias{slice2entry}
-\alias{nextCell}
-\alias{nextCellSlice}
+%% \alias{cell2entry}
+%% \alias{entry2cell}
+%% \alias{factGrid}
+%% \alias{slice2entry}
+%% \alias{nextCell}
+%% \alias{nextCellSlice}
 
 
 %%% --------------

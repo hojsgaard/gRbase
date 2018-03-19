@@ -1,19 +1,14 @@
 ## ###########################################################
 ##
-## Operations on arrays; created in Bristol in 2007
-##
-## Work fine, but at now largely replaceable by functions
-## implemented in Rcpp
-##
-## ###########################################################
-
 #' @title Array operations (2007)
 #'
-#' @description Array operations; created to facilitate the gRain package in
-#'     2007. Now largely replaceable by other faster functions implemented in
-#'     Rcpp.
+#' @description Array operations; created to facilitate the gRain
+#'     package in 2007. Now largely replaceable by other (often
+#'     faster) functions implemented in Rcpp.
 #'
-#' @name old-array-operations
+#' @name array-operations-07
+##
+## ###########################################################
 #'
 #' @param tab,tab1,tab2 Arrays with named dimnames.
 #' @param perm A permutation; either indices or names.
@@ -41,17 +36,17 @@ tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE){
   ans
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 tableMult <- function(tab1, tab2){
-  tableOp(tab1,tab2, op="*")
+  tableOp(tab1, tab2, op="*")
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 tableDiv <- function(tab1, tab2){
-  tableOp(tab1,tab2, op="/")
+  tableOp(tab1, tab2, op="/")
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
 tableOp <- function(tab1, tab2, op="*"){
 
@@ -102,7 +97,6 @@ tableOp <- function(tab1, tab2, op="*"){
   dim(pot1)      <- di.new[perm]
   dimnames(pot1) <- dn.new[perm]
 
-    ##class(pot1) <- c("parray","array")
   pot1
 }
 
@@ -156,11 +150,10 @@ tableOp <- function(tab1, tab2, op="*"){
     ttab1[!is.finite(ttab1)] <- 0
   dim(ttab1)      <- di.new[perm]
   dimnames(ttab1) <- dn.new[perm]
-    ##class(ttab1) <- c("parray","array")
   ttab1
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 #' @param restore Not so clear anymore.
 tableOp2 <- .tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE)
 {
@@ -196,7 +189,7 @@ tableOp2 <- .tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE)
 }
 
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 #' @param margin Index or name of margin.
 #' @param level Corresponding level of margin.
 #' @param impose Value to be imposed. 
@@ -238,13 +231,12 @@ tableSlice <-  function (tab, margin, level, impose)
         ans[] <- impose
     }
     ans <- array(ans, dim=sapply(dn[-mar.idx], length), dimnames=dn[-mar.idx])
-    ##class(ans) <- c("parray","array")
     ans
 }
 
 
 ## tableSlicePrim: Works only with margin and level being indices
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 #' @param mar.idx Index of margin
 #' @param lev.idx Index of level
 tableSlicePrim <- function(tab, mar.idx, lev.idx){
@@ -254,7 +246,7 @@ tableSlicePrim <- function(tab, mar.idx, lev.idx){
   do.call("[", c(list(tab), idx))
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 tableMargin <- function (tab, margin, keep.class = FALSE)
 {
 ##   cat("===== tableMargin =====\n")
@@ -299,7 +291,7 @@ tableMargin <- function (tab, margin, keep.class = FALSE)
     return(z)
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
     di <- dim(tab)
     dn <- dimnames(tab)
@@ -327,7 +319,7 @@ tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
     }
 }
 
-#' @rdname old-array-operations
+#' @rdname array-operations-07
 #' @param complement Should values be set for the complement?
 #' @param value Which value should be set
 tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){

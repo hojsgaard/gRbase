@@ -1,9 +1,5 @@
 ## ##################################################################
 ##
-## Multiway arrays
-##
-## ##################################################################
-
 #' @title Create multidimensional arrays
 #'
 #' @description Alternative ways of creating arrays
@@ -20,20 +16,23 @@
 #'     takes place.
 #'
 #' @name array-create
+##
+## ##################################################################
 #' 
 #' @aliases tab
-#' @param names Names of variables defining table; a character vector or a right
-#'     hand sided formula.
-#' @param levels 1) a list with specification of the levels of the factors in
-#'     \code{names} or 2) a vector with number of levels of the factors in
-#'     \code{names}. See 'examples' below.
+#' @param names Names of variables defining table; a character vector
+#'     or a right hand sided formula.
+#' @param levels 1) a list with specification of the levels of the
+#'     factors in \code{names} or 2) a vector with number of levels of
+#'     the factors in \code{names}. See 'examples' below.
 #' @param values values to go into the parray
 #' @param normalize Either "none", "first" or "all". Should result be
 #'     normalized, see 'Details' below.
 #' @param smooth Should values be smoothed, see 'Details' below.
 #' @return An array.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{ar_perm}}, \code{\link{ar_add}}, \code{\link{ar_prod}} etc.
+#' @seealso \code{\link{ar_perm}}, \code{\link{ar_add}},
+#'     \code{\link{ar_prod}} etc.
 #' @keywords utilities
 #' @examples
 #' 

@@ -1,17 +1,14 @@
 ############################################################################
-####
-#### A named array is an array in the sense that it is a
-#### vector with a dim and a dimnames attribute.
-####
-############################################################################
-
+##
 #' @title Representation of and operations on multidimensional arrays
 #' 
 #' @description General representation of multidimensional arrays (with named
 #'     dimnames, also called named arrays.)
 #' 
-#' @name old-parray
-#' 
+#' @name array-parray
+##
+############################################################################
+#'
 #' @details A named array object represents a table defined by a set of variables and
 #' their levels, together with the values of the table. E.g. f(a,b,c) can be a
 #' table with a,b,c representing levels of binary variable
@@ -104,7 +101,7 @@ parray <- function(varNames, levels, values=1, normalize="none", smooth=0){
 }
 
 
-#' @rdname old-parray
+#' @rdname array-parray
 as.parray  <- function(values, normalize="none", smooth=0){
 
   normalize <- match.arg(normalize, choices=c("none","first","all"))

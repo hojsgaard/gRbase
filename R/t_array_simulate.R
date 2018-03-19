@@ -1,17 +1,16 @@
 ## ##############################################################
 ##
-## Simulate n observations from the array x conditional on
-## the variables in margin (a vector of indices) takes values
-## given by margin.value
-##
-## ##############################################################
-
 #' @title Simulate data from array.
 #' 
-#' @description Simulate data (slice of) an array.
+#' @description Simulate data (slice of) an array: Simulate n
+#'     observations from the array x conditional on
+#' the variables in margin (a vector of indices) takes values
+#' given by margin.value
 #'
 #' @name array-simulate
-#' 
+##
+## ##############################################################
+#'
 #' @param x An array.
 #' @param nsim Number of cases to simulate
 #' @param margin,value.margin Specification of slice of array to
@@ -36,7 +35,7 @@
 #' 
 #' ## 2 x 2 x 2 array
 #' x <- parray(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
-#' #' ## Simulate from entire array
+#' ## Simulate from entire array
 #' s <-simulateArray(x, 36000)
 #' xtabs(~., as.data.frame(s))
 #' 
