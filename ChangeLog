@@ -1,7 +1,9 @@
-2017-07-12 Søren Højsgaard <sorenh@math.aau.dk>
+2018-07-12 Søren Højsgaard <sorenh@math.aau.dk>
 
-	* Cleaning of array operations
-	
+	* Minor changes, including fixing a warning from CRAN
+
+	* Cleaning of array operations	
+		
 	* Version 1.8-4 uploaded
 	
 2017-03-20 Søren Højsgaard <sorenh@math.aau.dk>
@@ -16,7 +18,8 @@
 
 	* Added %a==%, %a/0%, %a_% (tabMarg) %a^% tabExpand
 
-	* arxxx functions renamed to ar_xxx
+	* arxxx functions renamed to ar_xxx -- may well change in the
+	future; not too happy with these names.
 
 	* vchi (v, ch(v)) added
 
