@@ -10,7 +10,6 @@
 \alias{slice2entry_}
 \alias{cell2entry_perm_}
 \alias{perm_cell_entries_}
-\alias{array-cell}
 \alias{cell2entry}
 \alias{entry2cell}
 \alias{nextCell}

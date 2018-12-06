@@ -8,11 +8,6 @@
 \alias{mcsmarked}
 \alias{mcsmarked.default}
 \alias{mcsmarkedMAT}
-\alias{mcs.default}
-\alias{mcsMAT}
-\alias{mcsmarked}
-\alias{mcsmarked.default}
-\alias{mcsmarkedMAT}
 \title{Maximum cardinality search on undirected graph.}
 \usage{
 mcs(object, root = NULL, index = FALSE)
@@ -25,7 +20,8 @@ mcsmarked(object, discrete = NULL, index = FALSE)
 
 \method{mcsmarked}{default}(object, discrete = NULL, index = FALSE)
 
-mcsmarkedMAT(amat, vn = colnames(amat), discrete = NULL, index = FALSE)
+mcsmarkedMAT(amat, vn = colnames(amat), discrete = NULL,
+  index = FALSE)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a

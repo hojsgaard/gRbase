@@ -5,7 +5,6 @@
 \alias{moralize}
 \alias{moralize.default}
 \alias{moralizeMAT}
-\alias{moralize.default}
 \title{Moralize a directed acyclic graph}
 \usage{
 moralize(object, ...)

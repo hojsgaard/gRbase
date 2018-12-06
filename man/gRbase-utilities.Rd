@@ -5,8 +5,6 @@
 \alias{rowmat2list}
 \alias{matrix2list}
 \alias{colmat2list}
-\alias{colmat2list}
-\alias{matrix2list}
 \alias{which.arr.ind}
 \alias{which_matrix_index}
 \alias{rowSumsPrim}

@@ -5,8 +5,6 @@
 \alias{minimalTriang}
 \alias{minimalTriang.default}
 \alias{minimalTriangMAT}
-\alias{minimalTriang.default}
-\alias{minimalTriangMAT}
 \title{Minimal triangulation of an undirected graph}
 \usage{
 minimalTriang(object, tobject = triangulate(object), result = NULL,

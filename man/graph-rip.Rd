@@ -11,11 +11,6 @@
 \alias{junctionTree}
 \alias{junctionTree.default}
 \alias{junctionTreeMAT}
-\alias{rip.default}
-\alias{ripMAT}
-\alias{jTree}
-\alias{jTree.default}
-\alias{jTreeMAT}
 \title{Create  RIP ordering of the cliques of  an undirected graph;
     create junction tree.}
 \usage{

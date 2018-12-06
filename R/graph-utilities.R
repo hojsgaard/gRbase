@@ -415,17 +415,19 @@ maxCliqueMAT <- function(amat){
 #'
 #' @name graph-randomdag
 #' 
-#' @details If the maximum number of parents for a node is, say 3 and wgt=0.1, then the
-#' probability of the node ending up with 0,1,2,3 parents is proportional to
-#' 0.1^0, 0.1^1, 0.1^2, 0.1^3.
+#' @details If the maximum number of parents for a node is, say 3 and
+#'     wgt=0.1, then the probability of the node ending up with
+#'     0,1,2,3 parents is proportional to 0.1^0, 0.1^1, 0.1^2, 0.1^3.
 #' 
 #' @param V The set of vertices.
 #' @param maxpar The maximum number of parents each node can have
-#' @param wgt A parameter controlling how likely it is for a node to have a
-#' certain number of parents; see 'Details'
+#' @param wgt A parameter controlling how likely it is for a node to
+#'     have a certain number of parents; see 'Details'.
+#' 
 #' @return A graphNEL object.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @keywords utilities
+#'
 #' @examples
 #' 
 #' dg   <- random_dag(1:1000, maxpar=5, wgt=.9)
@@ -444,14 +446,14 @@ random_dag <- function(V, maxpar=3, wgt=0.1){
     names(vparList) <- V
     for (ii in 1:length(V)){
         rest <- V[-(1:ii)]
-        zz <- 0:(min(maxpar, length(rest))-1)
-        if (min(zz)<0)
+        zz <- 0:(min(maxpar, length(rest)))
+        ## zz <- 0:(min(maxpar, length(rest))-1)
+        if (min(zz) < 0)
             zz <- 0
         pp <- wgt^zz
         npar <- sample(zz, 1, prob=pp)
         vparList[[ii]] <- c(V[ii], sample(rest, npar, replace=FALSE))
     }
-
     dg <- dagList(vparList)
     dg
 }

@@ -5,8 +5,6 @@
 \alias{fit}
 \alias{compile}
 \alias{propagate}
-\alias{compile}
-\alias{propagate}
 \alias{stepwise}
 \title{Compile and propagate functions}
 \usage{

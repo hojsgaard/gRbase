@@ -6,9 +6,6 @@
 \alias{isGraphical.default}
 \alias{isDecomposable}
 \alias{isDecomposable.default}
-\alias{isGraphical.default}
-\alias{isDecomposable}
-\alias{isDecomposable.default}
 \title{Properties of a generating class (for defining a graph)}
 \usage{
 isGraphical(x)

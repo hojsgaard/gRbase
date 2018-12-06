@@ -11,11 +11,6 @@
 \alias{ar_prod}
 \alias{ar_prod_list}
 \alias{ar_sum_list}
-\alias{\%a+\%}
-\alias{\%a-\%}
-\alias{\%a*\%}
-\alias{\%a/\%}
-\alias{\%a/0\%}
 \alias{ar_add}
 \alias{ar_subt}
 \alias{ar_mult}

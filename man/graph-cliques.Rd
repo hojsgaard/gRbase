@@ -6,9 +6,6 @@
 \alias{getCliques.graphNEL}
 \alias{getCliques.default}
 \alias{maxCliqueMAT}
-\alias{getCliques.graphNEL}
-\alias{getCliques.default}
-\alias{maxCliqueMAT}
 \title{Get cliques of an undirected graph}
 \usage{
 getCliques(object)

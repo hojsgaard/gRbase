@@ -5,7 +5,6 @@
 \alias{parray}
 \alias{as.parray}
 \alias{data2parray}
-\alias{as.parray}
 \title{Representation of and operations on multidimensional arrays}
 \usage{
 parray(varNames, levels, values = 1, normalize = "none", smooth = 0)

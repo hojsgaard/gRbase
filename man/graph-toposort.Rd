@@ -6,8 +6,6 @@
 \alias{topoSort.default}
 \alias{topoSortMAT}
 \alias{topoSort_vparList}
-\alias{topoSort.default}
-\alias{topoSortMAT}
 \title{Topological sort of vertices in directed acyclic graph}
 \usage{
 topoSort(object, index = FALSE)

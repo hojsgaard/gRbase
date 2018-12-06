@@ -5,13 +5,12 @@
 \alias{mpd}
 \alias{mpd.default}
 \alias{mpdMAT}
-\alias{mpd.default}
-\alias{mpdMAT}
 \title{Maximal prime subgraph decomposition}
 \usage{
 mpd(object, tobject = minimalTriang(object), details = 0)
 
-\method{mpd}{default}(object, tobject = triangulate(object), details = 0)
+\method{mpd}{default}(object, tobject = triangulate(object),
+  details = 0)
 
 mpdMAT(amat, tamat = minimalTriangMAT(amat), details = 0)
 }

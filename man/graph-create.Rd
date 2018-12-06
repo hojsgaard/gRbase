@@ -10,7 +10,6 @@
 \alias{ugList2dgCMatrix}
 \alias{dagList2matrix}
 \alias{dagList2dgCMatrix}
-\alias{dag}
 \title{Create undirected and directed graphs}
 \usage{
 ug(..., result = "graphNEL")

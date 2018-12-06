@@ -3,7 +3,6 @@
 \name{cov2pcor}
 \alias{cov2pcor}
 \alias{conc2pcor}
-\alias{conc2pcor}
 \title{Partial correlation (matrix)}
 \usage{
 cov2pcor(V)

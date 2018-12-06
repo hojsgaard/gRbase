@@ -5,8 +5,6 @@
 \alias{triangulate}
 \alias{triangulate.default}
 \alias{triangulateMAT}
-\alias{triangulate.default}
-\alias{triangulateMAT}
 \title{Triangulation of an undirected graph}
 \usage{
 triangulate(object, ...)

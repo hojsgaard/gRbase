@@ -22,8 +22,6 @@
 \alias{tabDiv0}
 \alias{tabEqual}
 \alias{tabExpand}
-\alias{tabListMult}
-\alias{tabListAdd}
 \alias{tabMult}
 \alias{tabSubt}
 \alias{tabPerm}

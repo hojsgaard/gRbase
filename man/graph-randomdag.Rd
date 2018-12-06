@@ -12,8 +12,8 @@ random_dag(V, maxpar = 3, wgt = 0.1)
 
 \item{maxpar}{The maximum number of parents each node can have}
 
-\item{wgt}{A parameter controlling how likely it is for a node to have a
-certain number of parents; see 'Details'}
+\item{wgt}{A parameter controlling how likely it is for a node to
+have a certain number of parents; see 'Details'.}
 }
 \value{
 A graphNEL object.
@@ -22,9 +22,9 @@ A graphNEL object.
 Generate a random directed acyclic graph (DAG)
 }
 \details{
-If the maximum number of parents for a node is, say 3 and wgt=0.1, then the
-probability of the node ending up with 0,1,2,3 parents is proportional to
-0.1^0, 0.1^1, 0.1^2, 0.1^3.
+If the maximum number of parents for a node is, say 3 and
+    wgt=0.1, then the probability of the node ending up with
+    0,1,2,3 parents is proportional to 0.1^0, 0.1^1, 0.1^2, 0.1^3.
 }
 \examples{
 

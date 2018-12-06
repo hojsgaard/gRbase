@@ -1,5 +1,5 @@
 Package: gRbase
-Version: 1.8-4
+Version: 1.8-4.1
 Title: A Package for Graphical Modelling in R
 Author: Søren Højsgaard <sorenh@math.aau.dk>
 Maintainer: Søren Højsgaard <sorenh@math.aau.dk>
@@ -45,5 +45,4 @@ Suggests:
     microbenchmark,
     knitr
 LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
-RoxygenNote: 6.0.1
-biocViews:
+RoxygenNote: 6.1.1
