@@ -26,8 +26,15 @@ dgCMatrix2matrix <- dgCMatrix2matrix__
 #'
 #' @name graph-coerce-misc
 #'
-#' @aliases  graphNEL2adjMAT 
+#' @aliases  graphNEL2adjMAT
 #' 
+#' @param glist A list of generators where a generator is a character
+#'     vector. If interpreted as generators of an undirected graph, a
+#'     generator is a complete set of vertices in the graph. If
+#'     interpreted as generators of a dag, a generator (v1,...,vn)
+#'     means that there will be arrows from v2,...,vn to v1.
+#' @param vn The names of the vertices in the graphs. These will be
+#'     the row and column names of the matrix
 #' @param result Either \code{"matrix"} or \code{"dgCMatrix"} (for a
 #'     sparse matrix representation)
 #' @return An adjacency matrix (or \code{NULL} if \code{glist} has
@@ -213,16 +220,20 @@ M2graphNEL <- function( amat ){
 graphNEL2adjMAT <- graphNEL2M
 
 ## Represent list of sets in a matrix...
-## FIXME: glist2setMAT: Used in gRain 1.2-3, but not in gRain 1.2-4
-## FIXME: should be deleted for next release
-## glist2setMAT <- function(glist,vn=unique(unlist(glist))){
-##   amat <- matrix(0, nrow=length(glist), ncol = length(vn))
-##   colnames(amat) <- vn
-##   for (i in 1:length(glist)){
-##     amat[i, glist[[i]] ] <- 1
-##   }
-##   amat
-## }
+#' @rdname graph-coerce-misc
+#'
+#' @examples
+#'
+#' g <- list(c(1,2,3), c(2,3,4), c(4,5))
+#' glist2setMAT(g)
+glist2setMAT <- function(glist, vn=unique(unlist(glist))){
+    amat <- matrix(0, nrow=length(glist), ncol = length(vn))
+    colnames(amat) <- vn
+    for (i in 1:length(glist)){
+        amat[i, glist[[i]]] <- 1
+    }
+    amat
+}
 
 
 

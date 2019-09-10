@@ -2,13 +2,14 @@
 
 	* random_dag changed so that maxpar parents can be obtained; before it was maxpar-1
 
+	* glist2setMAT reintrouced
 	
 	
 2018-07-12 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Minor changes, including fixing a warning from CRAN
 
-	* Cleaning of array operations	
+	* Cleaning of array operations
 		
 	* Version 1.8-4 uploaded
 	

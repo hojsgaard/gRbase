@@ -21,6 +21,7 @@
 vignettes/*.html
 vignettes/*.pdf
 vignettes/fig/*.pdf
+revdep/*
 
 *.log
 *.toc

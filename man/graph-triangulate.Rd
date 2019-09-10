@@ -5,6 +5,15 @@
 \alias{triangulate}
 \alias{triangulate.default}
 \alias{triangulateMAT}
+\alias{triang_mcwh}
+\alias{triang_elo}
+\alias{triang}
+\alias{triang.default}
+\alias{triang_mcwh.default}
+\alias{triang_elo.default}
+\alias{triang_mcwhMAT_}
+\alias{triang_eloMAT_}
+\alias{triang_eloMAT}
 \title{Triangulation of an undirected graph}
 \usage{
 triangulate(object, ...)
@@ -12,7 +21,27 @@ triangulate(object, ...)
 \method{triangulate}{default}(object, nLevels = NULL, result = NULL,
   check = TRUE, ...)
 
+triang_mcwh(object, ...)
+
+triang_elo(object, ...)
+
+triang(object, ...)
+
+\method{triang}{default}(object, control = list(), ...)
+
+\method{triang_mcwh}{default}(object, nLevels = NULL, result = NULL,
+  check = TRUE, ...)
+
+\method{triang_elo}{default}(object, order = NULL, result = NULL,
+  check = TRUE, ...)
+
 triangulateMAT(amat, nLevels = rep(2, ncol(amat)), ...)
+
+triang_mcwhMAT_(amat, nLevels = rep(2, ncol(amat)), ...)
+
+triang_eloMAT_(amat, order)
+
+triang_eloMAT(amat, order = NULL)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a \code{graphNEL}
@@ -32,6 +61,10 @@ Default is the same as the type of \code{object}.}
 \item{check}{If \code{TRUE} (the default) it is checked whether the graph is
 triangulated before doing the triangulation; gives a speed up if \code{FALSE}}
 
+\item{control}{A list controlling the triangulation; see 'examples'.}
+
+\item{order}{Elimation order; a character vector or numeric vector.}
+
 \item{amat}{Adjacency matrix; a (dense) \code{matrix}, or a (sparse)
 \code{dgCMatrix}.}
 }
@@ -44,6 +77,8 @@ This function will triangulate an undirected graph by
     adding fill-ins.
 }
 \details{
+There are two type of functions: \code{triang} and \code{triangulate}
+
 The workhorse is the \code{triangulateMAT} function.
 
 The triangulation is made so as the total state space is kept low
@@ -67,6 +102,32 @@ Care should be taken when specifying \code{nLevels} for other
 Currently there is no check for that the graph is undirected.
 }
 \examples{
+
+## graphNEL
+uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
+uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
+uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
+
+## Default triangulation: minimum clique weight heuristic
+# (default is that each node is given the same weight):
+
+tuG1 <- triang(uG1)
+## Same as
+triang_mcwh(uG1)
+
+## Alternative: Triangulation from a desired elimination order
+# (default is that the order is order of the nodes in the graph):
+
+triang(uG1, control=list(method="elo"))
+## Same as:
+triang_elo(uG1)
+
+## More control: Define the number of levels for each node:
+tuG1 <- triang(uG1, control=list(method="mcwh", nLevels=c(2, 3, 2, 6, 4, 9))) 
+tuG1 <- triang_mcwh(uG1, nLevels=c(2, 3, 2, 6, 4, 9))
+
+tuG1 <- triang(uG1, control=list(method="elo", order=c("a", "e", "f")))
+tuG1 <- triang_elo(uG1, order=c("a", "e", "f"))
 
 ## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)

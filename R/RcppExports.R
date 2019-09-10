@@ -21,16 +21,20 @@ topoSortMAT_ <- function(adjmat_) {
     .Call('_gRbase_topoSortMAT_', PACKAGE = 'gRbase', adjmat_)
 }
 
-triang_elo_MAT__ <- function(X_, ELO_) {
+.c_triang_elo_MAT_ <- function(X_, ELO_) {
     .Call('_gRbase_triang_elo_MAT__', PACKAGE = 'gRbase', X_, ELO_)
 }
 
-triangulateMAT__ <- function(adjmat_, nstates_) {
-    .Call('_gRbase_triangulateMAT__', PACKAGE = 'gRbase', adjmat_, nstates_)
+.c_triang_mcwh_MAT_ <- function(adjmat_, nstates_) {
+    .Call('_gRbase_triang_mcwh_MAT__', PACKAGE = 'gRbase', adjmat_, nstates_)
 }
 
-triang_mcwh_MAT__ <- function(adjmat_, nstates_) {
-    .Call('_gRbase_triang_mcwh_MAT__', PACKAGE = 'gRbase', adjmat_, nstates_)
+MAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
+}
+
+symMAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
 }
 
 #' @name internal
@@ -101,14 +105,6 @@ adjList2dgCMatrix__ <- function(LL) {
     .Call('_gRbase_adjList2dgCMatrix__', PACKAGE = 'gRbase', LL)
 }
 
-MAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
-symMAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
 #' @name internal
 #' @aliases which_matrix_index__ rowmat2list__ colmat2list__
 NULL
@@ -141,23 +137,53 @@ isdagMAT_ <- function(A_) {
     .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
 }
 
+#' @name internal
+#' @aliases is_subsetof__ get_superset__ get_subset__
+NULL
+
+#' @name internal
+#' @aliases all_pairs__
+NULL
+
+get_superset__ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+get_subset__ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+is_subsetof__ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
+}
+
+get_superset_ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+get_subset_ <- function(set, setlist, all = FALSE) {
+    .Call('_gRbase_get_subset_', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+is_subsetof_ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
+}
+
+allSubsets0__ <- function(x) {
+    .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
+}
+
+allSubsets__ <- function(x) {
+    .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
+}
+
+all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
+    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
+}
+
 solveSPD <- function(X) {
     .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }
-
-#' @title Table cell operations.
-#'
-#' @description Low level table cell operations.
-#'
-#' @name array-cell
-#'
-#' @param cell Vector giving the cell, e.g. c(1, 1, 2) in 3-way table.
-#' @param dim Vector giving array dimension, eg c(2, 2, 2).
-#' @param perm Vector giving permutaion of array, eg. c(1, 3, 2).
-#' @param slice_marg Vector giving the margin of a table, eg. c(2, 3)
-#' @param slice_cell Vector giving the corresponding cell of marginal table, e.g. c(1, 2)
-#' @param entry An entry in an array (a number indexing a vector).
-NULL
 
 #' @rdname array-cell
 make_plevels_ <- function(dim) {
@@ -284,50 +310,6 @@ is_named_array_ <- function(obj) {
 
 dimnames_match_ <- function(tab1, tab2, verbose = FALSE) {
     .Call('_gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
-}
-
-#' @name internal
-#' @aliases is_subsetof__ get_superset__ get_subset__
-NULL
-
-#' @name internal
-#' @aliases all_pairs__
-NULL
-
-get_superset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-get_subset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-is_subsetof__ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
-}
-
-get_superset_ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-get_subset_ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset_', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-is_subsetof_ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
-}
-
-allSubsets0__ <- function(x) {
-    .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
-}
-
-allSubsets__ <- function(x) {
-    .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
-}
-
-all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
-    .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
 }
 
 # Register entry points for exported C++ functions

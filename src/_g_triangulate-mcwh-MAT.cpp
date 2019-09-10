@@ -205,7 +205,7 @@ SEXP do_triangulateMAT_sp ( SEXP XX_, SEXP OO_ ){
 }
 
 
-// [[Rcpp::export]]
+// // [[Rcpp::export]]
 SEXP triangulateMAT__ (SEXP adjmat_, SEXP nstates_){
   int type = TYPEOF(adjmat_) ;
   //Rf_PrintValue(wrap(type));
@@ -218,7 +218,7 @@ SEXP triangulateMAT__ (SEXP adjmat_, SEXP nstates_){
 }
 
 
-// [[Rcpp::export]]
+// [[Rcpp::export(.c_triang_mcwh_MAT_)]]
 SEXP triang_mcwh_MAT__ (SEXP adjmat_, SEXP nstates_){
   return triangulateMAT__(adjmat_, nstates_);
 }

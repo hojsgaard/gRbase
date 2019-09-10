@@ -1,6 +1,16 @@
 ## #########################################################################
-
+#' @title Table cell operations.
+#'
+#' @description Low level table cell operations.
+#'
 #' @name array-cell
+#'
+#' @param cell Vector giving the cell, e.g. c(1, 1, 2) in 3-way table.
+#' @param dim Vector giving array dimension, eg c(2, 2, 2).
+#' @param perm Vector giving permutaion of array, eg. c(1, 3, 2).
+#' @param slice_marg Vector giving the margin of a table, eg. c(2, 3)
+#' @param slice_cell Vector giving the corresponding cell of marginal table, e.g. c(1, 2)
+#' @param entry An entry in an array (a number indexing a vector).
 #' 
 #' @examples
 #'

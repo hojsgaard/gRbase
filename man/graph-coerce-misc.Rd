@@ -17,6 +17,7 @@
 \alias{graphNEL2tfM}
 \alias{M2igraph}
 \alias{M2graphNEL}
+\alias{glist2setMAT}
 \title{Graph, matrix and generating class coercions}
 \usage{
 igraph2graphNEL(ig)
@@ -46,6 +47,8 @@ graphNEL2tfM(gn)
 M2igraph(amat)
 
 M2graphNEL(amat)
+
+glist2setMAT(glist, vn = unique(unlist(glist)))
 }
 \arguments{
 \item{ig}{igraph-object}
@@ -58,6 +61,15 @@ M2graphNEL(amat)
 sparse matrix representation)}
 
 \item{amat}{Adjacency matrix}
+
+\item{glist}{A list of generators where a generator is a character
+vector. If interpreted as generators of an undirected graph, a
+generator is a complete set of vertices in the graph. If
+interpreted as generators of a dag, a generator (v1,...,vn)
+means that there will be arrows from v2,...,vn to v1.}
+
+\item{vn}{The names of the vertices in the graphs. These will be
+the row and column names of the matrix}
 }
 \value{
 An adjacency matrix (or \code{NULL} if \code{glist} has
@@ -104,6 +116,9 @@ g1 <- ug(~a:b + b:c + c:d, result="matrix")
 g2 <- ug(~a:b + b:c + c:d, result="dgCMatrix")
 M2graphNEL( g1 )
 M2graphNEL( g2 )
+
+g <- list(c(1,2,3), c(2,3,4), c(4,5))
+glist2setMAT(g)
 }
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}

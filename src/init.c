@@ -31,18 +31,18 @@ extern SEXP _gRbase_dagList2matrix__(SEXP, SEXP);
 extern SEXP _gRbase_dgCMatrix2matrix__(SEXP);
 extern SEXP _gRbase_dimnames_match_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_entry2cell_(SEXP, SEXP);
-extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
 extern SEXP _gRbase_get_subset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_subset__(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_superset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_superset__(SEXP, SEXP, SEXP);
-extern SEXP _gRbase_isadjMAT_(SEXP);
-extern SEXP _gRbase_isdagMAT_(SEXP);
+extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
 extern SEXP _gRbase_is_dimnames_(SEXP);
 extern SEXP _gRbase_is_named_array_(SEXP);
 extern SEXP _gRbase_is_number_vector_(SEXP);
 extern SEXP _gRbase_is_subsetof_(SEXP, SEXP);
 extern SEXP _gRbase_is_subsetof__(SEXP, SEXP);
+extern SEXP _gRbase_isadjMAT_(SEXP);
+extern SEXP _gRbase_isdagMAT_(SEXP);
 extern SEXP _gRbase_issymMAT_(SEXP);
 extern SEXP _gRbase_isugMAT_(SEXP);
 extern SEXP _gRbase_M2dgCMatrix__(SEXP);
@@ -65,22 +65,21 @@ extern SEXP _gRbase_tab_add_(SEXP, SEXP);
 extern SEXP _gRbase_tab_align_(SEXP, SEXP);
 extern SEXP _gRbase_tab_div_(SEXP, SEXP);
 extern SEXP _gRbase_tab_div0_(SEXP, SEXP);
-extern SEXP _gRbase_tabDiv0__(SEXP, SEXP);
 extern SEXP _gRbase_tab_equal_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_tab_expand_(SEXP, SEXP);
 extern SEXP _gRbase_tab_list_add_(SEXP);
 extern SEXP _gRbase_tab_list_mult_(SEXP);
 extern SEXP _gRbase_tab_marg_(SEXP, SEXP);
-extern SEXP _gRbase_tabMarg__(SEXP, SEXP);
 extern SEXP _gRbase_tab_mult_(SEXP, SEXP);
-extern SEXP _gRbase_tabMult__(SEXP, SEXP);
 extern SEXP _gRbase_tab_op_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_tab_perm_(SEXP, SEXP);
 extern SEXP _gRbase_tab_subt_(SEXP, SEXP);
+extern SEXP _gRbase_tabDiv0__(SEXP, SEXP);
+extern SEXP _gRbase_tabMarg__(SEXP, SEXP);
+extern SEXP _gRbase_tabMult__(SEXP, SEXP);
 extern SEXP _gRbase_topoSortMAT_(SEXP);
 extern SEXP _gRbase_triang_elo_MAT__(SEXP, SEXP);
 extern SEXP _gRbase_triang_mcwh_MAT__(SEXP, SEXP);
-extern SEXP _gRbase_triangulateMAT__(SEXP, SEXP);
 extern SEXP _gRbase_ugList2dgCMatrix__(SEXP, SEXP);
 extern SEXP _gRbase_ugList2matrix__(SEXP, SEXP);
 extern SEXP _gRbase_which_matrix_index__(SEXP);
@@ -114,18 +113,18 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_dgCMatrix2matrix__",           (DL_FUNC) &_gRbase_dgCMatrix2matrix__,           1},
     {"_gRbase_dimnames_match_",              (DL_FUNC) &_gRbase_dimnames_match_,              3},
     {"_gRbase_entry2cell_",                  (DL_FUNC) &_gRbase_entry2cell_,                  2},
-    {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
     {"_gRbase_get_subset_",                  (DL_FUNC) &_gRbase_get_subset_,                  3},
     {"_gRbase_get_subset__",                 (DL_FUNC) &_gRbase_get_subset__,                 3},
     {"_gRbase_get_superset_",                (DL_FUNC) &_gRbase_get_superset_,                3},
     {"_gRbase_get_superset__",               (DL_FUNC) &_gRbase_get_superset__,               3},
-    {"_gRbase_isadjMAT_",                    (DL_FUNC) &_gRbase_isadjMAT_,                    1},
-    {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
+    {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
     {"_gRbase_is_dimnames_",                 (DL_FUNC) &_gRbase_is_dimnames_,                 1},
     {"_gRbase_is_named_array_",              (DL_FUNC) &_gRbase_is_named_array_,              1},
     {"_gRbase_is_number_vector_",            (DL_FUNC) &_gRbase_is_number_vector_,            1},
     {"_gRbase_is_subsetof_",                 (DL_FUNC) &_gRbase_is_subsetof_,                 2},
     {"_gRbase_is_subsetof__",                (DL_FUNC) &_gRbase_is_subsetof__,                2},
+    {"_gRbase_isadjMAT_",                    (DL_FUNC) &_gRbase_isadjMAT_,                    1},
+    {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
     {"_gRbase_issymMAT_",                    (DL_FUNC) &_gRbase_issymMAT_,                    1},
     {"_gRbase_isugMAT_",                     (DL_FUNC) &_gRbase_isugMAT_,                     1},
     {"_gRbase_M2dgCMatrix__",                (DL_FUNC) &_gRbase_M2dgCMatrix__,                1},
@@ -148,22 +147,21 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_tab_align_",                   (DL_FUNC) &_gRbase_tab_align_,                   2},
     {"_gRbase_tab_div_",                     (DL_FUNC) &_gRbase_tab_div_,                     2},
     {"_gRbase_tab_div0_",                    (DL_FUNC) &_gRbase_tab_div0_,                    2},
-    {"_gRbase_tabDiv0__",                    (DL_FUNC) &_gRbase_tabDiv0__,                    2},
     {"_gRbase_tab_equal_",                   (DL_FUNC) &_gRbase_tab_equal_,                   3},
     {"_gRbase_tab_expand_",                  (DL_FUNC) &_gRbase_tab_expand_,                  2},
     {"_gRbase_tab_list_add_",                (DL_FUNC) &_gRbase_tab_list_add_,                1},
     {"_gRbase_tab_list_mult_",               (DL_FUNC) &_gRbase_tab_list_mult_,               1},
     {"_gRbase_tab_marg_",                    (DL_FUNC) &_gRbase_tab_marg_,                    2},
-    {"_gRbase_tabMarg__",                    (DL_FUNC) &_gRbase_tabMarg__,                    2},
     {"_gRbase_tab_mult_",                    (DL_FUNC) &_gRbase_tab_mult_,                    2},
-    {"_gRbase_tabMult__",                    (DL_FUNC) &_gRbase_tabMult__,                    2},
     {"_gRbase_tab_op_",                      (DL_FUNC) &_gRbase_tab_op_,                      3},
     {"_gRbase_tab_perm_",                    (DL_FUNC) &_gRbase_tab_perm_,                    2},
     {"_gRbase_tab_subt_",                    (DL_FUNC) &_gRbase_tab_subt_,                    2},
+    {"_gRbase_tabDiv0__",                    (DL_FUNC) &_gRbase_tabDiv0__,                    2},
+    {"_gRbase_tabMarg__",                    (DL_FUNC) &_gRbase_tabMarg__,                    2},
+    {"_gRbase_tabMult__",                    (DL_FUNC) &_gRbase_tabMult__,                    2},
     {"_gRbase_topoSortMAT_",                 (DL_FUNC) &_gRbase_topoSortMAT_,                 1},
     {"_gRbase_triang_elo_MAT__",             (DL_FUNC) &_gRbase_triang_elo_MAT__,             2},
     {"_gRbase_triang_mcwh_MAT__",            (DL_FUNC) &_gRbase_triang_mcwh_MAT__,            2},
-    {"_gRbase_triangulateMAT__",             (DL_FUNC) &_gRbase_triangulateMAT__,             2},
     {"_gRbase_ugList2dgCMatrix__",           (DL_FUNC) &_gRbase_ugList2dgCMatrix__,           2},
     {"_gRbase_ugList2matrix__",              (DL_FUNC) &_gRbase_ugList2matrix__,              2},
     {"_gRbase_which_matrix_index__",         (DL_FUNC) &_gRbase_which_matrix_index__,         1},

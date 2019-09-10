@@ -44,5 +44,6 @@ Suggests:
     RBGL,
     microbenchmark,
     knitr
+biocViews: 
 LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
 RoxygenNote: 6.1.1
