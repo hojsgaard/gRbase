@@ -14,7 +14,7 @@ Lauridsen, C., Højsgaard, S., Sørensen, M.T. C. (1999)
     Pigs. J. Anim. Sci.77:906-916
 }
 \usage{
-dietox
+data(dietox)
 }
 \description{
 The \code{dietox} data frame has 861 rows and 7 columns.

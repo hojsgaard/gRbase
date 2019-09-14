@@ -15,7 +15,7 @@ Dr. Chris Holmes, c.holmes at stats
     dot. ox . ac .uk
 }
 \usage{
-breastcancer
+data(breastcancer)
 }
 \description{
 Perturbations of the p53 pathway are associated with more aggressive and

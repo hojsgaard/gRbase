@@ -197,7 +197,7 @@ The data were provided by Pascal Martin from the Toxicology
     Research, French.
 }
 \usage{
-Nutrimouse
+data(Nutrimouse)
 }
 \description{
 The data come from a study of the effects of five dietary regimens with

@@ -15,7 +15,7 @@
  ..$ p53a: chr [1:2] "1" "2"
  ..$ a367: chr [1:2] "1" "2"}
 \usage{
-mildew
+data(mildew)
 }
 \description{
 The data stem from a cross between two isolates of the barley powdery mildew

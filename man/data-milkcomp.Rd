@@ -17,7 +17,7 @@
   \item{\code{lactose}}{a numeric vector}
 }}
 \usage{
-milkcomp
+data(milkcomp)
 }
 \description{
 Data from an experiment on composition of sow milk. Milk composition is

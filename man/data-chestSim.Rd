@@ -22,7 +22,7 @@
   \item{\code{dysp}}{a factor with levels \code{yes} \code{no}}
 }}
 \usage{
-chestSim500
+data(chestSim500)
 }
 \description{
 Simulated data from the Chest Clinic example (also known as the Asia

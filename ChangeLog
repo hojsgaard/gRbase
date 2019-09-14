@@ -1,3 +1,9 @@
+2019-09-10 Søren Højsgaard <sorenh@math.aau.dk>
+
+	* Minor updates
+
+	* Version 1.8-4.2 uploaded
+
 2018-12-12 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* random_dag changed so that maxpar parents can be obtained; before it was maxpar-1

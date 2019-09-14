@@ -27,6 +27,7 @@
 #'     stands of ash (Fraxinus excelsior L.). Forest Pathology.
 #'
 #' @keywords datasets
+#' @usage data(ashtrees)
 #'
 #' @examples
 #' data(ashtrees)
@@ -82,6 +83,8 @@
 #' @source For more information see
 #'     http://lib.stat.cmu.edu/datasets/bodyfat
 #' @keywords datasets
+#' @usage data(BodyFat)
+#' 
 #' @examples
 #' 
 #' data(BodyFat)
@@ -119,7 +122,8 @@
 #'     dot. ox . ac .uk
 #'
 #' @keywords datasets
-#'
+#' @usage data(breastcancer)
+#' 
 #' @examples
 #' 
 #' data(breastcancer)
@@ -172,6 +176,7 @@
 #' coronary artery disease. Danish Medical Bulletin
 #' 
 #' @keywords datasets
+#' @usage data(cad1)
 #' 
 #' @examples
 #' 
@@ -218,6 +223,7 @@
 #'     lean meat in pig carcasses with the Autofom classification
 #'     system, Meat Science, 52, 307-314
 #' @keywords datasets
+#' @usage data(carcass)
 #' @examples
 #' data(carcass)
 #' head(carcass)
@@ -253,6 +259,8 @@
 #'     Application to Expert Systems (with
 #'     Discussion). J. Roy. Stat. Soc. 50, p. 157-224.
 #' @keywords datasets
+#' @usage data(chestSim500)
+#' 
 #' @examples
 #' 
 #' data(chestSim500)
@@ -277,7 +285,10 @@
 #'     Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on
 #'     Performance and Antioxidant and Oxidative Status of
 #'     Pigs. J. Anim. Sci.77:906-916
+#'
 #' @keywords datasets
+#' @usage data(dietox)
+#' 
 #' @examples
 #' 
 #' data(dietox)
@@ -307,6 +318,8 @@
 #' @source Grizzle JE, Starmer CF, Koch GG (1969) Analysis of categorical data
 #' by linear models. Biometrics 25(3):489-504.
 #' @keywords datasets
+#' @usage data(dumping)
+#' 
 #' @examples
 #' 
 #' data(dumping) 
@@ -331,6 +344,8 @@
 #' @references Schoener TW (1968) The anolis lizards of bimini: Resource
 #' partitioning in a complex fauna. Ecology 49:704-726
 #' @keywords datasets
+#' @usage data(lizard)
+#'
 #' @examples
 #' 
 #' data(lizard)
@@ -363,6 +378,8 @@
 #' @references David Edwards, An Introduction to Graphical Modelling, Second
 #' Edition, Springer Verlag, 2000
 #' @keywords datasets
+#' @usage data(mathmark)
+#' 
 #' @examples
 #' 
 #' data(mathmark)
@@ -394,6 +411,8 @@
 #'     obligate barley powdery mildew fungus based on RFLP and
 #'     virulence loci. Theor. Appl.  Genet. 79:705-712
 #' @keywords datasets
+#' @usage data(mildew)
+#' 
 #' @examples
 #' 
 #' data(mildew)
@@ -433,6 +452,8 @@
 #'     composition and performance of sows and their progeny Livestock
 #'     Production Science 91 (2004) 95-105
 #' @keywords datasets
+#' @usage data(milkcomp)
+#'
 #' @examples
 #' 
 #' data(milkcomp)
@@ -666,6 +687,8 @@
 #'     Research, French.
 #'
 #' @keywords datasets
+#' @usage data(Nutrimouse)
+#' 
 #' @examples
 #' 
 #' data(Nutrimouse)
@@ -690,6 +713,8 @@
 #' Edwards, D. (1995). Introduction to Graphical Modelling, Springer-Verlag.
 #' New York.
 #' @keywords datasets
+#' @usage data(rats)
+#' 
 "rats"
 
 
@@ -712,6 +737,8 @@
 #' Reinis et al (1981): Prognostic significance of the risk profile in the
 #' prevention of coronary heart disease. Bratis. lek. Listy. 76: 137-150.
 #' @keywords datasets
+#' @usage data(reinis)
+#' 
 "reinis"
 
 
@@ -752,7 +779,7 @@
 #'     Science.
 #'
 #' @keywords datasets
-#'
+#' @usage data(wine)
 #' @examples
 #' 
 #' data(wine)

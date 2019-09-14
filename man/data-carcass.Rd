@@ -33,7 +33,7 @@ Busk, H., Olsen, E. V., Brøndum, J. (1999) Determination of
     system, Meat Science, 52, 307-314
 }
 \usage{
-carcass
+data(carcass)
 }
 \description{
 Measurement of lean meat percentage of 344 pig carcasses together with

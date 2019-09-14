@@ -25,7 +25,7 @@
   \item{\code{CAD}}{a factor with levels \code{No} \code{Yes}}
 }}
 \usage{
-cad1
+data(cad1)
 }
 \description{
 A cross classified table with observational data from a Danish heart clinic.

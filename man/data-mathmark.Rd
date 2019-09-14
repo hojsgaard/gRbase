@@ -9,7 +9,7 @@
 \format{This data frame contains the following columns: mechanics, vectors,
 algebra, analysis, statistics.}
 \usage{
-mathmark
+data(mathmark)
 }
 \description{
 The \code{mathmark} data frame has 88 rows and 5 columns.

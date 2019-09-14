@@ -18,7 +18,7 @@
   \item{\code{dbh}}{a numeric vector}
 }}
 \usage{
-ashtrees
+data(ashtrees)
 }
 \description{
 This dataset comes from a study of symptoms of crown dieback, cankers and

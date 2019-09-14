@@ -9,7 +9,7 @@
 "D1", "D2", "D3" (three types). W1 weightloss, week one. W2 weightloss, week
 2.}
 \usage{
-rats
+data(rats)
 }
 \description{
 An artificial dataset. 24 rats (12 female, 12 male) have been randomized to

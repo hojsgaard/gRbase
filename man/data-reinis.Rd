@@ -10,7 +10,7 @@
     pressure, F: ratio of lipoproteins, G: Family anamnesis of
     coronary heart disease.}
 \usage{
-reinis
+data(reinis)
 }
 \description{
 Data collected at the beginning of a 15 year follow-up study of probable

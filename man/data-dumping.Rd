@@ -12,7 +12,7 @@ Grizzle JE, Starmer CF, Koch GG (1969) Analysis of categorical data
 by linear models. Biometrics 25(3):489-504.
 }
 \usage{
-dumping
+data(dumping)
 }
 \description{
 A contingency table relating surgical operation, centre and severity of

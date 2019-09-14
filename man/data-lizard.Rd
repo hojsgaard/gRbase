@@ -10,7 +10,7 @@
 \format{A 3--dimensional array with factors diam: "<=4" ">4" height: ">4.75"
 "<=4.75" species: "anoli" "dist"}
 \usage{
-lizard
+data(lizard)
 }
 \description{
 In a study of lizard behaviour, characteristics of 409 lizards were

@@ -1,33 +1,47 @@
 useDynLib(gRbase)
 
-exportPattern("^[[:alpha:]]+")
-importFrom(Rcpp, evalCpp)
 
+## graph (Bioconductor)
+## --------------------
+importClassesFrom(graph, graphNEL)
+##importMethodsFrom(graph, plot)
+importFrom(graph, edges, nodes)
+#export("edges")
+#export("nodes")
+
+## RBGL (Bioconductor)
+## -------------------
+##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
+
+## Rgraphviz (Bioconductor)
+## ------------------------
+importMethodsFrom(Rgraphviz, plot)
+
+
+importFrom(Rcpp, evalCpp)
 importFrom("methods", "as", "new", "setOldClass")
 
 importMethodsFrom(Matrix, t, isSymmetric, diag)
 importFrom(Matrix, Matrix)
 importClassesFrom(Matrix, Matrix)
-
-importClassesFrom(graph, graphNEL)
-
-##importMethodsFrom(graph, plot)
-importFrom(graph, edges, nodes)
-##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
-
-export("edges")
-export("nodes")
+##exportMethods(plot)
 
 importFrom(igraph, plot.igraph, print.igraph, "graph.edgelist")
 
-
 importFrom("stats", "as.formula", "cov", "cov2cor", "delete.response",
            "deviance", "formula", "runif", "terms", "xtabs")
+
 importFrom("utils", "str")
 importFrom("graphics", "plot")
 
 importFrom(magrittr,"%>%")
 export("%>%")
+
+
+exportPattern("^[[:alpha:]]+")
+export(ug, dag, is.named.array, coerceGraph)
+
+## gRbase functionality not exported by exportPattern
 
 export("%a+%")
 export("%a-%")
@@ -239,3 +253,7 @@ S3method(as_, dgCMatrix)
 S3method(as_, graphNEL)
 S3method(as_, igraph)
 S3method(as_, matrix)
+
+
+
+

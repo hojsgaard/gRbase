@@ -30,7 +30,7 @@ Frank, A. & Asuncion, A. (2010). UCI Machine Learning
     Science.
 }
 \usage{
-wine
+data(wine)
 }
 \description{
 Using chemical analysis determine the origin of wines
