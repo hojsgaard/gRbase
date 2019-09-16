@@ -12,12 +12,12 @@
 \alias{array-cell}
 \alias{cell2entry}
 \alias{entry2cell}
-\alias{nextCell}
-\alias{nextCellSlice}
+\alias{next_cell}
+\alias{next_cell_slice}
 \alias{slice2entry}
-\alias{cell2entryPerm}
-\alias{permCellEntries}
-\alias{factGrid}
+\alias{cell2entry_perm}
+\alias{perm_cell_entries}
+\alias{fact_grid}
 \title{Table cell operations.}
 \usage{
 make_plevels_(dim)
@@ -40,17 +40,17 @@ cell2entry(cell, dim)
 
 entry2cell(entry, dim)
 
-nextCell(cell, dim)
+next_cell(cell, dim)
 
-nextCellSlice(cell, dim, slice_marg)
+next_cell_slice(cell, dim, slice_marg)
 
 slice2entry(slice_cell, slice_marg, dim)
 
-cell2entryPerm(cell, dim, perm)
+cell2entry_perm(cell, dim, perm)
 
-permCellEntries(perm, dim)
+perm_cell_entries(perm, dim)
 
-factGrid(dim, slice_cell = NULL, slice_marg = NULL)
+fact_grid(dim, slice_cell = NULL, slice_marg = NULL)
 }
 \arguments{
 \item{dim}{Vector giving array dimension, eg c(2, 2, 2).}
@@ -78,18 +78,18 @@ cell2entry(c(2, 2, 3), dim=di)
 entry2cell(1, dim=di)
 entry2cell(12, dim=di)
 
-nextCell(c(1, 1, 1), dim=di)
-nextCell(c(2, 1, 1), dim=di)
+next_cell(c(1, 1, 1), dim=di)
+next_cell(c(2, 1, 1), dim=di)
 
 ## The first two entries are kept fixed
-nextCellSlice(c(2, 1, 1), dim=di, slice_marg=c(1, 2))
-nextCellSlice(c(2, 1, 2), dim=di, slice_marg=c(1, 2))
+next_cell_slice(c(2, 1, 1), dim=di, slice_marg=c(1, 2))
+next_cell_slice(c(2, 1, 2), dim=di, slice_marg=c(1, 2))
 
 ## Cell (2, 2, 1) corresponds to entry 4
 cell2entry(c(2, 2, 1), dim=di)
 ## Same as
-cell2entryPerm(c(2, 2, 1), dim=di, perm=c(1, 2, 3))
+cell2entry_perm(c(2, 2, 1), dim=di, perm=c(1, 2, 3))
 ## If the table dimensions are permuted as (3, 1, 2)
 ## the entry becomes
-cell2entryPerm(c(2, 2, 1), dim=di, perm=c(3, 1, 2))
+cell2entry_perm(c(2, 2, 1), dim=di, perm=c(3, 1, 2))
 }

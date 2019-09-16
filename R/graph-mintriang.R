@@ -28,6 +28,7 @@
 ##			issues: clearly the triangulation is not guranteed to be a
 ##			minimUM one, but this is not necessary for our purposes here
 
+
 #' @title Minimal triangulation of an undirected graph
 #' 
 #' @description An undirected graph uG is triangulated (or chordal) if
@@ -38,7 +39,7 @@
 #'     TuG.  A triangulation TuG is minimal if no fill-ins can be
 #'     removed without breaking the property that TuG is triangulated.
 #'
-#' @name graph-minimaltriang
+#' @name graph-minimal_triang
 #' 
 #' @details For a given triangulation tobject it may be so that some
 #'     of the fill-ins are superflous in the sense that they can be
@@ -51,7 +52,7 @@
 #'     of fill-ins. The minimum triangulation is unique. Finding the
 #'     minimum triangulation is NP-hard.
 #' 
-#' @aliases minimalTriang minimalTriang.default minimalTriangMAT
+#' @aliases minimal_triang minimal_triang.default minimal_triangMAT
 #' @param object An undirected graph represented either as a \code{graphNEL}
 #'     object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param tobject Any triangulation of \code{object}; must be of the same
@@ -64,8 +65,8 @@
 #' @param tamat Any triangulation of \code{object}; a symmetric adjacency
 #'     matrix.
 #' @param details The amount of details to be printed.
-#' @return \code{minimalTriang()} returns a graphNEL object while
-#'     \code{minimalTriangMAT()} returns an adjacency matrix.
+#' @return \code{minimal_triang()} returns a graphNEL object while
+#'     \code{minimal_triangMAT()} returns an adjacency matrix.
 #' @author Clive Bowsher <C.Bowsher@@statslab.cam.ac.uk> with modifications by
 #'     Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{mpd}}, \code{\link{rip}}, \code{\link{triangulate}}
@@ -77,48 +78,48 @@
 #' @examples
 #' 
 #' ## A graphNEL object
-#' g1 <- ug(~a:b+b:c+c:d+d:e+e:f+a:f+b:e)
-#' x <- minimalTriang(g1)
+#' g1 <- ug(~a:b + b:c + c:d + d:e + e:f + a:f + b:e)
+#' x <- minimal_triang(g1)
 #' 
 #' ## g2 is a triangulation of g1 but it is not minimal
-#' g2 <- ug(~a:b:e:f+b:c:d:e)
-#' x<-minimalTriang(g1, tobject=g2)
+#' g2 <- ug(~a:b:e:f + b:c:d:e)
+#' x <- minimal_triang(g1, tobject=g2)
 #' 
 #' ## An adjacency matrix
-#' g1m <- ug(~a:b+b:c+c:d+d:e+e:f+a:f+b:e, result="matrix")
-#' x<-minimalTriangMAT(g1m)
+#' g1m <- ug(~a:b + b:c + c:d + d:e + e:f + a:f + b:e, result="matrix")
+#' x <- minimal_triangMAT(g1m)
 #' 
-#' @export minimalTriang
-minimalTriang <- function(object, tobject=triangulate(object), result=NULL, details=0){
-    UseMethod("minimalTriang")
+#' @export graph-minimal_triang
+minimal_triang <- function(object, tobject=triangulate(object), result=NULL, details=0){
+    UseMethod("minimal_triang")
 }
 
-#' @rdname graph-minimaltriang
-minimalTriang.default <- function(object, tobject=triangulate(object), result=NULL, details=0){
+#' @rdname graph-minimal_triang
+minimal_triang.default <- function(object, tobject=triangulate(object), result=NULL, details=0){
     cls <- match.arg(class( object ),
                      c("graphNEL","matrix","dgCMatrix"))
     if (is.null( result ))
         result <- cls
     
     switch(cls,
-           "graphNEL" ={tt<-.minimalTriang(object, TuG=tobject, details=details) },
+           "graphNEL" ={tt<-.minimal_triang(object, TuG=tobject, details=details) },
            "dgCMatrix"=,
-           "matrix"   ={ #FIXME: minimalTriang: Not sure if this is correct...
+           "matrix"   ={ #FIXME: minimal_triang: Not sure if this is correct...
                object2 <- as(object,  "graphNEL")
                tobject2<- as(tobject, "graphNEL")
-               tt<-.minimalTriang(object2, TuG=tobject2, details=details)
+               tt<-.minimal_triang(object2, TuG=tobject2, details=details)
            })
     as(tt, result)
 }
 
 
-#' @rdname graph-minimaltriang
-minimalTriangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
-    as.adjMAT(.minimalTriang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"), details=details))
+#' @rdname graph-minimal_triang
+minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
+    as.adjMAT(.minimal_triang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"), details=details))
 }
 
 
-.minimalTriang <- function(uG, TuG=triangulate(uG, method="mcwh"), details=0) {
+.minimal_triang <- function(uG, TuG=triangulate(uG, method="mcwh"), details=0) {
     
     removed <- 0
     

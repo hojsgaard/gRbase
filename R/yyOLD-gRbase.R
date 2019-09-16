@@ -131,11 +131,21 @@ partial.corr.matrix <- function(S){
 
 ## Output function ##
 outfun <- function(Sigma, S, n){
-  return(list(Sigma=round(Sigma,3),
-              eigenvalues=eigen(Sigma)[[1]],
-              correlation=cov2cor(Sigma),###corr.matrix(Sigma),
-              partial.correlations=partial.corr.matrix(Sigma),
-              loglik=ell(Sigma,S,n)))
+    ell <- function(Sigma, S, n){
+        
+        shdet <- function(Sigma){
+            prod(eigen(Sigma)[[1]])
+        }
+        p <- dim(S)[1]
+        const <- -n * p/2 * log(2 * pi)
+        const - n/2 * log(shdet(Sigma)) - n/2 * sum(diag( solve(Sigma) %*% S )) 
+    }
+    
+    return(list(Sigma=round(Sigma,3),
+                eigenvalues=eigen(Sigma)[[1]],
+                correlation=cov2cor(Sigma),###corr.matrix(Sigma),
+                partial.correlations=partial.corr.matrix(Sigma),
+                loglik=ell(Sigma,S,n)))
 }
 
 

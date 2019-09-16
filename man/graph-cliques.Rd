@@ -2,19 +2,19 @@
 % Please edit documentation in R/graph-utilities.R
 \name{graph-cliques}
 \alias{graph-cliques}
-\alias{getCliques}
-\alias{getCliques.graphNEL}
-\alias{getCliques.default}
-\alias{maxCliqueMAT}
+\alias{get_cliques}
+\alias{get_cliques.graphNEL}
+\alias{get_cliques.default}
+\alias{max_cliqueMAT}
 \title{Get cliques of an undirected graph}
 \usage{
-getCliques(object)
+get_cliques(object)
 
-\method{getCliques}{graphNEL}(object)
+\method{get_cliques}{graphNEL}(object)
 
-\method{getCliques}{default}(object)
+\method{get_cliques}{default}(object)
 
-maxCliqueMAT(amat)
+max_cliqueMAT(amat)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a \code{graphNEL}
@@ -37,22 +37,22 @@ clique.
 Finding the cliques of a general graph is an NP complete problem. Finding
 the cliques of triangualted graph is linear in the number of cliques.
 
-The workhorse is the \code{maxCliqueMAT} function which calls the
+The workhorse is the \code{max_cliqueMAT} function which calls the
 \code{maxClique} function in the \code{RBGL} package.
 }
 \examples{
 
 ## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
-getCliques(uG1)
+get_cliques(uG1)
 
 ## adjacency matrix
 uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
-getCliques(uG2)
+get_cliques(uG2)
 
 ## adjacency matrix (sparse)
 uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
-getCliques(uG3)
+get_cliques(uG3)
 
 
 }

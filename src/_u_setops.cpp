@@ -15,10 +15,13 @@ using namespace Rcpp;
 /* *************************************************
 
    Implements:
-
+   
    get_superset, get_subset, is_subsetof
-
+   
    ************************************************* */
+
+//' @name internal
+//' @aliases is_subsetof__ get_superset__ get_subset__
 
 IntegerVector get_superset_one_(CharacterVector x, List setlist){
   bool outb=false;
@@ -95,32 +98,31 @@ IntegerVector get_subset_all_(CharacterVector x, List setlist){
     }
   
   IntegerVector out = IntegerVector(k);
-  if (k>0){
-    for (int i=0; i<k; ++i)	out[i]=vec[i];
+  if (k > 0){
+    for (int i=0; i<k; ++i) out[i]=vec[i];
   }
   return out;
 }
 
-
+// get_superset_ is used in gRain
 //[[Rcpp::export]]
-IntegerVector get_superset__(CharacterVector set, List setlist, bool all=false)
+IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false)
 {
   if (all) return get_superset_all_(set, setlist);
   else return get_superset_one_(set, setlist);
 }
 
 //[[Rcpp::export]]
-IntegerVector get_subset__(CharacterVector set, List setlist, bool all=false)
+IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false)
 {
   if (all) return get_subset_all_(set, setlist);
   else return get_subset_one_(set, setlist);
 }
 
-//' @name internal
-//' @aliases is_subsetof__ get_superset__ get_subset__
 
+// is_subsetof_ is used in gRain
 //[[Rcpp::export]]
-bool is_subsetof__(CharacterVector set, CharacterVector set2)
+bool is_subsetof_(CharacterVector set, CharacterVector set2)
 {
   if (set.length() > set2.length())
     return false;
@@ -131,55 +133,6 @@ bool is_subsetof__(CharacterVector set, CharacterVector set2)
     return !out;
   }
 }
-
-// FIXME: ALIASES for gRain compatibility, June 2017: get_superset_; get_subset_; is_subset_of_
-
-//[[Rcpp::export]]
-IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false){
-  return get_superset__(set, setlist, all);
-}
-
-//[[Rcpp::export]]
-IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false){
-  return get_subset__(set, setlist, all);
-}
-
-//[[Rcpp::export]]
-bool is_subsetof_(CharacterVector set, CharacterVector set2){
-  return is_subsetof__(set, set2);
-}
-
-/*** R
-x1 <- c("b","a")
-x2 <- c("a","k")
-set <- letters[1:4]
-setlist <- list(x1, x2, c("a","b","k"))
-str(setlist)
-
-is_subsetof_(x1, set)
-is_subsetof_(x2, set)
-
-is_subsetof_(set, x1)
-is_subsetof_(set, x2)
-
-get_superset_(x1, setlist)
-get_superset_(c("a","r"), setlist)
-
-get_superset_(x1, setlist, all=T)
-get_superset_(c("a","r"), setlist, all=T)
-
-setlist <- list(x1, x2, c("a","b","k"), c("a","r","k"))
-str(setlist)
-
-get_subset_(x1, setlist)
-get_subset_(c("a", "b", "k"), setlist, all=F)
-get_subset_(c("a", "b", "k"), setlist, all=T)
-get_subset_(x1, setlist, all=T)
-get_subset_(c("a","r"), setlist, all=T)
-
-*/
-
-
 
 /* **************************************************************
 
@@ -192,13 +145,13 @@ get_subset_(c("a","r"), setlist, all=T)
 
 // Works for integer input vector
 //[[Rcpp::export]]
-List allSubsets0__(const IntegerVector& x)
+List allSubsets0_(const IntegerVector& x)
 {
   int nx = x.length(), nout=pow(2., nx), i, k, ny=1;
   double z;
   List out( nout );
   out[0] = -1;
-
+  
   for (i=0; i<nx; ++i){
     z = x[i];
     for (k=0; k<ny; ++k){
@@ -226,7 +179,7 @@ template <int RTYPE>
 List do_allSubsets (Vector<RTYPE> vn)
 {
   IntegerVector sq = seq_len( vn.size() );
-  List lst = allSubsets0__( sq );
+  List lst = allSubsets0_( sq );
   int N=lst.size(), i;
   for (i=0; i<N; ++i){
     lst[i] = vn[ IntegerVector( lst[i] )-1 ];
@@ -236,10 +189,10 @@ List do_allSubsets (Vector<RTYPE> vn)
 
 // Works for any type of input vector
 // [[Rcpp::export]]
-SEXP allSubsets__( SEXP& x){
+SEXP allSubsets_( SEXP& x){
   int type = TYPEOF(x) ; //Rprintf("type=%i\n", type);
   switch( type ){
-  case INTSXP  : return allSubsets0__( x ) ;
+  case INTSXP  : return allSubsets0_( x ) ;
   case REALSXP : return do_allSubsets<REALSXP>( x ) ;
   case STRSXP  : return do_allSubsets<STRSXP> ( x ) ;
   }
@@ -247,32 +200,8 @@ SEXP allSubsets__( SEXP& x){
 }
 
 
-
-
-
 /*** R
 
-allSubsets0_R <- function(x) {
-        y <- list(vector(mode(x), length = 0))
-        for (i in seq_along(x)) {
-            y <- c(y, lapply(y, "c", x[i]))
-        }
-        y[-1L]
-    }
-
-allSubsets1_R <- compiler::cmpfun(
-function(x){
-    out <- vector("list", length=2^length(x))
-    ny = 1 # filled elements of out
-    for (i in seq_along(x)){
-        z=x[i]
-        for (k in 1:ny){
-            out[[ny + k]] = c(out[[k]],z)
-        }
-        ny = 2 * ny
-    }
-    out[-1]
-})
 
 allSubsets(1:5)
 allSubsets(letters[1:5])
@@ -367,14 +296,6 @@ SEXP all_pairs__(CharacterVector x,
 }
 
 
-
-
-
-
-
-
-
-
 /*** R
 library(microbenchmark)
 x <- letters[4:1]
@@ -407,9 +328,6 @@ out
 
 microbenchmark(sortmat(m), sortmat_(m))
 
-
-
-
 microbenchmark(
   names2pairs(x, y, sort=FALSE, result="matrix"),
   names2pairsM(x, y, sort=FALSE, result="matrix"),
@@ -424,6 +342,42 @@ microbenchmark(
 	names2pairs(x, sort=TRUE, result="matrix"),
 	names2pairsM(x, sort=TRUE, result="matrix")
 	)
+
+*/
+
+
+
+
+
+
+
+/*** R
+x1 <- c("b","a")
+x2 <- c("a","k")
+set <- letters[1:4]
+setlist <- list(x1, x2, c("a","b","k"))
+str(setlist)
+
+is_subsetof_(x1, set)
+is_subsetof_(x2, set)
+
+is_subsetof_(set, x1)
+is_subsetof_(set, x2)
+
+get_superset_(x1, setlist)
+get_superset_(c("a","r"), setlist)
+
+get_superset_(x1, setlist, all=T)
+get_superset_(c("a","r"), setlist, all=T)
+
+setlist <- list(x1, x2, c("a","b","k"), c("a","r","k"))
+str(setlist)
+
+get_subset_(x1, setlist)
+get_subset_(c("a", "b", "k"), setlist, all=F)
+get_subset_(c("a", "b", "k"), setlist, all=T)
+get_subset_(x1, setlist, all=T)
+get_subset_(c("a","r"), setlist, all=T)
 
 */
 
@@ -474,97 +428,4 @@ microbenchmark(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// //[[Rcpp::export]]
-// IntegerVector get_host_(CharacterVector x, List setlist){
-//   bool out=false;
-//   IntegerVector val= IntegerVector::create( NA_INTEGER );
-
-//   for (int i=0; i<setlist.length(); ++i){
-// 		CharacterVector set=setlist[i];
-// 		out = (any(is_na(match(x, set))));
-// 		out = ! out;
-// 		if (out){
-// 			val[0]=i+1;
-// 			break;
-// 		}
-//   }
-//   return val;
-// }
-
-// //[[Rcpp::export]]
-// bool isin_(List setlist, CharacterVector x){
-//   bool out=false;
-//   for (int i=0; i<setlist.length(); ++i){
-// 		CharacterVector set=setlist[i];
-// 		out = (any(is_na(match(x, set))));
-// 		out = ! out;
-// 		if (out)
-// 			break;
-//   }
-//   return out;
-// }
-
-// //[[Rcpp::export]]
-// IntegerVector isin2_(List setlist, CharacterVector x){
-//   IntegerVector vec(setlist.length());
-
-//   for (int i=0; i<setlist.length(); ++i){
-// 		CharacterVector set=setlist[i];
-// 		bool out = (any(is_na(match(x, set))));
-// 		out = ! out;
-// 		if (out)
-// 			vec[i] = 1;
-//   }
-//   return vec;
-// }
-
-
-
-// library(gRbase)
-// library(microbenchmark)
-// microbenchmark(
-// is_subsetof(x, set),
-// is_subsetof(x2, set),
-// is.subsetof(x, set),
-// is.subsetof(x2, set),
-// is_subsetof(set, x),
-// is_subsetof(set, x2),
-// is.subsetof(set, x),
-// is.subsetof(set, x2)
-// )
-
-
-// setlist <- list(letters[1:3], letters[3:6], letters[1:2])
-// isin(setlist, x)
-// isin(setlist, x, index=T)
-
-
-// isinR <- function(setlist, x){
-// unlist(lapply(setlist, function(set) any(is.na(match(x,set)))))
-// }
-
-
-// isin(setlist, x)
-// isin(setlist, x, index=T)
-// isinR(setlist, x)
-// isin_(setlist, x)
-// isin2_(setlist, x)
-
-// microbenchmark(
-// isin(setlist, x),
-// isinR(setlist, x),
-// isin_(setlist, x),
-// isin2_(setlist, x)
-// )
 

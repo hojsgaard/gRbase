@@ -1,37 +1,37 @@
+## ###################################################################
+##
 #' @title gRbase utilities
 #' @description Various utility functions for gRbase. Includes 'faster
 #'     versions' of certain standard R functions.
+#' @name gRbase_utilities
+#' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
+##
+## ###################################################################
 #'
-#' @name gRbase-utilities
-#' 
 #' @aliases matrix2list rowmat2list colmat2list
- 
-### rowmat2list and colmat2list:
-### ----------------------------
-## Turns a matrix into a list, either by row or by column.
-## Notice: finding unique rows in a matrix can be speeded up this way.
-
-#' @rdname gRbase-utilities
-rowmat2list <- rowmat2list__
-
-#' @rdname gRbase-utilities
-colmat2list <- colmat2list__
-
-#' @rdname gRbase-utilities
 #' @param XX_ A matrix.
 #' @param byrow Should the split be by row or by column.
+
+#' @rdname gRbase_utilities
+rowmat2list <- rowmat2list__
+
+#' @rdname gRbase_utilities
+colmat2list <- colmat2list__
+
+#' @rdname gRbase_utilities
 matrix2list <- function(XX_, byrow=TRUE){
   if (byrow) rowmat2list__(XX_) # cpp implementation
   else colmat2list__(XX_) # cpp implementation
 }
 
-##  FIXME: which.arr.ind: Fails on sparse matrices!!  FIXME: -> remove
-## after check downstram!!  FIXME: -> which_matrix_index is Cpp
-## implementation
+## FIXME: which.arr.ind: Fails on sparse matrices!!
+## FIXME: -> remove after check downstram!!
+## FIXME: -> which_matrix_index is Cpp implementation
 
-#' @rdname gRbase-utilities
-#' @details Returns matrix n x 2 matrix with indices of non-zero
-#'     entries in matrix \code{XX_}. Notice
+#' @rdname gRbase_utilities
+#' 
+#' @details \code{which.arr.ind}: Returns matrix n x 2 matrix with
+#'     indices of non-zero entries in matrix \code{XX_}. Notice
 #'     \code{which_matrix_index__} is cpp implementation.
 #' 
 which.arr.ind <- function(XX_){
@@ -42,28 +42,22 @@ which.arr.ind <- function(XX_){
   cbind(rr[XX_!=0L], cc[XX_!=0L])
 }
 
-#' @rdname gRbase-utilities
+#' @rdname gRbase_utilities
 which_matrix_index <- which_matrix_index__
 
 
-#' @rdname gRbase-utilities
+#' @rdname gRbase_utilities
 rowSumsPrim <- function(XX_){
-	.Call("R_rowSums", XX_
-	,PACKAGE="gRbase"
-	)
-}
+    .Call("R_rowSums", XX_, PACKAGE="gRbase")}
 
-#' @rdname gRbase-utilities
+#' @rdname gRbase_utilities
 colSumsPrim <- function(XX_){
-	.Call("R_colSums", XX_
-	,PACKAGE="gRbase"
-	)
-}
-
-#' @rdname gRbase-utilities
+    .Call("R_colSums", XX_, PACKAGE="gRbase")}
+          
+#' @rdname gRbase_utilities
 #' @param v A vector.
 #' @param M A matrix.
-#' @details \code{colwiseProd} multiplies a vector v and a matrix M
+#' @details \code{colwiseProd}: multiplies a vector v and a matrix M
 #'     columnwise (as opposed to rowwise which is achieved by
 #'     \code{v * M}). Hence \code{colwiseProd} does the same as
 #'     \code{t(v * t(M))} - but it does so faster for numeric values.
@@ -74,138 +68,13 @@ colSumsPrim <- function(XX_){
 #' v <- 1:4
 #' t(v * t(M))
 #' colwiseProd(v, M)
+#' \dontrun{
 #' system.time(for (ii in 1:100000)  t(v * t(M)))
 #' system.time(for (ii in 1:100000)  colwiseProd(v, M))
+#' }
+#' 
 colwiseProd <- function(v, M){
-	.Call("R_colwiseProd", v, M
-	,PACKAGE="gRbase"
-	)
-}
-
-
-#' @rdname gRbase-utilities
-#' @param set,set2 Character vectors
-#' @param setlist List of charactervectors
-#' @param all Logical. 
-get_subset <- get_subset__
-
-#' @rdname gRbase-utilities
-get_superset <- get_superset__
-
-#' @rdname gRbase-utilities
-is_subsetof <- is_subsetof__
-
-
-## ###################################################################
-##
-#' @title Create all possible pairs
-#'
-#' @description Create all possible pairs of two character vectors.
-#'
-#' @name all-pairs
-#'
-## ###################################################################
-#' @param x,y Character vectors.
-#' @param sort Logical.
-#' @param result A list or a matrix.
-#'
-#' @details NOTICE: If y is not NULL then x and y must be disjoint (no
-#'     checks are made); otherwise pairs of identical elements wil also be obtained. 
-#'
-#' @examples
-#'
-#' x <- letters[1:4]
-#' y <- letters[5:7]
-#'
-#' all_pairs(x)
-#' all_pairs(x, result="matrix")
-#'
-#' all_pairs(x, y)
-#' all_pairs(x, y, result="matrix")
-#' 
-#' @rdname all-pairs
-all_pairs <- all_pairs__
-
-
-## FIXME names2pairs should be deprecated and replaced by all_pairs
-#' @rdname all-pairs
-names2pairs <- function(x, y=NULL, sort=TRUE, result="list"){
-  result <- match.arg(result, c("list", "matrix"))
-  lenx <- length(x)
-  leny <- length(y)
-
-  if (leny == 0){
-    if (lenx == 1){
-      if (result == "matrix")
-        return(matrix(nrow=0, ncol=2))
-      else
-        return(list())
-    } else {
-      cc   <- combnPrim(1:length(x), 2)
-      out  <- x[cc]
-      dim(out) <- dim(cc)
-      if (sort){
-        idx <- out[1,] > out[2, ]
-        out[1:2,idx] <- out[2:1, idx]
-      }
-      if (result == "matrix")
-        return(t.default(out))
-      else
-        return(colmat2list(out))
-    }
-  } else {
-    out <- cbind(rep(x, each=leny), rep(y, times=lenx))
-    if (sort){
-      idx <- out[,1] > out[,2]
-      out[idx, 1:2] <- out[idx, 2:1]
-    }
-    if (result == "matrix")
-      return(out) 
-    else 
-      rowmat2list__(out)
-  }
-}
-
-
-## ###################################################################
-#' @title Create all subsets
-#' @description Create all subsets of a vector
-#' @name all-subsets
-##
-## Issues: deprecate allSubsets; use all_subsets instead
-## ###################################################################
-#' @param x Vector
-#' 
-#' @rdname all-subsets
-all_subsets <- allSubsets__
-
-#' @rdname all-subsets
-all_subsets0 <- allSubsets0__
-
-#' @rdname all-subsets
-#' @param g.sep Pick a value which is not in x
-allSubsets <- function(x, g.sep="+"){
-  if (length(x)==1)
-    return(x)
-  else {
-    val <- x[1]
-    for (i in 2:length(x)){
-      v <- paste(val,x[i],sep=g.sep)
-      val <- c(val,x[i],v)
-    }
-    val <- strsplit(val,paste("\\",g.sep,sep=""))
-    return(val)
-  }
-}
-
-
-
-
-
-
-
-
-
+    .Call("R_colwiseProd", v, M, PACKAGE="gRbase")}
 
 
 ## .dgCMatrix <- function(data=NA, nrow=1, ncol=1, byrow=FALSE, dimnames=NULL,
@@ -222,36 +91,6 @@ lapplyV2I <- lapplyMatch <- function(xlist, set){lapply(xlist, function(gg) matc
 ## lapplyI2C: same as but faster than
 ## lapply(xlist, function(x) set[x])
 lapplyI2V <- function (xlist, set) {lapply(xlist, function(xx) set[xx])}
-
-##
-## Calculate logL for N(0,\Sigma) model.
-##
-## Sigma = Covariance matrix parameter
-## K     = Sigma inverse
-## S     = sample covariance matrix
-## n     = sample size
-##
-ell <- function(Sigma, S, n){
-
-  shdet <- function(Sigma){
-    prod(eigen(Sigma)[[1]])
-  }
-  p <- dim(S)[1]
-  const <- -n*p/2*log(2*pi)
-  return(const-n/2*log(shdet(Sigma))
-         -n/2*sum(diag( solve(Sigma)%*%S )) )
-}
-
-ellK <- function (K, S, n)
-{
-    value <- (n/2) * (log(det(K)) - sum(rowSums(K * S)))
-    return(value)
-}
-
-
-
-
-
 
 ## Codes a p x 2 matrix of characters or a list with pairs
 ## of characters into a vector of numbers.
@@ -316,7 +155,7 @@ pairs2num <- function(x, vn, sort=TRUE){
                 x <- matrix(x,nrow=1)
         }
     }
-                                        # From here x should be a p x 2 matrix
+    ## From here x should be a p x 2 matrix
     
     dd <- dim(x)
     if (dd[1L]==0){

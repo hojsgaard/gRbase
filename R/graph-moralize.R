@@ -22,7 +22,7 @@
 #'     dense \code{matrix} or a sparse \code{dgCMatrix}.
 #' @note The workhorse is the \code{moralizeMAT} function.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link{mcs}}, \code{\link{jTree}}, \code{\link{rip}},
+#' @seealso \code{\link{mcs}}, \code{\link{junction_tree}}, \code{\link{rip}},
 #'     \code{\link{ug}}, \code{\link{dag}}
 #' @keywords utilities
 #' @examples

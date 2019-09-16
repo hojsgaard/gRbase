@@ -2,17 +2,17 @@
 % Please edit documentation in R/graph-topoSort.R
 \name{graph-toposort}
 \alias{graph-toposort}
-\alias{topoSort}
-\alias{topoSort.default}
-\alias{topoSortMAT}
-\alias{topoSort_vparList}
+\alias{topo_sort}
+\alias{topo_sort.default}
+\alias{topo_sortMAT}
+\alias{topo_sort_vparList}
 \title{Topological sort of vertices in directed acyclic graph}
 \usage{
-topoSort(object, index = FALSE)
+topo_sort(object, index = FALSE)
 
-\method{topoSort}{default}(object, index = FALSE)
+\method{topo_sort}{default}(object, index = FALSE)
 
-topoSortMAT(amat, index = FALSE)
+topo_sortMAT(amat, index = FALSE)
 }
 \arguments{
 \item{object}{An graph represented either as a \code{graphNEL}
@@ -42,7 +42,7 @@ A topological ordering of a directed graph is a linear
     if a graph is a DAG.
 }
 \section{Note}{
- The workhorse is the \code{topoSortMAT} function
+ The workhorse is the \code{topo_sortMAT} function
     which takes an adjacency matrix as input
 }
 
@@ -52,9 +52,9 @@ dagMAT  <- dag(~a:b:c+c:d:e, result="matrix")
 dagMATS <- as(dagMAT, "dgCMatrix")
 dagNEL  <- as(dagMAT, "graphNEL")
 
-topoSort(dagMAT)
-topoSort(dagMATS)
-topoSort(dagNEL)
+topo_sort(dagMAT)
+topo_sort(dagMATS)
+topo_sort(dagNEL)
 
 }
 \seealso{

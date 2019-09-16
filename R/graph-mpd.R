@@ -41,7 +41,7 @@
 #' @author Clive Bowsher \email{C.Bowsher@@statslab.cam.ac.uk} with
 #'     modifications by Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{mcs}}, \code{\link{mcsMAT}},
-#'     \code{\link{minimalTriang}}, \code{\link{minimalTriangMAT}},
+#'     \code{\link{minimal_triang}}, \code{\link{minimal_triangMAT}},
 #'     \code{\link{rip}}, \code{\link{ripMAT}}, \code{\link{triangulate}},
 #'     \code{\link{triangulateMAT}}
 #' @references Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
@@ -62,7 +62,7 @@
 #' x <- mpdMAT(g1m)
 #' 
 #' @export mpd
-mpd <- function(object, tobject=minimalTriang(object), details=0) {
+mpd <- function(object, tobject=minimal_triang(object), details=0) {
     UseMethod("mpd")
 }
 
@@ -81,11 +81,11 @@ mpd.default <- function(object, tobject=triangulate(object), details=0){
 }
 
 #' @rdname graph-mpd
-mpdMAT <- function(amat, tamat=minimalTriangMAT(amat), details=0){
+mpdMAT <- function(amat, tamat=minimal_triangMAT(amat), details=0){
   .mpd(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"), details=details)
 }
 
-.mpd <- function(uG, TuG=minimalTriang(uG), details=0) {
+.mpd <- function(uG, TuG=minimal_triang(uG), details=0) {
 
   ##TuG <- MinimalTriang(uG)
 

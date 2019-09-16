@@ -10,6 +10,6 @@
 \alias{tabSubt__}
 \title{Downstream aliases}
 \description{
-Downstream aliases for other graphical modelling packages.
-May change without further notice.
+Downstream aliases for other graphical modelling
+    packages.  May change without further notice.
 }

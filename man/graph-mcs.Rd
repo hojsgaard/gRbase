@@ -5,9 +5,10 @@
 \alias{mcs}
 \alias{mcs.default}
 \alias{mcsMAT}
-\alias{mcsmarked}
+\alias{mcs_marked}
 \alias{mcsmarked.default}
-\alias{mcsmarkedMAT}
+\alias{mcs_markedMAT}
+\alias{mcs_marked.default}
 \title{Maximum cardinality search on undirected graph.}
 \usage{
 mcs(object, root = NULL, index = FALSE)
@@ -16,11 +17,11 @@ mcs(object, root = NULL, index = FALSE)
 
 mcsMAT(amat, vn = colnames(amat), root = NULL, index = FALSE)
 
-mcsmarked(object, discrete = NULL, index = FALSE)
+mcs_marked(object, discrete = NULL, index = FALSE)
 
-\method{mcsmarked}{default}(object, discrete = NULL, index = FALSE)
+\method{mcs_marked}{default}(object, discrete = NULL, index = FALSE)
 
-mcsmarkedMAT(amat, vn = colnames(amat), discrete = NULL,
+mcs_markedMAT(amat, vn = colnames(amat), discrete = NULL,
   index = FALSE)
 }
 \arguments{
@@ -84,13 +85,13 @@ mcsMAT(uG)
 uG1 <- ug(~ a:b + b:c + c:d)
 uG2 <- ug(~ a:b + a:d + c:d)
 ## Not strongly decomposable:
-mcsmarked(uG1, discrete=c("a","d"))
+mcs_marked(uG1, discrete=c("a","d"))
 ## Strongly decomposable:
-mcsmarked(uG2, discrete=c("a","d"))
+mcs_marked(uG2, discrete=c("a","d"))
 
 }
 \seealso{
-\code{\link{moralize}}, \code{\link{jTree}},
+\code{\link{moralize}}, \code{\link{junction_tree}},
     \code{\link{rip}}, \code{\link{ug}}, \code{\link{dag}}
 }
 \author{

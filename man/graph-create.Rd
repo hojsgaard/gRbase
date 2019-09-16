@@ -58,8 +58,8 @@ daG4 <- dag(~ a:b + b:c + c:a) # A directed graph but with cycles
 ## daG5 <- dag(~ a:b + b:c + c:a, forceCheck=TRUE) 
 
 ## A check for acyclicity is provided by topoSort
-topoSort( daG2 )
-topoSort( daG4 )
+topo_sort( daG2 )
+topo_sort( daG4 )
 
 ## Different representations
 uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default

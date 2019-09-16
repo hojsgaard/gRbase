@@ -124,10 +124,10 @@ fine packages. The most important tools are:
   \item \code{mcs()},(maximum cardinality search for undirected graph)
   \item \code{triangulate()}, (triangulate undirected graph)
   \item \code{rip()}, (RIP ordering of cliques of triangulated undirected graph)
-  \item \code{jTree()} (Create junction tree from triangualted
+  \item \code{jTree()} (Create junction tree from triangulated
     undirected graph).
-  \item \code{getCliques()}, (get the (maximal) cliques of an undirected graph)
-  \item \code{minimalTriang()} (minimal triangulation of undirected
+  \item \code{get\_cliques()}, (get the (maximal) cliques of an undirected graph)
+  \item \code{minimal\_triang()} (minimal triangulation of undirected
     graph)
   \item \code{mpd()} (maximal prime subgraph decomposition of
     undirected graph)
@@ -471,22 +471,22 @@ ordering. A topological ordering is possible if and only if the graph
 has no directed cycles, that is, if it is a directed acyclic graph
 (DAG). Any DAG has at least one topological ordering.
 <<>>=
-topoSort(daG11)
-topoSort(daG11m)
-topoSort(daG11M)
+topo_sort(daG11)
+topo_sort(daG11m)
+topo_sort(daG11M)
 @ %def
 
 
 The following graph has a cycle and hence a topological ordering can
 not be made:
 <<>>=
-topoSort(dag(~a:b + b:c + c:a))
+topo_sort(dag(~a:b + b:c + c:a))
 @ %def
 
 Likewise for an undirected graph (recall that we regard an undirected
 edge as a bidirected edge):
 <<>>=
-topoSort( ug( ~a:b ) )
+topo_sort( ug( ~a:b ) )
 @ %def
 
 
@@ -502,13 +502,13 @@ problem. Finding the cliques of triangulated graph is linear in the
 number of cliques.
 
 <<>>=
-str( getCliques(uG11) )
-str( getCliques(uG11m) )
-str( getCliques(uG11M) )
+str( get_cliques(uG11) )
+str( get_cliques(uG11m) )
+str( get_cliques(uG11M) )
 @ %def
 
 For \graphnel\ objects one may also use the \code{maxClique()} function
-in \rbgl, but \code{getCliques()} applies also to matrices and it is
+in \rbgl, but \code{get\_cliques()} applies also to matrices and it is
 substantially faster.
 %% 
 %% <<>>=
@@ -624,7 +624,7 @@ finding the minimum triangulation is NP-hard.)
 For example, this graph has two 4--cycles:
 <<>>=
 g1 <- ug(~a:b + b:c + c:d + d:e + e:f + a:f + b:e)
-g1mt <- minimalTriang(g1) # A minimal triangulation
+g1mt <- minimal_triang(g1) # A minimal triangulation
 @ %def
 
 <<>>=
@@ -635,7 +635,7 @@ The following graph is also a triangulation of \code{g1}, and from
 this a minimal triangulation can be obtained:
 <<>>=
 g2 <- ug(~a:b:e:f + b:c:d:e)
-g1mt2 <- minimalTriang(g1, tobject=g2)
+g1mt2 <- minimal_triang(g1, tobject=g2)
 @ %def
 
 <<>>=
@@ -671,9 +671,9 @@ represented as a \graphnel\ object or as a matrix:
 if(require(microbenchmark)){
     microbenchmark(
         RBGL::maxClique(uG11),
-        getCliques(uG11),
-        getCliques(uG11m),
-        getCliques(uG11M),
+        get_cliques(uG11),
+        get_cliques(uG11m),
+        get_cliques(uG11M),
         times=10) }
 @ %def
 

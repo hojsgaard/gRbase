@@ -17,8 +17,11 @@
 #' "dm": "matrix" (dense matrix)
 #' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' ## @seealso \code{\link{ug}}, \code{\link{dag}}
+#' 
+#' @seealso \code{\link{ug}}, \code{\link{dag}}
+#'
 #' @keywords utilities
+#'
 #' @examples
 #' ## FIXME examples coerce graph missing
 #' 

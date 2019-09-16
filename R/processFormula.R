@@ -91,18 +91,17 @@ rhsFormula2list <- rhsf2list <- function(f){
 ##
 ## July 2008
 list2rhsFormula <- list2rhsf <- function(f){
-  if (inherits(f,"formula"))
-    return(f)
-  as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')),collapse="+")),
+  if (inherits(f, "formula")) return(f)
+  as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')), collapse="+")),
              .GlobalEnv)
 }
 
 
-## FIXME: selectOrder: About as silly an implementation as possible
 selectOrder  <- function(x, order=2){
-  v <- allSubsets(x) 
-  value <- v[lapply(v, length) == as.numeric(order)]
-  return(value)
+    combn_prim(x, order, simplify=FALSE)
+  ## v <- all_subsets(x) 
+  ## value <- v[lapply(v, length) == as.numeric(order)]
+  ## return(value)
 }
 
 extract.power<-function(fff){
@@ -356,7 +355,7 @@ readf <- function(s, v.sep="*", g.sep="+") {
   S <- ..varset(m)
   dr <- dual.rep(m, S)
   dr <- c(dr, list(edge))
-  removeRedundant(dual.rep(dr, S, FALSE))
+  remove_redundant(dual.rep(dr, S, FALSE))
 }
 
 #m2 <- readf('B.D+A.D+C.D')
@@ -378,7 +377,7 @@ readf <- function(s, v.sep="*", g.sep="+") {
   k <- length(dr)
   if (k>0) {for (i in 1:k) if (setequal(dr[[i]], edge)) dr[[i]] <- vector()}
 #  if (k>0) {for (i in 1:k) if (setequal(dr[[i]], edge)) dr[[i]] <- NULL}
-  dr <- removeRedundant(dr, FALSE)
+  dr <- remove_redundant(dr, FALSE)
   dual.rep(dr, S, FALSE)
 }
 

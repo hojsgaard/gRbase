@@ -161,7 +161,7 @@ M2adl_ <- function( amat ){
 M2ugl_ <- function( amat ){
     ## FIXME: M2ugList: Need a check for undirectedness
     .check.is.matrix( amat )
-    maxCliqueMAT( amat )[[1]]
+    max_cliqueMAT( amat )[[1]]
 }
 
 #' @rdname graph-coerce-list

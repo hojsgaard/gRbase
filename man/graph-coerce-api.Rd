@@ -85,8 +85,10 @@ as_(g, "dgCMatrix")
 as_(g, "igraph")
 
 }
+\seealso{
+\code{\link{ug}}, \code{\link{dag}}
+}
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}
-## @seealso \code{\link{ug}}, \code{\link{dag}}
 }
 \keyword{utilities}

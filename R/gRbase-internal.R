@@ -11,7 +11,7 @@
 #' alignArrays alignArrays2 allSubsets allSubsets0 arrayMargin arrayMargin0
 #' arrayMarginChr_cpp arrayOp arrayOp2 arrayPerm arrayPerm0 extendArrayAlong
 #' extendArrays getPerm fitLoglin propagateLS__ isadjMAT_ mcsMAT_ mcsMAT0_
-#' topoSortMAT_ triangulateMAT_ do_getcq_dense do_getcq_sparse do_mcs_dense
+#' topo_sortMAT_ triangulateMAT_ do_getcq_dense do_getcq_sparse do_mcs_dense
 #' do_mcs_sparse getCliquesDec_ rip_internal sp_setXtf1 solveSPD adjList2adjMAT
 #' adjList2ftList adjList2ftM adjList2tfList adjList2tfM glist2setMAT
 #' varNames.default nLevels.default valueLabels.default 

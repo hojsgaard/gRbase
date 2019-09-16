@@ -21,7 +21,7 @@
 #' 
 #' @name graph-toposort
 #' 
-#' @aliases topoSort topoSort.default topoSortMAT topoSort_vparList
+#' @aliases topo_sort topo_sort.default topo_sortMAT topo_sort_vparList
 #' @param object An graph represented either as a \code{graphNEL}
 #'     object, an \code{igraph}, a (dense) \code{matrix}, a (sparse)
 #'     \code{dgCMatrix}.
@@ -33,7 +33,7 @@
 #'     \code{character(0)} otherwise. If TRUE, the index of the
 #'     variables in an adjacency matrix is returned and \code{-1}
 #'     otherwise.
-#' @section Note: The workhorse is the \code{topoSortMAT} function
+#' @section Note: The workhorse is the \code{topo_sortMAT} function
 #'     which takes an adjacency matrix as input
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{dag}}, \code{\link{ug}}
@@ -44,27 +44,27 @@
 #' dagMATS <- as(dagMAT, "dgCMatrix")
 #' dagNEL  <- as(dagMAT, "graphNEL")
 #' 
-#' topoSort(dagMAT)
-#' topoSort(dagMATS)
-#' topoSort(dagNEL)
+#' topo_sort(dagMAT)
+#' topo_sort(dagMATS)
+#' topo_sort(dagNEL)
 #' 
-#' @export topoSort
-topoSort <- function(object, index=FALSE){
-  UseMethod("topoSort")
+#' @export topo_sort
+topo_sort <- function(object, index=FALSE){
+  UseMethod("topo_sort")
 }
 
 #' @rdname graph-toposort
-topoSort.default <- function(object, index=FALSE){
+topo_sort.default <- function(object, index=FALSE){
     ## cls <- match.arg(class( object ),
     ##                  c("graphNEL", "igraph", "matrix", "dgCMatrix"))
-    topoSortMAT(as_(object, "dgCMatrix"), index=index)
+    topo_sortMAT(as_(object, "dgCMatrix"), index=index)
 }
 
 
 #' @rdname graph-toposort
 #' @param amat Adjacency matrix. 
-topoSortMAT <- function(amat, index=FALSE){
-    ans <- topoSortMAT_( amat )
+topo_sortMAT <- function(amat, index=FALSE){
+    ans <- topo_sortMAT_( amat )
     if (index){
         if (ans[1] != -1) ans
         else -1L
@@ -74,32 +74,13 @@ topoSortMAT <- function(amat, index=FALSE){
     }
 }
 
-## FIXME topoSort_vparList Delete?
-topoSort_vparList<- function(glist){
-    ##topoSort(vpaList2adjMAT(vpaL, result="Matrix"))
-    ##topoSort(dagList2M(glist, result="dgCMatrix"))
-    topoSortMAT(dgl2sm_(glist))
+## FIXME topo_sort_vparList Delete?
+topo_sort_vparList<- function(glist){
+    ##topo_sort(vpaList2adjMAT(vpaL, result="Matrix"))
+    ##topo_sort(dagList2M(glist, result="dgCMatrix"))
+    topo_sortMAT(dgl2sm_(glist))
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-## switch(cls,
-##        "graphNEL" ={topoSortMAT(gn2sm_(object), index=index) },
-##        "igraph"   ={topoSortMAT(ig2sm_(object), index=index) },
-##        "dgCMatrix"=,
-##        "matrix"   ={topoSortMAT(object, index=index)} )
 

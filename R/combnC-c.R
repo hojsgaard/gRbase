@@ -10,8 +10,8 @@
 #' @param simplify logical indicating if the result should be
 #'     simplified to a matrix; if FALSE, the function returns a list.
 #' @return A matrix or a list.
-#' @note The combnPrim function is a simplified version of the combn
-#'     function.  However, combnPrim is implemented in C and is
+#' @note The combn_prim function is a simplified version of the combn
+#'     function.  However, combn_prim is implemented in C and is
 #'     considerably faster than combn.
 #' @author P. T. Wallace and Søren Højsgaard
 #' @seealso \code{\link{combn}}
@@ -22,32 +22,33 @@
 #' m <- 3
 #' 
 #' combn(x, m)
-#' combnPrim(x, m)
+#' combn_prim(x, m)
 #' 
 #' combn(m, m)
-#' combnPrim(m, m)
+#' combn_prim(m, m)
 #' 
 #' combn(x, m, simplify=FALSE)
-#' combnPrim(x, m, simplify=FALSE)
+#' combn_prim(x, m, simplify=FALSE)
 #'
 #' x <- letters[1:20]
-#' 
-#' system.time({ for (i in 1:100) { combnPrim(x,m) }})
+#'
+#' \dontrun{
+#' system.time({ for (i in 1:100) { combn_prim(x,m) }})
 #' system.time({ for (i in 1:100) { combn(x,m) }})
 #' 
-#' system.time({ for (i in 1:100) { combnPrim(x,m, simplify=FALSE) }})
+#' system.time({ for (i in 1:100) { combn_prim(x,m, simplify=FALSE) }})
 #' system.time({ for (i in 1:100) { combn(x,m, simplify=FALSE) }})
+#' }
 #' 
-#' 
-#' @export combnPrim
+#' @export combn_prim
 #' 
 
-combnPrim <- function(x, m, simplify=TRUE){
-    ## FIXME: combnPrim: Could take a FUN argument.
+combn_prim <- function(x, m, simplify=TRUE){
+    ## FIXME: combn_prim: Could take a FUN argument.
     if (length(x)==1 && is.numeric(x))
         x <- seq(x)
     if (length(x) < m)
-        stop("Error in combnPrim: n < m\n")
+        stop("Error in combn_prim: n < m\n")
     
     ##   nofun <- is.null(FUN)
     ##   if (!nofun && !is.function(FUN))

@@ -52,8 +52,8 @@
 #' ## daG5 <- dag(~ a:b + b:c + c:a, forceCheck=TRUE) 
 #' 
 #' ## A check for acyclicity is provided by topoSort
-#' topoSort( daG2 )
-#' topoSort( daG4 )
+#' topo_sort( daG2 )
+#' topo_sort( daG4 )
 #' 
 #' ## Different representations
 #' uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
@@ -113,7 +113,7 @@ dagList <- function(x, result="graphNEL", forceCheck=FALSE){
                   )
 
     if (forceCheck){
-        if( length( topoSort( out )) == 0){
+        if( length(topo_sort(out)) == 0){
             stop("In dag/dagList: Graph is not a DAG", call.=FALSE)
         }
     }

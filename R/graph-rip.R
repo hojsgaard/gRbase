@@ -17,18 +17,20 @@
 #'     cliques is also called a perfect ordering. If the graph is not
 #'     chordal, then no such ordering exists.
 #' 
+#' @name graph-rip
+#' 
+#' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
+#' 
 #' @details The RIP ordering of the cliques of a decomposable
 #'     (i.e. chordal) graph is obtained by first ordering the
 #'     variables linearly with maximum cardinality search (by
 #'     \code{mcs}). The root argument is transfered to \code{mcs} as a
 #'     way of controlling which clique will be the first in the RIP
-#'     ordering.  The \code{jTree()} (and \code{jTree()}) (for
+#'     ordering.  The \code{junction_tree()} (and \code{junction_tree()}) (for
 #'     "junction tree") is just a wrapper for a call of
 #'     \code{triangulate()} followed by a call of \code{rip()}.
 #'
-#' @name graph-rip
-#' 
-#' @aliases rip rip.default ripMAT jTree jTree.default jTreeMAT
+#' @aliases rip rip.default ripMAT junction_tree junction_tree.default junction_treeMAT
 #'     junctionTree junctionTree.default junctionTreeMAT
 #' @param object An undirected graph represented either as a
 #'     \code{graphNEL} object, an \code{igraph}, a (dense)
@@ -50,7 +52,6 @@
 #'     \code{nLevels} argument to the \code{rip} functions has no
 #'     meaning.
 #' 
-#' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #'
 #' @seealso \code{\link{mcs}} \code{\link{triangulate}}
 #'     \code{\link{moralize}} \code{\link{ug}}, \code{\link{dag}}
@@ -62,25 +63,25 @@
 #' uG <- ug(~me:ve + me:al + ve:al + al:an + al:st + an:st)
 #' mcs(uG)
 #' rip(uG)
-#' jTree(uG)
+#' junction_tree(uG)
 #' 
 #' ## Adjacency matrix
 #' uG <- ug(~me:ve:al + al:an:st, result="matrix")
 #' mcs(uG)
 #' rip(uG)
-#' jTree(uG)
+#' junction_tree(uG)
 #' 
 #' ## Sparse adjacency matrix
 #' uG <- ug(c("me", "ve", "al"), c("al", "an", "st"), result="dgCMatrix")
 #' mcs(uG)
 #' rip(uG)
-#' jTree(uG)
+#' junction_tree(uG)
 #' 
 #' ## Non--decomposable graph
 #' uG <- ug(~1:2 + 2:3 + 3:4 + 4:5 + 5:1)
 #' mcs(uG)
 #' rip(uG)
-#' jTree(uG)
+#' junction_tree(uG)
 #' 
 #' 
 
@@ -124,7 +125,7 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
   if (length(mcs.vn)==0)
     return( NULL )
 
-  cq.vn   <- maxCliqueMAT(amat)[[1]]
+  cq.vn   <- max_cliqueMAT(amat)[[1]]
   ncq     <- length(cq.vn)
   vn      <- colnames(amat)
 
@@ -148,7 +149,8 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
       sp.idx[[ii]] <- isect
       if (length(isect)){
         for (kk in (ii-1):1){
-          if (subsetof( isect, cq.mcs.idx[[kk]]) ){
+            ##if (subsetof( isect, cq.mcs.idx[[kk]]) ){
+            if (is_subsetof(isect, cq.mcs.idx[[kk]])){
             pa.idx[ii] <- kk
             break()
           }
@@ -258,122 +260,27 @@ plot.ripOrder <- function(x, ...){
 
 
 #' @rdname graph-rip
-jTree <- function(object, ...){
-  UseMethod("jTree")
+junction_tree <- function(object, ...){
+  UseMethod("junction_tree")
 }
 
 #' @rdname graph-rip
-jTree.default <-  function(object, nLevels = NULL, ...){
+junction_tree.default <-  function(object, nLevels = NULL, ...){
     cls <- match.arg(class( object ),
                      c("graphNEL","igraph","matrix","dgCMatrix"))
 
     switch(cls,
-           "graphNEL" ={jTreeMAT(gn2sm_(object), nLevels=nLevels, ... )},
-           "igraph"   ={jTreeMAT(ig2sm_(object), nLevels=nLevels, ... )},
+           "graphNEL" ={junction_treeMAT(gn2sm_(object), nLevels=nLevels, ... )},
+           "igraph"   ={junction_treeMAT(ig2sm_(object), nLevels=nLevels, ... )},
            "dgCMatrix"=,
-           "matrix"   ={jTreeMAT(object, nLevels=nLevels, ...)})
+           "matrix"   ={junction_treeMAT(object, nLevels=nLevels, ...)})
 }
 
 #' @rdname graph-rip
-jTreeMAT <- function(amat, nLevels=rep(2,ncol(amat)), ...){
+junction_treeMAT <- function(amat, nLevels=rep(2,ncol(amat)), ...){
   tug  <- triangulateMAT( amat, nLevels=nLevels, result="dgCMatrix", ... )
   ripMAT( tug, nLevels=nLevels )
 }
-
-
-## Copying
-junctionTree          <- jTree
-junctionTree.default  <- jTree.default
-junctionTreeMAT       <- jTreeMAT
-
-
-## jTree.graphNEL <- function(object, nLevels = NULL, ...){
-##   jTreeMAT( graphNEL2dgCMatrix( object ), nLevels=nLevels, ... )
-## }
-
-## jTree.igraph <- function(object, nLevels = NULL, ...){
-##   jTreeMAT( igraph::get.adjacency( object ), nLevels=nLevels, ... )
-## }
-
-## jTree.matrix <- function(object, nLevels = NULL, ...){
-##   jTreeMAT( object, nLevels=nLevels, ... )
-## }
-
-## jTree.Matrix <- jTree.matrix
-
-## junctionTree.graphNEL <- jTree.graphNEL
-## junctionTree.igraph   <- jTree.igraph
-## junctionTree.matrix   <- jTree.matrix
-## junctionTree.Matrix   <- jTree.Matrix
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## jTree.graphNEL <- function(object, method  = "mcwh",
-##                   nLevels = rep(2,length(nodes(object))), ...){
-
-##   method <- match.arg(tolower(method),c("mcwh","r"))
-##   tug        <- triangulate(object, method=method, nLevels=nLevels, result="Matrix")
-##   val        <- ripMAT(tug,nLevels=nLevels)
-##   return(val)
-## }
-
-## jTree.matrix <- function(object, method  = "mcwh",
-##                          nLevels = rep(2,ncol(object)), ...){
-
-##   method <- match.arg(tolower(method),c("mcwh","r"))
-##   tug        <- triangulateMAT(object, method=method, nLevels=nLevels, result="Matrix")
-##   val        <- ripMAT(tug,nLevels=nLevels)
-##   return(val)
-## }
-
-## jTree.Matrix <- function(object, method  = "mcwh",
-##                          nLevels = rep(2,ncol(object)), ...){
-
-##   method <- match.arg(tolower(method),c("mcwh","r"))
-##   tug        <- triangulateMAT(object, method=method, nLevels=nLevels, result="Matrix")
-##   val        <- ripMAT(tug,nLevels=nLevels)
-##   return(val)
-## }
-
-## jTree.igraph <- function(object,  method  = "mcwh",
-##                   nLevels = rep(2,length(V(object))), ...){
-
-##   method <- match.arg(tolower(method),c("mcwh","r"))
-##   tug        <- triangulate(object, method=method, nLevels=nLevels, result="matrix")
-##   val        <- ripMAT(tug,nLevels=nLevels)
-##   return(val)
-## }
-
-
-
-
 
 
 

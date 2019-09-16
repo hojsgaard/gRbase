@@ -17,8 +17,8 @@ getCliquesDec__ <- function(XX_, mcs0idx_ = NULL) {
     .Call('_gRbase_getCliquesDec__', PACKAGE = 'gRbase', XX_, mcs0idx_)
 }
 
-topoSortMAT_ <- function(adjmat_) {
-    .Call('_gRbase_topoSortMAT_', PACKAGE = 'gRbase', adjmat_)
+topo_sortMAT_ <- function(adjmat_) {
+    .Call('_gRbase_topo_sortMAT_', PACKAGE = 'gRbase', adjmat_)
 }
 
 .c_triang_elo_MAT_ <- function(X_, ELO_) {
@@ -145,18 +145,6 @@ NULL
 #' @aliases all_pairs__
 NULL
 
-get_superset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset__', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-get_subset__ <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset__', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-is_subsetof__ <- function(set, set2) {
-    .Call('_gRbase_is_subsetof__', PACKAGE = 'gRbase', set, set2)
-}
-
 get_superset_ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
 }
@@ -169,12 +157,12 @@ is_subsetof_ <- function(set, set2) {
     .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
 }
 
-allSubsets0__ <- function(x) {
-    .Call('_gRbase_allSubsets0__', PACKAGE = 'gRbase', x)
+allSubsets0_ <- function(x) {
+    .Call('_gRbase_allSubsets0_', PACKAGE = 'gRbase', x)
 }
 
-allSubsets__ <- function(x) {
-    .Call('_gRbase_allSubsets__', PACKAGE = 'gRbase', x)
+allSubsets_ <- function(x) {
+    .Call('_gRbase_allSubsets_', PACKAGE = 'gRbase', x)
 }
 
 all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
@@ -276,6 +264,14 @@ tab_equal_ <- function(tab1, tab2, eps = 1e-12) {
     .Call('_gRbase_tab_equal_', PACKAGE = 'gRbase', tab1, tab2, eps)
 }
 
+tab_list_mult_ <- function(lst) {
+    .Call('_gRbase_tab_list_mult_', PACKAGE = 'gRbase', lst)
+}
+
+tab_list_add_ <- function(lst) {
+    .Call('_gRbase_tab_list_add_', PACKAGE = 'gRbase', lst)
+}
+
 tabMarg__ <- function(tab, marg) {
     .Call('_gRbase_tabMarg__', PACKAGE = 'gRbase', tab, marg)
 }
@@ -286,14 +282,6 @@ tabDiv0__ <- function(tab1, tab2) {
 
 tabMult__ <- function(tab1, tab2) {
     .Call('_gRbase_tabMult__', PACKAGE = 'gRbase', tab1, tab2)
-}
-
-tab_list_mult_ <- function(lst) {
-    .Call('_gRbase_tab_list_mult_', PACKAGE = 'gRbase', lst)
-}
-
-tab_list_add_ <- function(lst) {
-    .Call('_gRbase_tab_list_add_', PACKAGE = 'gRbase', lst)
 }
 
 is_dimnames_ <- function(obj) {

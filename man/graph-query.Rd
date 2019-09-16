@@ -3,6 +3,7 @@
 \name{graph-query}
 \alias{graph-query}
 \alias{querygraph}
+\alias{qgraph}
 \alias{ancestors}
 \alias{ancestralSet}
 \alias{parents}
@@ -16,6 +17,8 @@
 \title{Query a graph}
 \usage{
 querygraph(object, op, set = NULL, set2 = NULL, set3 = NULL)
+
+qgraph(object, op, set = NULL, set2 = NULL, set3 = NULL)
 
 ancestors(set, object)
 
@@ -38,12 +41,14 @@ is.decomposition(set, set2, set3, object)
 is.simplicial(set, object)
 }
 \arguments{
-\item{object}{A graph}
+\item{object}{A graph.}
 
-\item{op}{The operation or query}
+\item{op}{The operation or query.}
 
-\item{set, set2, set3}{Sets of nodes in graph}
+\item{set, set2, set3}{Sets of nodes in graph.}
 }
 \description{
 Unified approach to query a graph about its properties
+    (based partly on functionality from gRbase and functionality
+    imported from RBGL).
 }

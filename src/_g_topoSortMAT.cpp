@@ -31,7 +31,7 @@ typedef Eigen::Map<Eigen::MatrixXd> MapMatd;
 typedef Eigen::Map<Eigen::MatrixXi> MapMati;
 
 // [[Rcpp::export]]
-SEXP topoSortMAT_ ( SEXP adjmat_ ){
+SEXP topo_sortMAT_ ( SEXP adjmat_ ){
   int type = TYPEOF(adjmat_) ;
   //Rf_PrintValue(wrap(type));
   switch( type ){

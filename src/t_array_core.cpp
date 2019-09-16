@@ -1,6 +1,9 @@
 // ------------------------------------------------------------
+//
 // Rcpp functions for fast table operations.
+//
 // Author: Søren Højsgaard
+//
 // ------------------------------------------------------------
 
 #include <Rcpp.h>
@@ -37,7 +40,7 @@ bool seteq_(CharacterVector x, CharacterVector y){
 #define dim(tab) tab.attr("dim")
 
 // ------------------------------------------------------------
-// tabPerm__
+// tab_perm__
 //
 // Implementation of array permutation; very similar
 // to R's implementation of aperm()
@@ -162,7 +165,14 @@ SEXP tab_perm_(const SEXP& tab, const SEXP& perm){
 
 
 // -------------------------------------------------------------------
-// tab_expand_ and tab_align_
+//
+// tab_expand_, tab_align_
+//
+// Expand and align tables
+//
+// Author: Søren Højsgaard
+//
+// Details:
 //
 // tab_expand_(tab1, dn2):
 // -----------------------
@@ -303,9 +313,12 @@ SEXP tab_align_(const SEXP& tab1, const SEXP& tab2){
 
 
 // -------------------------------------------------------------------
-// tabMarg__
+// tab_marg__
 //
 // Find marginal tables
+//
+// Author: Søren Højsgaard
+//
 // -------------------------------------------------------------------
 
 template <int RTYPE>
@@ -405,7 +418,7 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
 // 
 // Ft. Lauderdale spring 2017,
 //
-// Soren Hojsgaard
+// Author: Søren Højsgaard
 //
 // ------------------------------------------------------------- 
 
@@ -416,7 +429,7 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
 //' tab_mult_ tab_div_ tab_div0_ tab_equal_
 
 
-#define _tab_op_loopit(_op_)							\
+#define _tab_op_loopit(_op_)						\
   int n1 = out.size(), n2=tab2.size(), n3=n1/n2, zz;			\
   for (int i=0; i < n2; ++i){						\
     for (int k=0; k < n3; ++k){						\
@@ -488,23 +501,6 @@ bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps
 
 
 
-// FIXME: ALIASES for gRain compatibility; July 2017
-
-// [[Rcpp::export]]
-SEXP tabMarg__(const SEXP& tab, const SEXP& marg){
-  return tab_marg_(tab, marg);
-}
-
-//[[Rcpp::export]]
-NumericVector tabDiv0__(const NumericVector& tab1, const NumericVector& tab2){
-  return tab_div0_(tab1, tab2);
-}
-
-//[[Rcpp::export]]
-NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
-  return tab_mult_(tab1, tab2);
-}
-
 
 
 // -----------------------------------------------------------
@@ -543,3 +539,24 @@ NumericVector tab_list_add_(const List& lst){
 
 
 
+
+// -------------------------------------------------------
+//
+// FIXME: ALIASES for gRain compatibility; July 2017
+//
+// -------------------------------------------------------
+
+// [[Rcpp::export]]
+SEXP tabMarg__(const SEXP& tab, const SEXP& marg){
+  return tab_marg_(tab, marg);
+}
+
+//[[Rcpp::export]]
+NumericVector tabDiv0__(const NumericVector& tab1, const NumericVector& tab2){
+  return tab_div0_(tab1, tab2);
+}
+
+//[[Rcpp::export]]
+NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
+  return tab_mult_(tab1, tab2);
+}

@@ -350,10 +350,10 @@ vpar.matrix <- vparMAT
 #' Finding the cliques of a general graph is an NP complete problem. Finding
 #' the cliques of triangualted graph is linear in the number of cliques.
 #' 
-#' The workhorse is the \code{maxCliqueMAT} function which calls the
+#' The workhorse is the \code{max_cliqueMAT} function which calls the
 #' \code{maxClique} function in the \code{RBGL} package.
 #' 
-#' @aliases getCliques getCliques.graphNEL getCliques.default maxCliqueMAT
+#' @aliases get_cliques get_cliques.graphNEL get_cliques.default max_cliqueMAT
 #' @param object An undirected graph represented either as a \code{graphNEL}
 #'     object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}
 #' @param amat An adjacency matrix.
@@ -367,37 +367,36 @@ vpar.matrix <- vparMAT
 #' 
 #' ## graphNEL
 #' uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
-#' getCliques(uG1)
+#' get_cliques(uG1)
 #' 
 #' ## adjacency matrix
 #' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
-#' getCliques(uG2)
+#' get_cliques(uG2)
 #' 
 #' ## adjacency matrix (sparse)
 #' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
-#' getCliques(uG3)
+#' get_cliques(uG3)
 #' 
 #' 
-#' @export getCliques
-getCliques <- function(object){
-    UseMethod("getCliques")
+#' @export graph-cliques
+get_cliques <- function(object){
+    UseMethod("get_cliques")
 }
 
 #' @rdname graph-cliques
-getCliques.graphNEL <- function(object){
-    maxCliqueMAT( gn2sm_(object) )[[1]]
+get_cliques.graphNEL <- function(object){
+    max_cliqueMAT( gn2sm_(object) )[[1]]
 }
 
 #' @rdname graph-cliques
-getCliques.default <- function(object){
-    maxCliqueMAT(object)[[1]]
+get_cliques.default <- function(object){
+    max_cliqueMAT(object)[[1]]
 }
-
 
 ## FIXME: Should check that it is undirected.
 
 #' @rdname graph-cliques
-maxCliqueMAT <- function(amat){
+max_cliqueMAT <- function(amat){
   vn <- dimnames(amat)[[2L]]
   em <- t.default( MAT2ftM_( amat ) )
   RBGL::maxClique(nodes=vn, edgeMat=em)
@@ -484,7 +483,7 @@ dual.rep <- function(glist, S, minimal=TRUE) {
                 aaa <- unlist(lapply(m1, function(g)
                                      lapply(m2, function(o){unique.default(c(o, g))})),
                               recursive=FALSE)
-                list.save <- removeRedundant(aaa, FALSE)
+                list.save <- remove_redundant(aaa, FALSE)
             }
         }
         if (!minimal)

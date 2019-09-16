@@ -730,7 +730,7 @@ cell2name(c(2,3,1), dimnames(hec))
 
 
 
-\subsection{\code{cell2entry()}, \code{entry2cell()} and \code{nextCell()} }
+\subsection{\code{cell2entry()}, \code{entry2cell()} and \code{next\_cell()} }
 
 
 The map from a cell to the corresponding
@@ -747,28 +747,23 @@ entry2cell(6, dim=c( 2, 3, 2 ))
 Given a cell, say $i=(2,3,1)$ in a $2\times 3\times 2$ array we often want to find the next cell in
 the table following the convention that the first factor varies
 fastest, that is $(1,1,2)$. This is provided by
-\rr{nextCell()}.
+\rr{next\_cell()}.
 <<>>=
-nextCell(c(2,3,1), dim=c( 2, 3, 2 ))
+next_cell(c(2,3,1), dim=c( 2, 3, 2 ))
 @ %def
 
 
-
-
-\subsection{\code{nextCellSlice()} and \code{slice2entry()}}
+\subsection{\code{next\_cell\_slice()} and \code{slice2entry()}}
 %\label{sec:x}
-
-
-
 
 Given that we look at cells for which for which the index in dimension $2$ is at level $3$ (that is
 \verb|Eye=Hazel|), i.e.\ cells of the form $(j,3,l)$. Given such a
 cell, what is then the next cell that also satisfies this
 constraint. This is provided by
-\rr{nextCellSlice()}.\footnote{FIXME: sliceset should be called margin.}
+\rr{next\_cell\_slice()}.\footnote{FIXME: sliceset should be called margin.}
 <<>>=
-nextCellSlice(c(1,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
-nextCellSlice(c(2,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
+next_cell_slice(c(1,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
+next_cell_slice(c(2,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
 @ %def 
 
 
@@ -862,15 +857,14 @@ lapply(lapply(r, entry2cell, c( 2, 3, 2 )),
 % @ %def
 
 
-
-\subsection{\code{factGrid()} -- Factorial grid}
+\subsection{\code{fact\_grid()} -- Factorial grid}
 \label{sec:factgrid}
 
 Using the operations above we can obtain the combinations of the
 factors as a matrix:
 
 <<>>=
-head( factGrid( c(2, 3, 2) ), 6 )
+head( fact_grid( c(2, 3, 2) ), 6 )
 @ %def 
 
 A similar dataframe can also be obtained with the standard \R\
@@ -954,11 +948,11 @@ head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
 % dimension $2$ is at level $1$. Given such a cell, say $(2,1,1,2)$ we
 % often want to find the next cell also satisfying this constraint
 % (again following the convention that the first factor varies fastest),
-% that is $(1,1,2,2)$. This is provided by \code{nextCellSlice()}.
+% that is $(1,1,2,2)$. This is provided by \code{next_cell_slice()}.
 % @
 % <<>>=
-% nextCellSlice(c(2,1,1,2),  sliceset=2, dim2323)
-% nextCellSlice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
+% next_cell_slice(c(2,1,1,2),  sliceset=2, dim2323)
+% next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
 % @ %def
 
 
@@ -966,12 +960,12 @@ head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
 % Given a cell, say $i=(1,1,2,1)$ we often want to find the next cell in
 % the table following the convention that the first factor varies
 % fastest, that is $(2,1,2,1)$. This is provided by
-% \code{nextCell()}.
+% \code{next_cell()}.
 
 % @
 % <<>>=
-% nextCell(c(1,1,2,1), dim2222)
-% nextCell(c(2,2,2,1), dim2222)
+% next_cell(c(1,1,2,1), dim2222)
+% next_cell(c(2,2,2,1), dim2222)
 % @ %def
 
 
@@ -980,11 +974,11 @@ head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
 % dimension $2$ is at level $1$. Given such a cell, say $(2,1,1,2)$ we
 % often want to find the next cell also satisfying this constraint
 % (again following the convention that the first factor varies fastest),
-% that is $(1,1,2,2)$. This is provided by \code{nextCellSlice()}.
+% that is $(1,1,2,2)$. This is provided by \code{next_cell_slice()}.
 % @
 % <<>>=
-% nextCellSlice(c(2,1,1,2),  sliceset=2, dim2323)
-% nextCellSlice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
+% next_cell_slice(c(2,1,1,2),  sliceset=2, dim2323)
+% next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323)
 % @ %def
 
 

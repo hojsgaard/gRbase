@@ -50,7 +50,7 @@ moralize(G)
 
 }
 \seealso{
-\code{\link{mcs}}, \code{\link{jTree}}, \code{\link{rip}},
+\code{\link{mcs}}, \code{\link{junction_tree}}, \code{\link{rip}},
     \code{\link{ug}}, \code{\link{dag}}
 }
 \author{

@@ -22,20 +22,20 @@
 #' entry2cell(1, dim=di)
 #' entry2cell(12, dim=di)
 #'
-#' nextCell(c(1, 1, 1), dim=di)
-#' nextCell(c(2, 1, 1), dim=di)
+#' next_cell(c(1, 1, 1), dim=di)
+#' next_cell(c(2, 1, 1), dim=di)
 #'
 #' ## The first two entries are kept fixed
-#' nextCellSlice(c(2, 1, 1), dim=di, slice_marg=c(1, 2))
-#' nextCellSlice(c(2, 1, 2), dim=di, slice_marg=c(1, 2))
+#' next_cell_slice(c(2, 1, 1), dim=di, slice_marg=c(1, 2))
+#' next_cell_slice(c(2, 1, 2), dim=di, slice_marg=c(1, 2))
 #'
 #' ## Cell (2, 2, 1) corresponds to entry 4
 #' cell2entry(c(2, 2, 1), dim=di)
 #' ## Same as
-#' cell2entryPerm(c(2, 2, 1), dim=di, perm=c(1, 2, 3))
+#' cell2entry_perm(c(2, 2, 1), dim=di, perm=c(1, 2, 3))
 #' ## If the table dimensions are permuted as (3, 1, 2)
 #' ## the entry becomes
-#' cell2entryPerm(c(2, 2, 1), dim=di, perm=c(3, 1, 2))
+#' cell2entry_perm(c(2, 2, 1), dim=di, perm=c(3, 1, 2))
 
 ## --------------------------
 ## Aliases for cpp functions
@@ -45,15 +45,15 @@ cell2entry    <- cell2entry_
 #' @rdname array-cell
 entry2cell    <- entry2cell_
 #' @rdname array-cell
-nextCell      <- next_cell_
+next_cell      <- next_cell_
 #' @rdname array-cell
-nextCellSlice <- next_cell_slice_
+next_cell_slice <- next_cell_slice_
 #' @rdname array-cell
 slice2entry   <- slice2entry_
 ##' @rdname array-cell
-cell2entryPerm <- cell2entry_perm_
+cell2entry_perm <- cell2entry_perm_
 #' @rdname array-cell
-permCellEntries <- perm_cell_entries_
+perm_cell_entries <- perm_cell_entries_
 ## --- END ---
 
 ## -------------------------
@@ -75,7 +75,7 @@ permCellEntries <- perm_cell_entries_
 ## -----------------------------------------------------------
 
 #' @rdname array-cell
-factGrid <- function(dim, slice_cell=NULL, slice_marg=NULL){
+fact_grid <- function(dim, slice_cell=NULL, slice_marg=NULL){
   if (is.null(slice_cell)){
     .factgrid1Prim(dim)
   } else {
