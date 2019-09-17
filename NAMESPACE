@@ -136,9 +136,7 @@ export(subsetof)
 export(tabMult__)
 export(tableOp2)
 export(newar)
-
-
-
+export(unlistPrim)
 
 ## S3method(coerceGraph, dgCMatrix)
 ## S3method(coerceGraph, graphNEL)

@@ -41,5 +41,8 @@ subsetof <- function(x, y){
   all(match(x,y,0)>0)
 }
 
-
+## Used in CRAN version of gRain
+unlistPrim <- function(x){
+    unlist(x)
+}
 
