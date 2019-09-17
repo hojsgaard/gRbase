@@ -34,11 +34,12 @@ topoSort.default <- function(object, index=FALSE){
 ## must be switched)
 isin <- .isin
 
-## grain uses subsetof; replace with is_subsetof
-subsetof <- function(x, set){
-  all(match(x, set) > 0)
+## grain uses subsetof; don't remember details of this function
+## (different from is.subsetof)
+subsetof <- function(x, y){
+  #all(.Internal(match( x, y, 0, NULL))>0)
+  all(match(x,y,0)>0)
 }
-
 
 
 
