@@ -152,7 +152,6 @@ S3method(is.TUG, graphNEL)
 S3method(is.UG, default)
 S3method(is.UG, graphNEL)
 
-
 S3method(vpar, Matrix)
 S3method(vpar, matrix)
 S3method(vpar, graphNEL)
