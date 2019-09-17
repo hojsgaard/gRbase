@@ -132,11 +132,10 @@ remove_redundant <- function(setlist, maximal=TRUE, index=FALSE){
 ## Is x contained in any vector in setlist;
 #' @rdname set_operations
 is_inset <- function(x, setlist, index=FALSE){
-  isin(setlist, x, index)
+  .isin(setlist, x, index)
 }
 
-
-isin <- function(setlist, x, index=FALSE){
+.isin <- function(setlist, x, index=FALSE){
     len.setlist <- length(setlist)
     if (len.setlist == 0){
         if (index) return(0)

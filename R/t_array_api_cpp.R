@@ -42,13 +42,13 @@ tabEqual  <- tab_equal_
 #' @rdname array-api
 tabExpand <- tab_expand_  ## Rethink this
 #' @rdname array-api
-tabListMult <- tab_list_mult_
-#' @rdname array-api
-tabListAdd  <- tab_list_add_
-#' @rdname array-api
 tabMult     <- tab_mult_
 #' @rdname array-api
 tabSubt     <- tab_subt_
+#' @rdname array-api
+tabListMult <- tab_list_mult_
+#' @rdname array-api
+tabListAdd  <- tab_list_add_
 
 ## -------------------------
 ## Additional functionality
@@ -56,12 +56,12 @@ tabSubt     <- tab_subt_
 
 .get_perm_or_marg <- function(tab, perm){
     if (inherits(perm, "formula")){  ## A right hand sided formula
-        perm <- all.vars( perm[[2]])
+        perm <- all.vars(perm[[2]])
     }
     
     if (is.character(perm)){ ## Allow for name abbreviation
         vn <- names(dimnames( tab ))
-        p <- pmatch( perm, vn )
+        p <- pmatch(perm, vn)
         perm <- vn[p]
     }
     perm
@@ -108,33 +108,3 @@ tabProd <- function(...){
     else tabListMult( args )
 }
 
-
-
-
-
-
-
-
-
-
-
-
-    ## if (inherits(perm, "formula")){  ## A right hand sided formula
-    ##     perm <- all.vars( perm[[2]])
-    ## }
-
-    ## if (is.character(perm)){ ## Allow for name abbreviation
-    ##     vn <- names(dimnames( tab ))
-    ##     p <- pmatch( perm, vn )
-    ##     perm <- vn[p]
-    ## }
-
-    ## if (inherits(marg, "formula")){ ## A right hand sided formula
-    ##     marg <- all.vars(marg[[2]])
-    ## }
-
-    ## if (is.character(marg)){ ## Allow for name abbreviation
-    ##     vn <- names(dimnames( tab ))
-    ##     p <- pmatch( marg, vn )
-    ##     marg <- vn[p]
-    ## }

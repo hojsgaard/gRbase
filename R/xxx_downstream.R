@@ -20,3 +20,25 @@ tabDiv0__ <- tab_div0_
 tabMarg__ <- tab_marg_
 tabMult__ <- tab_mult_
 tabSubt__ <- tab_subt_
+
+## grain uses topoSort; replace with topo_sort
+topoSort <- function(object, index=FALSE){
+  UseMethod("topoSort")
+}
+
+topoSort.default <- function(object, index=FALSE){
+    topo_sortMAT(as_(object, "dgCMatrix"), index=index)
+}
+
+## grain uses isin; replace with is_inset (remember that arguments
+## must be switched)
+isin <- .isin
+
+## grain uses subsetof; replace with is_subsetof
+subsetof <- function(x, set){
+  all(match(x, set) > 0)
+}
+
+
+
+

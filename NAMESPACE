@@ -4,7 +4,6 @@ useDynLib(gRbase)
 ## ----------------------------
 
 importClassesFrom(graph, graphNEL)
-##importMethodsFrom(graph, plot)
 importFrom(graph, edges, nodes)
 #export("edges")
 #export("nodes")
@@ -45,8 +44,11 @@ export(as.gmData, gModel, gmData, observations, "observations<-",
        "gmData<-", newgmData, validVarTypes, varNames, nLevels,
        valueLabels)
 
+## Generics
+export(fit, compile, propagate, stepwise, compareModels)
+
 ## Graph algorithms
-export(ug, dag, coerceGraph, edgeList, 
+export(ug, ugList, dag, dagList, ug2dag, coerceGraph, edgeList, 
        edgeListMAT, nonEdgeListMAT, nonEdgeList, isGraphical, isDecomposable)
 
 ## Graph algorithms
@@ -55,7 +57,7 @@ export(is.DAG, is.DAGMAT,
        is.DG, is.DGMAT,
        is.TUG, is.TUGMAT,
        get_cliques,       
-
+       
        moralize, moralizeMAT,
        topo_sort, topo_sortMAT,
        mcs, mcsMAT, mcs_marked,
@@ -81,7 +83,7 @@ export(names2pairs, df2xtabs, dimnames_match, parray,
        as.parray, is.named.array, is_named_array_, is_number_vector_,
        simulateArray, cov2pcor, colwiseProd, data2parray,
        rowmat2list, colmat2list, matrix2list, rowSumsPrim,
-       colSumsPrim, as_, iplot
+       colSumsPrim, as_, iplot, rhsf2list
        )
 
 ## Set operations (should perhaps go into a separate package one
@@ -94,12 +96,18 @@ export(all_pairs, all_subsets, all_subsets0, is.subsetof, remove_redundant, is_i
 export(ar_new, ar_normalize, ar_slice, ar_slice_prim, ar_marg,
        ar_expand, ar_perm, ar_equal, ar_align, ar_add, ar_sum,
        ar_prod, ar_subt, ar_mult, ar_div, ar_div0, ar_prod_list,
-       ar_sum_list, ar_dist, ar_slice_mult,
-       ar_slice_entries,
-       cell2entry, entry2cell, next_cell, next_cell_slice, slice2entry,
+       ar_sum_list, ar_dist, ar_slice_mult, ar_slice_entries)
+
+export(tabAdd, tabAlign, tabDiv, tabDiv0, tabEqual, tabExpand,
+       tabMult, tabSubt, tabPerm, tabMarg, tabProd,
+       tabListMult, tabListAdd)
+       
+## Array operations - very low level
+export(cell2entry, entry2cell, next_cell, next_cell_slice, slice2entry,
        perm_cell_entries, fact_grid, cell2entry_perm)
 
-## Array opeartions 
+
+## Array operations 
 export("%a+%")
 export("%a-%")
 export("%a*%")
@@ -109,11 +117,33 @@ export("%a==%")
 export("%a_%")
 export("%a^%")
 
+## Array operations in R (made in Bristol)
+
+export(tablePerm, tableMult, tableDiv, tableOp, tableSlice,
+       tableSlicePrim, tableMargin, tableGetSliceIndex,
+       tableSetSliceValue)
+
+
+## downstream
+export(topoSort)  ## topo_sort
+S3method(topoSort, default)
+
+export(isin)      ## is_inset
+export(tab)       ## newar/ar_new; this is messy
+export(get_superset_)
+export(is_subsetof_)
+export(subsetof)
+export(tabMult__)
+export(tableOp2)
+export(newar)
+
+
+
+
 ## S3method(coerceGraph, dgCMatrix)
 ## S3method(coerceGraph, graphNEL)
 ## S3method(coerceGraph, igraph)
 ## S3method(coerceGraph, matrix)
-
 
 S3method(is.DAG, default)
 S3method(is.DAG, graphNEL)

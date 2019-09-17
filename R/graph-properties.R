@@ -94,7 +94,7 @@ isGraphical.default <- function( x ){
     vn <- unique( unlist(x) )
     amat <- ugList2M(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
-    all(unlist(lapply(cliq, function(sss) isin(x, sss))))
+    all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
 }
 
 #' @rdname graph-gcproperties
@@ -128,7 +128,7 @@ isDecomposable.default <- function( x ){
     vn <- unique( unlist(x) )
     amat <- ugList2M(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
-    isg <- all(unlist(lapply(cliq, function(sss) isin(x, sss))))
+    isg <- all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
     if (isg){
         length( mcsMAT( amat ) ) > 0
     } else
@@ -143,7 +143,7 @@ isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 {
   amat <- ugList2M(glist, vn=vn)
   cliq <- max_cliqueMAT(amat)[[1]]
-  isg  <- all(unlist(lapply(cliq, function(sss) isin(glist, sss))))
+  isg  <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
   if (!isg){
     return(c(isg=FALSE, issd=FALSE))
   } else {
@@ -156,7 +156,7 @@ properties_glist <- function(glist,
                              amat=ugList2M(glist,vn=vn),
                              cliq=max_cliqueMAT(amat)[[1]], discrete=NULL){
 
-  isg <- all(unlist(lapply(cliq, function(sss) isin(glist, sss))))
+  isg <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
   if (!isg){
     return(c(isg=FALSE, issd=FALSE))
   } else {

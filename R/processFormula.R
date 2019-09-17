@@ -63,7 +63,7 @@ processFormula <- function (formula, data, marginal, type = c("Discrete", "Conti
 ##
 ## January 2011
 
-rhsFormula2list <- rhsf2list <- function(f){
+rhsFormula2list <- function(f){
     if ( is.character( f ) ){
         list( f )
     } else {
@@ -85,16 +85,20 @@ rhsFormula2list <- rhsf2list <- function(f){
     }
 }
 
+rhsf2list  <-  rhsFormula2list
 
 
 ## Turn list into right-hand-sided formula
 ##
 ## July 2008
-list2rhsFormula <- list2rhsf <- function(f){
+list2rhsFormula <- function(f){
   if (inherits(f, "formula")) return(f)
   as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')), collapse="+")),
              .GlobalEnv)
 }
+
+
+list2rhsf <- list2rhsFormula
 
 
 selectOrder  <- function(x, order=2){
