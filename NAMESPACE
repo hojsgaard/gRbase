@@ -49,7 +49,8 @@ export(fit, compile, propagate, stepwise, compareModels)
 
 ## Graph algorithms
 export(ug, ugList, dag, dagList, ug2dag, coerceGraph, edgeList, 
-       edgeListMAT, nonEdgeListMAT, nonEdgeList, isGraphical, isDecomposable)
+       edgeListMAT, nonEdgeListMAT, nonEdgeList, isGraphical, isDecomposable,
+       glist2adjMAT)
 
 ## Graph algorithms
 export(is.DAG, is.DAGMAT,
@@ -83,7 +84,9 @@ export(names2pairs, df2xtabs, dimnames_match, parray,
        as.parray, is.named.array, is_named_array_, is_number_vector_,
        simulateArray, cov2pcor, colwiseProd, data2parray,
        rowmat2list, colmat2list, matrix2list, rowSumsPrim,
-       colSumsPrim, as_, iplot, rhsf2list
+       colSumsPrim, as_, iplot, rhsf2list, rhsFormula2list,
+       list2rhsf, as.adjMAT, is.adjMAT,
+       solveSPD
        )
 
 ## Set operations (should perhaps go into a separate package one
@@ -138,10 +141,20 @@ export(tableOp2)
 export(newar)
 export(unlistPrim)
 
+## grim
+export(removeRedundant, isGSD_glist, getCliques, mcsmarked,
+       combnPrim,
+       maxCliqueMAT, intersectPrim, mcsmarkedMAT, setdiffPrim, nextCell,
+       outerPrim, ell, ellK, MAT2ftM_)
+
+
 ## S3method(coerceGraph, dgCMatrix)
 ## S3method(coerceGraph, graphNEL)
 ## S3method(coerceGraph, igraph)
 ## S3method(coerceGraph, matrix)
+
+S3method(isGraphical, default)
+S3method(isDecomposable, default)
 
 S3method(is.DAG, default)
 S3method(is.DAG, graphNEL)
@@ -162,7 +175,6 @@ S3method(vchi, graphNEL)
 S3method(get_cliques, graphNEL)
 S3method(get_cliques, default)
 
-S3method(isGraphical, default)
 S3method(junction_tree, default)
 S3method(mcs, default)
 S3method(mcs_marked, default)
@@ -176,7 +188,6 @@ S3method(rip, default)
 S3method(nLevels, default)
 S3method(plot, ripOrder)
 
-S3method(isDecomposable, default)
 S3method(nonEdgeList, default)
 S3method(edgeList, default)
 

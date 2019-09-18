@@ -8,7 +8,63 @@
 \alias{tabMarg__}
 \alias{tabMult__}
 \alias{tabSubt__}
+\alias{topoSort}
+\alias{topoSort.default}
+\alias{isin}
+\alias{subsetof}
+\alias{unlistPrim}
+\alias{removeRedundant}
+\alias{mcsmarked}
+\alias{getCliques}
+\alias{maxCliqueMAT}
+\alias{combnPrim}
+\alias{mcsmarkedMAT}
+\alias{nextCell}
+\alias{ell}
+\alias{ellK}
 \title{Downstream aliases}
+\usage{
+tabAdd__(tab1, tab2)
+
+tabDiv__(tab1, tab2)
+
+tabDiv0__(tab1, tab2)
+
+tabMarg__(tab, marg)
+
+tabMult__(tab1, tab2)
+
+tabSubt__(tab1, tab2)
+
+topoSort(object, index = FALSE)
+
+\method{topoSort}{default}(object, index = FALSE)
+
+isin(setlist, x, index = FALSE)
+
+subsetof(x, y)
+
+unlistPrim(l)
+
+removeRedundant(setlist, maximal = TRUE, index = FALSE)
+
+mcsmarked(object, discrete = NULL, index = FALSE)
+
+getCliques(object)
+
+maxCliqueMAT(amat)
+
+combnPrim(x, m, simplify = TRUE)
+
+mcsmarkedMAT(amat, vn = colnames(amat), discrete = NULL,
+  index = FALSE)
+
+nextCell(cell, dim)
+
+ell(Sigma, S, n)
+
+ellK(K, S, n)
+}
 \description{
 Downstream aliases for other graphical modelling
     packages.  May change without further notice.

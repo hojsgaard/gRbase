@@ -42,13 +42,13 @@ tabEqual(tab1, tab2, eps = 1e-12)
 
 tabExpand(tab, aux)
 
-tabListMult(lst)
-
-tabListAdd(lst)
-
 tabMult(tab1, tab2)
 
 tabSubt(tab1, tab2)
+
+tabListMult(lst)
+
+tabListAdd(lst)
 
 tabPerm(tab, perm)
 
