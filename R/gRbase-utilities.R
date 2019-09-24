@@ -12,6 +12,49 @@
 #' @param XX_ A matrix.
 #' @param byrow Should the split be by row or by column.
 
+
+## Turn a right-hand-sided formula into a list (anything on the left
+## hand side is ignored)
+##
+## January 2011
+
+#' @rdname gRbase_utilities
+#' @param f Formula specification (a right-hand sided formula, a
+#'     numeric/character vector or a list of vectors).
+rhsFormula2list <- function(f){
+    if (is.character(f)) return(list(f))
+    if (is.numeric(f)) return(lapply(list(f), "as.character"))
+    if (is.list(f)) return(lapply(f, "as.character"))
+
+    .xxx. <- f[[ length( f ) ]]
+    f1 <- unlist(strsplit(paste(deparse(.xxx.), collapse="")," *\\+ *"))
+    f2 <- unlist(lapply(f1, strsplit, " *\\* *| *: *| *\\| *"),
+                 recursive=FALSE)
+    return(f2)
+
+    
+}
+
+#' @rdname gRbase_utilities
+rhsf2list  <-  rhsFormula2list
+
+
+## Turn list into right-hand-sided formula
+##
+## July 2008
+#' @rdname gRbase_utilities
+list2rhsFormula <- function(f){
+  if (inherits(f, "formula")) return(f)
+  as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')), collapse="+")),
+             .GlobalEnv)
+}
+
+#' @rdname gRbase_utilities
+list2rhsf <- list2rhsFormula
+
+
+
+
 #' @rdname gRbase_utilities
 rowmat2list <- rowmat2list__
 
@@ -34,7 +77,7 @@ matrix2list <- function(XX_, byrow=TRUE){
 #'     indices of non-zero entries in matrix \code{XX_}. Notice
 #'     \code{which_matrix_index__} is cpp implementation.
 #' 
-which.arr.ind <- function(XX_){
+which.arr.index <- function(XX_){
   nr  <- nrow(XX_)
   nc  <- ncol(XX_)
   rr <- rep.int(1:nr, nc)

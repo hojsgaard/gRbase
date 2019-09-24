@@ -1,3 +1,8 @@
+#' @name internal
+#' @aliases get_subset_ get_superset_ is_subsetof_ 
+NULL
+
+
 ## #############################################################
 ##
 #' @title Suite of set operations

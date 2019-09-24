@@ -1,15 +1,8 @@
+#' @name internal
+#' @aliases  uniquePrim unlistPrim setdiffPrim intersectPrim outerPrim matchPrim
+#' 
+NULL
 
-#' @rdname internal
-uniquePrim <- function(x){    #OK
-  unique.default(x)
-}
-
-#' @rdname internal
-unlistPrim <- function(l){    #OK
-  unlist(l, use.names=FALSE)
-}
-
-#' @rdname internal
 setdiffPrim <- function (x, y){
     unique.default(
         if (length(x) || length(y))
@@ -18,12 +11,14 @@ setdiffPrim <- function (x, y){
     )
 }
 
-#' @rdname internal
+unlistPrim <- function(x){    #OK
+  unlist(x, use.names=FALSE)
+}
+
 intersectPrim <- function (x, y){
   unique.default(y[match(x, y, 0L)])
 }
 
-#' @rdname internal
 outerPrim <- function(X,Y){
   nX  <- length(X)
   nY  <- length(Y)
@@ -34,7 +29,12 @@ outerPrim <- function(X,Y){
   ans
 }
 
-#' @rdname internal
+
+uniquePrim <- function(x){    #OK
+  unique.default(x)
+}
+
+
 matchPrim<-function(x,table){ # Never used
   match(x, table)
 }

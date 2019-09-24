@@ -2,23 +2,35 @@
 % Please edit documentation in R/gRbase-utilities.R
 \name{gRbase_utilities}
 \alias{gRbase_utilities}
-\alias{rowmat2list}
+\alias{rhsFormula2list}
 \alias{matrix2list}
+\alias{rowmat2list}
 \alias{colmat2list}
-\alias{which.arr.ind}
+\alias{rhsf2list}
+\alias{list2rhsFormula}
+\alias{list2rhsf}
+\alias{which.arr.index}
 \alias{which_matrix_index}
 \alias{rowSumsPrim}
 \alias{colSumsPrim}
 \alias{colwiseProd}
 \title{gRbase utilities}
 \usage{
+rhsFormula2list(f)
+
+rhsf2list(f)
+
+list2rhsFormula(f)
+
+list2rhsf(f)
+
 rowmat2list(XX_)
 
 colmat2list(XX_)
 
 matrix2list(XX_, byrow = TRUE)
 
-which.arr.ind(XX_)
+which.arr.index(XX_)
 
 which_matrix_index(XX_)
 
@@ -29,6 +41,9 @@ colSumsPrim(XX_)
 colwiseProd(v, M)
 }
 \arguments{
+\item{f}{Formula specification (a right-hand sided formula, a
+numeric/character vector or a list of vectors).}
+
 \item{XX_}{A matrix.}
 
 \item{byrow}{Should the split be by row or by column.}

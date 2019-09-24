@@ -6,7 +6,6 @@ processFormula <- function (formula, data, marginal, type = c("Discrete", "Conti
     }
     used.var <- get.var.of.type(type)
 
-
     if (!inherits(formula, "formula")) {
       formula <- list2rhsFormula(formula)
     }
@@ -53,59 +52,17 @@ processFormula <- function (formula, data, marginal, type = c("Discrete", "Conti
         charmatch(l, used.var)
     })
 
-    value <- list(formula = formula, str.formula = str.formula, num.formula = num.formula,
+    value <- list(formula = formula, str.formula = str.formula,
+                  num.formula = num.formula,
         list.formula = list.formula, gmData = data, varnames = used.var)
     value
 }
 
 
-## Turn a right-hand-sided formula into a list (anything on the left hand side is ignored)
-##
-## January 2011
-
-rhsFormula2list <- function(f){
-    if ( is.character( f ) ){
-        list( f )
-    } else {
-        if ( is.numeric( f ) ){
-            lapply( list( f ), "as.character" )
-        } else {
-            if ( is.list( f ) ){
-                lapply(f, "as.character")
-            } else {
-                ## We assume a formula...
-                ## FIXME: Was:   ##.xxx. <- f[[2]]
-                ## Changed to
-                .xxx. <- f[[ length( f ) ]]
-                f1 <- unlist(strsplit(paste(deparse(.xxx.), collapse="")," *\\+ *"))
-                f2 <- unlist(lapply(f1, strsplit, " *\\* *| *: *| *\\| *"),recursive=FALSE)
-                f2
-            }
-        }
-    }
-}
-
-rhsf2list  <-  rhsFormula2list
-
-
-## Turn list into right-hand-sided formula
-##
-## July 2008
-list2rhsFormula <- function(f){
-  if (inherits(f, "formula")) return(f)
-  as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')), collapse="+")),
-             .GlobalEnv)
-}
-
-
-list2rhsf <- list2rhsFormula
 
 
 selectOrder  <- function(x, order=2){
     combn_prim(x, order, simplify=FALSE)
-  ## v <- all_subsets(x) 
-  ## value <- v[lapply(v, length) == as.numeric(order)]
-  ## return(value)
 }
 
 extract.power<-function(fff){

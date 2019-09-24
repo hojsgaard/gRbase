@@ -73,26 +73,26 @@ export(is.DAG, is.DAGMAT,
 
 ## Graph properties (used directly or in connection with querygraph/qgraph)
 export(querygraph, qgraph, ancestors, ancestralGraph, ancestralSet,
-       children, closure, is.complete, is.decomposition, parents, 
+       children, closure, is.complete, is.decomposition, parents,
        is.simplicial, simplicialNodes)
 
 ## Graph coercions. Ugly, but I needed a handle on generator lists
 export(graphNEL2M, M2graphNEL, M2adjList, M2ugList, M2dagList,
-       ugList2M, dagList2M, M2dgCMatrix, M2matrix, M2igraph, glist2setMAT)
+       ugList2M, dagList2M, M2dgCMatrix, M2matrix, M2igraph,
+       glist2setMAT)
 
-export(names2pairs, df2xtabs, dimnames_match, parray,
-       as.parray, is.named.array, is_named_array_, is_number_vector_,
-       simulateArray, cov2pcor, colwiseProd, data2parray,
-       rowmat2list, colmat2list, matrix2list, rowSumsPrim,
-       colSumsPrim, as_, iplot, rhsf2list, rhsFormula2list,
-       list2rhsf, as.adjMAT, is.adjMAT,
-       solveSPD
-       )
+export(names2pairs, df2xtabs, dimnames_match, parray, as.parray,
+       is.named.array, is_named_array_, is_number_vector_,
+       simulateArray, cov2pcor, colwiseProd, data2parray, rowmat2list,
+       colmat2list, matrix2list, rowSumsPrim, colSumsPrim, as_, iplot,
+       rhsf2list, rhsFormula2list, list2rhsf, as.adjMAT, is.adjMAT,
+       solveSPD, which_matrix_index, which.arr.index)
 
 ## Set operations (should perhaps go into a separate package one
 ## day)
-export(all_pairs, all_subsets, all_subsets0, is.subsetof, remove_redundant, is_inset,
-       maximal_sets, minimal_sets, get_subset, get_superset, is_subsetof, combn_prim)
+export(all_pairs, all_subsets, all_subsets0, is.subsetof,
+       remove_redundant, is_inset, maximal_sets, minimal_sets,
+       get_subset, get_superset, is_subsetof, combn_prim)
 
 ## Array operations (should perhaps go into a separate package one
 ## day)
@@ -102,12 +102,12 @@ export(ar_new, ar_normalize, ar_slice, ar_slice_prim, ar_marg,
        ar_sum_list, ar_dist, ar_slice_mult, ar_slice_entries)
 
 export(tabAdd, tabAlign, tabDiv, tabDiv0, tabEqual, tabExpand,
-       tabMult, tabSubt, tabPerm, tabMarg, tabProd,
-       tabListMult, tabListAdd)
+       tabMult, tabSubt, tabPerm, tabMarg, tabProd, tabListMult,
+       tabListAdd)
        
 ## Array operations - very low level
-export(cell2entry, entry2cell, next_cell, next_cell_slice, slice2entry,
-       perm_cell_entries, fact_grid, cell2entry_perm)
+export(cell2entry, entry2cell, next_cell, next_cell_slice,
+       slice2entry, perm_cell_entries, fact_grid, cell2entry_perm)
 
 
 ## Array operations 
