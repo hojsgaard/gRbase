@@ -10,9 +10,12 @@
 \alias{tabSubt__}
 \alias{topoSort}
 \alias{topoSort.default}
+\alias{topoSortMAT}
 \alias{subsetof}
 \alias{removeRedundant}
 \alias{mcsmarked}
+\alias{jTree}
+\alias{jTree.default}
 \alias{getCliques}
 \alias{maxCliqueMAT}
 \alias{combnPrim}

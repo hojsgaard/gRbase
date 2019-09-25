@@ -86,7 +86,9 @@ export(names2pairs, df2xtabs, dimnames_match, parray, as.parray,
        simulateArray, cov2pcor, colwiseProd, data2parray, rowmat2list,
        colmat2list, matrix2list, rowSumsPrim, colSumsPrim, as_, iplot,
        rhsf2list, rhsFormula2list, list2rhsf, as.adjMAT, is.adjMAT,
-       solveSPD, which_matrix_index, which.arr.index)
+       solveSPD, which_matrix_index, which.arr.index
+       )
+
 
 ## Set operations (should perhaps go into a separate package one
 ## day)
@@ -140,6 +142,18 @@ export(tabMult__)
 export(tableOp2)
 export(newar)
 export(unlistPrim)
+
+## The prim functions... uniquePrim is used in gRc
+export(uniquePrim)
+
+
+export(topoSortMAT) ## Used by mcmcabn
+
+export(jTree)       ## Used by rags2ridges
+S3method(jTree, default)
+
+
+
 
 ## grim
 export(removeRedundant, isGSD_glist, getCliques, mcsmarked,

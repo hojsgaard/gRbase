@@ -4,7 +4,8 @@
 #'     packages.  May change without further notice.
 #' 
 #' @aliases tabAdd__ tabDiv__ tabDiv0__ tabMarg__ tabMult__ tabSubt__
-#'     topoSort topoSort.default subsetof removeRedundant mcsmarked
+#'     topoSort topoSort.default topoSortMAT subsetof removeRedundant mcsmarked
+#'     jTree jTree.default
 #'     getCliques maxCliqueMAT combnPrim mcsmarkedMAT nextCell ell ellK isin
 #' 
 #' @name downstream-aliases
@@ -34,8 +35,30 @@ topoSort.default <- function(object, index=FALSE){
     topo_sortMAT(as_(object, "dgCMatrix"), index=index)
 }
 
+## Used by mcmcabn
+topoSortMAT <- topo_sortMAT
+
 ## grain uses isin; replace with is_inset (remember that arguments
 ## must be switched)
+
+
+## Used by rags2ridges
+jTree <- function(object, ...){
+  UseMethod("jTree")
+}
+
+jTree.default <-  function(object, nLevels = NULL, ...){
+    cls <- match.arg(class( object ),
+                     c("graphNEL","igraph","matrix","dgCMatrix"))
+
+    switch(cls,
+           "graphNEL" ={junction_treeMAT(gn2sm_(object), nLevels=nLevels, ... )},
+           "igraph"   ={junction_treeMAT(ig2sm_(object), nLevels=nLevels, ... )},
+           "dgCMatrix"=,
+           "matrix"   ={junction_treeMAT(object, nLevels=nLevels, ...)})
+}
+
+
 
 
 isin <- .isin
