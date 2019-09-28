@@ -11,6 +11,7 @@ importFrom(graph, edges, nodes)
 ##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
 
 importMethodsFrom(Rgraphviz, plot)
+exportMethods(plot) ## IS THIS OK FOR CRAN????
 
 ## CRAN imports/exports
 ## --------------------
