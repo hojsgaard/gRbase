@@ -1,3 +1,5 @@
+## FIXME Replace tab with tab_new or tabNew ???
+
 ## ##################################################################
 ##
 #' @title Create multidimensional arrays
@@ -66,6 +68,8 @@
 #' t3
 NULL
 
+
+
 tab <- function(names, levels, values, normalize="none", smooth=0){
     normalize <- match.arg(normalize, choices=c("none","first","all"))
     names <- rhsFormula2list(names)[[1]]
@@ -123,8 +127,8 @@ tab <- function(names, levels, values, normalize="none", smooth=0){
 
 
 ## FIXME newar() is used in gRain. Next gRain version will use tab() in stead of newar(), and then it can go from here
-#' @rdname array-create
-newar <- tab
+## #' @rdname array-create
+## newar <- tab
 
 #' @rdname array-create
 ar_new <- tab

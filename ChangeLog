@@ -1,6 +1,8 @@
 2019-09-25 Søren Højsgaard <sorenh@math.aau.dk>
 
-	
+	* Rgraphviz needs no longer be loaded to plot a graph
+
+	* Version 1.8-4.6 uploaded	
 
 2019-09-25 Søren Højsgaard <sorenh@math.aau.dk>
 

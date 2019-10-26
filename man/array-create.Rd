@@ -3,12 +3,9 @@
 \name{array-create}
 \alias{array-create}
 \alias{tab}
-\alias{newar}
 \alias{ar_new}
 \title{Create multidimensional arrays}
 \usage{
-newar(names, levels, values, normalize = "none", smooth = 0)
-
 ar_new(names, levels, values, normalize = "none", smooth = 0)
 }
 \arguments{
