@@ -1,9 +1,10 @@
 ## #########################################################################
+##
 #' @title Table cell operations.
-#'
 #' @description Low level table cell operations.
-#'
 #' @name array-cell
+##
+## #########################################################################
 #'
 #' @param cell Vector giving the cell, e.g. c(1, 1, 2) in 3-way table.
 #' @param dim Vector giving array dimension, eg c(2, 2, 2).
@@ -37,23 +38,33 @@
 #' ## the entry becomes
 #' cell2entry_perm(c(2, 2, 1), dim=di, perm=c(3, 1, 2))
 
+
+
 ## --------------------------
 ## Aliases for cpp functions
 ## --------------------------
+
 #' @rdname array-cell
 cell2entry    <- cell2entry_
+
 #' @rdname array-cell
 entry2cell    <- entry2cell_
+
 #' @rdname array-cell
 next_cell      <- next_cell_
+
 #' @rdname array-cell
 next_cell_slice <- next_cell_slice_
+
 #' @rdname array-cell
 slice2entry   <- slice2entry_
+
 ##' @rdname array-cell
 cell2entry_perm <- cell2entry_perm_
+
 #' @rdname array-cell
 perm_cell_entries <- perm_cell_entries_
+
 ## --- END ---
 
 ## -------------------------

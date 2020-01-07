@@ -404,27 +404,6 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
-    inline IntegerVector make_plevels_(const IntegerVector& dim) {
-        typedef SEXP(*Ptr_make_plevels_)(SEXP);
-        static Ptr_make_plevels_ p_make_plevels_ = NULL;
-        if (p_make_plevels_ == NULL) {
-            validateSignature("IntegerVector(*make_plevels_)(const IntegerVector&)");
-            p_make_plevels_ = (Ptr_make_plevels_)R_GetCCallable("gRbase", "_gRbase_make_plevels_");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_make_plevels_(Shield<SEXP>(Rcpp::wrap(dim)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<IntegerVector >(rcpp_result_gen);
-    }
-
     inline int cell2entry_(const NumericVector& cell, const IntegerVector& dim) {
         typedef SEXP(*Ptr_cell2entry_)(SEXP,SEXP);
         static Ptr_cell2entry_ p_cell2entry_ = NULL;
@@ -444,6 +423,27 @@ namespace gRbase {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<int >(rcpp_result_gen);
+    }
+
+    inline IntegerVector make_plevels_(const IntegerVector& dim) {
+        typedef SEXP(*Ptr_make_plevels_)(SEXP);
+        static Ptr_make_plevels_ p_make_plevels_ = NULL;
+        if (p_make_plevels_ == NULL) {
+            validateSignature("IntegerVector(*make_plevels_)(const IntegerVector&)");
+            p_make_plevels_ = (Ptr_make_plevels_)R_GetCCallable("gRbase", "_gRbase_make_plevels_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_make_plevels_(Shield<SEXP>(Rcpp::wrap(dim)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<IntegerVector >(rcpp_result_gen);
     }
 
     inline IntegerVector entry2cell_(const int& entry, const IntegerVector& dim) {

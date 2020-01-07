@@ -51,21 +51,25 @@ moralize <- function(object,...){
 #' @rdname graph-moralize
 moralize.default <- function(object, result=NULL, ...)
 {
-    cls <- match.arg(class( object ),
-                     c("graphNEL", "matrix", "dgCMatrix", "igraph"))
-    if (is.null( result ))
-        result <- cls
 
+    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    chk <- inherits(object, graph_class, which=TRUE)
+    if (!any(chk)) stop("Invalid class of 'object'\n")
+    cls <- graph_class[which(chk > 0)]
+    
+    if (is.null(result))
+        result <- cls
+    
     switch(cls,
            "graphNEL" ={
-               m <- gn2sm_(object) ## FIXME check this graphNEL2M( object )
-               if ( !is.DAGMAT( m ) )
+               m <- as(object, "matrix") ## FIXME check this graphNEL2M( object )
+               if (!is_dagMAT(m))
                    stop("Graph must be directed")
-               m <- moralizeMAT( m )
+               m <- moralizeMAT(m)
            },
            "dgCMatrix"=,
            "matrix"   ={
-               if ( !is.DAGMAT( object ) )
+               if (!is_dagMAT(object))
                    stop("Graph must be directed")
                m <- moralizeMAT(object)
            },
@@ -76,7 +80,7 @@ moralize.default <- function(object, result=NULL, ...)
                    igraph::V(object)$name <- igraph::V(object)
                m <- moralizeMAT(igraph::get.adjacency(object))
            })
-    coerceGraph(m, result)
+    as(m, result)
 }
 
 

@@ -1,22 +1,35 @@
 #' @title Downstream aliases
 #'
 #' @description Downstream aliases for other graphical modelling
-#'     packages.  May change without further notice.
+#'     packages.  Will be deprecated in due course. 
 #' 
 #' @aliases tabAdd__ tabDiv__ tabDiv0__ tabMarg__ tabMult__ tabSubt__
 #'     topoSort topoSort.default topoSortMAT subsetof removeRedundant
 #'     mcsmarked jTree jTree.default getCliques maxCliqueMAT combnPrim
 #'     mcsmarkedMAT nextCell ell ellK isin
+#'     is.TUG is.DAG
+#'     graphNEL2adjMAT
+#'     glist2adjMAT
+#'     is_subsetof_ get_superset_ get_subset_
+#'     is.UG is.DG
+#'     graphNEL2M M2graphNEL
 #' 
 #' @name downstream-aliases
 #' 
 NULL
 
+## NOTE to self: is_subsetof_ get_superset_ get_subset_ are pure cpp
+## functions; perhaps let them live as an api thing
+
+
+
 ## FIXME I c-koden er der defineret tabMarg__, tabDiv0__, tabMult__ og
 ## FIXME der står at dette er af hensyn til gRain. Skal ryddes op.
 
-## for gRain compatibility FIXME REMOVE LATER
+## --- Used by gRain ---
+## ---------------------
 
+## for gRain compatibility: FIXME REMOVE LATER
 tabAdd__  <- tab_add_
 tabDiv__  <- tab_div_
 tabDiv0__ <- tab_div0_
@@ -24,20 +37,18 @@ tabMarg__ <- tab_marg_
 tabMult__ <- tab_mult_
 tabSubt__ <- tab_subt_
 
-
-## grain uses topoSort; replace with topo_sort
+## grain uses topoSort;
+## FIXME: replace with topo_sort
 topoSort <- function(object, index=FALSE){
   UseMethod("topoSort")
 }
 
 topoSort.default <- function(object, index=FALSE){
-    topo_sortMAT(as_(object, "dgCMatrix"), index=index)
+    topo_sortMAT(as(object, "dgCMatrix"), index=index)
 }
 
-
-
-## --- gRain ---
-## grain uses isin; replace with is_inset (remember that arguments
+## grain uses isin;
+## FIXME: replace with is_inset (remember that arguments
 ## must be switched)
 
 isin <- .isin ## potentialList.R
@@ -50,19 +61,30 @@ subsetof <- function(x, y){
   all(match(x,y,0)>0)
 }
 
+## grain uses these;
+## FIXME: replace
+is.TUG <- is_tug
+is.DAG <- is_dag
 
-## --- gRim ---
+
+is.DG  <- is_dg
+is.UG  <- is_ug
+
+## --- Used by gRim ---
+## --------------------
+
+## Used by gRim; maybe also in book
+glist2adjMAT <- ugl2M_
 
 removeRedundant  <- remove_redundant
-## uses glist2adjMAT; see graph-coerce-list.R
+## FIXME: Replace
 
-mcsmarked  <- mcs_marked
-getCliques <- get_cliques
+mcsmarked     <- mcs_marked
+getCliques    <- get_cliques
 maxCliqueMAT  <- max_cliqueMAT
-combnPrim <- combn_prim
+combnPrim     <- combn_prim
 mcsmarkedMAT  <- mcs_markedMAT
-nextCell <- next_cell
-
+nextCell      <- next_cell
 
 ell <- function(Sigma, S, n){
 
@@ -74,7 +96,6 @@ ell <- function(Sigma, S, n){
     const - n/2 * log(shdet(Sigma)) - n/2 * sum(diag( solve(Sigma) %*% S )) 
 }
 
-
 ellK <- function (K, S, n)
 {
     value <- (n/2) * (log(det(K)) - sum(rowSums(K * S)))
@@ -82,29 +103,39 @@ ellK <- function (K, S, n)
 }
 
 
+## --- Used by mcmcabn ---
+## -----------------------
 
-## --- mcmcabn ---
-## Used by mcmcabn
+## FIXME: Request replacement
 topoSortMAT <- topo_sortMAT
 
 
-## --- rags2ridges ---
-## Used by rags2ridges
+## --- Used by rags2ridges ---
+## ---------------------------
+## FIXME: Request replacement
 jTree <- function(object, ...){
   UseMethod("jTree")
 }
 
-jTree.default <-  function(object, nLevels = NULL, ...){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","igraph","matrix","dgCMatrix"))
-
-    switch(cls,
-           "graphNEL" ={junction_treeMAT(gn2sm_(object), nLevels=nLevels, ... )},
-           "igraph"   ={junction_treeMAT(ig2sm_(object), nLevels=nLevels, ... )},
-           "dgCMatrix"=,
-           "matrix"   ={junction_treeMAT(object, nLevels=nLevels, ...)})
-}
+jTree.default  <- junction_tree.default
 
 
+
+## --- Used by HydeNet ---
+## -----------------------
+## FIXME request replacement
+##graphNEL2adjMAT <- graphNEL2M
+graphNEL2adjMAT <- gn2xm_
+
+
+
+
+## --- Used by simPATHy ---
+## --------------------
+
+is.DG  <- is_dg
+is.UG  <- is_ug
+graphNEL2M <- gn2xm_
+M2graphNEL <- xm2gn_
 
 

@@ -15,12 +15,11 @@
 #' 
 #' @name graph-create
 #' 
-#' @aliases ug dag ugList dagList ugList2matrix ugList2dgCMatrix dagList2matrix
-#'     dagList2dgCMatrix
 #' @param \dots A generating class for a graph, see examples below
 #' @param forceCheck Logical determining if it should be checked if the graph is
 #'     acyclical. Yes, one can specify graphs with cycles using the \code{dag()}
 #'     function.
+#' @param x A list or individual components from which a graph can be created.
 #' @param result The format of the graph. The possible choices are "graphNEL"
 #'     (for a graphNEL object), "matrix" (for an adjacency matrix), "dgCMatrix"
 #'     (for a sparse matrix), "igraph" (for an igraph object).
@@ -48,6 +47,7 @@
 #' 
 #' ## dag() allows to specify directed graphs with cycles:
 #' daG4 <- dag(~ a:b + b:c + c:a) # A directed graph but with cycles
+#' 
 #' ## A check for acyclicity can be done with
 #' ## daG5 <- dag(~ a:b + b:c + c:a, forceCheck=TRUE) 
 #' 
@@ -63,7 +63,8 @@
 #' uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix
 #' uG9
 #' 
-#' @export ug
+
+#' @rdname graph-create
 ug <- function(..., result="graphNEL"){
   ugList(list(...), result=result)
 }
@@ -73,6 +74,7 @@ ug <- function(..., result="graphNEL"){
     if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
 }
 
+#' @rdname graph-create
 ugList <- function(x, result="graphNEL"){
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
     .spam.result(result)
@@ -88,7 +90,6 @@ ugList <- function(x, result="graphNEL"){
 }
 
     
-
 ###########################
 ## Directed acyclic graphs
 ###########################
@@ -98,6 +99,7 @@ dag <- function(..., result="graphNEL", forceCheck=FALSE){
   dagList(list(...), result=result, forceCheck=forceCheck)
 }
 
+#' @rdname graph-create
 dagList <- function(x, result="graphNEL", forceCheck=FALSE){
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
     .spam.result(result)
@@ -106,10 +108,10 @@ dagList <- function(x, result="graphNEL", forceCheck=FALSE){
     vn  <- unique.default(unlist(x))
 
     out <- switch(result,
-                  "graphNEL"  = {dgl2gn_(x, vn)},
-                  "dgCMatrix" = {dgl2sm_(x, vn)},
-                  "matrix"    = {dgl2dm_(x, vn)},
-                  "igraph"    = {dgl2ig_(x, vn)}
+                  "graphNEL"  = {dagl2gn_(x, vn)},
+                  "dgCMatrix" = {dagl2sm_(x, vn)},
+                  "matrix"    = {dagl2dm_(x, vn)},
+                  "igraph"    = {dagl2ig_(x, vn)}
                   )
 
     if (forceCheck){

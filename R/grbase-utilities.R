@@ -9,30 +9,26 @@
 ## ###################################################################
 #'
 #' @aliases matrix2list rowmat2list colmat2list
-#' @param XX_ A matrix.
+#' @param X A matrix.
 #' @param byrow Should the split be by row or by column.
-
+#' @param form Formula specification (a right-hand sided formula, a
+#'     numeric/character vector or a list of vectors).
 
 ## Turn a right-hand-sided formula into a list (anything on the left
 ## hand side is ignored)
-##
-## January 2011
 
 #' @rdname gRbase_utilities
-#' @param f Formula specification (a right-hand sided formula, a
-#'     numeric/character vector or a list of vectors).
-rhsFormula2list <- function(f){
-    if (is.character(f)) return(list(f))
-    if (is.numeric(f)) return(lapply(list(f), "as.character"))
-    if (is.list(f)) return(lapply(f, "as.character"))
 
-    .xxx. <- f[[ length( f ) ]]
-    f1 <- unlist(strsplit(paste(deparse(.xxx.), collapse="")," *\\+ *"))
-    f2 <- unlist(lapply(f1, strsplit, " *\\* *| *: *| *\\| *"),
+rhsFormula2list <- function(form){
+    if (is.character(form)) return(list(form))
+    if (is.numeric(form)) return(lapply(list(form), "as.character"))
+    if (is.list(form)) return(lapply(form, "as.character"))
+
+    .xxx. <- form[[ length( form ) ]]
+    form1 <- unlist(strsplit(paste(deparse(.xxx.), collapse="")," *\\+ *"))
+    form2 <- unlist(lapply(form1, strsplit, " *\\* *| *: *| *\\| *"),
                  recursive=FALSE)
-    return(f2)
-
-    
+    return(form2)
 }
 
 #' @rdname gRbase_utilities
@@ -43,17 +39,14 @@ rhsf2list  <-  rhsFormula2list
 ##
 ## July 2008
 #' @rdname gRbase_utilities
-list2rhsFormula <- function(f){
-  if (inherits(f, "formula")) return(f)
-  as.formula(paste("~",paste(unlist(lapply(f,paste, collapse='*')), collapse="+")),
+list2rhsFormula <- function(form){
+  if (inherits(form, "formula")) return(form)
+  as.formula(paste("~",paste(unlist(lapply(form,paste, collapse='*')), collapse="+")),
              .GlobalEnv)
 }
 
 #' @rdname gRbase_utilities
 list2rhsf <- list2rhsFormula
-
-
-
 
 #' @rdname gRbase_utilities
 rowmat2list <- rowmat2list__
@@ -62,9 +55,9 @@ rowmat2list <- rowmat2list__
 colmat2list <- colmat2list__
 
 #' @rdname gRbase_utilities
-matrix2list <- function(XX_, byrow=TRUE){
-  if (byrow) rowmat2list__(XX_) # cpp implementation
-  else colmat2list__(XX_) # cpp implementation
+matrix2list <- function(X, byrow=TRUE){
+  if (byrow) rowmat2list__(X) # cpp implementation
+  else colmat2list__(X) # cpp implementation
 }
 
 ## FIXME: which.arr.ind: Fails on sparse matrices!!
@@ -74,15 +67,17 @@ matrix2list <- function(XX_, byrow=TRUE){
 #' @rdname gRbase_utilities
 #' 
 #' @details \code{which.arr.ind}: Returns matrix n x 2 matrix with
-#'     indices of non-zero entries in matrix \code{XX_}. Notice
+#'     indices of non-zero entries in matrix \code{X}. Notice
 #'     \code{which_matrix_index__} is cpp implementation.
+#'
+#'
 #' 
-which.arr.index <- function(XX_){
-  nr  <- nrow(XX_)
-  nc  <- ncol(XX_)
+which.arr.index <- function(X){
+  nr  <- nrow(X)
+  nc  <- ncol(X)
   rr <- rep.int(1:nr, nc)
   cc <- rep(1:nc, each=nr)
-  cbind(rr[XX_!=0L], cc[XX_!=0L])
+  cbind(rr[X!=0L], cc[X!=0L])
 }
 
 #' @rdname gRbase_utilities
@@ -90,34 +85,34 @@ which_matrix_index <- which_matrix_index__
 
 
 #' @rdname gRbase_utilities
-rowSumsPrim <- function(XX_){
-    .Call("R_rowSums", XX_, PACKAGE="gRbase")}
+rowSumsPrim <- function(X){
+    .Call("R_rowSums", X, PACKAGE="gRbase")}
 
 #' @rdname gRbase_utilities
-colSumsPrim <- function(XX_){
-    .Call("R_colSums", XX_, PACKAGE="gRbase")}
+colSumsPrim <- function(X){
+    .Call("R_colSums", X, PACKAGE="gRbase")}
           
 #' @rdname gRbase_utilities
 #' @param v A vector.
-#' @param M A matrix.
-#' @details \code{colwiseProd}: multiplies a vector v and a matrix M
+#' @param X A matrix.
+#' @details \code{colwiseProd}: multiplies a vector v and a matrix X
 #'     columnwise (as opposed to rowwise which is achieved by
-#'     \code{v * M}). Hence \code{colwiseProd} does the same as
-#'     \code{t(v * t(M))} - but it does so faster for numeric values.
+#'     \code{v * X}). Hence \code{colwiseProd} does the same as
+#'     \code{t(v * t(X))} - but it does so faster for numeric values.
 #'
 #' @examples
 #' ## colwiseProd
-#' M <- matrix(1:16, nrow=4)
+#' X <- matrix(1:16, nrow=4)
 #' v <- 1:4
-#' t(v * t(M))
-#' colwiseProd(v, M)
+#' t(v * t(X))
+#' colwiseProd(v, X)
 #' \dontrun{
-#' system.time(for (ii in 1:100000)  t(v * t(M)))
-#' system.time(for (ii in 1:100000)  colwiseProd(v, M))
+#' system.time(for (ii in 1:100000)  t(v * t(X)))
+#' system.time(for (ii in 1:100000)  colwiseProd(v, X))
 #' }
 #' 
-colwiseProd <- function(v, M){
-    .Call("R_colwiseProd", v, M, PACKAGE="gRbase")}
+colwiseProd <- function(v, X){
+    .Call("R_colwiseProd", v, X, PACKAGE="gRbase")}
 
 
 ## .dgCMatrix <- function(data=NA, nrow=1, ncol=1, byrow=FALSE, dimnames=NULL,

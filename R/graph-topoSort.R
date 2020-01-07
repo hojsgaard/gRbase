@@ -55,9 +55,7 @@ topo_sort <- function(object, index=FALSE){
 
 #' @rdname graph-toposort
 topo_sort.default <- function(object, index=FALSE){
-    ## cls <- match.arg(class( object ),
-    ##                  c("graphNEL", "igraph", "matrix", "dgCMatrix"))
-    topo_sortMAT(as_(object, "dgCMatrix"), index=index)
+    topo_sortMAT(as(object, "dgCMatrix"), index=index)
 }
 
 
@@ -78,7 +76,7 @@ topo_sortMAT <- function(amat, index=FALSE){
 topo_sort_vparList<- function(glist){
     ##topo_sort(vpaList2adjMAT(vpaL, result="Matrix"))
     ##topo_sort(dagList2M(glist, result="dgCMatrix"))
-    topo_sortMAT(dgl2sm_(glist))
+    topo_sortMAT(dagl2sm_(glist))
 }
 
 

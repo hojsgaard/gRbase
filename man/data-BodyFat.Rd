@@ -30,6 +30,8 @@ For more information see
 }
 \usage{
 data(BodyFat)
+
+data(BodyFat)
 }
 \description{
 Estimates of the percentage of body fat determined by underwater weighing

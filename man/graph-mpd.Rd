@@ -9,26 +9,28 @@
 \usage{
 mpd(object, tobject = minimal_triang(object), details = 0)
 
-\method{mpd}{default}(object, tobject = triangulate(object),
-  details = 0)
+\method{mpd}{default}(object, tobject = triangulate(object), details = 0)
 
 mpdMAT(amat, tamat = minimal_triangMAT(amat), details = 0)
 }
 \arguments{
-\item{object}{An undirected graph; a graphNEL object}
+\item{object}{An undirected graph; a graphNEL object, an igraph or
+an adjacency matrix.}
 
-\item{tobject}{Any minimal triangulation of object; a graphNEL object}
+\item{tobject}{Any minimal triangulation of object; a graphNEL
+object, an igraph or an adjacency matrix.}
 
 \item{details}{The amount of details to be printed.}
 
 \item{amat}{An undirected graph; a symmetric adjacency matrix}
 
-\item{tamat}{Any minimal triangulation of object; a symmetric adjacency
-matrix}
+\item{tamat}{Any minimal triangulation of object; a symmetric
+adjacency matrix}
 }
 \value{
-A list with components "nodes", "cliques", "separators", "parents",
-    "children", "nLevels". The component "cliques" defines the subgraphs.
+A list with components "nodes", "cliques", "separators",
+    "parents", "children", "nLevels". The component "cliques"
+    defines the subgraphs.
 }
 \description{
 Finding a junction tree representation of the MPD

@@ -20,8 +20,8 @@ using namespace Rcpp;
    
    ************************************************* */
 
-//' @name internal
-//' @aliases is_subsetof__ get_superset__ get_subset__
+// //' @name internal_grbase_cpp
+// //' @aliases is_subsetof__ get_superset__ get_subset__
 
 IntegerVector get_superset_one_(CharacterVector x, List setlist){
   bool outb=false;
@@ -105,6 +105,7 @@ IntegerVector get_subset_all_(CharacterVector x, List setlist){
 }
 
 // get_superset_ is used in gRain
+
 //[[Rcpp::export]]
 IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false)
 {
@@ -121,6 +122,7 @@ IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false)
 
 
 // is_subsetof_ is used in gRain
+
 //[[Rcpp::export]]
 bool is_subsetof_(CharacterVector set, CharacterVector set2)
 {
@@ -273,8 +275,8 @@ CharacterMatrix sortmat_(CharacterMatrix X){
   return X2;
 }
 
-//' @name internal
-//' @aliases all_pairs__
+// //' @name internal_grbase_cpp
+// //' @aliases all_pairs__
 
 //[[Rcpp::export]]
 SEXP all_pairs__(CharacterVector x,

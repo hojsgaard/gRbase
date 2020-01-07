@@ -10,38 +10,38 @@
 #'     functions which invoke particular methods which depend on the
 #'     class of the first argument
 #'
-#' @name gRbase-generics
+#' @name grbase_generics
 #' 
 #' @aliases compile propagate
 #' @param object An object
 #' @param \dots Additional arguments which depends on the class of the object
 #' @return The value returned depends on the class of the first argument.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @seealso \code{\link[gRain]{compile.grain}},
-#'     \code{\link[gRain]{propagate.grain}}
+## #' @seealso \code{\link[gRain]{compile.grain}},
+## #'     \code{\link[gRain]{propagate.grain}}
 #' @references Højsgaard, Søren; Edwards, David; Lauritzen, Steffen (2012):
 #'     Graphical Models with R, Springer
 #' @keywords utilities
 
-#' @rdname gRbase-generics
+#' @rdname grbase_generics
 fit <- function(object, ...)
 {
   UseMethod("fit")
 }
 
-#' @rdname gRbase-generics
+#' @rdname grbase_generics
 compile <- function (object, ...)
 {
     UseMethod("compile")
 }
 
-#' @rdname gRbase-generics
+#' @rdname grbase_generics
 propagate <- function (object, ...)
 {
     UseMethod("propagate")
 }
 
-#' @rdname gRbase-generics
+#' @rdname grbase_generics
 stepwise <- function(object,...){
     UseMethod("stepwise")
 }

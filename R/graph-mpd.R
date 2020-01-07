@@ -7,19 +7,24 @@
 ## R function returning a junction tree representation of the MPD of an undirected graph
 ## Author: Clive Bowsher
 
-# Inputs:
-# uG: graphNEL representation of the undirected graph
+## Inputs:
+## uG: graphNEL representation of the undirected graph
 
-# Output: returns a junction tree representation of the MPD of uG using the Recursive Thinning and Aggregate Cliques
-#         algorithms of Olesen & Madsen 2002. Names(MPDTree[[r]]) retains the original clique numbers from the RIP
-#         ordering of cliques of the minimal triangulated graph returned by rip(TuG) below (for r=2,3,4)
+## Output: returns a junction tree representation of the MPD of uG
+##         using the Recursive Thinning and Aggregate Cliques
+##         algorithms of Olesen & Madsen 2002. Names(MPDTree[[r]])
+##         retains the original clique numbers from the RIP ordering
+##         of cliques of the minimal triangulated graph returned by
+##         rip(TuG) below (for r=2,3,4)
 
-# date: 23.03.09
-# checked: using the DAG of Figs 2(Asia) & 9 of Olesen & Madsen 2002, Fig1s and Fig2 of Leimer93 (CGB 09.03.09).
-# 		   also using the known MPD of ugraph(kLIGnelChap), and line-by-line on 19.03.09
-# issues: none known
+## date: 23.03.09 checked: using the DAG of Figs 2(Asia) & 9 of Olesen
+## & Madsen 2002, Fig1s and Fig2 of Leimer93 (CGB 09.03.09).  also
+## using the known MPD of ugraph(kLIGnelChap), and line-by-line on
+## 19.03.09 issues: none known
 
 
+## #####################################################################
+#'
 #' @title Maximal prime subgraph decomposition
 #' 
 #' @description Finding a junction tree representation of the MPD
@@ -29,25 +34,34 @@
 #'
 #' @name graph-mpd
 #' 
+## #####################################################################
 #' @aliases mpd mpd.default mpdMAT
-#' @param object An undirected graph; a graphNEL object
-#' @param tobject Any minimal triangulation of object; a graphNEL object
+#'
+#' @param object An undirected graph; a graphNEL object, an igraph or
+#'     an adjacency matrix.
+#' @param tobject Any minimal triangulation of object; a graphNEL
+#'     object, an igraph or an adjacency matrix.
 #' @param amat An undirected graph; a symmetric adjacency matrix
-#' @param tamat Any minimal triangulation of object; a symmetric adjacency
-#'     matrix
+#' @param tamat Any minimal triangulation of object; a symmetric
+#'     adjacency matrix
 #' @param details The amount of details to be printed.
-#' @return A list with components "nodes", "cliques", "separators", "parents",
-#'     "children", "nLevels". The component "cliques" defines the subgraphs.
+#' 
+#' @return A list with components "nodes", "cliques", "separators",
+#'     "parents", "children", "nLevels". The component "cliques"
+#'     defines the subgraphs.
 #' @author Clive Bowsher \email{C.Bowsher@@statslab.cam.ac.uk} with
 #'     modifications by Søren Højsgaard, \email{sorenh@@math.aau.dk}
+#'
 #' @seealso \code{\link{mcs}}, \code{\link{mcsMAT}},
 #'     \code{\link{minimal_triang}}, \code{\link{minimal_triangMAT}},
 #'     \code{\link{rip}}, \code{\link{ripMAT}}, \code{\link{triangulate}},
 #'     \code{\link{triangulateMAT}}
+#'
 #' @references Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
 #'     Subgraph Decomposition of Bayesian Networks. IEEE TRANSACTIONS ON
 #'     SYSTEMS, MAN AND CYBERNETICS, PART B: CYBERNETICS, VOL. 32, NO. 1,
 #'     FEBRUARY 2002
+#'
 #' @keywords utilities
 #' @examples
 #' 
@@ -68,17 +82,15 @@ mpd <- function(object, tobject=minimal_triang(object), details=0) {
 
 #' @rdname graph-mpd
 mpd.default <- function(object, tobject=triangulate(object), details=0){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","matrix","dgCMatrix"))
-    switch(cls,
-           "graphNEL" ={.mpd(object, TuG=tobject, details=details) },
-           "dgCMatrix"=,
-           "matrix"   ={ #FIXME: minimalTriang: Not sure if this is correct...
-               object2 <- as(object,  "graphNEL")
-               tobject2<- as(tobject, "graphNEL")
-               .mpd(object2, TuG=tobject2, details=details)
-           })
+
+    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    chk <- inherits(object, graph_class, which=TRUE)
+    if (!any(chk)) stop("Invalid class of 'object'\n")
+
+    .mpd(as(object, "graphNEL"), TuG=as(tobject, "graphNEL"), details=details)
+    
 }
+
 
 #' @rdname graph-mpd
 mpdMAT <- function(amat, tamat=minimal_triangMAT(amat), details=0){
@@ -158,3 +170,19 @@ mpdMAT <- function(amat, tamat=minimal_triangMAT(amat), details=0){
       return(MPDTree)
     }
 }
+
+
+
+
+## mpd.default <- function(object, tobject=triangulate(object), details=0){
+##     cls <- match.arg(class( object ),
+##                      c("graphNEL","matrix","dgCMatrix"))
+##     switch(cls,
+##            "graphNEL" ={.mpd(object, TuG=tobject, details=details) },
+##            "dgCMatrix"=,
+##            "matrix"   ={ #FIXME: minimalTriang: Not sure if this is correct...
+##                object2 <- as(object,  "graphNEL")
+##                tobject2<- as(tobject, "graphNEL")
+##                .mpd(object2, TuG=tobject2, details=details)
+##            })
+## }

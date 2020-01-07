@@ -21,8 +21,7 @@ mcs_marked(object, discrete = NULL, index = FALSE)
 
 \method{mcs_marked}{default}(object, discrete = NULL, index = FALSE)
 
-mcs_markedMAT(amat, vn = colnames(amat), discrete = NULL,
-  index = FALSE)
+mcs_markedMAT(amat, vn = colnames(amat), discrete = NULL, index = FALSE)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a

@@ -5,7 +5,6 @@
 #' 
 #' @name graph-iplot
 #' 
-#' @aliases iplot iplot.graphNEL
 #' @param x A graph object to be plotted.
 #' @param \dots Additional arguments
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}

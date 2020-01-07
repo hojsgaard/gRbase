@@ -119,12 +119,12 @@ SEXP inline setnames_de( SpMat AA, CharacterVector vn) {
   return Xout;
 }
 
-//' @name internal
-//' @aliases dagList2dgCMatrix__ ugList2dgCMatrix__
-//'     dagList2matrix__ ugList2matrix__
-//'     adjList2tfList__ adjList2ftList__
-//'     adjList2tfM__ adjList2ftM__
-//'     adjList2matrix__ adjList2dgCMatrix__
+// //' @name internal_grbase_cpp
+// //' @aliases dagList2dgCMatrix__ ugList2dgCMatrix__
+// //'     dagList2matrix__ ugList2matrix__
+// //'     adjList2tfList__ adjList2ftList__
+// //'     adjList2tfM__ adjList2ftM__
+// //'     adjList2matrix__ adjList2dgCMatrix__
 
 //[[Rcpp::export]]
 SEXP dagList2dgCMatrix__( List LL, CharacterVector vn ){

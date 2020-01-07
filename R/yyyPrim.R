@@ -1,7 +1,8 @@
 #' @name internal
-#' @aliases  uniquePrim unlistPrim setdiffPrim intersectPrim outerPrim matchPrim
 #' 
+#' @aliases setdiffPrim unlistPrim intersectPrim outerPrim uniquePrim matchPrim
 NULL
+
 
 setdiffPrim <- function (x, y){
     unique.default(

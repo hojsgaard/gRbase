@@ -71,7 +71,7 @@ NULL
 
 
 tab <- function(names, levels, values, normalize="none", smooth=0){
-    normalize <- match.arg(normalize, choices=c("none","first","all"))
+    normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]
     if (is.numeric( levels )){
         di <- levels

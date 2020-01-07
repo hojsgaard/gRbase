@@ -2,56 +2,41 @@
 % Please edit documentation in R/graph-properties.R
 \name{graph-is}
 \alias{graph-is}
-\alias{is.DAG}
-\alias{is.DAG.graphNEL}
-\alias{is.DAG.default}
-\alias{is.DAGMAT}
-\alias{is.DG}
-\alias{is.DG.graphNEL}
-\alias{is.DG.default}
-\alias{is.DGMAT}
-\alias{is.UG}
-\alias{is.UG.graphNEL}
-\alias{is.UG.default}
-\alias{is.UGMAT}
-\alias{is.TUG}
-\alias{is.TUG.graphNEL}
-\alias{is.TUG.default}
-\alias{is.TUGMAT}
+\alias{is_dag}
 \alias{is.adjMAT}
+\alias{is_dagMAT}
+\alias{is_ug}
+\alias{is_ug.graphNEL}
+\alias{is_ug.igraph}
+\alias{is_ug.default}
+\alias{is_ugMAT}
+\alias{is_tug}
+\alias{is_tugMAT}
+\alias{is_dg}
+\alias{is_dgMAT}
 \title{Check properties of graphs.}
 \usage{
-is.DAG(object)
+is_dag(object)
 
-\method{is.DAG}{graphNEL}(object)
+is_dagMAT(object)
 
-\method{is.DAG}{default}(object)
+is_ug(object)
 
-is.DAGMAT(object)
+\method{is_ug}{graphNEL}(object)
 
-is.UG(object)
+\method{is_ug}{igraph}(object)
 
-\method{is.UG}{graphNEL}(object)
+\method{is_ug}{default}(object)
 
-\method{is.UG}{default}(object)
+is_ugMAT(object)
 
-is.UGMAT(object)
+is_tug(object)
 
-is.TUG(object)
+is_tugMAT(object)
 
-\method{is.TUG}{graphNEL}(object)
+is_dg(object)
 
-\method{is.TUG}{default}(object)
-
-is.TUGMAT(object)
-
-is.DG(object)
-
-\method{is.DG}{graphNEL}(object)
-
-\method{is.DG}{default}(object)
-
-is.DGMAT(object)
+is_dgMAT(object)
 }
 \arguments{
 \item{object}{A graph represented as 1) graphNEL (from the graph
@@ -78,21 +63,21 @@ A non-zero value at entry (i,j) in an adjacency matrix A
     \code{edgemode()} will tell if edges are "directed" or
     "undirected" in a graphNEL object).
 
-The function \code{is.UG()} checks if the adjacency matrix is
+The function \code{is_ug()} checks if the adjacency matrix is
 symmetric (If applied to a graphNEL, the adjacency matrix is
 created and checked for symmetry.)
 
-The function \code{is.TUG()} checks if the graph is undirected and
+The function \code{is_tug()} checks if the graph is undirected and
 triangulated (also called chordal) by checking if the adjacency matrix is
 symmetric and the vertices can be given a perfect ordering using maximum
 cardinality seach.
 
-The function \code{is.DG()} checks if a graph is directed, i.e., that there
+The function \code{is_dg()} checks if a graph is directed, i.e., that there
 are no undirected edges. This is done by computing the elementwise product
 of A and the transpose of A; if there are no non--zero entries in this
 product then the graph is directed.
 
-The function \code{is.DAG()} will return \code{TRUE} if all edges are
+The function \code{is_dag()} will return \code{TRUE} if all edges are
 directed and if there are no cycles in the graph. (This is checked by
 checking if the vertices in the graph can be given a topological ordering
 which is based on identifying an undirected edge with a bidrected edge).
@@ -102,7 +87,6 @@ the adjacency matrix consists only of zeros). Such a graph is both
 undirected, triangulated, directed and directed acyclic.
 }
 \examples{
-
 
 ## DAGs
 dagNEL  <- dag(~ a:b:c + c:d:e, result="graphNEL")
@@ -115,48 +99,47 @@ ugMAT  <- ug(~a:b:c + c:d:e, result="matrix")
 ugMATS <- ug(~a:b:c + c:d:e, result="dgCMatrix")
 
 ## Is it a DAG?
-is.DAG(dagNEL)
-is.DAG(dagMAT)
-is.DAG(dagMATS)
+is_dag(dagNEL)
+is_dag(dagMAT)
+is_dag(dagMATS)
 
-is.DAG(ugNEL)
-is.DAG(ugMAT)
-is.DAG(ugMATS)
+is_dag(ugNEL)
+is_dag(ugMAT)
+is_dag(ugMATS)
 
 ## Is it an undirected graph
-is.UG(dagNEL)
-is.UG(dagMAT)
-is.UG(dagMATS)
+is_ug(dagNEL)
+is_ug(dagMAT)
+is_ug(dagMATS)
 
-is.UG(ugNEL)
-is.UG(ugMAT)
-is.UG(ugMATS)
+is_ug(ugNEL)
+is_ug(ugMAT)
+is_ug(ugMATS)
 
 ## Is it a triangulated (i.e. chordal)  undirected graph
-is.TUG(dagNEL)
-is.TUG(dagMAT)
-is.TUG(dagMATS)
+is_tug(dagNEL)
+is_tug(dagMAT)
+is_tug(dagMATS)
 
-is.TUG(ugNEL)
-is.TUG(ugMAT)
-is.TUG(ugMATS)
+is_tug(ugNEL)
+is_tug(ugMAT)
+is_tug(ugMATS)
 
 ## Example where the graph is not triangulated
 ug2NEL  <- ug(~ a:b + b:c + c:d + d:a, result="graphNEL")
 ug2MAT  <- ug(~ a:b + b:c + c:d + d:a, result="matrix")
 ug2MATS <- ug(~ a:b + b:c + c:d + d:a, result="dgCMatrix")
 
-is.TUG(ug2NEL)
-is.TUG(ug2MAT)
-is.TUG(ug2MATS)
+is_tug(ug2NEL)
+is_tug(ug2MAT)
+is_tug(ug2MATS)
 
 ## Bidirected graphs
 graph::edgemode(ugNEL)
 graph::edgemode(ugNEL) <- "directed"
 graph::edgemode(ugNEL)
-is.DAG(ugNEL)
-is.UG(ugNEL)
-
+is_dag(ugNEL)
+is_ug(ugNEL)
 
 }
 \seealso{

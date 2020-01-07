@@ -35,8 +35,6 @@
 #'     1-1-correspondance with its dependence graph, but the graph is not
 #'     chordal.
 #' 
-#' @aliases isGraphical isGraphical.default isDecomposable
-#' isDecomposable.default
 #' @param x A generating class given as right hand sided formula or a list; see
 #' 'examples' below
 #' @return TRUE or FALSE
@@ -45,8 +43,8 @@
 #' @keywords utilities models
 #' @examples
 #' 
-#' g1 <- ~a:b+a:c+b:c+c:d
-#' g2 <- ~a:b:c+c:d
+#' g1 <- ~a:b + a:c + b:c + c:d
+#' g2 <- ~a:b:c + c:d
 #' g3 <- ~a:b + b:c + c:d + d:a
 #' 
 #' isGraphical( g1 ) # FALSE
@@ -62,15 +60,16 @@
 #' isGraphical( f )
 #' isDecomposable( f )
 #' 
-#' 
-#' @export isGraphical
+
+
+#' @rdname graph-gcproperties
 isGraphical <- function(x){
     UseMethod("isGraphical")
 }
 
 #' @rdname graph-gcproperties
 isGraphical.default <- function( x ){
-    if ((cls <- class( x )) %in% c("formula","list")){
+    if ((cls <- class( x )) %in% c("formula", "list")){
         switch(cls,
                "formula"={
                    if (length(x)==3)
@@ -92,7 +91,8 @@ isGraphical.default <- function( x ){
 
 .isGraphical_glist <- function(x){
     vn <- unique( unlist(x) )
-    amat <- ugList2M(x, vn=vn)
+    ##amat <- ugList2M(x, vn=vn)
+    amat <- ugl2M_(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
     all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
 }
@@ -126,11 +126,12 @@ isDecomposable.default <- function( x ){
 
 .isDecomposable_glist <- function(x){
     vn <- unique( unlist(x) )
-    amat <- ugList2M(x, vn=vn)
+    ##amat <- ugList2M(x, vn=vn)
+    amat <- ugl2M_(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
     isg <- all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
     if (isg){
-        length( mcsMAT( amat ) ) > 0
+        length(mcsMAT(amat)) > 0
     } else
         FALSE
 }
@@ -141,7 +142,8 @@ isDecomposable.default <- function( x ){
 
 isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 {
-  amat <- ugList2M(glist, vn=vn)
+  ##amat <- ugList2M(glist, vn=vn)
+  amat <- ugl2M_(glist, vn=vn)
   cliq <- max_cliqueMAT(amat)[[1]]
   isg  <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
   if (!isg){
@@ -153,21 +155,17 @@ isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 
 properties_glist <- function(glist,
                              vn=unique(unlist(glist)),
-                             amat=ugList2M(glist,vn=vn),
+                             ##amat=ugList2M(glist,vn=vn),
+                             amat=ugl2M_(glist, vn=vn),
                              cliq=max_cliqueMAT(amat)[[1]], discrete=NULL){
 
   isg <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
   if (!isg){
     return(c(isg=FALSE, issd=FALSE))
   } else {
-    return(c(isg=TRUE, issd=length(mcs_markedMAT(amat,discrete=discrete)) > 0))
+    return(c(isg=TRUE, issd=length(mcs_markedMAT(amat, discrete=discrete)) > 0))
   }
 }
-
-
-##
-## is.DAG, is.UG, is.TUG implemented for graphNEL, matrix and Matrix
-##
 
 is.adjMAT <- function(x){
     .check.is.matrix(x)
@@ -179,6 +177,11 @@ is.adjMAT <- function(x){
 ## Check properties of graphs.
 ##
 ## #####################################################
+
+##
+## is_dag, is_ug, is_tug is_dg implemented for graphNEL, igraph, matrix and dgCMatrix
+##
+
 
 #' @title Check properties of graphs.
 #' 
@@ -202,21 +205,21 @@ is.adjMAT <- function(x){
 #'     \code{edgemode()} will tell if edges are "directed" or
 #'     "undirected" in a graphNEL object).
 #' 
-#' The function \code{is.UG()} checks if the adjacency matrix is
+#' The function \code{is_ug()} checks if the adjacency matrix is
 #' symmetric (If applied to a graphNEL, the adjacency matrix is
 #' created and checked for symmetry.)
 #' 
-#' The function \code{is.TUG()} checks if the graph is undirected and
+#' The function \code{is_tug()} checks if the graph is undirected and
 #' triangulated (also called chordal) by checking if the adjacency matrix is
 #' symmetric and the vertices can be given a perfect ordering using maximum
 #' cardinality seach.
 #' 
-#' The function \code{is.DG()} checks if a graph is directed, i.e., that there
+#' The function \code{is_dg()} checks if a graph is directed, i.e., that there
 #' are no undirected edges. This is done by computing the elementwise product
 #' of A and the transpose of A; if there are no non--zero entries in this
 #' product then the graph is directed.
 #' 
-#' The function \code{is.DAG()} will return \code{TRUE} if all edges are
+#' The function \code{is_dag()} will return \code{TRUE} if all edges are
 #' directed and if there are no cycles in the graph. (This is checked by
 #' checking if the vertices in the graph can be given a topological ordering
 #' which is based on identifying an undirected edge with a bidrected edge).
@@ -224,11 +227,8 @@ is.adjMAT <- function(x){
 #' There is a special case, namely if the graph has no edges at all (such that
 #' the adjacency matrix consists only of zeros). Such a graph is both
 #' undirected, triangulated, directed and directed acyclic.
-#' 
-#' @aliases is.DAG is.DAG.graphNEL is.DAG.default is.DAGMAT is.DG
-#'     is.DG.graphNEL is.DG.default is.DGMAT is.UG is.UG.graphNEL
-#'     is.UG.default is.UGMAT is.TUG is.TUG.graphNEL is.TUG.default
-#'     is.TUGMAT is.adjMAT
+#'
+#' @aliases is.adjMAT
 #' @param object A graph represented as 1) graphNEL (from the graph
 #'     package), 2) an adjacency matrix, 3) a sparse adjacency matrix
 #'     (a dgCMatrix from the Matrix package).
@@ -236,7 +236,6 @@ is.adjMAT <- function(x){
 #' @seealso \code{\link{dag}}, \code{\link{ug}}
 #' @keywords utilities
 #' @examples
-#' 
 #' 
 #' ## DAGs
 #' dagNEL  <- dag(~ a:b:c + c:d:e, result="graphNEL")
@@ -249,148 +248,152 @@ is.adjMAT <- function(x){
 #' ugMATS <- ug(~a:b:c + c:d:e, result="dgCMatrix")
 #' 
 #' ## Is it a DAG?
-#' is.DAG(dagNEL)
-#' is.DAG(dagMAT)
-#' is.DAG(dagMATS)
+#' is_dag(dagNEL)
+#' is_dag(dagMAT)
+#' is_dag(dagMATS)
 #' 
-#' is.DAG(ugNEL)
-#' is.DAG(ugMAT)
-#' is.DAG(ugMATS)
+#' is_dag(ugNEL)
+#' is_dag(ugMAT)
+#' is_dag(ugMATS)
 #' 
 #' ## Is it an undirected graph
-#' is.UG(dagNEL)
-#' is.UG(dagMAT)
-#' is.UG(dagMATS)
+#' is_ug(dagNEL)
+#' is_ug(dagMAT)
+#' is_ug(dagMATS)
 #' 
-#' is.UG(ugNEL)
-#' is.UG(ugMAT)
-#' is.UG(ugMATS)
+#' is_ug(ugNEL)
+#' is_ug(ugMAT)
+#' is_ug(ugMATS)
 #' 
 #' ## Is it a triangulated (i.e. chordal)  undirected graph
-#' is.TUG(dagNEL)
-#' is.TUG(dagMAT)
-#' is.TUG(dagMATS)
+#' is_tug(dagNEL)
+#' is_tug(dagMAT)
+#' is_tug(dagMATS)
 #' 
-#' is.TUG(ugNEL)
-#' is.TUG(ugMAT)
-#' is.TUG(ugMATS)
+#' is_tug(ugNEL)
+#' is_tug(ugMAT)
+#' is_tug(ugMATS)
 #' 
 #' ## Example where the graph is not triangulated
 #' ug2NEL  <- ug(~ a:b + b:c + c:d + d:a, result="graphNEL")
 #' ug2MAT  <- ug(~ a:b + b:c + c:d + d:a, result="matrix")
 #' ug2MATS <- ug(~ a:b + b:c + c:d + d:a, result="dgCMatrix")
 #' 
-#' is.TUG(ug2NEL)
-#' is.TUG(ug2MAT)
-#' is.TUG(ug2MATS)
+#' is_tug(ug2NEL)
+#' is_tug(ug2MAT)
+#' is_tug(ug2MATS)
 #' 
 #' ## Bidirected graphs
 #' graph::edgemode(ugNEL)
 #' graph::edgemode(ugNEL) <- "directed"
 #' graph::edgemode(ugNEL)
-#' is.DAG(ugNEL)
-#' is.UG(ugNEL)
+#' is_dag(ugNEL)
+#' is_ug(ugNEL)
 #' 
-#' 
-#' @export is.DAG
-is.DAG <- function(object){UseMethod("is.DAG")}
+
 
 #' @rdname graph-is
-is.DAG.graphNEL <- function(object){
-    is.DAGMAT( gn2sm_(object) )
+is_dag <- function(object){
+    UseMethod("is_dag")
 }
 
-#' @rdname graph-is
-is.DAG.default <- function( object ){
+is_dag.graphNEL <- function(object){
+    is_dagMAT(as(object, "matrix"))
+}
+
+is_dag.igraph <- is_dag.graphNEL
+
+is_dag.default <- function( object ){
     .check.is.matrix(object)
-    isdagMAT_( object )
+    isdagMAT_(object)
 }
 
 #' @rdname graph-is
-is.DAGMAT <- function(object){
-    isdagMAT_( object )
+is_dagMAT <- function(object){
+    isdagMAT_(object)
 }
 
-#is.DAG.matrix <- is.DAG.Matrix <- is.DAGMAT
+#is_dag.matrix <- is_dag.Matrix <- is_dagMAT
 
 ## ######################################
 
 #' @rdname graph-is
-is.UG <- function(object){
-    UseMethod("is.UG")
+is_ug <- function(object){
+    UseMethod("is_ug")
 }
 
 #' @rdname graph-is
-is.UG.graphNEL <- function(object){
-    isugMAT_( gn2dm_( object ) )
+is_ug.graphNEL <- function(object){
+    isugMAT_(as(object, "matrix"))
 }
 
 #' @rdname graph-is
-is.UG.default <- function( object ){
+is_ug.igraph <- is_ug.graphNEL
+
+#' @rdname graph-is
+is_ug.default <- function(object){
     .check.is.matrix(object)
-    isugMAT_( object )
+    isugMAT_(object)
 }
 
 #' @rdname graph-is
-is.UGMAT <- function(object){
+is_ugMAT <- function(object){
     isugMAT_(object)
 }
 
 ## ######################################
 
 #' @rdname graph-is
-is.TUG <- function(object){
-  UseMethod("is.TUG")
+is_tug <- function(object){
+  UseMethod("is_tug")
 }
 
-#' @rdname graph-is
-is.TUG.graphNEL <- function(object){
-    z <- gn2dm_( object )
-    if (!isugMAT_( z ))
-        FALSE
-    else
-        length( ripMAT( z ) )>0
+is_tug.graphNEL <- function(object){
+    z <- as(object, "matrix")
+    if (!isugMAT_(z)) FALSE
+    else length(ripMAT(z)) > 0
 }
 
-#' @rdname graph-is
-is.TUG.default <- function(object){
+is_tug.igraph <- is_tug.graphNEL
+
+is_tug.default <- function(object){
     .check.is.matrix(object)
-    if (isugMAT_( object ))
-        length(mcsMAT(object)) > 0
-    else
-        FALSE
+    if (isugMAT_(object)) length(mcsMAT(object)) > 0
+    else FALSE
 }
 
 #' @rdname graph-is
-is.TUGMAT <- function(object){
+is_tugMAT <- function(object){
     isugMAT_(object) && length(mcsMAT(object))>0
 }
 
 ## ######################################
 
 #' @rdname graph-is
-is.DG <- function(object){
-    UseMethod("is.DG")
+is_dg <- function(object){
+    UseMethod("is_dg")
 }
 
-#' @rdname graph-is
-is.DG.graphNEL <- function(object){
-    is.DGMAT( gn2dm_(object) )
+is_dg.graphNEL <- function(object){
+    is_dgMAT(as(object, "matrix"))
 }
 
-#' @rdname graph-is
-is.DG.default <- function(object){
+is_dg.igraph <- is_dg.graphNEL
+
+
+is_dg.default <- function(object){
     .check.is.matrix(object)
+    eps <- 1e-4
     if (isadjMAT_(object))
-        sum(object * t(object)) == 0
-    else
-        FALSE
+        max(abs(sum(object * t(object)))) <= eps 
+    else FALSE
 }
 
 #' @rdname graph-is
-is.DGMAT <- function(object){
+is_dgMAT <- function(object){
     if (!is.adjMAT(object)) stop("Matrix is not adjacency matrix...\n")
-    sum(object * t(object)) == 0
+    eps <- 1e-4
+    max(abs(sum(object * t(object)))) <= eps
 }
 
 
@@ -399,80 +402,3 @@ is.DGMAT <- function(object){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-## is.DG.matrix <- is.DG.Matrix <- is.DGMAT
-
-## is.UG.graphNEL <- function(object){
-##     is.UGMAT( gn2sm_(object) )
-## }
-
-## is.UGMAT <- function(object){
-##     isugMAT_( object )
-## }
-
-## is.UG.matrix <- is.UG.Matrix <- is.UGMAT
-
-## .is.DAGMAT <- function(object){
-##     if (!is.adjMAT(object)) stop("Matrix is not adjacency matrix...\n")
-##     length(topoSort(object))>0
-## }
-
-## .is.UGMAT <- function(object){
-##     if (!is.adjMAT(object)) stop("Matrix is not adjacency matrix...\n")
-##     isSymmetric(object)
-## }
-
-
-## isGraphical.formula <- function(x){
-##     if (length(x)==3)
-##         x <- formula(delete.response(terms(x)))
-##     .isGraphical_glist( rhsf2list( x ) )
-## }
-
-## isGraphical.list <- function(x){
-##     if (!all(unlist(lapply(x, is.atomic))))
-##         stop("'x' must be a list of atomic vectors")
-##     if (length( x ) == 0)
-##         stop("'x' must have positive length")
-##     .isGraphical_glist( x )
-## }
-
-## isDecomposable.formula <- function(x){
-##     if (length(x)==3)
-##         x <- formula(delete.response(terms(x)))
-##     .isDecomposable_glist( rhsf2list( x ) )
-## }
-
-## isDecomposable.list <- function(x){
-##     if (!all(unlist(lapply(x, is.atomic))))
-##         stop("'x' must be a list of atomic vectors")
-##     if (length( x ) == 0)
-##         stop("'x' must have positive length")
-##     .isDecomposable_glist( x )
-## }
-
-
-## .is.adjMAT <- function(x){
-##   res <- FALSE
-##   if (inherits(x, c("matrix","Matrix"))){
-##     d <- dim(x)
-##     if (d[1L]==d[2L]){
-##       v <- 1:d[1L]
-##       if( all(x[cbind(v, v)]==0) ){
-##         res <- TRUE
-##       }
-##     }
-##   }
-##   res
-## }

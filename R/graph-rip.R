@@ -92,30 +92,20 @@ rip <- function(object, ...){
 
 #' @rdname graph-rip
 rip.default <- function(object, root=NULL, nLevels=NULL, ...){
-    cls <- match.arg(class( object ),
-                     c("graphNEL", "igraph", "matrix", "dgCMatrix"))
-    switch(cls,
-           "dgCMatrix"=,
-           "matrix"   ={
-               ripMAT(object, root=root, nLevels=nLevels)
-           },
-           "graphNEL" ={
-               if (graph::edgemode(object)=="directed")
-                   stop("Graph must be undirected")
-               ripMAT(gn2sm_(object), root=root, nLevels=nLevels)
-           },
-           "igraph" ={
-               if (igraph::is.directed(object))
-                   stop("Graph must be undirected")               
-               ripMAT(ig2sm_(object), root=root, nLevels=nLevels)
-           }
-           )
+
+    if (!inherits(object, c("graphNEL", "igraph", "matrix", "dgCMatrix")))
+        stop("Object of correct type\n")
+
+    if (!is_ug(object))
+        stop("Graph must be undirected\n")
+
+    ripMAT(as(object, "matrix"), root=root, nLevels=nLevels)
 }
 
 #' @rdname graph-rip
 ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
 
-    #cat("ripMAT\n")
+    ##cat("ripMAT\n")
     
     ## mcs.idx: The enumeration of nodes in vn
     ## so 1,2,8 ... means that nodes 1,2,8... come first in the elimination
@@ -123,7 +113,7 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
 
   mcs.vn <- mcsMAT(amat, root=root)
   if (length(mcs.vn)==0)
-    return( NULL )
+    return(NULL)
 
   cq.vn   <- max_cliqueMAT(amat)[[1]]
   ncq     <- length(cq.vn)
@@ -197,7 +187,7 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
                    ),
               class="ripOrder")
 
-  return(rip3)
+  rip3
 }
 
 ## @rdname graph-rip
@@ -266,20 +256,17 @@ junction_tree <- function(object, ...){
 
 #' @rdname graph-rip
 junction_tree.default <-  function(object, nLevels = NULL, ...){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","igraph","matrix","dgCMatrix"))
 
-    switch(cls,
-           "graphNEL" ={junction_treeMAT(gn2sm_(object), nLevels=nLevels, ... )},
-           "igraph"   ={junction_treeMAT(ig2sm_(object), nLevels=nLevels, ... )},
-           "dgCMatrix"=,
-           "matrix"   ={junction_treeMAT(object, nLevels=nLevels, ...)})
+    if (!inherits(object, c("graphNEL", "igraph", "matrix", "dgCMatrix")))
+        stop("Object of correct type\n")
+
+    junction_treeMAT(as(object, "matrix"), nLevels=nLevels, ...)
 }
 
 #' @rdname graph-rip
-junction_treeMAT <- function(amat, nLevels=rep(2,ncol(amat)), ...){
-  tug  <- triangulateMAT( amat, nLevels=nLevels, result="dgCMatrix", ... )
-  ripMAT( tug, nLevels=nLevels )
+junction_treeMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
+  tug_mat  <- triangulateMAT(amat, nLevels=nLevels, result="dgCMatrix", ...)
+  ripMAT(tug_mat, nLevels=nLevels)
 }
 
 

@@ -113,25 +113,13 @@ triangulate <- function(object, ...)
 #' @rdname graph-triangulate
 triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, ...)
 {
-    zzz <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
-    
-    if (!inherits(object, zzz)) stop("Invalid class of 'object'\n")
-                  
-    mm <- coerceGraph(object, "matrix")
-    if (!is.UGMAT(mm)) stop("Graph must be undirected\n")
-    
-    cls <- match.arg(class( object ), zzz )
-    if (is.null( result )) result <- cls
 
-    if (!check)
-        mm <- triangulateMAT( mm, nLevels=nLevels )
-    else {
-        if (length(mcsMAT(mm)) == 0)
-            mm <- triangulateMAT( mm, nLevels=nLevels )
-    }
-    
-    coerceGraph(mm, result)    
+    .generic_triangulation(object, order=order, result=result, check=check, ...,
+                           TRIANG_FUN=triangulateMAT)
 }
+
+
+
 
 
 ## ----- triang -----
@@ -168,25 +156,42 @@ triang_mcwh.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, .
 
 #' @rdname graph-triangulate
 triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...){
-    zzz <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
-    
-    if (!inherits(object, zzz)) stop("Invalid class of 'object'\n")
-    
-    mm <- coerceGraph( object, "dgCMatrix" )
-    if ( !is.UGMAT(mm) ) stop("Graph must be undirected\n")
-    
-    cls <- match.arg(class( object ), zzz )
-    if (is.null( result )) result <- cls
 
+    .generic_triangulation(object, order=order, result=result, check=check, ...,
+                           TRIANG_FUN=triang_eloMAT)
+    
+}
+
+
+
+
+.generic_triangulation <- function(object, order=NULL, result=NULL, check=TRUE, ...,
+                                   TRIANG_FUN){
+
+    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    chk <- inherits(object, graph_class, which=TRUE)
+    if (!any(chk)) stop("Invalid class of 'object'\n")
+
+    cls <- graph_class[which(chk > 0)]
+    
+    if (is.null(result))
+        result <- cls
+    
+    mm <- coerceGraph(object, "matrix")
+    if (!is_ugMAT(mm)) stop("Graph must be undirected\n")
+    
     if (!check)
-        mm <- triang_eloMAT( mm, order=order )
+        mm <- TRIANG_FUN(mm, order=order)
     else {
-        if (length(mcsMAT(mm)) == 0)
-            mm <- triang_eloMAT( mm, order=order )
+        if (length(mcsMAT(mm)) == 0) ## FIXME: Looks strange
+            mm <- TRIANG_FUN(mm, order=order)
     }
     
-    coerceGraph(mm, result)        
+    as(mm, result)        
 }
+
+
+
 
 
 #' @rdname graph-triangulate
@@ -250,6 +255,52 @@ triang_eloMAT <- function(amat, order=NULL){
 
 
 
+## triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, ...)
+## {
+##     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+##     chk <- inherits(object, graph_class, which=TRUE)
+
+##     if (!any(chk)) stop("Invalid class of 'object'\n")
+    
+##     if (is.null(result))
+##         result <- graph_class[which(chk > 0)]
+    
+##     mm <- coerceGraph(object, "matrix")
+##     if (!is.UGMAT(mm)) stop("Graph must be undirected\n")
+    
+##     if (!check)
+##         mm <- triangulateMAT(mm, nLevels=nLevels)
+##     else {
+##         if (length(mcsMAT(mm)) == 0)
+##             mm <- triangulateMAT(mm, nLevels=nLevels)
+##     }
+    
+##     coerceGraph(mm, result)    
+## }
+
+
+## triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...){
+
+##     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+##     chk <- inherits(object, graph_class, which=TRUE)
+
+##     if (!any(chk)) stop("Invalid class of 'object'\n")
+    
+##     if (is.null(result))
+##         result <- graph_class[which(chk > 0)]
+    
+##     mm <- coerceGraph(object, "matrix")
+##     if (!is.UGMAT(mm)) stop("Graph must be undirected\n")
+    
+##     if (!check)
+##         mm <- triang_eloMAT(mm, order=order)
+##     else {
+##         if (length(mcsMAT(mm)) == 0)
+##             mm <- triang_eloMAT(mm, order=order)
+##     }
+    
+##     coerceGraph(mm, result)        
+## }
 
 
 

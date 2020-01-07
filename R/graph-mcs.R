@@ -80,10 +80,11 @@ mcs <- function(object, root=NULL, index=FALSE){
 
 #' @rdname graph-mcs
 mcs.default <- function(object, root=NULL, index=FALSE){
-    cls <- match.arg(class( object ),
-                     c("graphNEL", "matrix", "dgCMatrix", "igraph"))
+    if (!inherits(object, c("graphNEL", "matrix", "dgCMatrix", "igraph")))
+        stop("object of wrong class\n")
+
     mm <- coerceGraph(object, "matrix")
-    if (!is.UGMAT(mm))
+    if (!is_ugMAT(mm))
         character(0) ##FIXME: mcs.default: Should perhaps be error...
     else
         mcsMAT( mm, root=root, index=index )
@@ -125,29 +126,23 @@ mcs_marked <- function (object, discrete=NULL, index = FALSE){
 
 #' @rdname graph-mcs
 mcs_marked.default <- function (object, discrete=NULL, index = FALSE){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","igraph","matrix","dgCMatrix"))
-    switch(cls,
-           "graphNEL" ={
-               if (is.null(discrete))
-                   mcsMAT(gn2sm_(object), index=index)
-               else
-                   mcs_markedMAT(gn2sm_(object), discrete=discrete, index = index)
-           },
-           "igraph"   ={
-               if (is.null(discrete))
-                   mcsMAT(ig2sm_(object), index=index)
-               else
-                   mcs_markedMAT(ig2sm_(object), discrete=discrete, index = index)
-           },
-           "dgCMatrix"=,
-           "matrix"   ={
-               if (is.null(discrete))
-                   mcsMAT(object, index=index)
-               else
-                   mcs_markedMAT(object, discrete=discrete, index = index)
-           })
+
+    if (is.null(discrete))
+        mcsMAT(as(object, "matrix"), index=index)
+    else
+        mcs_markedMAT(as(object, "matrix"), discrete=discrete, index=index)
 }
+
+
+
+
+
+
+
+
+
+
+
 
 ## FIXME: mcs_marked_MAT: candidate for C++ implementation.
 

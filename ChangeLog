@@ -1,8 +1,14 @@
-2019-09-25 Søren Højsgaard <sorenh@math.aau.dk>
+2020-01-07 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Rgraphviz needs no longer be loaded to plot a graph
 
-	* Version 1.8-4.6 uploaded	
+	* It is handled that in the future, that the class of a matrix is
+	also an array.
+
+	* is.DAG renamed to is_dag and similarly for friends. Old versions
+	retained for backward compatibility.
+
+	* Version 1.8-5 uploaded
 
 2019-09-25 Søren Højsgaard <sorenh@math.aau.dk>
 
@@ -17,22 +23,21 @@
 	* random_dag changed so that maxpar parents can be obtained; before it was maxpar-1
 
 	* glist2setMAT reintrouced
-	
-	
+
 2018-07-12 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Minor changes, including fixing a warning from CRAN
 
 	* Cleaning of array operations
-		
+
 	* Version 1.8-4 uploaded
-	
+
 2017-03-20 Søren Højsgaard <sorenh@math.aau.dk>
 
 	* Version 1.8-2 never made it to CRAN because of an error.
 
 	* All the registration of c-routines done
-	
+
 	* Version 1.8-3 uploaded
 
 2017-02-05 Søren Højsgaard <sorenh@math.aau.dk>
@@ -61,9 +66,9 @@
 
 	* gRbase rewritten using roxygen
 	* New naming conventions for array-operations: The internal
-	implementation names are like tabPerm, tabAdd etc. (they are visible to
-	the user and are used in eg. gRain). But the names intended to be
-	used by users are arperm aradd etc.
+	implementation names are like tabPerm, tabAdd etc. (they are
+	visible to the user and are used in eg. gRain). But the names
+	intended to be used by users are arperm aradd etc.
 	* In binary array operations it is now being checked that the
 	dimnames match.
 	* Version 1.8-1 uploaded

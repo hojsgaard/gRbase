@@ -37,10 +37,6 @@ symMAT2ftM_ <- function(XX_) {
     .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
 }
 
-#' @name internal
-#' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
-NULL
-
 matrix2dgCMatrix__ <- function(XX_) {
     .Call('_gRbase_matrix2dgCMatrix__', PACKAGE = 'gRbase', XX_)
 }
@@ -56,14 +52,6 @@ M2dgCMatrix__ <- function(XX_) {
 M2matrix__ <- function(XX_) {
     .Call('_gRbase_M2matrix__', PACKAGE = 'gRbase', XX_)
 }
-
-#' @name internal
-#' @aliases dagList2dgCMatrix__ ugList2dgCMatrix__
-#'     dagList2matrix__ ugList2matrix__
-#'     adjList2tfList__ adjList2ftList__
-#'     adjList2tfM__ adjList2ftM__
-#'     adjList2matrix__ adjList2dgCMatrix__
-NULL
 
 dagList2dgCMatrix__ <- function(LL, vn) {
     .Call('_gRbase_dagList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
@@ -105,20 +93,16 @@ adjList2dgCMatrix__ <- function(LL) {
     .Call('_gRbase_adjList2dgCMatrix__', PACKAGE = 'gRbase', LL)
 }
 
-#' @name internal
-#' @aliases which_matrix_index__ rowmat2list__ colmat2list__
-NULL
-
-which_matrix_index__ <- function(XX_) {
-    .Call('_gRbase_which_matrix_index__', PACKAGE = 'gRbase', XX_)
+which_matrix_index__ <- function(X) {
+    .Call('_gRbase_which_matrix_index__', PACKAGE = 'gRbase', X)
 }
 
-rowmat2list__ <- function(XX_) {
-    .Call('_gRbase_rowmat2list__', PACKAGE = 'gRbase', XX_)
+rowmat2list__ <- function(X) {
+    .Call('_gRbase_rowmat2list__', PACKAGE = 'gRbase', X)
 }
 
-colmat2list__ <- function(XX_) {
-    .Call('_gRbase_colmat2list__', PACKAGE = 'gRbase', XX_)
+colmat2list__ <- function(X) {
+    .Call('_gRbase_colmat2list__', PACKAGE = 'gRbase', X)
 }
 
 issymMAT_ <- function(A_) {
@@ -136,14 +120,6 @@ isadjMAT_ <- function(A_) {
 isdagMAT_ <- function(A_) {
     .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
 }
-
-#' @name internal
-#' @aliases is_subsetof__ get_superset__ get_subset__
-NULL
-
-#' @name internal
-#' @aliases all_pairs__
-NULL
 
 get_superset_ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
@@ -174,13 +150,13 @@ solveSPD <- function(X) {
 }
 
 #' @rdname array-cell
-make_plevels_ <- function(dim) {
-    .Call('_gRbase_make_plevels_', PACKAGE = 'gRbase', dim)
+cell2entry_ <- function(cell, dim) {
+    .Call('_gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
 }
 
 #' @rdname array-cell
-cell2entry_ <- function(cell, dim) {
-    .Call('_gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
+make_plevels_ <- function(dim) {
+    .Call('_gRbase_make_plevels_', PACKAGE = 'gRbase', dim)
 }
 
 #' @rdname array-cell
@@ -212,13 +188,6 @@ cell2entry_perm_ <- function(cell, dim, perm) {
 perm_cell_entries_ <- function(perm, dim) {
     .Call('_gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
 }
-
-#' @title Internal Rcpp functions
-#' @description Automatically generated documentation of Rcpp functions.
-#' @name internal
-#' @aliases tab_list_mult_ tab_list_add_ tab_op_ tab_add_ tab_subt_
-#' tab_mult_ tab_div_ tab_div0_ tab_equal_
-NULL
 
 tab_perm_ <- function(tab, perm) {
     .Call('_gRbase_tab_perm_', PACKAGE = 'gRbase', tab, perm)

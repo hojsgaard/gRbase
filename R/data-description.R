@@ -238,7 +238,7 @@
 #' 
 #' @name data-chestSim
 #'
-#' @aliases chestSim chestSim500 chestSim1000 chestSim10000
+#' @aliases chestSim500 chestSim1000 chestSim10000
 #'     chestSim50000 chestSim100000
 #' @docType data
 #'
@@ -267,10 +267,10 @@
 #' ## maybe str(chestSim500) ; plot(chestSim500) ...
 #' 
 "chestSim500"
-"chestSim1000"
-"chestSim10000"
-"chestSim50000"
-"chestSim100000"
+## "chestSim1000"
+## "chestSim10000"
+## "chestSim50000"
+## "chestSim100000"
 
 
 #' Growth curves of pigs in a 3x3 factorial experiment

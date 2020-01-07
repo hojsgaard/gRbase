@@ -13,8 +13,13 @@
 \alias{ar_slice_entries}
 \title{Array slices}
 \usage{
-tabSlice(tab, slice = NULL, margin = names(slice), drop = TRUE,
-  as.array = FALSE)
+tabSlice(
+  tab,
+  slice = NULL,
+  margin = names(slice),
+  drop = TRUE,
+  as.array = FALSE
+)
 
 tabSlice2(tab, slice, margin.idx, drop = TRUE, as.array = FALSE)
 
@@ -24,8 +29,13 @@ tabSliceMult(tab, slice, val = 1, comp = 0)
 
 tabSlice2Entries(tab, slice, complement = FALSE)
 
-ar_slice(tab, slice = NULL, margin = names(slice), drop = TRUE,
-  as.array = FALSE)
+ar_slice(
+  tab,
+  slice = NULL,
+  margin = names(slice),
+  drop = TRUE,
+  as.array = FALSE
+)
 
 ar_slice_prim(tab, slice, drop = TRUE)
 

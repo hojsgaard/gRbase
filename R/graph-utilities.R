@@ -55,32 +55,35 @@ edgeList <- function(object, matrix=FALSE)
 
 #' @rdname graph-edgeList
 edgeList.default <- function(object, matrix=FALSE){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","matrix","dgCMatrix"))
-    switch(cls,
-           "graphNEL"={edgeListMAT(gn2dm_(object), matrix=matrix)},
-           "dgCMatrix"=,
-           "matrix"={edgeListMAT(object, matrix=matrix)})
+
+    ##cat("edgeList.default\n")
+    if (inherits(object, "graphNEL"))
+        return(edgeListMAT(gn2dm_(object), matrix=matrix))
+    if (inherits(object, c("dgCMatrix", "matrix")))
+        return(edgeListMAT(object, matrix=matrix))
+    stop("Can not find edge list for this type of object\n")
 }
+
+
+
+
 
 #' @rdname graph-edgeList
 edgeListMAT <- function(adjmat, matrix=FALSE){
     ans <-
         if (issymMAT_(adjmat)){
-            symMAT2ftM_( adjmat )
+            symMAT2ftM_(adjmat)
         } else {
-            MAT2ftM_( adjmat )
-    } 
-
-    di <- dim(ans)
+            MAT2ftM_(adjmat)
+        } 
+    
+    di  <- dim(ans)
     ans <- colnames(adjmat)[ans]
     dim(ans) <- di
 
-    if (!matrix){
-        rowmat2list__(ans)
-    } else {
-        ans
-    }
+    if (!matrix) rowmat2list__(ans)
+    else ans
+    
 }
 
 #' @rdname graph-edgeList
@@ -89,13 +92,11 @@ nonEdgeList <- function(object, matrix=FALSE)
 
 #' @rdname graph-edgeList
 nonEdgeList.default <- function(object, matrix=FALSE){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","matrix","dgCMatrix"))
-    switch(cls,
-           "graphNEL"={nonEdgeListMAT(gn2dm_(object), matrix=matrix)},
-           "dgCMatrix"=,
-           "matrix"={nonEdgeListMAT(object, matrix=matrix )})
-
+    if (inherits(object, "graphNEL"))
+        return(nonEdgeListMAT(gn2dm_(object), matrix=matrix))
+    if (inherits(object, c("dgCMatrix", "matrix")))
+        return(nonEdgeListMAT(object, matrix=matrix))
+    stop("Can not find non-edge list for this type of object\n")
 }
 
 #' @rdname graph-edgeList
@@ -108,8 +109,6 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
     }
     edgeListMAT(adjmat, matrix=matrix)
 }
-
-
 
 
 ## ---------------------------------------------------------------
@@ -456,6 +455,13 @@ random_dag <- function(V, maxpar=3, wgt=0.1){
     dg <- dagList(vparList)
     dg
 }
+
+
+
+
+
+
+
 
 
 ##

@@ -15,17 +15,6 @@ IntegerVector make_indic(int ndim, const IntegerVector& slice){
   return indic;
 }
 
-//' @rdname array-cell
-//[[Rcpp::export]]
-IntegerVector make_plevels_(const IntegerVector& dim){
-  IntegerVector plevels(dim.length());
-  plevels[0] = 1;
-  for (int i=1; i < dim.length(); i++){
-    plevels[i] =  dim[i - 1] * plevels[i - 1];
-  }
-  return plevels;
-}
-
 
 // //' @rdname array-cell
 // //[[Rcpp::export]]
@@ -48,6 +37,19 @@ int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   }
   return ((int) out) + 1;
 }
+
+//' @rdname array-cell
+//[[Rcpp::export]]
+IntegerVector make_plevels_(const IntegerVector& dim){
+  IntegerVector plevels(dim.length());
+  plevels[0] = 1;
+  for (int i=1; i < dim.length(); i++){
+    plevels[i] =  dim[i - 1] * plevels[i - 1];
+  }
+  return plevels;
+}
+
+
 
 // ------------------------------------------------
 

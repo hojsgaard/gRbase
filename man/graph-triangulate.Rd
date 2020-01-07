@@ -18,8 +18,7 @@
 \usage{
 triangulate(object, ...)
 
-\method{triangulate}{default}(object, nLevels = NULL, result = NULL,
-  check = TRUE, ...)
+\method{triangulate}{default}(object, nLevels = NULL, result = NULL, check = TRUE, ...)
 
 triang_mcwh(object, ...)
 
@@ -29,11 +28,9 @@ triang(object, ...)
 
 \method{triang}{default}(object, control = list(), ...)
 
-\method{triang_mcwh}{default}(object, nLevels = NULL, result = NULL,
-  check = TRUE, ...)
+\method{triang_mcwh}{default}(object, nLevels = NULL, result = NULL, check = TRUE, ...)
 
-\method{triang_elo}{default}(object, order = NULL, result = NULL,
-  check = TRUE, ...)
+\method{triang_elo}{default}(object, order = NULL, result = NULL, check = TRUE, ...)
 
 triangulateMAT(amat, nLevels = rep(2, ncol(amat)), ...)
 

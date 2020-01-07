@@ -47,24 +47,24 @@ List do_colmat2list_str(SEXP XX_){
   return out;
 }
 
-//' @name internal
-//' @aliases which_matrix_index__ rowmat2list__ colmat2list__
+// //' @name internal_grbase_cpp
+// //' @aliases which_matrix_index__ rowmat2list__ colmat2list__
 
 // [[Rcpp::export]]
-SEXP which_matrix_index__( SEXP XX_ ){
-  NumericMatrix X(XX_);
+SEXP which_matrix_index__( SEXP X ){
+  NumericMatrix X2(X);
   double sum = 0;
-  for(int ii=0; ii < X.nrow(); ii++){
-    for (int jj=0; jj < X.ncol(); jj++){
-      sum += (X(ii, jj) != 0);
+  for(int ii=0; ii < X2.nrow(); ii++){
+    for (int jj=0; jj < X2.ncol(); jj++){
+      sum += (X2(ii, jj) != 0);
     }
   }
   
   int kk=0;
   NumericMatrix out(sum, 2); // FIXME: should be IntegerMatrix?
-  for(int ii = 0; ii < X.nrow(); ii++){
-    for (int jj = 0; jj < X.ncol(); jj++){
-      if (X(ii,jj) != 0){
+  for(int ii = 0; ii < X2.nrow(); ii++){
+    for (int jj = 0; jj < X2.ncol(); jj++){
+      if (X2(ii,jj) != 0){
 		out(kk, 0) = ii + 1; 
 		out(kk++, 1) = jj + 1;
       }
@@ -74,23 +74,23 @@ SEXP which_matrix_index__( SEXP XX_ ){
 }
 
 // [[Rcpp::export]]
-SEXP rowmat2list__ ( SEXP XX_ ){
-  int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
+SEXP rowmat2list__ ( SEXP X ){
+  int type = TYPEOF(X) ;  //Rf_PrintValue(wrap(type));
   switch( type ){
-  case INTSXP  : return do_rowmat2list<IntegerMatrix>(XX_); 
-  case REALSXP : return do_rowmat2list<NumericMatrix>(XX_); 
-  case STRSXP  : return do_rowmat2list<CharacterMatrix>(XX_); 
+  case INTSXP  : return do_rowmat2list<IntegerMatrix>(X); 
+  case REALSXP : return do_rowmat2list<NumericMatrix>(X); 
+  case STRSXP  : return do_rowmat2list<CharacterMatrix>(X); 
   }                                    
   return List(0);
 }
 
 // [[Rcpp::export]]
-SEXP colmat2list__ ( SEXP XX_ ){
-  int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
+SEXP colmat2list__ ( SEXP X ){
+  int type = TYPEOF(X) ;  //Rf_PrintValue(wrap(type));
   switch( type ){
-  case INTSXP  : return do_colmat2list<IntegerMatrix>(XX_); 
-  case REALSXP : return do_colmat2list<NumericMatrix>(XX_); 
-  case STRSXP  : return do_colmat2list_str(XX_); // FIXME bug in Rcpp???  
+  case INTSXP  : return do_colmat2list<IntegerMatrix>(X); 
+  case REALSXP : return do_colmat2list<NumericMatrix>(X); 
+  case STRSXP  : return do_colmat2list_str(X); // FIXME bug in Rcpp???  
   }                                    
   return List(0) ;
 }

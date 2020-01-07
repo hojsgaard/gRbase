@@ -48,7 +48,7 @@ querygraph <-function(object, op, set=NULL, set2=NULL, set3=NULL){
       "vpar")
 
     op <- match.arg(op, choices=c(graph.RBGL, gRbase))
-  object <- coerceGraph(object, "graphNEL")
+    object <- coerceGraph(object, "graphNEL")
 
   switch(op,
          ## Functions from graph/RBGL package here.
@@ -176,7 +176,7 @@ simplicialNodes <- function(object){
   nodes <- graph::nodes(object)
   b     <- unlistPrim(lapply(nodes, function(s) is.simplicial(s, object)))
   sim   <- nodes[b]
-  return(sim)
+  sim
 }
 
 

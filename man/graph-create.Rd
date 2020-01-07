@@ -3,18 +3,18 @@
 \name{graph-create}
 \alias{graph-create}
 \alias{ug}
-\alias{dag}
 \alias{ugList}
+\alias{dag}
 \alias{dagList}
-\alias{ugList2matrix}
-\alias{ugList2dgCMatrix}
-\alias{dagList2matrix}
-\alias{dagList2dgCMatrix}
 \title{Create undirected and directed graphs}
 \usage{
 ug(..., result = "graphNEL")
 
+ugList(x, result = "graphNEL")
+
 dag(..., result = "graphNEL", forceCheck = FALSE)
+
+dagList(x, result = "graphNEL", forceCheck = FALSE)
 }
 \arguments{
 \item{\dots}{A generating class for a graph, see examples below}
@@ -22,6 +22,8 @@ dag(..., result = "graphNEL", forceCheck = FALSE)
 \item{result}{The format of the graph. The possible choices are "graphNEL"
 (for a graphNEL object), "matrix" (for an adjacency matrix), "dgCMatrix"
 (for a sparse matrix), "igraph" (for an igraph object).}
+
+\item{x}{A list or individual components from which a graph can be created.}
 
 \item{forceCheck}{Logical determining if it should be checked if the graph is
 acyclical. Yes, one can specify graphs with cycles using the \code{dag()}
@@ -54,6 +56,7 @@ graph::nodes(daG2)
 
 ## dag() allows to specify directed graphs with cycles:
 daG4 <- dag(~ a:b + b:c + c:a) # A directed graph but with cycles
+
 ## A check for acyclicity can be done with
 ## daG5 <- dag(~ a:b + b:c + c:a, forceCheck=TRUE) 
 

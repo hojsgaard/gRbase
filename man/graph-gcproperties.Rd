@@ -53,8 +53,8 @@ A set of sets of variables, say A_1, A_2, ... A_K is
 }
 \examples{
 
-g1 <- ~a:b+a:c+b:c+c:d
-g2 <- ~a:b:c+c:d
+g1 <- ~a:b + a:c + b:c + c:d
+g2 <- ~a:b:c + c:d
 g3 <- ~a:b + b:c + c:d + d:a
 
 isGraphical( g1 ) # FALSE
@@ -69,7 +69,6 @@ isDecomposable( g3 ) # TRUE
 f <- list(c("a","b"), c("b","c"), c("a","c"))
 isGraphical( f )
 isDecomposable( f )
-
 
 }
 \seealso{

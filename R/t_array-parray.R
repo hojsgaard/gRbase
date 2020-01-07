@@ -72,7 +72,7 @@
 #' @export parray
 parray <- function(varNames, levels, values=1, normalize="none", smooth=0){
 
-  normalize <- match.arg(normalize, choices=c("none","first","all"))
+  normalize <- match.arg(normalize, choices=c("none", "first", "all"))
   varNames  <- rhsFormula2list(varNames)[[1]]
   if (smooth>0){
     values <- values + smooth
@@ -104,7 +104,7 @@ parray <- function(varNames, levels, values=1, normalize="none", smooth=0){
 #' @rdname array-parray
 as.parray  <- function(values, normalize="none", smooth=0){
 
-  normalize <- match.arg(normalize, choices=c("none","first","all"))
+  normalize <- match.arg(normalize, choices=c("none", "first", "all"))
 
   if (!inherits(values, c("array","matrix","integer","double","table"))){
     stop("arg must be array, matrix, table, integer or double\n")

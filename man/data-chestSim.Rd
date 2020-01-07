@@ -4,7 +4,6 @@
 \name{data-chestSim}
 \alias{data-chestSim}
 \alias{chestSim500}
-\alias{chestSim}
 \alias{chestSim1000}
 \alias{chestSim10000}
 \alias{chestSim50000}

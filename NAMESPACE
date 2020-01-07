@@ -13,7 +13,8 @@ export("%>%") ## To make available in vignette
 ## ----------------------------
 
 importClassesFrom(graph, graphNEL)
-importFrom(graph, edges, nodes)
+importFrom(graph, edges, nodes, randomGraph)
+export(randomGraph)
 
 ##export("edges", "nodes")
 ##importFrom("RBGL", "maxClique", "is.triangulated", "separates")
@@ -44,15 +45,19 @@ export(as.gmData, gModel, gmData, observations, "observations<-",
 export(fit, compile, propagate, stepwise, compareModels)
 
 ## Graph algorithms
-export(ug, ugList, dag, dagList, ug2dag, coerceGraph, edgeList,
-       edgeListMAT, nonEdgeListMAT, nonEdgeList, isGraphical,
-       isDecomposable, glist2adjMAT)
+export(ug, ugList, dag, dagList, ug2dag, coerceGraph,
+
+       edgeList, edgeListMAT, nonEdgeListMAT, nonEdgeList,
+       isGraphical, isDecomposable,
+       glist2adjMAT)
 
 ## Graph algorithms
-export(is.DAG, is.DAGMAT,
-       is.UG, is.UGMAT,
-       is.DG, is.DGMAT,
-       is.TUG, is.TUGMAT,
+export(is_dag, is_dagMAT,
+       is_ug, is_ugMAT,
+       is_dg, is_dgMAT,
+       is_tug, is_tugMAT,
+
+
        get_cliques,       
        
        moralize, moralizeMAT,
@@ -74,14 +79,23 @@ export(querygraph, qgraph, ancestors, ancestralGraph, ancestralSet,
        is.simplicial, simplicialNodes)
 
 ## Graph coercions. Ugly, but I needed a handle on generator lists
-export(graphNEL2M, M2graphNEL, M2adjList, M2ugList, M2dagList,
-       ugList2M, dagList2M, M2dgCMatrix, M2matrix, M2igraph,
-       glist2setMAT)
+
+## export(graphNEL2M, M2graphNEL, M2adjList, M2ugList, M2dagList,
+##        ugList2M, dagList2M, M2dgCMatrix, M2matrix, M2igraph
+##        )
+
+
+export(gn2xm_, xm2gn_, xm2ig_,
+       M2adl_ , M2ugl_, M2dagl_
+       ##M2adjList, M2ugList, M2dagList,
+       ##ugList2M, dagList2M
+       ##M2dgCMatrix, M2matrix, 
+       )
 
 export(names2pairs, df2xtabs, dimnames_match, parray, as.parray,
        is.named.array, is_named_array_, is_number_vector_,
        simulateArray, cov2pcor, colwiseProd, data2parray, rowmat2list,
-       colmat2list, matrix2list, rowSumsPrim, colSumsPrim, as_, iplot,
+       colmat2list, matrix2list, rowSumsPrim, colSumsPrim, iplot,
        rhsf2list, rhsFormula2list, list2rhsf, as.adjMAT, is.adjMAT,
        solveSPD, which_matrix_index, which.arr.index)
 
@@ -129,50 +143,62 @@ export(tablePerm, tableMult, tableDiv, tableOp, tableSlice,
 export(topoSort)  ## topo_sort
 S3method(topoSort, default)
 
-export(isin)      ## is_inset
-export(tab)       ## newar/ar_new; this is messy
-export(get_superset_)
-export(is_subsetof_)
-export(subsetof)
-export(tabMult__)
-export(tableOp2)
-##export(newar)
-export(unlistPrim)
+export(isin)          ## is_inset
+export(tab)           ## newar/ar_new; this is messy
+export(get_superset_) ## Bruges i gRain
+export(is_subsetof_)  ## Bruges i gRain
+export(subsetof)      ## Bruges i gRain
+export(tabMult__)     ## Bruges i gRain
+export(tableOp2)      ## Bruges i gRain
 
-## The prim functions... uniquePrim is used in gRc
-export(uniquePrim)
+export(get_subset_)   ## Bruges ikke downstream
+export(unlistPrim)    ## Bruges denne???
 
+## The prim functions... 
+export(uniquePrim)       ## uniquePrim is used in gRc
+export(topoSortMAT)      ## Used by mcmcabn
 
-export(topoSortMAT) ## Used by mcmcabn
-
-export(jTree)       ## Used by rags2ridges
+export(jTree)            ## Used by rags2ridges
 S3method(jTree, default)
 
+## grain
+export(is.TUG, is.DAG)
 
-
+## simPATHy
+export(is.UG, is.DG, graphNEL2M, M2graphNEL)
 
 ## grim
 export(removeRedundant, isGSD_glist, getCliques, mcsmarked, combnPrim,
        maxCliqueMAT, intersectPrim, mcsmarkedMAT, setdiffPrim,
-       nextCell, outerPrim, ell, ellK, MAT2ftM_)
+       nextCell, outerPrim,
+       ell, ellK,
+       MAT2ftM_)
 
 
-## S3method(coerceGraph, dgCMatrix)
-## S3method(coerceGraph, graphNEL)
-## S3method(coerceGraph, igraph)
-## S3method(coerceGraph, matrix)
+export(isGraphical.default, isDecomposable.default)
 
-S3method(isGraphical, default)
+## --------------------
+
+
+S3method(isGraphical,    default)
 S3method(isDecomposable, default)
 
-S3method(is.DAG, default)
-S3method(is.DAG, graphNEL)
-S3method(is.DG, default)
-S3method(is.DG, graphNEL)
-S3method(is.TUG, default)
-S3method(is.TUG, graphNEL)
-S3method(is.UG, default)
-S3method(is.UG, graphNEL)
+## Not to self: Export methods but do not create aliases in .Rd files
+## (remember to drop aliases on roxygen). Then methods are available
+## for generics but not exported.
+
+S3method(is_dag, default)
+S3method(is_dag, graphNEL)
+S3method(is_dag, igraph)
+S3method(is_dg, default)
+S3method(is_dg, graphNEL)
+S3method(is_dg, igraph)
+S3method(is_tug, default)
+S3method(is_tug, graphNEL)
+S3method(is_tug, igraph)
+S3method(is_ug, default)
+S3method(is_ug, graphNEL)
+S3method(is_ug, igraph)
 
 S3method(vpar, Matrix)
 S3method(vpar, matrix)
@@ -212,10 +238,10 @@ S3method(iplot, graphNEL)
 S3method(plot, ripOrder)
 S3method(isDecomposable, default)
 
-S3method(as_, dgCMatrix)
-S3method(as_, graphNEL)
-S3method(as_, igraph)
-S3method(as_, matrix)
+## S3method(.as_fun, dgCMatrix)
+## S3method(.as_fun, graphNEL)
+## S3method(.as_fun, igraph)
+## S3method(.as_fun, matrix)
 
 S3method(fit, ggm)
 

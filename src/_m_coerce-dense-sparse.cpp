@@ -52,8 +52,8 @@ SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
 }
 
 
-//' @name internal
-//' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
+// //' @name internal_grbase_cpp
+// //' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
 
 // [[Rcpp::export]]
 SEXP matrix2dgCMatrix__ ( SEXP XX_ ){

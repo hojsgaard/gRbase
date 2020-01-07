@@ -422,11 +422,11 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
 //
 // ------------------------------------------------------------- 
 
-//' @title Internal Rcpp functions
-//' @description Automatically generated documentation of Rcpp functions.
-//' @name internal
-//' @aliases tab_list_mult_ tab_list_add_ tab_op_ tab_add_ tab_subt_
-//' tab_mult_ tab_div_ tab_div0_ tab_equal_
+// //' @title Internal Rcpp functions
+// //' @description Automatically generated documentation of Rcpp functions.
+// //' @name internal_grbase_cpp
+// //' @aliases tab_list_mult_ tab_list_add_ tab_op_ tab_add_ tab_subt_
+// //' tab_mult_ tab_div_ tab_div0_ tab_equal_
 
 
 #define _tab_op_loopit(_op_)						\

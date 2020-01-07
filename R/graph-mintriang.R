@@ -39,7 +39,7 @@
 #'     TuG.  A triangulation TuG is minimal if no fill-ins can be
 #'     removed without breaking the property that TuG is triangulated.
 #'
-#' @name graph-minimal_triang
+#' @name graph-mintriang
 #' 
 #' @details For a given triangulation tobject it may be so that some
 #'     of the fill-ins are superflous in the sense that they can be
@@ -89,33 +89,48 @@
 #' g1m <- ug(~a:b + b:c + c:d + d:e + e:f + a:f + b:e, result="matrix")
 #' x <- minimal_triangMAT(g1m)
 #' 
-#' @export graph-minimal_triang
+#' @export graph-mintriang
 minimal_triang <- function(object, tobject=triangulate(object), result=NULL, details=0){
     UseMethod("minimal_triang")
 }
 
-#' @rdname graph-minimal_triang
+#' @rdname graph-mintriang
 minimal_triang.default <- function(object, tobject=triangulate(object), result=NULL, details=0){
-    cls <- match.arg(class( object ),
-                     c("graphNEL","matrix","dgCMatrix"))
-    if (is.null( result ))
+
+    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    chk <- inherits(object, graph_class, which=TRUE)
+    if (!any(chk)) stop("Invalid class of 'object'\n")
+    cls <- graph_class[which(chk > 0)]
+    
+    if (is.null(result))
         result <- cls
     
-    switch(cls,
-           "graphNEL" ={tt<-.minimal_triang(object, TuG=tobject, details=details) },
-           "dgCMatrix"=,
-           "matrix"   ={ #FIXME: minimal_triang: Not sure if this is correct...
-               object2 <- as(object,  "graphNEL")
-               tobject2<- as(tobject, "graphNEL")
-               tt<-.minimal_triang(object2, TuG=tobject2, details=details)
-           })
+    ## cls <- match.arg(class( object ),
+    ##                  c("graphNEL","matrix","dgCMatrix"))
+    ## if (is.null(result))
+    ##     result <- cls
+    
+    ## switch(cls,
+    ##        "graphNEL" ={tt<-.minimal_triang(object, TuG=tobject, details=details) },
+    ##        "dgCMatrix"=,
+    ##        "matrix"   ={ #FIXME: minimal_triang: Not sure if this is correct...
+    ##            object2 <- as(object,  "graphNEL")
+    ##            tobject2<- as(tobject, "graphNEL")
+    ##            tt<-.minimal_triang(object2, TuG=tobject2, details=details)
+    ##        })
+
+    
+    tt<-.minimal_triang(as(object, "graphNEL"),
+                        TuG=as(tobject, "graphNEL"), details=details)
+
     as(tt, result)
 }
 
 
-#' @rdname graph-minimal_triang
+#' @rdname graph-mintriang
 minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
-    as.adjMAT(.minimal_triang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"), details=details))
+    as.adjMAT(.minimal_triang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"),
+                              details=details))
 }
 
 
@@ -141,8 +156,8 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
         TT <- TuGmat - uGmat # edges added in triangulatn in adjacency representatn
         ## ends here...
         
-        ## TT <- as(TuG,"matrix") - as(uG,"matrix")	# edges added in triangulatn in adjacency representatn
-        
+        ## TT <- as(TuG,"matrix") - as(uG,"matrix")
+        ## edges added in triangulation in adjacency representation
         TT <- as(TT,"graphNEL")
         Tn <- edgeList(TT)
         

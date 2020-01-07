@@ -334,21 +334,21 @@ contrast, with \graphnel\ objects one can work with three types of
 edges: undirected, directed and bidirected edges.
 
 \begin{itemize}
-\item \code{is.UG()} checks if the adjacency
+\item \code{is\_ug()} checks if the adjacency
 matrix is symmetric (If applied to a graphNEL, the adjacency matrix is
 created and checked for symmetry.)
 
-\item \code{is.TUG()} checks if the graph is undirected and
+\item \code{is\_tug()} checks if the graph is undirected and
 triangulated (also called chordal) by checking if the adjacency matrix is
 symmetric and the vertices can be given a perfect ordering using
 maximum cardinality seach.
 
-\item \code{is.DG()} checks if a graph is directed, i.e., that
+\item \code{is\_dg()} checks if a graph is directed, i.e., that
 there are no undirected edges. This is done by computing the
 elementwise product of A and the transpose of A; if there are no
 non--zero entries in this product then the graph is directed.
 
-\item  \code{is.DAG()} will
+\item  \code{is\_dag()} will
 return \code{TRUE} if all edges are directed and if there are no
 cycles in the graph. (This is checked by checking if the vertices in
 the graph can be given a topological ordering which is based on
@@ -364,17 +364,17 @@ both undirected, triangulated, directed and directed acyclic.
 Consider these examples (where \code{isDirected()} is a method from
 the \graph\ package):
 
-%% @
-%% <<>>=
-%% properties <- function(x){
-%%     c(is.UG=is.UG(x), is.TUG=is.TUG(x), is.DG=is.DG(x), is.DAG=is.DAG(x),
-%%       isD=graph::isDirected(x))
-%% }
-%% properties( uG11 )
-%% properties( daG11 )
-%% properties( d1.bi )
-%% properties( d2.cyc )
-%% @ %def
+@
+<<>>=
+properties <- function(x){
+  c(is_ug=is_ug(x), is_tug=is_tug(x), is_dg=is_dg(x), is_dag=is_dag(x),
+    isD=graph::isDirected(x))
+}
+properties( uG11 )
+properties( daG11 )
+properties( d1.bi )
+properties( d2.cyc )
+@ %def
 
 
 \subsection{Graph coercion}
@@ -389,30 +389,18 @@ Mat <- as(mat, "dgCMatrix")
 NEL <- as(Mat, "graphNEL")
 @ %def
 
+
+%% Faster (generally) coercion can be obtained 
 %% <<>>=
-%% (mat <- as(uG11, "matrix"))
-%% (Mat <- as(mat, "dgCMatrix"))
-%% (NEL <- as(Mat, "graphNEL"))
+%% mat <- graphNEL2M(uG11, result="matrix")
+%% Mat <- graphNEL2M(uG11, result="dgCMatrix")
+%% NEL <- M2graphNEL(mat)
 %% @ %def
-%% 
 
-Faster (generally) coercion can be obtained with
-<<>>=
-mat <- coerceGraph(uG11, "matrix")
-Mat <- coerceGraph(uG11, "dgCMatrix")
-NEL <- coerceGraph(mat, "graphNEL")
-@ %def
-and, at a lower level,
-<<>>=
-mat <- graphNEL2M(uG11, result="matrix")
-Mat <- graphNEL2M(uG11, result="dgCMatrix")
-NEL <- M2graphNEL(mat)
-@ %def
-
-We also have
-<<>>=
-str( M2adjList(mat) )
-@ %def
+%% We also have
+%% <<>>=
+%% str( M2adjList(mat) )
+%% @ %def
 
 
 %% <<>>=
@@ -586,7 +574,7 @@ rp <- rip(tuG); rp
 @ %def
 
 <<>>=
-plot( rp )
+plot(rp )
 @ %def
 
 There is more information in a RIP-object:
@@ -644,7 +632,7 @@ par(mfrow = c(1,2)); plot(g2); plot(g1mt2)
 
 The junction tree of a maximum prime subgraph decomposition is obtained with:
 <<>>=
-mm <- mpd( g1 ); mm
+mm <- mpd(g1); mm
 @ %def
 
 <<>>=
