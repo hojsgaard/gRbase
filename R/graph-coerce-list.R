@@ -221,7 +221,7 @@ ugl2M_ <- function(glist, vn=NULL, result="matrix"){
     result <- match.arg(result, c("matrix", "dgCMatrix", "Matrix"))
     if (is.null(vn)) vn <- unique.default(unlist(glist))
     switch(result,
-           "matrix"    =,
+           "Matrix"    =,
            "dgCMatrix" = {ugl2sm_( glist, vn )},
            "matrix"    = {ugl2dm_( glist, vn )}  )
 }

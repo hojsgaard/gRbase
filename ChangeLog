@@ -8,7 +8,9 @@
 	* is.DAG renamed to is_dag and similarly for friends. Old versions
 	retained for backward compatibility.
 
-	* Version 1.8-5 uploaded
+	* Mess as been cleaned up
+
+	* Version 1.8-5.1 uploaded
 
 2019-09-25 Søren Højsgaard <sorenh@math.aau.dk>
 

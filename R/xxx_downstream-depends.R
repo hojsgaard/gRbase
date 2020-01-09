@@ -39,6 +39,7 @@ tabSubt__ <- tab_subt_
 
 ## grain uses topoSort;
 ## FIXME: replace with topo_sort
+## FIXME: No, gRain does NOT use topoSort.
 topoSort <- function(object, index=FALSE){
   UseMethod("topoSort")
 }
@@ -48,9 +49,9 @@ topoSort.default <- function(object, index=FALSE){
 }
 
 ## grain uses isin;
-## FIXME: replace with is_inset (remember that arguments
+## FIXME: gRain replace isin with is_inset (remember that arguments
 ## must be switched)
-
+## FIXME: done
 isin <- .isin ## potentialList.R
 
 ## grain uses subsetof; don't remember details of this function
@@ -62,18 +63,19 @@ subsetof <- function(x, y){
 }
 
 ## grain uses these;
-## FIXME: replace
+## FIXME: in gRain replace is.TUG is.DAG
+## FIXME DONE 
 is.TUG <- is_tug
 is.DAG <- is_dag
 
-
+## FIXME Used in simPATHy; request replace
 is.DG  <- is_dg
 is.UG  <- is_ug
 
 ## --- Used by gRim ---
 ## --------------------
 
-## Used by gRim; maybe also in book
+## FIXME Used by gRim
 glist2adjMAT <- ugl2M_
 
 removeRedundant  <- remove_redundant
