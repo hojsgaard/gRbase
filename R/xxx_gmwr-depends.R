@@ -6,7 +6,7 @@
 #' @description Functions that must be retained to make code from
 #'     gmwr-book work
 #'
-#' @name gmwr-book
+#' @name gmwr_book
 ##
 ######################################################################
 
@@ -19,6 +19,6 @@
 #' 
 NULL
 
-#' @rdname gmwr-book
+#' @rdname gmwr_book
 ##as.adjMAT       <- graphNEL2M
 as.adjMAT       <- gn2xm_
