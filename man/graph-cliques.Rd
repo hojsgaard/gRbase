@@ -41,7 +41,6 @@ The workhorse is the \code{max_cliqueMAT} function which calls the
 \code{maxClique} function in the \code{RBGL} package.
 }
 \examples{
-
 ## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 get_cliques(uG1)
@@ -53,8 +52,6 @@ get_cliques(uG2)
 ## adjacency matrix (sparse)
 uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
 get_cliques(uG3)
-
-
 }
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},

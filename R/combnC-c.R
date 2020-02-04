@@ -43,6 +43,7 @@
 #' @export combn_prim
 #' 
 
+#' @export
 combn_prim <- function(x, m, simplify=TRUE){
     ## FIXME: combn_prim: Could take a FUN argument.
     if (length(x)==1 && is.numeric(x))

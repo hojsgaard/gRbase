@@ -6,6 +6,7 @@
 ## ## #################################################################
 
 #dropEdge <- function(object, name.1, name.2) UseMethod("dropEdge")
+#' @export
 dropEdge.gModel <-
           function(object,name.1,name.2) {
 
@@ -26,6 +27,7 @@ dropEdge.gModel <-
 
 
 #addEdge <- function(object, name.1, name.2) UseMethod("addEdge")
+#' @export
 addEdge.gModel <-
           function(object,name.1,name.2) {
 
@@ -206,17 +208,27 @@ globalVariables(c("rawdata", "loglm.formula"))
 ## Update 2016 in Rennes, France
 ## Needed to get compileCPT to work with proper array input in gRain
 ## (strange that nobody has noticed that it fails before)
-## 
+##
+
+#' @export
 valueLabels         <- function(x) UseMethod("valueLabels")
+#' @export
 valueLabels.default  <- function(x) attr(x,"dimnames")
+#' @export
 valueLabels.gmData  <- function(x) attr(x,"valueLabels")
 
+#' @export
 varNames         <- function(x)UseMethod("varNames")
+#' @export
 varNames.default <- function(x) names(attr(x,"dimnames"))
+#' @export
 varNames.gmData <- function(x)as.vector(x$varNames)
 
+#' @export
 nLevels         <- function(x)UseMethod("nLevels")
+#' @export
 nLevels.default <- function(x) dim(x)
+#' @export
 nLevels.gmData  <- function(x)structure(as.vector(x$nLevels), .Names=varNames(x))
 
 ## nLevels.array      <- function(x) dim(x)
@@ -232,70 +244,112 @@ nLevels.gmData  <- function(x)structure(as.vector(x$nLevels), .Names=varNames(x)
 ## END of French update
 ##
 
+#' @export
 "latent.gmData" <- function(x){attr(x,"latent")}
+#' @export
 "latent" <- function(x) UseMethod("latent")
-
+#' @export
 "latent<-.gmData" <- function(tmp,value){attr(tmp,"latent")<-value; return(tmp)}
+#' @export
 "latent<-" <- function(tmp,value) UseMethod("latent<-")
 
-
+#' @export
 "valueLabels<-.gmData"<- function(tmp,value){attr(tmp,"valueLabels")<-value; return(tmp)}
+#' @export
 "valueLabels<-"       <- function(tmp,value) UseMethod("valueLabels<-")
 
-observations.gmData <- function(x) attr(x,"observations")
+#' @export
 observations    <- function(x) UseMethod("observations")
+#' @export
 obs             <- function(x) UseMethod("observations")
 
+#' @export
+observations.gmData <- function(x) attr(x,"observations")
+
+#' @export
 "observations<-.gmData"<- function(tmp,value){attr(tmp,"observations")<-value; return(tmp)}
+
+#' @export
 "observations<-"       <- function(tmp,value)UseMethod("observations<-")
 
 ## "description.gmData" <- function(x){attr(x,"description")}
 ## "description" <- function(x) UseMethod("description")
 
+#' @export
 "description<-.gmData" <- function(tmp,value){attr(tmp,"description")<-value; return(tmp)}
+
+#' @export
 "description<-" <- function(tmp,value) UseMethod("description<-")
 
+
+#' @export
 "varTypes.gmData" <- function(x){structure(x$varTypes, .Names=varNames(x))}
+
+#' @export
 "varTypes" <- function(x) UseMethod("varTypes")
 
+#' @export
 "varTypes<-.gmData" <- function(tmp,value){ tmp$varTypes <-value; return(tmp)}
+
+#' @export
 "varTypes<-" <- function(tmp,value) UseMethod("varTypes<-")
 
-
+#' @export
 "varNames<-.gmData" <- function(tmp,value){ tmp$varNames <-value; return(tmp)}
+
+#' @export
 "varNames<-" <- function(tmp,value) UseMethod("varNames<-")
 
-
+#' @export
 "nLevels<-.gmData" <- function(tmp,value){ tmp$nLevels <-value; return(tmp)}
+
+#' @export
 "nLevels<-" <- function(tmp,value) UseMethod("nLevels<-")
 
-
+#' @export
 shortNames.gmData <- function(x)structure(as.vector(x$shortNames), .Names=varNames(x))
+
+#' @export
 shortNames <- function(x)UseMethod("shortNames")
 
+#' @export
 "shortNames<-.gmData" <- function(tmp,value){ tmp$shortNames <-value; return(tmp)}
+
+#' @export
 "shortNames<-" <- function(tmp,value) UseMethod("shortNames<-")
 
+#' @export
 dataOrigin.gmData   <- function(x) attr(x,"dataOrigin")[1]
+
+#' @export
 dataOrigin   <- function(x)UseMethod("dataOrigin")
 
+#' @export
 "ordinal"           <- function(tmp) UseMethod("ordinal")
+
+#' @export
 "ordinal<-"         <- function(tmp,value) UseMethod("ordinal<-")
 
+#' @export
 "ordinal.gmData" <- function(tmp)attr(tmp,"ordinal")
 
+#' @export
 "ordinal<-.gmData" <- function(tmp,value){
   varTypes(tmp)[match(value, varNames(tmp))]<-"Ordinal"
   return(tmp)}
 
+#' @export
 "nominal"           <- function(tmp) UseMethod("nominal")
+
+#' @export
 "nominal<-"         <- function(tmp,value) UseMethod("nominal<-")
 
-
+#' @export
 "nominal.gmData" <- function(tmp){
   varNames(tmp)["Discrete"==varTypes(tmp)]
 }
 
+#' @export
 "nominal<-.gmData" <- function(tmp,value){
   varTypes(tmp)[match(value, varNames(tmp))]<-"Discrete"
   return(tmp)}
@@ -305,10 +359,12 @@ dataOrigin   <- function(x)UseMethod("dataOrigin")
 
 
 
-##################################################################################
+####################################################################
+#' @export
 as.gmData       <- function(from) UseMethod("as.gmData")
-##################################################################################
+####################################################################
 
+#' @export
 print.gmData  <- function(x, ...){
   xx<-attr(x,"description")
   if (!is.null(xx))
@@ -334,7 +390,7 @@ print.gmData  <- function(x, ...){
 # }
 
 
-
+#' @export
 summary.gmData <- function(object, ...){
   print(object)
   mapply(function(xx,ll){
@@ -382,16 +438,15 @@ summary.gmData <- function(object, ...){
 # }
 
 
-
-newgmData <-
-function (varNames,
-          varTypes = rep(validVarTypes()[1], length(varNames)),
-          nLevels  = NULL,
-          latent   = NULL,
-          valueLabels  = NULL,
-          observations = NULL,
-          description  = NULL,
-          shortNames   = NULL)
+#' @export
+newgmData <- function (varNames,
+                       varTypes = rep(validVarTypes()[1], length(varNames)),
+                       nLevels  = NULL,
+                       latent   = NULL,
+                       valueLabels  = NULL,
+                       observations = NULL,
+                       description  = NULL,
+                       shortNames   = NULL)
 {
 
   cl <- match.call()
@@ -516,12 +571,14 @@ function (varNames,
 #         attr(value, "dataOrigin") <- "table"
 #     })
 
+#' @export
 validVarTypes <- function() {c("Discrete","Ordinal","Continuous")}
 
 
 ## ####################################################################
 ## Convert data.frame into gmData
 
+#' @export
 as.gmData.data.frame <- function(from){
   fact   <- unlist(lapply(1:ncol(from), function(j)
                           is.factor(from[,j])))
@@ -561,6 +618,7 @@ as.gmData.data.frame <- function(from){
 ## ####################################################################
 ## Convert table into gmData
 
+#' @export
 as.gmData.table <- function(from){
   counts <- as.vector(from)
   dn     <- dimnames(from)
@@ -579,6 +637,7 @@ as.gmData.table <- function(from){
 ## ####################################################################
 ## Convert array into gmData
 
+#' @export
 as.gmData.array <- function(from){
   res <- as.gmData(as.table(from))
   observations(res) <- from
@@ -596,21 +655,32 @@ as.gmData.array <- function(from){
 ##
 
 
+#' @export
 gModel <- function(formula, gmData){
   value <- list(formula=formula, gmData=gmData)
   class(value) <- "gModel"
   return(value)
 }
 
+#' @export
 "formula<-.gModel" <- function(tmp,value){tmp$formula<-value; return(tmp)}
+
+#' @export
 "formula<-" <- function(tmp,value) UseMethod("formula<-")
 
+#' @export
 "gmData.gModel" <- function(x){x$gmData}
+
+#' @export
 "gmData" <- function(x) UseMethod("gmData")
 
+#' @export
 "gmData<-.gModel" <- function(tmp,value){tmp$gmData<-value; return(tmp)}
+
+#' @export
 "gmData<-" <- function(tmp,value) UseMethod("gmData<-")
 
+#' @export
 print.gModel <- function(x, ...){
   cat("Model information (gRbase)\n")
   cat(" Class:   ", paste(class(x),collapse=' <- '),"\n")

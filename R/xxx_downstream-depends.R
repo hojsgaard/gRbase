@@ -13,6 +13,7 @@
 #'     is_subsetof_ get_superset_ get_subset_
 #'     is.UG is.DG
 #'     graphNEL2M M2graphNEL
+#'     tab
 #' 
 #' @name downstream-aliases
 #' 
@@ -30,23 +31,23 @@ NULL
 ## ---------------------
 
 ## for gRain compatibility: FIXME REMOVE LATER
-tabAdd__  <- tab_add_
-tabDiv__  <- tab_div_
-tabDiv0__ <- tab_div0_
-tabMarg__ <- tab_marg_
-tabMult__ <- tab_mult_
-tabSubt__ <- tab_subt_
+#tabAdd__  <- tab_add_
+##tabDiv__  <- tab_div_
+##tabDiv0__ <- tab_div0_
+##tabMarg__ <- tab_marg_
+##tabMult__ <- tab_mult_
+##tabSubt__ <- tab_subt_
 
 ## grain uses topoSort;
 ## FIXME: replace with topo_sort
 ## FIXME: No, gRain does NOT use topoSort.
-topoSort <- function(object, index=FALSE){
-  UseMethod("topoSort")
-}
+## topoSort <- function(object, index=FALSE){
+##   UseMethod("topoSort")
+## }
 
-topoSort.default <- function(object, index=FALSE){
-    topo_sortMAT(as(object, "dgCMatrix"), index=index)
-}
+## topoSort.default <- function(object, index=FALSE){
+##     topo_sortMAT(as(object, "dgCMatrix"), index=index)
+## }
 
 ## grain uses isin;
 ## FIXME: gRain replace isin with is_inset (remember that arguments
@@ -57,37 +58,61 @@ isin <- .isin ## potentialList.R
 ## grain uses subsetof; don't remember details of this function
 ## (different from is.subsetof) 
 
+#' @export
 subsetof <- function(x, y){
   #all(.Internal(match( x, y, 0, NULL))>0)
   all(match(x,y,0)>0)
 }
 
+#' @export
+tab <- tabNew
+
 ## grain uses these;
 ## FIXME: in gRain replace is.TUG is.DAG
-## FIXME DONE 
+## FIXME DONE
+
+#' @export
 is.TUG <- is_tug
+
+#' @export
 is.DAG <- is_dag
 
 ## FIXME Used in simPATHy; request replace
+#' @export
 is.DG  <- is_dg
+#' @export
 is.UG  <- is_ug
 
 ## --- Used by gRim ---
 ## --------------------
 
 ## FIXME Used by gRim
+#' @export
 glist2adjMAT <- ugl2M_
 
+#' @export
 removeRedundant  <- remove_redundant
 ## FIXME: Replace
 
+#' @export
 mcsmarked     <- mcs_marked
+
+#' @export
 getCliques    <- get_cliques
+
+#' @export
 maxCliqueMAT  <- max_cliqueMAT
+
+#' @export
 combnPrim     <- combn_prim
+
+#' @export
 mcsmarkedMAT  <- mcs_markedMAT
+
+#' @export
 nextCell      <- next_cell
 
+#' @export
 ell <- function(Sigma, S, n){
 
     shdet <- function(Sigma){
@@ -98,6 +123,7 @@ ell <- function(Sigma, S, n){
     const - n/2 * log(shdet(Sigma)) - n/2 * sum(diag( solve(Sigma) %*% S )) 
 }
 
+#' @export
 ellK <- function (K, S, n)
 {
     value <- (n/2) * (log(det(K)) - sum(rowSums(K * S)))
@@ -109,16 +135,21 @@ ellK <- function (K, S, n)
 ## -----------------------
 
 ## FIXME: Request replacement
+
+#' @export
 topoSortMAT <- topo_sortMAT
 
 
 ## --- Used by rags2ridges ---
 ## ---------------------------
 ## FIXME: Request replacement
+
+#' @export
 jTree <- function(object, ...){
   UseMethod("jTree")
 }
 
+#' @export
 jTree.default  <- junction_tree.default
 
 
@@ -127,6 +158,7 @@ jTree.default  <- junction_tree.default
 ## -----------------------
 ## FIXME request replacement
 ##graphNEL2adjMAT <- graphNEL2M
+#' @export
 graphNEL2adjMAT <- gn2xm_
 
 
@@ -135,9 +167,16 @@ graphNEL2adjMAT <- gn2xm_
 ## --- Used by simPATHy ---
 ## --------------------
 
+#' @export
 is.DG  <- is_dg
+
+#' @export
 is.UG  <- is_ug
+
+#' @export
 graphNEL2M <- gn2xm_
+
+#' @export
 M2graphNEL <- xm2gn_
 
 

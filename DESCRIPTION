@@ -1,5 +1,5 @@
 Package: gRbase
-Version: 1.8-5.1
+Version: 1.8-5.2
 Title: A Package for Graphical Modelling in R
 Author: Søren Højsgaard <sorenh@math.aau.dk>
 Maintainer: Søren Højsgaard <sorenh@math.aau.dk>
@@ -37,11 +37,13 @@ Imports:
     graph,
     Rgraphviz,
     RBGL,
+    stats4,
     igraph,
     magrittr,
     Matrix,
     Rcpp (>= 0.11.1)
 Suggests:
+    testthat (>= 2.1.0),
     microbenchmark,
     knitr
 biocViews: 

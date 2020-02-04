@@ -3,7 +3,7 @@
 #' @title gRbase utilities
 #' @description Various utility functions for gRbase. Includes 'faster
 #'     versions' of certain standard R functions.
-#' @name gRbase_utilities
+#' @name grbase_utilities
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 ##
 ## ###################################################################
@@ -13,12 +13,14 @@
 #' @param byrow Should the split be by row or by column.
 #' @param form Formula specification (a right-hand sided formula, a
 #'     numeric/character vector or a list of vectors).
+#' @param dots dot-arguments to be turned into a list 
 
 ## Turn a right-hand-sided formula into a list (anything on the left
 ## hand side is ignored)
 
-#' @rdname gRbase_utilities
+#' @rdname grbase_utilities
 
+#' @export
 rhsFormula2list <- function(form){
     if (is.character(form)) return(list(form))
     if (is.numeric(form)) return(lapply(list(form), "as.character"))
@@ -28,33 +30,52 @@ rhsFormula2list <- function(form){
     form1 <- unlist(strsplit(paste(deparse(.xxx.), collapse="")," *\\+ *"))
     form2 <- unlist(lapply(form1, strsplit, " *\\* *| *: *| *\\| *"),
                  recursive=FALSE)
-    return(form2)
+    form2
 }
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 rhsf2list  <-  rhsFormula2list
+
+#' @export
+#' @rdname grbase_utilities
+rhsf2vec   <- function(form){
+    rhsf2list(form)[[1]]
+}
+
+#' @export
+#' @rdname grbase_utilities
+listify_dots <- function(dots){
+    dots <- lapply(dots, function(a) if (!is.list(a)) list(a) else a)
+    unlist(dots, recursive=FALSE)    
+}
 
 
 ## Turn list into right-hand-sided formula
 ##
 ## July 2008
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 list2rhsFormula <- function(form){
   if (inherits(form, "formula")) return(form)
   as.formula(paste("~",paste(unlist(lapply(form,paste, collapse='*')), collapse="+")),
              .GlobalEnv)
 }
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 list2rhsf <- list2rhsFormula
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 rowmat2list <- rowmat2list__
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 colmat2list <- colmat2list__
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 matrix2list <- function(X, byrow=TRUE){
   if (byrow) rowmat2list__(X) # cpp implementation
   else colmat2list__(X) # cpp implementation
@@ -64,7 +85,8 @@ matrix2list <- function(X, byrow=TRUE){
 ## FIXME: -> remove after check downstram!!
 ## FIXME: -> which_matrix_index is Cpp implementation
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 #' 
 #' @details \code{which.arr.ind}: Returns matrix n x 2 matrix with
 #'     indices of non-zero entries in matrix \code{X}. Notice
@@ -80,19 +102,21 @@ which.arr.index <- function(X){
   cbind(rr[X!=0L], cc[X!=0L])
 }
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 which_matrix_index <- which_matrix_index__
 
-
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 rowSumsPrim <- function(X){
     .Call("R_rowSums", X, PACKAGE="gRbase")}
 
-#' @rdname gRbase_utilities
+#' @export
+#' @rdname grbase_utilities
 colSumsPrim <- function(X){
     .Call("R_colSums", X, PACKAGE="gRbase")}
           
-#' @rdname gRbase_utilities
+#' @rdname grbase_utilities
 #' @param v A vector.
 #' @param X A matrix.
 #' @details \code{colwiseProd}: multiplies a vector v and a matrix X
@@ -111,6 +135,8 @@ colSumsPrim <- function(X){
 #' system.time(for (ii in 1:100000)  colwiseProd(v, X))
 #' }
 #' 
+
+#' @export
 colwiseProd <- function(v, X){
     .Call("R_colwiseProd", v, X, PACKAGE="gRbase")}
 
@@ -124,16 +150,20 @@ colwiseProd <- function(v, X){
 ## lapplyMatch: same as but much faster than
 ## lapply(xlist, function(gg) match(gg, set))
 ##
+
+#' @export
 lapplyV2I <- lapplyMatch <- function(xlist, set){lapply(xlist, function(gg) match(gg, set))}
 
 ## lapplyI2C: same as but faster than
 ## lapply(xlist, function(x) set[x])
+#' @export
 lapplyI2V <- function (xlist, set) {lapply(xlist, function(xx) set[xx])}
 
 ## Codes a p x 2 matrix of characters or a list with pairs
 ## of characters into a vector of numbers.
 
 ## FIXME: pairs2num: Cpp implementation
+#' @export
 pairs2num <- function(x, vn, sort=TRUE){
     if (is.null(x)) return(NULL)
 
@@ -181,6 +211,7 @@ pairs2num <- function(x, vn, sort=TRUE){
 ## of characters into a vector of numbers.
 
 ## FIXME: pairs2num: Cpp implementation
+#' @export
 pairs2num <- function(x, vn, sort=TRUE){
     if (!inherits(x, "matrix")){
         if (is.null(x))

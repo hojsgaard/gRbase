@@ -1,20 +1,9 @@
-##################################################################
-####
-#### Create undirected graphs or DAGs from graph specification
-####
-##################################################################
-
-####################
-## Undirected graphs
-####################
-
-#' @title Create undirected and directed graphs
-#' 
+############################################################################
+#' @title Create undirected and directed graphs 
 #' @description These functions are wrappers for creation of graphs as
 #'     implemented by graphNEL objects in the \code{graph} package.
-#' 
 #' @name graph-create
-#' 
+############################################################################ 
 #' @param \dots A generating class for a graph, see examples below
 #' @param forceCheck Logical determining if it should be checked if the graph is
 #'     acyclical. Yes, one can specify graphs with cycles using the \code{dag()}
@@ -64,16 +53,18 @@
 #' uG9
 #' 
 
+#' @export
 #' @rdname graph-create
 ug <- function(..., result="graphNEL"){
   ugList(list(...), result=result)
 }
 
 .spam.result <- function(result){
-    if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
+    ##if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
     if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
 }
 
+#' @export
 #' @rdname graph-create
 ugList <- function(x, result="graphNEL"){
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
@@ -84,9 +75,10 @@ ugList <- function(x, result="graphNEL"){
 
     switch(result,
            "graphNEL" ={ugl2gn_(x, vn)},
-           "dgCMatrix"={ugl2sm_(x, vn)},
+           "igraph"   ={ugl2ig_(x, vn)},
            "matrix"   ={ugl2dm_(x, vn)},
-           "igraph"   ={ugl2ig_(x, vn)})
+           "Matrix"   =,
+           "dgCMatrix"={ugl2sm_(x, vn)})
 }
 
     
@@ -94,11 +86,13 @@ ugList <- function(x, result="graphNEL"){
 ## Directed acyclic graphs
 ###########################
 
+#' @export
 #' @rdname graph-create
 dag <- function(..., result="graphNEL", forceCheck=FALSE){
   dagList(list(...), result=result, forceCheck=forceCheck)
 }
 
+#' @export
 #' @rdname graph-create
 dagList <- function(x, result="graphNEL", forceCheck=FALSE){
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
@@ -109,10 +103,10 @@ dagList <- function(x, result="graphNEL", forceCheck=FALSE){
 
     out <- switch(result,
                   "graphNEL"  = {dagl2gn_(x, vn)},
-                  "dgCMatrix" = {dagl2sm_(x, vn)},
+                  "igraph"    = {dagl2ig_(x, vn)},
                   "matrix"    = {dagl2dm_(x, vn)},
-                  "igraph"    = {dagl2ig_(x, vn)}
-                  )
+                  "Matrix"    = ,
+                  "dgCMatrix" = {dagl2sm_(x, vn)})
 
     if (forceCheck){
         if( length(topo_sort(out)) == 0){

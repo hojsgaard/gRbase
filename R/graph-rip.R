@@ -85,11 +85,13 @@
 #' 
 #' 
 
+#' @export
 #' @rdname graph-rip
 rip <- function(object, ...){
   UseMethod("rip")
 }
 
+#' @export
 #' @rdname graph-rip
 rip.default <- function(object, root=NULL, nLevels=NULL, ...){
 
@@ -102,6 +104,7 @@ rip.default <- function(object, root=NULL, nLevels=NULL, ...){
     ripMAT(as(object, "matrix"), root=root, nLevels=nLevels)
 }
 
+#' @export
 #' @rdname graph-rip
 ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
 
@@ -192,6 +195,7 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))){
 
 ## @rdname graph-rip
 ## @param x Object to be printet or plottet
+#' @export
 print.ripOrder <- function(x, ...){
   idx <- 1:length(x$cliques)
   cat("cliques\n")
@@ -209,6 +213,8 @@ print.ripOrder <- function(x, ...){
 
 
 ## @rdname graph-rip
+#' @method plot ripOrder
+#' @export
 plot.ripOrder <- function(x, ...){
     g <- .rip2ug(x)
     Rgraphviz::plot(g)
@@ -249,11 +255,13 @@ plot.ripOrder <- function(x, ...){
 }
 
 
+#' @export
 #' @rdname graph-rip
 junction_tree <- function(object, ...){
   UseMethod("junction_tree")
 }
 
+#' @export
 #' @rdname graph-rip
 junction_tree.default <-  function(object, nLevels = NULL, ...){
 
@@ -263,6 +271,7 @@ junction_tree.default <-  function(object, nLevels = NULL, ...){
     junction_treeMAT(as(object, "matrix"), nLevels=nLevels, ...)
 }
 
+#' @export
 #' @rdname graph-rip
 junction_treeMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
   tug_mat  <- triangulateMAT(amat, nLevels=nLevels, result="dgCMatrix", ...)

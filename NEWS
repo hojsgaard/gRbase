@@ -1,0 +1,14 @@
+gRbase v1.8-5.2 (Release date: 2020-02-04)
+==========================================
+
+Bug fixes:
+
+  * More functiones are exported
+
+Other changes:
+
+  * NEWS file added
+  * NAMESPACE file is now generated automatically
+  * Cleaning up experimental features
+  * Added testthat (not very comprehensive tests, though)
+  

@@ -44,6 +44,7 @@
 ##
 ## ##########################################################
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2gn_ <- function(glist, vn=NULL){
     if (is.null(vn)) vn <- unique.default(unlist(glist))
@@ -58,6 +59,7 @@ ugl2gn_ <- function(glist, vn=NULL){
     }
 }
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2ig_ <- function(zz, vn=NULL) {
     gg <- igraph::igraph.from.graphNEL(ugl2gn_(zz, vn))
@@ -65,18 +67,21 @@ ugl2ig_ <- function(zz, vn=NULL) {
     gg
 }
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2dm_ <- function(zz, vn=NULL) {
     if (is.null(vn)) vn <- unique.default(unlist(zz))
     ugList2matrix__(zz, vn)
 }
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2sm_ <- function(zz, vn=NULL){
     if (is.null(vn)) vn <- unique.default(unlist(zz))
     ugList2dgCMatrix__(zz, vn)
 }
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2XX_ <- function(zz, outtype, vn=NULL) {
     switch(outtype,
@@ -94,6 +99,7 @@ ugl2XX_ <- function(zz, outtype, vn=NULL) {
 ##
 ## ##########################################################
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2gn_ <- function(glist, vn=NULL){
     if (is.null(vn)) vn <- unique.default(unlist(glist))
@@ -109,6 +115,7 @@ dagl2gn_ <- function(glist, vn=NULL){
     }
 }
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2ig_ <- function(zz, vn=NULL){    
     gg <- igraph::igraph.from.graphNEL(dagl2gn_(zz, vn))
@@ -116,18 +123,21 @@ dagl2ig_ <- function(zz, vn=NULL){
     gg
 }
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2dm_ <- function(zz, vn=NULL){
     if (is.null(vn)) vn <- unique.default(unlist(zz))
     dagList2matrix__(zz, vn)
 }
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2sm_ <- function(zz, vn=NULL) {
     if (is.null(vn)) vn <- unique.default(unlist(zz))    
     dagList2dgCMatrix__(zz, vn)
 }
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2XX_ <- function(zz, outtype, vn=NULL) {
     switch(outtype,
@@ -145,18 +155,23 @@ dagl2XX_ <- function(zz, outtype, vn=NULL) {
 ##
 ## ##########################################################
 
+#' @export
 #' @rdname graph-coerce-list
 adl2gn_ <- function(zz) stop("Function not implemented") ## FIXME
 
+#' @export
 #' @rdname graph-coerce-list
 adl2ig_ <- function(zz) stop("Function not implemented") ## FIXME
 
+#' @export
 #' @rdname graph-coerce-list
 adl2dm_ <- function(zz) adjList2matrix__(zz)
 
+#' @export
 #' @rdname graph-coerce-list
 adl2sm_ <- function(zz) adjList2dgCMatrix__(zz)
 
+#' @export
 #' @rdname graph-coerce-list
 adl2XX_ <- function(zz, outtype) {
     switch(outtype,
@@ -174,6 +189,7 @@ adl2XX_ <- function(zz, outtype) {
 ##
 ## ##########################################################
 
+#' @export
 #' @rdname graph-coerce-list
 M2adl_ <- function( amat ){
     .check.is.matrix( amat )
@@ -186,6 +202,7 @@ M2adl_ <- function( amat ){
     out
 }
 
+#' @export
 #' @rdname graph-coerce-list
 M2ugl_ <- function( amat ){
     ## FIXME: M2ugList: Need a check for undirectedness
@@ -193,6 +210,7 @@ M2ugl_ <- function( amat ){
     max_cliqueMAT( amat )[[1]]
 }
 
+#' @export
 #' @rdname graph-coerce-list
 M2dagl_ <- function( amat ){
     .check.is.matrix( amat )
@@ -216,6 +234,7 @@ M2dagl_ <- function( amat ){
 ##
 ## #################################################################
 
+#' @export
 #' @rdname graph-coerce-list
 ugl2M_ <- function(glist, vn=NULL, result="matrix"){
     result <- match.arg(result, c("matrix", "dgCMatrix", "Matrix"))
@@ -226,6 +245,7 @@ ugl2M_ <- function(glist, vn=NULL, result="matrix"){
            "matrix"    = {ugl2dm_( glist, vn )}  )
 }
 
+#' @export
 #' @rdname graph-coerce-list
 dagl2M_ <- function(glist, vn=NULL, result="matrix"){
     result <- match.arg(result, c("matrix", "dgCMatrix", "Matrix"))
@@ -236,6 +256,7 @@ dagl2M_ <- function(glist, vn=NULL, result="matrix"){
            "matrix"    = {dagl2dm_( glist, vn )}  )
 }
 
+#' @export
 #' @rdname graph-coerce-list
 adl2M_ <- function(alist, result="matrix"){
     result <- match.arg(result, c("matrix", "dgCMatrix", "Matrix"))

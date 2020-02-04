@@ -4,6 +4,7 @@
 NULL
 
 
+#' @export
 setdiffPrim <- function (x, y){
     unique.default(
         if (length(x) || length(y))
@@ -12,14 +13,17 @@ setdiffPrim <- function (x, y){
     )
 }
 
+#' @export
 unlistPrim <- function(x){    #OK
   unlist(x, use.names=FALSE)
 }
 
+#' @export
 intersectPrim <- function (x, y){
   unique.default(y[match(x, y, 0L)])
 }
 
+#' @export
 outerPrim <- function(X,Y){
   nX  <- length(X)
   nY  <- length(Y)
@@ -30,12 +34,12 @@ outerPrim <- function(X,Y){
   ans
 }
 
-
+#' @export
 uniquePrim <- function(x){    #OK
   unique.default(x)
 }
 
-
+#' @export
 matchPrim<-function(x,table){ # Never used
   match(x, table)
 }

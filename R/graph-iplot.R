@@ -14,10 +14,13 @@
 #' UG <- ug(~a:b+b:c:d)
 #' iplot(UG)
 #' 
+
+#' @export
 iplot <- function(x,...){
   UseMethod("iplot")
 }
 
+#' @export
 #' @rdname graph-iplot
 iplot.graphNEL <- function(x,...){
   ig <- igraph::igraph.from.graphNEL(x)

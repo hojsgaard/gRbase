@@ -27,7 +27,6 @@ If the maximum number of parents for a node is, say 3 and
     0,1,2,3 parents is proportional to 0.1^0, 0.1^1, 0.1^2, 0.1^3.
 }
 \examples{
-
 dg   <- random_dag(1:1000, maxpar=5, wgt=.9)
 table(sapply(vpar(dg),length))
 
@@ -36,7 +35,6 @@ table(sapply(vpar(dg),length))
 
 dg   <- random_dag(1:1000, maxpar=5, wgt=.1)
 table(sapply(vpar(dg),length))
-
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

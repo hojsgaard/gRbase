@@ -16,7 +16,7 @@ IntegerVector make_indic(int ndim, const IntegerVector& slice){
 }
 
 
-// //' @rdname array-cell
+// //' @rdname api_cell
 // //[[Rcpp::export]]
 int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
   double out=0;
@@ -26,7 +26,7 @@ int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
   return ((int) out) + 1;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   int i, ss=1;
@@ -38,7 +38,7 @@ int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   return ((int) out) + 1;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 IntegerVector make_plevels_(const IntegerVector& dim){
   IntegerVector plevels(dim.length());
@@ -53,7 +53,7 @@ IntegerVector make_plevels_(const IntegerVector& dim){
 
 // ------------------------------------------------
 
-// //' @rdname array-cell
+// //' @rdname api_cell
 // //[[Rcpp::export]]
 IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels){
   IntegerVector cell(plevels.length());
@@ -66,7 +66,7 @@ IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels){
   return cell + 1;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
   IntegerVector plevels = make_plevels_(dim);
@@ -76,7 +76,7 @@ IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
 // ----------------------------------------------------
 
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim){
   numVec out_cell = clone(cell);
@@ -117,7 +117,7 @@ NumericVector next_cell_slice_prim_(const NumericVector& cell, const IntegerVect
   return out_cell;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_marg){
   IntegerVector slice_idx = make_indic(dim.length(), slice_marg);
@@ -161,7 +161,7 @@ IntegerVector slice2entry_prim_(const IntegerVector& slice_cell, const IntegerVe
   return out;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_marg, const IntegerVector& dim){
   IntegerVector slice_idx = make_indic(dim.length(), slice_marg);
@@ -177,7 +177,7 @@ IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector&
 // ---------------------------------
 
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 int cell2entry_perm_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
 
@@ -199,7 +199,7 @@ int cell2entry_perm_prim_(const NumericVector& cell, const IntegerVector& perm, 
   return cell_number + 1;
 }
 
-//' @rdname array-cell
+//' @rdname api_cell
 //[[Rcpp::export]]
 IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector& dim){
 
@@ -227,7 +227,7 @@ IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector&
 
 
 
-// //' @rdname array-cell
+// //' @rdname api_cell
 // //[[Rcpp::export]]
 // int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
 //   IntegerVector plevels=make_plevels_(dim);
@@ -250,7 +250,7 @@ IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector&
 
 
 
-// //' @rdname array-cell
+// //' @rdname api_cell
 // //[[Rcpp::export]]
 // int gcn_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
 //   IntegerVector plevels=make_plevels_(dim);
@@ -347,7 +347,7 @@ as.integer(aperm(ii, pp))
 
 
 
-// //' @rdname array-cell
+// //' @rdname api_cell 
 // //[[Rcpp::export]]
 // int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
 //   int i, ss=1, res=cell[0] - 1;

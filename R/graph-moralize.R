@@ -1,16 +1,9 @@
-## ###############################################################
-##
-## Moralize a directed acyclic graph
-##
-## ###############################################################
-
+#######################################################################
 #' @title Moralize a directed acyclic graph
-#' 
 #' @description Moralize a directed acyclic graph which means marrying
 #'     parents and dropping directions.
-#'
 #' @name graph-moralize
-#' 
+#######################################################################
 #' @aliases moralize moralize.default moralizeMAT
 #' @param object A directed acyclic graph represented either as a
 #'     \code{graphNEL} object, an \code{igraph}, a (dense)
@@ -48,6 +41,7 @@ moralize <- function(object,...){
 
 ## FIXME moralize Is it checked that the object is dag? I doubt.
 
+#' @export
 #' @rdname graph-moralize
 moralize.default <- function(object, result=NULL, ...)
 {
@@ -83,6 +77,7 @@ moralize.default <- function(object, result=NULL, ...)
     as(m, result)
 }
 
-
+#' @export
+moralizeMAT <- moralizeMAT
 
 

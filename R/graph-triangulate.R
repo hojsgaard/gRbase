@@ -101,6 +101,7 @@
 #' @export triangulate
 #' 
 
+#' @export
 #' @rdname graph-triangulate
 triangulate <- function(object, ...)
 {
@@ -110,6 +111,7 @@ triangulate <- function(object, ...)
 ## FIXME: triangulate: Need clever choice of matrix-representation
 ## FIXME: (Sparse/dense)
 
+#' @export
 #' @rdname graph-triangulate
 triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, ...)
 {
@@ -126,18 +128,19 @@ triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, .
 
 ## GENERIC FUNCTIONS
 
+#' @export
 #' @rdname graph-triangulate
 triang_mcwh <- function(object, ...)
     UseMethod("triang_mcwh")
-
+#' @export
 #' @rdname graph-triangulate
 triang_elo <- function(object, ...)
     UseMethod("triang_elo")
-
+#' @export
 #' @rdname graph-triangulate
 triang <- function(object, ...)
     UseMethod("triang")
-
+#' @export
 #' @rdname graph-triangulate
 triang.default <- function(object, control=list(), ...){
     ctrl <- list(method="mcwh", nLevels=NULL) ## DEFAULT is mcwh
@@ -148,14 +151,16 @@ triang.default <- function(object, control=list(), ...){
            "elo" ={triang_elo (object, order=control$order)}
            )
 }
-
+#' @export
 #' @rdname graph-triangulate
 triang_mcwh.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, ...){
     triangulate.default(object, nLevels, result, check, ...)
 }
 
+#' @export
 #' @rdname graph-triangulate
 triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...){
+
 
     .generic_triangulation(object, order=order, result=result, check=check, ...,
                            TRIANG_FUN=triang_eloMAT)
@@ -193,7 +198,7 @@ triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...)
 
 
 
-
+#' @export
 #' @rdname graph-triangulate
 triangulateMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
     if (is.null(nLevels))
@@ -202,6 +207,7 @@ triangulateMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
     .c_triang_mcwh_MAT_( amat, nLevels )
 }
 
+#' @export
 #' @rdname graph-triangulate
 triang_mcwhMAT_ <- function(amat, nLevels=rep(2, ncol(amat)), ...){
     if (is.null(nLevels))
@@ -210,6 +216,7 @@ triang_mcwhMAT_ <- function(amat, nLevels=rep(2, ncol(amat)), ...){
     .c_triang_mcwh_MAT_( amat, nLevels )
 }
 
+#' @export
 #' @rdname graph-triangulate
 triang_eloMAT_ <- function(amat, order){
     if (is.null(order))
@@ -220,9 +227,7 @@ triang_eloMAT_ <- function(amat, order){
     out
 }
 
-
-
-
+#' @export
 #' @rdname graph-triangulate
 triang_eloMAT <- function(amat, order=NULL){
     if (!inherits(amat, c("matrix", "dgCMatrix")))

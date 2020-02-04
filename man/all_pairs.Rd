@@ -33,7 +33,6 @@ all_pairs(x, result="matrix")
 
 all_pairs(x, y)
 all_pairs(x, y, result="matrix")
-
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

@@ -149,42 +149,42 @@ solveSPD <- function(X) {
     .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 cell2entry_ <- function(cell, dim) {
     .Call('_gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 make_plevels_ <- function(dim) {
     .Call('_gRbase_make_plevels_', PACKAGE = 'gRbase', dim)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 entry2cell_ <- function(entry, dim) {
     .Call('_gRbase_entry2cell_', PACKAGE = 'gRbase', entry, dim)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 next_cell_ <- function(cell, dim) {
     .Call('_gRbase_next_cell_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 next_cell_slice_ <- function(cell, dim, slice_marg) {
     .Call('_gRbase_next_cell_slice_', PACKAGE = 'gRbase', cell, dim, slice_marg)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 slice2entry_ <- function(slice_cell, slice_marg, dim) {
     .Call('_gRbase_slice2entry_', PACKAGE = 'gRbase', slice_cell, slice_marg, dim)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 cell2entry_perm_ <- function(cell, dim, perm) {
     .Call('_gRbase_cell2entry_perm_', PACKAGE = 'gRbase', cell, dim, perm)
 }
 
-#' @rdname array-cell
+#' @rdname api_cell
 perm_cell_entries_ <- function(perm, dim) {
     .Call('_gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
 }

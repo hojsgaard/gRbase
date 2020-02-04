@@ -78,6 +78,7 @@ mcs <- function(object, root=NULL, index=FALSE){
 ## FIXME: mcs: returns character(0) if graph is not undirected. Should
 ## FIXME: mcs: instead signal an error??
 
+#' @export
 #' @rdname graph-mcs
 mcs.default <- function(object, root=NULL, index=FALSE){
     if (!inherits(object, c("graphNEL", "matrix", "dgCMatrix", "igraph")))
@@ -90,6 +91,7 @@ mcs.default <- function(object, root=NULL, index=FALSE){
         mcsMAT( mm, root=root, index=index )
 }
 
+#' @export
 #' @rdname graph-mcs
 mcsMAT <- function (amat, vn = colnames(amat), root = NULL, index = FALSE)
 {
@@ -119,11 +121,13 @@ mcsMAT <- function (amat, vn = colnames(amat), root = NULL, index = FALSE)
 }
 
 
+#' @export
 #' @rdname graph-mcs
 mcs_marked <- function (object, discrete=NULL, index = FALSE){
   UseMethod("mcs_marked")
 }
 
+#' @export
 #' @rdname graph-mcs
 mcs_marked.default <- function (object, discrete=NULL, index = FALSE){
 
@@ -134,18 +138,9 @@ mcs_marked.default <- function (object, discrete=NULL, index = FALSE){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 ## FIXME: mcs_marked_MAT: candidate for C++ implementation.
 
+#' @export
 #' @rdname graph-mcs
 mcs_markedMAT <- function(amat, vn = colnames(amat), discrete = NULL, index = FALSE) {
 

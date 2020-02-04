@@ -53,12 +53,13 @@ topo_sort <- function(object, index=FALSE){
   UseMethod("topo_sort")
 }
 
+#' @export
 #' @rdname graph-toposort
 topo_sort.default <- function(object, index=FALSE){
     topo_sortMAT(as(object, "dgCMatrix"), index=index)
 }
 
-
+#' @export
 #' @rdname graph-toposort
 #' @param amat Adjacency matrix. 
 topo_sortMAT <- function(amat, index=FALSE){
@@ -73,9 +74,8 @@ topo_sortMAT <- function(amat, index=FALSE){
 }
 
 ## FIXME topo_sort_vparList Delete?
+#' @export
 topo_sort_vparList<- function(glist){
-    ##topo_sort(vpaList2adjMAT(vpaL, result="Matrix"))
-    ##topo_sort(dagList2M(glist, result="dgCMatrix"))
     topo_sortMAT(dagl2sm_(glist))
 }
 

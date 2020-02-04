@@ -80,6 +80,7 @@ mpd <- function(object, tobject=minimal_triang(object), details=0) {
     UseMethod("mpd")
 }
 
+#' @export
 #' @rdname graph-mpd
 mpd.default <- function(object, tobject=triangulate(object), details=0){
 
@@ -91,7 +92,7 @@ mpd.default <- function(object, tobject=triangulate(object), details=0){
     
 }
 
-
+#' @export
 #' @rdname graph-mpd
 mpdMAT <- function(amat, tamat=minimal_triangMAT(amat), details=0){
   .mpd(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"), details=details)

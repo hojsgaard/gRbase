@@ -24,6 +24,7 @@
 #'
 #' graph_as(l1, "graphNEL", "ugList")
 #' 
+#' @export
 #' @rdname graph_coerce
 coerceGraph <- function(object, class){
     ##.as_fun(object, class)
@@ -59,6 +60,7 @@ setAs("dgCMatrix", "igraph",   function(from) sm2ig_(from))
 ## Matrix -> matrix : in the Matrix package
 
 
+#' @export
 #' @rdname graph_coerce
 #'
 #' @param outtype The desired output outtype

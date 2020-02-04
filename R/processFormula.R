@@ -1,3 +1,4 @@
+#' @export
 processFormula <- function (formula, data, marginal, type = c("Discrete", "Continuous"),
     v.sep = "*", g.sep = "+")
 {
@@ -60,11 +61,12 @@ processFormula <- function (formula, data, marginal, type = c("Discrete", "Conti
 
 
 
-
+#' @export
 selectOrder  <- function(x, order=2){
     combn_prim(x, order, simplify=FALSE)
 }
 
+#' @export
 extract.power<-function(fff){
   mimf  <- paste(as.formula(fff))[2]
   mimf.split <- unlist(strsplit(mimf,""))

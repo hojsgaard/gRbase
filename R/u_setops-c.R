@@ -75,7 +75,7 @@
 #' is_subsetof(el1, el4)                                       
 #'
 
-
+#' @export
 #' @rdname set_operations
 maximal_sets <- function(setlist, index=FALSE){
     if (length(setlist)<=1){
@@ -100,6 +100,7 @@ maximal_sets <- function(setlist, index=FALSE){
     }
 }
 
+#' @export
 #' @rdname set_operations
 minimal_sets <- function(setlist, index=FALSE){
     if (length(setlist) <= 1){
@@ -128,6 +129,7 @@ minimal_sets <- function(setlist, index=FALSE){
 ## the maximal generators, if =F, the minimal generators.
 ## Can be speeded up if the as.character part can be avoided...
 
+#' @export
 #' @rdname set_operations
 remove_redundant <- function(setlist, maximal=TRUE, index=FALSE){
   if (maximal) maximal_sets(setlist, index)
@@ -135,6 +137,7 @@ remove_redundant <- function(setlist, maximal=TRUE, index=FALSE){
 }
 
 ## Is x contained in any vector in setlist;
+#' @export
 #' @rdname set_operations
 is_inset <- function(x, setlist, index=FALSE){
   .isin(setlist, x, index)
@@ -164,18 +167,22 @@ is_inset <- function(x, setlist, index=FALSE){
     else { return(any(iii)) }
 }
 
+#' @export
 #' @rdname set_operations
 get_subset <- get_subset_
 
+#' @export
 #' @rdname set_operations
 get_superset <- get_superset_
 
+#' @export
 #' @rdname set_operations
 is_subsetof <- is_subsetof_
 
 
 ## FIXME: is.subsetof : Use Rcpp implementation
 
+#' @export
 #' @rdname set_operations
 is.subsetof <- function(x, set){
   all(match(x, set) > 0)
@@ -192,10 +199,12 @@ is.subsetof <- function(x, set){
 ##
 ## ###################################################################
 #' @param x Vector
-#' 
+
+#' @export
 #' @rdname all-subsets
 all_subsets <- allSubsets_
 
+#' @export
 #' @rdname all-subsets
 all_subsets0 <- allSubsets0_
 
@@ -269,11 +278,13 @@ all_subsets0 <- allSubsets0_
 #'
 #' all_pairs(x, y)
 #' all_pairs(x, y, result="matrix")
-#' 
+
+#' @export
 #' @rdname all_pairs
 all_pairs <- all_pairs__
 
 ## FIXME names2pairs should be deprecated and replaced by all_pairs
+#' @export
 #' @rdname all_pairs
 names2pairs <- function(x, y=NULL, sort=TRUE, result="list"){
   result <- match.arg(result, c("list", "matrix"))
@@ -305,10 +316,9 @@ names2pairs <- function(x, y=NULL, sort=TRUE, result="list"){
       idx <- out[,1] > out[,2]
       out[idx, 1:2] <- out[idx, 2:1]
     }
-    if (result == "matrix")
-      return(out) 
-    else 
-      rowmat2list__(out)
+
+    if (identical(result, "matrix")) out 
+    else rowmat2list__(out)
   }
 }
 

@@ -23,24 +23,28 @@
 #'     Graphical Models with R, Springer
 #' @keywords utilities
 
+#' @export
 #' @rdname grbase_generics
 fit <- function(object, ...)
 {
   UseMethod("fit")
 }
 
+#' @export
 #' @rdname grbase_generics
 compile <- function (object, ...)
 {
     UseMethod("compile")
 }
 
+#' @export
 #' @rdname grbase_generics
 propagate <- function (object, ...)
 {
     UseMethod("propagate")
 }
 
+#' @export
 #' @rdname grbase_generics
 stepwise <- function(object,...){
     UseMethod("stepwise")

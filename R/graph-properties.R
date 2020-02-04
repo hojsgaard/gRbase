@@ -62,11 +62,13 @@
 #' 
 
 
+#' @export
 #' @rdname graph-gcproperties
 isGraphical <- function(x){
     UseMethod("isGraphical")
 }
 
+#' @export
 #' @rdname graph-gcproperties
 isGraphical.default <- function( x ){
     if ((cls <- class( x )) %in% c("formula", "list")){
@@ -97,11 +99,13 @@ isGraphical.default <- function( x ){
     all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
 }
 
+#' @export
 #' @rdname graph-gcproperties
 isDecomposable <- function(x){
     UseMethod("isDecomposable")
 }
 
+#' @export
 #' @rdname graph-gcproperties
 isDecomposable.default <- function( x ){
     if ((cls <- class( x )) %in% c("formula","list")){
@@ -140,6 +144,7 @@ isDecomposable.default <- function( x ){
 ## if discrete=NULL, then the check is just if the graph is decomposable
 ## Issues: Fails on the "empty graph".
 
+#' @export
 isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 {
   ##amat <- ugList2M(glist, vn=vn)
@@ -153,6 +158,7 @@ isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
   }
 }
 
+## #' @export
 properties_glist <- function(glist,
                              vn=unique(unlist(glist)),
                              ##amat=ugList2M(glist,vn=vn),
@@ -167,6 +173,7 @@ properties_glist <- function(glist,
   }
 }
 
+#' @export
 is.adjMAT <- function(x){
     .check.is.matrix(x)
     isadjMAT_( x )
@@ -291,23 +298,27 @@ is.adjMAT <- function(x){
 #' is_ug(ugNEL)
 #' 
 
-
+#' @export
 #' @rdname graph-is
 is_dag <- function(object){
     UseMethod("is_dag")
 }
 
+#' @export
 is_dag.graphNEL <- function(object){
     is_dagMAT(as(object, "matrix"))
 }
 
+#' @export
 is_dag.igraph <- is_dag.graphNEL
 
+#' @export
 is_dag.default <- function( object ){
     .check.is.matrix(object)
     isdagMAT_(object)
 }
 
+#' @export
 #' @rdname graph-is
 is_dagMAT <- function(object){
     isdagMAT_(object)
@@ -317,25 +328,26 @@ is_dagMAT <- function(object){
 
 ## ######################################
 
+#' @export
 #' @rdname graph-is
 is_ug <- function(object){
     UseMethod("is_ug")
 }
-
+#' @export
 #' @rdname graph-is
 is_ug.graphNEL <- function(object){
     isugMAT_(as(object, "matrix"))
 }
-
+#' @export
 #' @rdname graph-is
 is_ug.igraph <- is_ug.graphNEL
-
+#' @export
 #' @rdname graph-is
 is_ug.default <- function(object){
     .check.is.matrix(object)
     isugMAT_(object)
 }
-
+#' @export
 #' @rdname graph-is
 is_ugMAT <- function(object){
     isugMAT_(object)
@@ -343,25 +355,30 @@ is_ugMAT <- function(object){
 
 ## ######################################
 
+#' @export
 #' @rdname graph-is
 is_tug <- function(object){
   UseMethod("is_tug")
 }
 
+#' @export
 is_tug.graphNEL <- function(object){
     z <- as(object, "matrix")
     if (!isugMAT_(z)) FALSE
     else length(ripMAT(z)) > 0
 }
 
+#' @export
 is_tug.igraph <- is_tug.graphNEL
 
+#' @export
 is_tug.default <- function(object){
     .check.is.matrix(object)
     if (isugMAT_(object)) length(mcsMAT(object)) > 0
     else FALSE
 }
 
+#' @export
 #' @rdname graph-is
 is_tugMAT <- function(object){
     isugMAT_(object) && length(mcsMAT(object))>0
@@ -369,18 +386,21 @@ is_tugMAT <- function(object){
 
 ## ######################################
 
+#' @export
 #' @rdname graph-is
 is_dg <- function(object){
     UseMethod("is_dg")
 }
 
+#' @export
 is_dg.graphNEL <- function(object){
     is_dgMAT(as(object, "matrix"))
 }
 
+#' @export
 is_dg.igraph <- is_dg.graphNEL
 
-
+#' @export
 is_dg.default <- function(object){
     .check.is.matrix(object)
     eps <- 1e-4
@@ -389,6 +409,7 @@ is_dg.default <- function(object){
     else FALSE
 }
 
+#' @export
 #' @rdname graph-is
 is_dgMAT <- function(object){
     if (!is.adjMAT(object)) stop("Matrix is not adjacency matrix...\n")

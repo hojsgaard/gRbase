@@ -26,6 +26,7 @@ cov2pcor <- function(V){
   ans
   }
 
+#' @export
 #' @rdname cov2pcor
 conc2pcor <- function(K){
   ans <- -cov2cor(K)

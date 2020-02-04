@@ -35,6 +35,7 @@
 \alias{is.DG}
 \alias{graphNEL2M}
 \alias{M2graphNEL}
+\alias{tab}
 \title{Downstream aliases}
 \description{
 Downstream aliases for other graphical modelling
