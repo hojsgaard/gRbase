@@ -44,5 +44,7 @@
 #' @importMethodsFrom Matrix t isSymmetric diag
 #' @importFrom Matrix Matrix
 
+#' @export solveSPD MAT2ftM_ symMAT2ftM_
+
 .dumfunction_afterimportFrom <- function(){}
 

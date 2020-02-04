@@ -53,6 +53,7 @@ NULL
 ## FIXME: gRain replace isin with is_inset (remember that arguments
 ## must be switched)
 ## FIXME: done
+#' @export
 isin <- .isin ## potentialList.R
 
 ## grain uses subsetof; don't remember details of this function
