@@ -2,70 +2,70 @@
 % Please edit documentation in R/graph-coerce-list.R
 \name{graph-coerce-list}
 \alias{graph-coerce-list}
-\alias{ugl2gn_}
-\alias{ugl2ig_}
-\alias{ugl2dm_}
-\alias{ugl2sm_}
-\alias{ugl2XX_}
-\alias{dagl2gn_}
-\alias{dagl2ig_}
-\alias{dagl2dm_}
-\alias{dagl2sm_}
-\alias{dagl2XX_}
-\alias{adl2gn_}
-\alias{adl2ig_}
-\alias{adl2dm_}
-\alias{adl2sm_}
-\alias{adl2XX_}
-\alias{M2adl_}
-\alias{M2ugl_}
-\alias{M2dagl_}
-\alias{ugl2M_}
-\alias{dagl2M_}
-\alias{adl2M_}
+\alias{g_ugl2gn_}
+\alias{g_ugl2ig_}
+\alias{g_ugl2dm_}
+\alias{g_ugl2sm_}
+\alias{g_ugl2XX_}
+\alias{g_dagl2gn_}
+\alias{g_dagl2ig_}
+\alias{g_dagl2dm_}
+\alias{g_dagl2sm_}
+\alias{g_dagl2XX_}
+\alias{g_adl2gn_}
+\alias{g_adl2ig_}
+\alias{g_adl2dm_}
+\alias{g_adl2sm_}
+\alias{g_adl2XX_}
+\alias{g_M2adl_}
+\alias{g_M2ugl_}
+\alias{g_M2dagl_}
+\alias{g_ugl2M_}
+\alias{g_dagl2M_}
+\alias{g_adl2M_}
 \title{Coercion of graphs represented as lists}
 \usage{
-ugl2gn_(glist, vn = NULL)
+g_ugl2gn_(glist, vn = NULL)
 
-ugl2ig_(zz, vn = NULL)
+g_ugl2ig_(zz, vn = NULL)
 
-ugl2dm_(zz, vn = NULL)
+g_ugl2dm_(zz, vn = NULL)
 
-ugl2sm_(zz, vn = NULL)
+g_ugl2sm_(zz, vn = NULL)
 
-ugl2XX_(zz, outtype, vn = NULL)
+g_ugl2XX_(zz, outtype, vn = NULL)
 
-dagl2gn_(glist, vn = NULL)
+g_dagl2gn_(glist, vn = NULL)
 
-dagl2ig_(zz, vn = NULL)
+g_dagl2ig_(zz, vn = NULL)
 
-dagl2dm_(zz, vn = NULL)
+g_dagl2dm_(zz, vn = NULL)
 
-dagl2sm_(zz, vn = NULL)
+g_dagl2sm_(zz, vn = NULL)
 
-dagl2XX_(zz, outtype, vn = NULL)
+g_dagl2XX_(zz, outtype, vn = NULL)
 
-adl2gn_(zz)
+g_adl2gn_(zz)
 
-adl2ig_(zz)
+g_adl2ig_(zz)
 
-adl2dm_(zz)
+g_adl2dm_(zz)
 
-adl2sm_(zz)
+g_adl2sm_(zz)
 
-adl2XX_(zz, outtype)
+g_adl2XX_(zz, outtype)
 
-M2adl_(amat)
+g_M2adl_(amat)
 
-M2ugl_(amat)
+g_M2ugl_(amat)
 
-M2dagl_(amat)
+g_M2dagl_(amat)
 
-ugl2M_(glist, vn = NULL, result = "matrix")
+g_ugl2M_(glist, vn = NULL, result = "matrix")
 
-dagl2M_(glist, vn = NULL, result = "matrix")
+g_dagl2M_(glist, vn = NULL, result = "matrix")
 
-adl2M_(alist, result = "matrix")
+g_adl2M_(alist, result = "matrix")
 }
 \arguments{
 \item{glist}{A list of generators where a generator is a character
@@ -96,16 +96,16 @@ Coercion of graphs represented as lists to various
 ## Sparse and dense adjacency matrices converted to adjacency list 
 g1 <- ug(~a:b + b:c + c:d, result="matrix")
 g2 <- ug(~a:b + b:c + c:d, result="dgCMatrix")
-M2adl_( g1 )
+g_M2adl_( g1 )
 
 ## Sparse and dense adjacency matrices converted to cliques
-M2ugl_( g1 )
+g_M2ugl_( g1 )
 
 ## Sparse and dense adjacency matrices converted to cliques
-M2dagl_( g1 )
+g_M2dagl_( g1 )
 
-## M2adl_( g2 ) ## FIXME FAILS for sparse matrix
-## M2ugl_( g2 ) ## FIXME Is there an issue here??
-## M2dagList( g2 ) ## Fails for sparse matrix
+## g_M2adl_( g2 ) ## FIXME FAILS for sparse matrix
+## g_M2ugl_( g2 ) ## FIXME Is there an issue here??
+## g_M2dagList( g2 ) ## Fails for sparse matrix
 
 }

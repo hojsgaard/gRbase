@@ -4,3 +4,4 @@ LICENSE
 ^appveyor\.yml$
 ^revdep$
 old_NAMESPACE
+removed

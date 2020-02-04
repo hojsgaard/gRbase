@@ -93,7 +93,7 @@ qgraph <- querygraph
 #' @export
 #' @rdname graph-query
 ancestors <- function(set, object){
-  amat  <- gn2dm_(object)
+  amat  <- g_gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -117,7 +117,7 @@ ancestors <- function(set, object){
 #' @rdname graph-query
 ancestralSet <- function(set, object){
 
-  amat  <- gn2dm_(object)
+  amat  <- g_gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -150,7 +150,7 @@ ancestralSet <- function(set, object){
 #' @export
 #' @rdname graph-query
 parents <- function(set, object){
-  amat  <- gn2dm_(object)
+  amat  <- g_gn2dm_(object)
   ##if (isUndirectedMAT(amat))
   if (isugMAT_(amat))
     return(NULL)
@@ -211,9 +211,9 @@ ancestralGraph <- function(set, object){
 #' @rdname graph-query
 is.complete <- function(object, set=NULL){
   if (is.null(set))
-    submat <- gn2dm_(object)
+    submat <- g_gn2dm_(object)
   else
-    submat <- gn2dm_(object)[set, set]
+    submat <- g_gn2dm_(object)[set, set]
   all(submat[upper.tri(submat)] > 0)
 }
 

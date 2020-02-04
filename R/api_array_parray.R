@@ -1,11 +1,11 @@
-#' #########################################################################
+#########################################################################
 #'
 #' @title Representation of and operations on multidimensional arrays
 #' @description General representation of multidimensional arrays
 #'     (with named dimnames, also called named arrays.)
-#' @name api_parray
+#' @name api-parray
 #' 
-## #########################################################################
+#########################################################################
 #'
 #' @details
 #'
@@ -107,7 +107,7 @@ parray <- function(varNames, levels, values=1, normalize="none", smooth=0){
 
 
 #' @export
-#' @rdname api_parray
+#' @rdname api-parray
 as.parray  <- function(values, normalize="none", smooth=0){
 
   normalize <- match.arg(normalize, choices=c("none", "first", "all"))
@@ -155,7 +155,7 @@ as.parray  <- function(values, normalize="none", smooth=0){
 #' @param data Data to be coerced to a `parray`; can be `data.frame`,
 #'     `table`, `xtabs`, `matrix`.
 #' @export
-#' @rdname api_parray
+#' @rdname api-parray
 data2parray <- function(data, varNames=NULL, normalize="none", smooth=0){
     ## FIXME: should be inherits
   cls <- match(class(data), c("data.frame","table", "xtabs", "matrix"))[1]
@@ -194,7 +194,7 @@ data2parray <- function(data, varNames=NULL, normalize="none", smooth=0){
 
 #' @param sep Desired separator in dim names; defaults to "". 
 #' @export
-#' @rdname api_parray
+#' @rdname api-parray
 makeDimNames <- function(varNames, levels, sep=''){
     if (!is.character(varNames))
         stop("'varNames' is not character vector")

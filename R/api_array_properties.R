@@ -1,17 +1,18 @@
-#' #####################################################################
+#####################################################################
 #'
 #' @title Check if object is array
 #' @description Check if object is array (that it is a vector with a
 #'     dim attribute) and that the object has dimnames and that
 #'     dimnames are named.
-#' @name api_array_properties
+#' @name api-array-properties
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' 
-## #####################################################################
+#####################################################################
 #' 
 #' @param obj Some R object.
 #' @param a1,a2 Arrays with named dimnames.
-#' @seealso \code{\link{is.named.array}}
+#' 
+## #' @seealso \code{\link{is.named.array}}
 #' @examples
 #' is.named.array( HairEyeColor )
 #' is.named.array( matrix(1:4, nrow=2) )
@@ -43,23 +44,23 @@
 #' dimnames_match(ar1, ar2)
 
 #' @export
-#' @rdname api_array_properties
+#' @rdname api-array-properties
 is.named.array <- is_named_array_
 
 #' @export
-#' @rdname api_array_properties
+#' @rdname api-array-properties
 is_named_array_ <- is_named_array_
 
 #' @export
-#' @rdname api_array_properties
+#' @rdname api-array-properties
 is_number_vector_ <- is_number_vector_
 
 #' @export
-#' @rdname api_array_properties
+#' @rdname api-array-properties
 is_dimnames_ <- is_dimnames_
 
 #' @export
-#' @rdname api_array_properties
+#' @rdname api-array-properties   
 dimnames_match <- function( a1, a2 ){
     if ( !is.named.array( a1 ) )
         stop("'a1' is not a named array \n")

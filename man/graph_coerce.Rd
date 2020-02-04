@@ -25,6 +25,8 @@ Methods for changing graph representations
 \details{
 coerceGraph is used in the book "Graphical models with R".
 A more generic approach is as().
+}
+\examples{
 
 g1 <- ug(~a:b+b:c)
 as(g1, "igraph")
@@ -32,9 +34,10 @@ as(g1, "matrix")
 as(g1, "Matrix")
 as(g1, "dgCMatrix")
 
-graph_as(g1, "ugList") 
+## graph_as(g1, "ugList") ## Fails
+## getCliques(g1)         ## Works
 
 l1 <- list(c("a" ,"b"), c("b", "c"))
-
 graph_as(l1, "graphNEL", "ugList")
+
 }

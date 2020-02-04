@@ -58,10 +58,8 @@ Functions for extracting slices of arrays
 x = HairEyeColor
 s = list(Hair=c("Black", "Brown"), Eye=c("Brown", "Blue"))
 
-## arslice
 s1 = tabSlice(x, slice=s); s1
 
-## ar_slice_entries
 tabSlice2Entries(x, slice=s)
 tabSlice2Entries(x, slice=s, complement=TRUE)
 

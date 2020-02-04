@@ -2,7 +2,7 @@
 #'
 #' @title Interface - operations on multidimensional arrays.
 #' @description Interface functions and minor extensions to cpp functions.
-#' @name api_tabX
+#' @name api-tabX
 #'
 ## ####################################################################
 #'
@@ -18,9 +18,7 @@
 #' @param aux Either a list with names and dimnames or a named array
 #'     from which such a list can be extracted.
 #'
-#' @aliases tabOp__
-#'     tabEqual__  tabPerm__ tabAlign__ tabExpand__
-#'     tabListAdd__ tabListMult__ tabListAdd tabListMult tabExt
+#' @aliases 
 #'     tab_align_ tab_expand_ tab_marg_ tab_perm_
 #' 
 
@@ -29,27 +27,27 @@
 ## -------------------------
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabAdd      <- tab_add_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabAlign  <- tab_align_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabDiv      <- tab_div_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabDiv0     <- tab_div0_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabEqual  <- tab_equal_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabExpand <- function(tab, aux){  ## FIXME Rethink this
     ## if (!is.named.array(tab)) stop("'tab' not a named array")
     ## if (!is.null(aux))
@@ -68,19 +66,19 @@ tabExpand <- function(tab, aux){  ## FIXME Rethink this
 
 ## tabMult used by grain; 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabMult     <- tab_mult_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabSubt     <- tab_subt_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabListMult <- tab_list_mult_
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabListAdd  <- tab_list_add_
 
 
@@ -89,7 +87,7 @@ tabListAdd  <- tab_list_add_
 ## -------------------------
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabPerm <- function(tab, perm){
     if (!is.named.array(tab)) stop("'tab' not a named array")
     if (!(is.numeric(perm) || is.character(perm) || inherits(perm, "formula")))
@@ -101,7 +99,7 @@ tabPerm <- function(tab, perm){
 }
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabMarg <- function(tab, marg=NULL){
     if (!is.named.array(tab)) stop("'tab' not a named array")
     if (!is.null(marg))
@@ -116,7 +114,7 @@ tabMarg <- function(tab, marg=NULL){
 
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabSum <- function(tab, ...){
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
@@ -124,7 +122,7 @@ tabSum <- function(tab, ...){
 }
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX
 tabProd <- function(tab, ...){
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
@@ -133,7 +131,7 @@ tabProd <- function(tab, ...){
 
 
 ## #' @export
-## #' @rdname api_tabX
+## #' @rdname api-tabX
 ## tabSum <- function(...){
 ##     args <- list(...)
 ##     ##message("args:"); print(args); message("-------")
@@ -143,7 +141,7 @@ tabProd <- function(tab, ...){
 ## }
 
 ## #' @export
-## #' @rdname api_tabX
+## #' @rdname api-tabX
 ## tabProd <- function(...){
 ##     args <- list(...)
 ##     ##message("args:"); print(args); message("-------")
@@ -153,7 +151,7 @@ tabProd <- function(tab, ...){
 ## }
 
 #' @export
-#' @rdname api_tabX
+#' @rdname api-tabX                 
 tabNormalize <- function(tab, type="none"){
     switch(type,
            "first"={
@@ -338,10 +336,8 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
 #' x = HairEyeColor
 #' s = list(Hair=c("Black", "Brown"), Eye=c("Brown", "Blue"))
 #'
-#' ## arslice
 #' s1 = tabSlice(x, slice=s); s1
 #'
-#' ## ar_slice_entries
 #' tabSlice2Entries(x, slice=s)
 #' tabSlice2Entries(x, slice=s, complement=TRUE)
 #'

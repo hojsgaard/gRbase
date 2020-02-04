@@ -89,7 +89,7 @@ is.UG  <- is_ug
 
 ## FIXME Used by gRim
 #' @export
-glist2adjMAT <- ugl2M_
+glist2adjMAT <- g_ugl2M_
 
 #' @export
 removeRedundant  <- remove_redundant
@@ -160,7 +160,7 @@ jTree.default  <- junction_tree.default
 ## FIXME request replacement
 ##graphNEL2adjMAT <- graphNEL2M
 #' @export
-graphNEL2adjMAT <- gn2xm_
+graphNEL2adjMAT <- g_gn2xm_
 
 
 
@@ -175,9 +175,9 @@ is.DG  <- is_dg
 is.UG  <- is_ug
 
 #' @export
-graphNEL2M <- gn2xm_
+graphNEL2M <- g_gn2xm_
 
 #' @export
-M2graphNEL <- xm2gn_
+M2graphNEL <- g_xm2gn_
 
 

@@ -4,7 +4,7 @@
 #' @description Array operations; created to facilitate the gRain
 #'     package in 2007. Now largely replaceable by other (often
 #'     faster) functions implemented in Rcpp.
-#' @name api_arrayX_07
+#' @name api-array-07
 ##
 ## ###########################################################
 #'
@@ -18,7 +18,7 @@
 
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE){
   # Like aperm() but perm can be dimnames
   if (missing( perm )){
@@ -39,19 +39,19 @@ tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE){
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 tableMult <- function(tab1, tab2){
   tableOp(tab1, tab2, op="*")
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 tableDiv <- function(tab1, tab2){
   tableOp(tab1, tab2, op="/")
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
 tableOp <- function(tab1, tab2, op="*"){
 
@@ -109,7 +109,7 @@ tableOp <- function(tab1, tab2, op="*"){
 
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 #' @param restore Not so clear anymore.
 tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 
@@ -140,7 +140,7 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 #' @param margin Index or name of margin.
 #' @param level Corresponding level of margin.
 #' @param impose Value to be imposed. 
@@ -187,7 +187,7 @@ tableSlice <-  function (tab, margin, level, impose)
 
 ## tableSlicePrim: Works only with margin and level being indices
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 #' @param mar.idx Index of margin
 #' @param lev.idx Index of level
 tableSlicePrim <- function(tab, mar.idx, lev.idx){
@@ -198,7 +198,7 @@ tableSlicePrim <- function(tab, mar.idx, lev.idx){
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 tableMargin <- function (tab, margin, keep.class = FALSE)
 {
 ##   cat("===== tableMargin =====\n")
@@ -244,7 +244,7 @@ tableMargin <- function (tab, margin, keep.class = FALSE)
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07
 tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
     di <- dim(tab)
     dn <- dimnames(tab)
@@ -273,7 +273,7 @@ tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
 }
 
 #' @export
-#' @rdname api_arrayX_07
+#' @rdname api-array-07            
 #' @param complement Should values be set for the complement?
 #' @param value Which value should be set
 tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){

@@ -61,7 +61,7 @@ edgeList.default <- function(object, matrix=FALSE){
 
     ##cat("edgeList.default\n")
     if (inherits(object, "graphNEL"))
-        return(edgeListMAT(gn2dm_(object), matrix=matrix))
+        return(edgeListMAT(g_gn2dm_(object), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
         return(edgeListMAT(object, matrix=matrix))
     stop("Can not find edge list for this type of object\n")
@@ -98,7 +98,7 @@ nonEdgeList <- function(object, matrix=FALSE)
 #' @rdname graph-edgeList
 nonEdgeList.default <- function(object, matrix=FALSE){
     if (inherits(object, "graphNEL"))
-        return(nonEdgeListMAT(gn2dm_(object), matrix=matrix))
+        return(nonEdgeListMAT(g_gn2dm_(object), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
         return(nonEdgeListMAT(object, matrix=matrix))
     stop("Can not find non-edge list for this type of object\n")
@@ -390,7 +390,7 @@ get_cliques <- function(object){
 #' @export 
 #' @rdname graph-cliques
 get_cliques.graphNEL <- function(object){
-    max_cliqueMAT( gn2sm_(object) )[[1]]
+    max_cliqueMAT( g_gn2sm_(object) )[[1]]
 }
 #' @export 
 #' @rdname graph-cliques

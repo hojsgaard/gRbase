@@ -12,16 +12,18 @@
 #' @details coerceGraph is used in the book "Graphical models with R".
 #' A more generic approach is as().
 #'
+#' @examples
+#' 
 #' g1 <- ug(~a:b+b:c)
 #' as(g1, "igraph")
 #' as(g1, "matrix")
 #' as(g1, "Matrix")
 #' as(g1, "dgCMatrix")
 #'
-#' graph_as(g1, "ugList") 
-#'
+#' ## graph_as(g1, "ugList") ## Fails
+#' ## getCliques(g1)         ## Works
+#' 
 #' l1 <- list(c("a" ,"b"), c("b", "c"))
-#'
 #' graph_as(l1, "graphNEL", "ugList")
 #' 
 #' @export
@@ -42,17 +44,17 @@ coerceGraph <- function(object, class){
 setOldClass("igraph")
 
 ## ### From ->->-> To  ###
-setAs("graphNEL", "igraph",    function(from) gn2ig_(from))
-setAs("graphNEL", "matrix",    function(from) gn2dm_(from))
-setAs("graphNEL", "dgCMatrix", function(from) gn2sm_(from))
-setAs("graphNEL", "Matrix",    function(from) gn2sm_(from))
+setAs("graphNEL", "igraph",    function(from) g_gn2ig_(from))
+setAs("graphNEL", "matrix",    function(from) g_gn2dm_(from))
+setAs("graphNEL", "dgCMatrix", function(from) g_gn2sm_(from))
+setAs("graphNEL", "Matrix",    function(from) g_gn2sm_(from))
 
-setAs("igraph",   "graphNEL",  function(from) ig2gn_(from))
-setAs("igraph",   "matrix",    function(from) ig2dm_(from))
-setAs("igraph",   "dgCMatrix", function(from) ig2sm_(from))
+setAs("igraph",   "graphNEL",  function(from) g_ig2gn_(from))
+setAs("igraph",   "matrix",    function(from) g_ig2dm_(from))
+setAs("igraph",   "dgCMatrix", function(from) g_ig2sm_(from))
 
-setAs("matrix",    "igraph",   function(from) dm2ig_(from))
-setAs("dgCMatrix", "igraph",   function(from) sm2ig_(from))
+setAs("matrix",    "igraph",   function(from) g_dm2ig_(from))
+setAs("dgCMatrix", "igraph",   function(from) g_sm2ig_(from))
 
 ## matrix -> graphNEL : is in graph package (I guess)
 ## matrix -> dgCMatrix: is in Matrix package. Should be used
@@ -67,7 +69,7 @@ setAs("dgCMatrix", "igraph",   function(from) sm2ig_(from))
 #' @param intype The desired output outtype (only relevant if object is a list)
 #' 
 graph_as  <- function(object, outtype, intype=NULL){
-
+    
     if (!inherits(object, c(.graph_type(), "list", "formula")))
         stop("Wrong input format\n")
        
@@ -92,9 +94,9 @@ graph_as  <- function(object, outtype, intype=NULL){
     idt <- .get_idtype(id)
     
     switch(id,
-           "ugl" ={M2ugl_(object)},
-           "dagl"={M2dagl_(object)},
-           "adl" ={M2adl_(object)})                            
+           "ugl" ={g_M2ugl_(object)},
+           "dagl"={g_M2dagl_(object)},
+           "adl" ={g_M2adl_(object)})                            
 }
 
 .handle_graph_case <- function(object, outtype){
@@ -108,16 +110,14 @@ graph_as  <- function(object, outtype, intype=NULL){
 .handle_list_case <- function(object, outtype, intype){
     if (inherits(object, "formula"))
         object <- rhsf2list(object)
-
     
     id <- match(intype, .list_format())
     idt <- .get_idtype(id)
     
-
     switch(id,
-           "ugl"  ={ugl2XX_(object, outtype)},
-           "dagl" ={dagl2XX_(object, outtype)},
-           "adl"  ={adl2XX_(object, outtype)})                            
+           "ugl"  ={g_ugl2XX_(object, outtype)},
+           "dagl" ={g_dagl2XX_(object, outtype)},
+           "adl"  ={g_adl2XX_(object, outtype)})                            
 }
 
 .get_idtype  <- function(id){

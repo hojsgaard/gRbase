@@ -12,7 +12,6 @@
 
 using namespace Rcpp;
 using namespace std;
-
 //[[Rcpp::interfaces(r,cpp)]]
 
 typedef Rcpp::NumericVector   numVec;

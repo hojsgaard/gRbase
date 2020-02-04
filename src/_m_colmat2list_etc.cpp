@@ -1,12 +1,9 @@
 /*
   Convert matrix to list; either by row or by column:
-  
-  Issues: FIXME: Mot too happy about the names
-
+  Issues: FIXME: Not too happy about the names
 */
 
 #include <Rcpp.h>
-
 using namespace Rcpp;
 
 template <typename TT>
@@ -31,7 +28,6 @@ SEXP do_colmat2list( SEXP XX_ ){
   return(out);
 }
 
-
 // FIXME do_colmat2list_str is here because there is/was bug in Rcpp
 List do_colmat2list_str(SEXP XX_){
   CharacterMatrix X(XX_);
@@ -46,9 +42,6 @@ List do_colmat2list_str(SEXP XX_){
   }
   return out;
 }
-
-// //' @name internal_grbase_cpp
-// //' @aliases which_matrix_index__ rowmat2list__ colmat2list__
 
 // [[Rcpp::export]]
 SEXP which_matrix_index__( SEXP X ){

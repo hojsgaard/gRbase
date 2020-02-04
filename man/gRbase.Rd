@@ -33,7 +33,7 @@
 }
 \section{Authors}{
   Soren Hojsgaard, Department of Mathematical Sciences, Aalborg
-  University, Fredrik Bajersvej 7G, DK-9220 Aalborg East, Denmark
+  University, Denmark
 
   Contributions from Claus Dethlefsen, Clive  Bowsher, David Edwards.
   

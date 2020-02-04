@@ -94,7 +94,7 @@ isGraphical.default <- function( x ){
 .isGraphical_glist <- function(x){
     vn <- unique( unlist(x) )
     ##amat <- ugList2M(x, vn=vn)
-    amat <- ugl2M_(x, vn=vn)
+    amat <- g_ugl2M_(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
     all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
 }
@@ -131,7 +131,7 @@ isDecomposable.default <- function( x ){
 .isDecomposable_glist <- function(x){
     vn <- unique( unlist(x) )
     ##amat <- ugList2M(x, vn=vn)
-    amat <- ugl2M_(x, vn=vn)
+    amat <- g_ugl2M_(x, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
     isg <- all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
     if (isg){
@@ -148,7 +148,7 @@ isDecomposable.default <- function( x ){
 isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 {
   ##amat <- ugList2M(glist, vn=vn)
-  amat <- ugl2M_(glist, vn=vn)
+  amat <- g_ugl2M_(glist, vn=vn)
   cliq <- max_cliqueMAT(amat)[[1]]
   isg  <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
   if (!isg){
@@ -162,7 +162,7 @@ isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 properties_glist <- function(glist,
                              vn=unique(unlist(glist)),
                              ##amat=ugList2M(glist,vn=vn),
-                             amat=ugl2M_(glist, vn=vn),
+                             amat=g_ugl2M_(glist, vn=vn),
                              cliq=max_cliqueMAT(amat)[[1]], discrete=NULL){
 
   isg <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))

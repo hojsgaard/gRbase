@@ -2,7 +2,7 @@
 ##################################################################
 #' @title Create multidimensional arrays
 #' @description Alternative ways of creating arrays
-#' @name api_tabNew
+#' @name api-tabNew
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 ##################################################################
 #'
@@ -42,7 +42,7 @@
 NULL
 
 #' @export
-#' @rdname api_tabNew
+#' @rdname api-tabNew             
 tabNew <- function(names, levels, values, normalize="none", smooth=0){
     normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]

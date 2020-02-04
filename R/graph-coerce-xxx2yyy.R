@@ -2,7 +2,7 @@
 ##
 #' @title API for coercing graph representations
 #' @description API for coercing graph representations.
-#' @name graph_coerce_api
+#' @name graph-coerce-api
 ##
 ## ###################################################################
 #'
@@ -11,10 +11,10 @@
 #'     be abbreviated to 'Matrix').
 #'
 #' @details No checking is made. In the function the following names are used:
-#' "ig": "igraph";
-#' "gn": "graphNEL";
-#' "sm": "dgCMatrix" (sparse matrix);
-#' "dm": "matrix" (dense matrix)
+#' * "ig": "igraph";
+#' * "gn": "graphNEL";
+#' * "sm": "dgCMatrix" (sparse matrix);
+#' * "dm": "matrix" (dense matrix)
 #' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{ug}}, \code{\link{dag}}
@@ -26,22 +26,22 @@
 ## ########################################################
 
 #' @export
-#' @rdname graph_coerce_api
-gn2dm_ <- function(object) {
+#' @rdname graph-coerce-api
+g_gn2dm_ <- function(object) {
     .check.is.graphNEL(object)
     adjList2matrix__(graph::edges(object))
 }
 
 #' @export
-#' @rdname graph_coerce_api
-gn2sm_ <- function(object) {
+#' @rdname graph-coerce-api
+g_gn2sm_ <- function(object) {
     .check.is.graphNEL(object)
     adjList2dgCMatrix__(graph::edges(object))
 }
 
 #' @export
-#' @rdname graph_coerce_api
-gn2ig_ <- function(object){
+#' @rdname graph-coerce-api
+g_gn2ig_ <- function(object){
     .check.is.graphNEL(object)
     gg <- igraph::igraph.from.graphNEL(object)
     igraph::V(gg)$label <- igraph::V(gg)$name
@@ -53,16 +53,16 @@ gn2ig_ <- function(object){
 ## ########################################################
 
 #' @export
-#' @rdname graph_coerce_api
-dm2gn_ <- function(object) as(object, "graphNEL")
+#' @rdname graph-coerce-api
+g_dm2gn_ <- function(object) as(object, "graphNEL")
 
 #' @export
-#' @rdname graph_coerce_api
-dm2sm_ <- function(object) M2dgCMatrix__(object)
+#' @rdname graph-coerce-api
+g_dm2sm_ <- function(object) M2dgCMatrix__(object)
 
 #' @export
-#' @rdname graph_coerce_api
-dm2ig_ <- function(object){
+#' @rdname graph-coerce-api
+g_dm2ig_ <- function(object){
     mode <- if (isSymmetric(object)) "undirected" else "directed"
     gg <- igraph::graph.adjacency(object, mode=mode)    
     igraph::V(gg)$label <- igraph::V(gg)$name <- colnames( object )
@@ -74,18 +74,18 @@ dm2ig_ <- function(object){
 ## ########################################################
 
 #' @export
-#' @rdname graph_coerce_api
-sm2gn_ <- function(object) as(object, "graphNEL")
+#' @rdname graph-coerce-api
+g_sm2gn_ <- function(object) as(object, "graphNEL")
 
 #' @export
-#' @rdname graph_coerce_api
-sm2dm_ <- function(object) M2matrix__(object)
+#' @rdname graph-coerce-api
+g_sm2dm_ <- function(object) M2matrix__(object)
 
 #' @export
-#' @rdname graph_coerce_api
-sm2ig_ <- dm2ig_
+#' @rdname graph-coerce-api
+g_sm2ig_ <- g_dm2ig_
 
-## #' @rdname graph_coerce_api
+## #' @rdname graph-coerce-api
 ## xm2ig <- dm2ig_
 
 
@@ -94,16 +94,17 @@ sm2ig_ <- dm2ig_
 ## ########################################################
 
 #' @export
-#' @rdname graph_coerce_api
-ig2gn_ <- function(object) igraph::igraph.to.graphNEL(object)
+#' @rdname graph-coerce-api
+g_ig2gn_ <- function(object) igraph::igraph.to.graphNEL(object)
+
 
 #' @export
-#' @rdname graph_coerce_api
-ig2dm_ <- function(object) M2matrix__(igraph::get.adjacency(object))
+#' @rdname graph-coerce-api
+g_ig2dm_ <- function(object) M2matrix__(igraph::get.adjacency(object))
 
 #' @export
-#' @rdname graph_coerce_api
-ig2sm_ <- function(object) igraph::get.adjacency(object)
+#' @rdname graph-coerce-api
+g_ig2sm_ <- function(object) igraph::get.adjacency(object)
 
 
 ## ##### END of api #####
@@ -114,40 +115,40 @@ ig2sm_ <- function(object) igraph::get.adjacency(object)
 ## ###############################################
 
 #' @export
-#' @rdname graph_coerce_api
-xm2gn_ <- function( object ){ ## M | graphNEL
+#' @rdname graph-coerce-api
+g_xm2gn_ <- function( object ){ ## M | graphNEL
     .check.is.matrix( object )
     as(object , "graphNEL")
 }
 
 #' @export
-#' @rdname graph_coerce_api
-xm2ig_ <- function( object ){ ## M | igraph
+#' @rdname graph-coerce-api
+g_xm2ig_ <- function( object ){ ## M | igraph
     .check.is.matrix( object )
     as(object , "igraph")
 }
 
 #' @export
-#' @rdname graph_coerce_api
-xm2dm_ <- function( object ){  ## M
+#' @rdname graph-coerce-api
+g_xm2dm_ <- function( object ){  ## M
     .check.is.matrix( object )
     M2matrix__(object)
 }
 
 #' @export
-#' @rdname graph_coerce_api
-xm2sm_ <- function( object ){ ## M
+#' @rdname graph-coerce-api
+g_xm2sm_ <- function( object ){ ## M
     .check.is.matrix( object )
     M2dgCMatrix__(object)
 }
 
 #' @export
-#' @rdname graph_coerce_api
-xm2xm_ <- function(object, result="matrix"){
+#' @rdname graph-coerce-api
+g_xm2xm_ <- function(object, result="matrix"){
     switch(result,
-           "matrix"={xm2dm_(object)},
+           "matrix"={g_xm2dm_(object)},
            "Matrix"=,
-           "dgCMatrix"={xm2sm_(object)})
+           "dgCMatrix"={g_xm2sm_(object)})
 }
 
 ## ###############################################
@@ -155,23 +156,23 @@ xm2xm_ <- function(object, result="matrix"){
 ## ###############################################
 
 #' @export
-#' @rdname graph_coerce_api
-gn2xm_ <- function(object, result="matrix"){
+#' @rdname graph-coerce-api
+g_gn2xm_ <- function(object, result="matrix"){
     switch(result,
-           "matrix"={gn2dm_(object)},
+           "matrix"={g_gn2dm_(object)},
            "Matrix"=,
-           "dgCMatrix"={gn2sm_(object)})
+           "dgCMatrix"={g_gn2sm_(object)})
 }
 
 #' @export
-#' @rdname graph_coerce_api
-gn2ftM_ <- function(object){
+#' @rdname graph-coerce-api
+g_gn2ftM_ <- function(object){
     adjList2ftM__(graph::edges(object))
 }
 
 #' @export
-#' @rdname graph_coerce_api
-gn2tfM_ <- function(object){
+#' @rdname graph-coerce-api 
+g_gn2tfM_ <- function(object){
     adjList2tfM__(graph::edges(object))
 }
 

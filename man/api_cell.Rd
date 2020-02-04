@@ -61,7 +61,8 @@ fact_grid(dim, slice_cell = NULL, slice_marg = NULL)
 
 \item{slice_marg}{Vector giving the margin of a table, eg. c(2, 3)}
 
-\item{slice_cell}{Vector giving the corresponding cell of marginal table, e.g. c(1, 2)}
+\item{slice_cell}{Vector giving the corresponding cell of marginal
+table, e.g. c(1, 2)}
 
 \item{perm}{Vector giving permutaion of array, eg. c(1, 3, 2).}
 }

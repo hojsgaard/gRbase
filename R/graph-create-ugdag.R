@@ -74,11 +74,11 @@ ugList <- function(x, result="graphNEL"){
     vn  <- unique.default(unlist(x))
 
     switch(result,
-           "graphNEL" ={ugl2gn_(x, vn)},
-           "igraph"   ={ugl2ig_(x, vn)},
-           "matrix"   ={ugl2dm_(x, vn)},
+           "graphNEL" ={g_ugl2gn_(x, vn)},
+           "igraph"   ={g_ugl2ig_(x, vn)},
+           "matrix"   ={g_ugl2dm_(x, vn)},
            "Matrix"   =,
-           "dgCMatrix"={ugl2sm_(x, vn)})
+           "dgCMatrix"={g_ugl2sm_(x, vn)})
 }
 
     
@@ -102,11 +102,11 @@ dagList <- function(x, result="graphNEL", forceCheck=FALSE){
     vn  <- unique.default(unlist(x))
 
     out <- switch(result,
-                  "graphNEL"  = {dagl2gn_(x, vn)},
-                  "igraph"    = {dagl2ig_(x, vn)},
-                  "matrix"    = {dagl2dm_(x, vn)},
+                  "graphNEL"  = {g_dagl2gn_(x, vn)},
+                  "igraph"    = {g_dagl2ig_(x, vn)},
+                  "matrix"    = {g_dagl2dm_(x, vn)},
                   "Matrix"    = ,
-                  "dgCMatrix" = {dagl2sm_(x, vn)})
+                  "dgCMatrix" = {g_dagl2sm_(x, vn)})
 
     if (forceCheck){
         if( length(topo_sort(out)) == 0){

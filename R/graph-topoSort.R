@@ -76,7 +76,7 @@ topo_sortMAT <- function(amat, index=FALSE){
 ## FIXME topo_sort_vparList Delete?
 #' @export
 topo_sort_vparList<- function(glist){
-    topo_sortMAT(dagl2sm_(glist))
+    topo_sortMAT(g_dagl2sm_(glist))
 }
 
 

@@ -51,25 +51,6 @@ ar_prod_list <- tabListMult
 #' @rdname api_ar_operations
 ar_sum_list <- tabListAdd
 
-#' @export
-#' @rdname api_ar_operations
-"%a+%" <- function(a1, a2){tabAdd(a1,a2)}
-
-#' @export
-#' @rdname api_ar_operations
-"%a-%" <- function(a1, a2){tabSubt(a1,a2)}
-
-#' @export
-#' @rdname api_ar_operations
-"%a*%" <- function(a1, a2){tabMult(a1,a2)}
-
-#' @export
-#' @rdname api_ar_operations
-"%a/%" <- function(a1, a2){tabDiv(a1,a2)}
-
-#' @export
-#' @rdname api_ar_operations
-"%a/0%" <- function(a1, a2){tabDiv0(a1,a2)}
 
 #' @export
 #' @rdname api_ar_operations
@@ -98,39 +79,23 @@ ar_expand <- tabExpand
 
 #' @export
 #' @rdname api_ar_operations
-"%a^%" <- function(tab1, extra){tabExpand(tab1, extra)}
-
-#' @export
-#' @rdname api_ar_operations
 ar_align <- tabAlign
 
-#' @export
-#' @rdname api_ar_operations
-"%aa%" <- function(tab1, tab2){tabAlign(tab1, tab2)}
+
 
 #' @export
 #' @rdname api_ar_operations
 ar_perm <- tabPerm
 
-#' @export
-#' @rdname api_ar_operations
-"%ap%" <- function(tab1, perm){tabPerm(tab1, perm)}
 
 #' @export
 #' @rdname api_ar_operations
 ar_marg <- tabMarg
 
-#' @export
-#' @rdname api_ar_operations
-"%a_%" <- function(tab1, marg){tabMarg(tab1, marg)}
 
 #' @export
 #' @rdname api_ar_operations
 ar_equal <- tabEqual
-
-#' @export
-#' @rdname api_ar_operations
-"%a==%" <- function(tab1, tab2){tabEqual(tab1, tab2)}
 
 
 ##################################################################

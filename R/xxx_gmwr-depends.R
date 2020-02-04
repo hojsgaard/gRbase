@@ -22,4 +22,4 @@ NULL
 #' @export
 #' @rdname gmwr_book
 ##as.adjMAT       <- graphNEL2M
-as.adjMAT       <- gn2xm_
+as.adjMAT       <- g_gn2xm_
