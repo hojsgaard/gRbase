@@ -45,6 +45,7 @@
 #' @importFrom Matrix Matrix
 
 #' @export solveSPD MAT2ftM_ symMAT2ftM_
+#' @export tabMult__
 
 .dumfunction_afterimportFrom <- function(){}
 

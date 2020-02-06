@@ -8,7 +8,7 @@
 \alias{simulate.array}
 \title{Simulate data from array.}
 \usage{
-simulateArray(object, nsim = 1, margin, value.margin, seed = NULL)
+simulateArray(x, nsim = 1, margin, value.margin, seed = NULL)
 
 \method{simulate}{table}(object, nsim = 1, seed = NULL, margin, value.margin, ...)
 
@@ -17,7 +17,7 @@ simulateArray(object, nsim = 1, margin, value.margin, seed = NULL)
 \method{simulate}{array}(object, nsim = 1, seed = NULL, margin, value.margin, ...)
 }
 \arguments{
-\item{object}{An array.}
+\item{x, object}{An array.}
 
 \item{nsim}{Number of cases to simulate.}
 

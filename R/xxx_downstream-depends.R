@@ -14,6 +14,7 @@
 #'     is.UG is.DG
 #'     graphNEL2M M2graphNEL
 #'     tab
+#'     ar_marg ar_mult ar_slice ar_slice_mult ar_new ar_prod ar_perm ar_prod_list
 #' 
 #' @name downstream-aliases
 #' 
@@ -53,8 +54,42 @@ NULL
 ## FIXME: gRain replace isin with is_inset (remember that arguments
 ## must be switched)
 ## FIXME: done
+
 #' @export
 isin <- .isin ## potentialList.R
+
+#' @export
+is_subsetof_ <- is_subsetof_
+
+#' @export
+get_superset_  <- get_superset_
+
+#' @export
+get_subset_  <- get_subset_
+
+#' @export
+ar_prod_list  <- tabListMult
+
+#' @export
+ar_marg  <- tabMarg
+
+#' @export
+ar_mult  <- tabMult
+
+#' @export
+ar_slice  <- tabSlice
+
+#' @export
+ar_slice_mult <- tabSliceMult
+
+#' @export
+ar_new <- tabNew
+
+#' @export
+ar_prod <- tabProd
+
+#' @export
+ar_perm <- tabPerm
 
 ## grain uses subsetof; don't remember details of this function
 ## (different from is.subsetof) 

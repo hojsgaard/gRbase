@@ -4,21 +4,16 @@
 \alias{graph-gcproperties}
 \alias{isGraphical}
 \alias{isGraphical.default}
-\alias{isDecomposable}
 \alias{isDecomposable.default}
-\title{Properties of a generating class (for defining a graph)}
+\alias{isDecomposable}
+\title{Properties of a generating class (for defining a graph).}
 \usage{
 isGraphical(x)
 
-\method{isGraphical}{default}(x)
-
 isDecomposable(x)
-
-\method{isDecomposable}{default}(x)
 }
 \arguments{
-\item{x}{A generating class given as right hand sided formula or a list; see
-'examples' below}
+\item{x}{A generating class given as right hand sided formula or a list; see #''examples' below}
 }
 \value{
 TRUE or FALSE

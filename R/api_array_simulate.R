@@ -9,7 +9,7 @@
 #'
 ## ##############################################################
 #'
-#' @param object An array.
+#' @param x,object An array.
 #' @param nsim Number of cases to simulate.
 #' @param margin,value.margin Specification of slice of array to
 #'     simulate from.
@@ -46,22 +46,22 @@
 #' 
 #' 
 #' @export simulateArray
-simulateArray <- function(object, nsim=1, margin, value.margin, seed=NULL){
+simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL){
     if(missing(margin)) {
         rhs       <- NULL
-        lhs.dim   <- dim(object)
-        lhs.names <- names(dimnames(object))
+        lhs.dim   <- dim(x)
+        lhs.names <- names(dimnames(x))
     } else {
         rhs       <- margin
-        idx       <- (1:length(dim(object)))[-rhs]
-        lhs.dim   <- (dim(object))[idx]
-        lhs.names <- names(dimnames(object))[-rhs]
+        idx       <- (1:length(dim(x)))[-rhs]
+        lhs.dim   <- (dim(x))[idx]
+        lhs.names <- names(dimnames(x))[-rhs]
     }
     ##cat(sprintf("rhs=%s, lhs.dim=%s, lhs.names=%s\n",
     ##            toString(rhs), toString(lhs.dim), toString(lhs.names)))
     llhs.dim <- length(lhs.dim)
     ## FIXME: simulateArray uses tableSlice(); not a big issue but still
-    pp   <- tableSlice(object, margin=rhs, level=value.margin)
+    pp   <- tableSlice(x, margin=rhs, level=value.margin)
     ##print(pp)
 
     set.seed(seed)

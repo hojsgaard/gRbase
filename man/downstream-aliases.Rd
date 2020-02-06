@@ -36,6 +36,14 @@
 \alias{graphNEL2M}
 \alias{M2graphNEL}
 \alias{tab}
+\alias{ar_marg}
+\alias{ar_mult}
+\alias{ar_slice}
+\alias{ar_slice_mult}
+\alias{ar_new}
+\alias{ar_prod}
+\alias{ar_perm}
+\alias{ar_prod_list}
 \title{Downstream aliases}
 \description{
 Downstream aliases for other graphical modelling

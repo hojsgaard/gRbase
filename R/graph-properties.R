@@ -1,11 +1,5 @@
-## ##################################################################
-##
-## Properties of generating class (i.e. of graph defined by a
-## generating class)
-##
-## ##################################################################
-
-#' @title Properties of a generating class (for defining a graph)
+#####################################################################
+#' @title Properties of a generating class (for defining a graph).
 #' 
 #' @description A set of generators define an undirected graph, here
 #'     called a dependence graph. Given a set of generators it is
@@ -16,6 +10,9 @@
 #'     model is decomposable).
 #'
 #' @name graph-gcproperties
+#####################################################################
+## FIXME: Remove these aliases in due time
+#' @aliases isGraphical.default isDecomposable.default
 #' 
 #' @details A set of sets of variables, say A_1, A_2, ... A_K is
 #'     called a generating class for a graph with vertices V and edges
@@ -35,8 +32,7 @@
 #'     1-1-correspondance with its dependence graph, but the graph is not
 #'     chordal.
 #' 
-#' @param x A generating class given as right hand sided formula or a list; see
-#' 'examples' below
+#' @param x A generating class given as right hand sided formula or a list; see #''examples' below
 #' @return TRUE or FALSE
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @seealso \code{\link{mcs}}, \code{\link{rip}}
@@ -68,36 +64,36 @@ isGraphical <- function(x){
     UseMethod("isGraphical")
 }
 
-#' @export
-#' @rdname graph-gcproperties
-isGraphical.default <- function( x ){
-    if ((cls <- class( x )) %in% c("formula", "list")){
-        switch(cls,
-               "formula"={
-                   if (length(x)==3)
-                       x <- formula(delete.response(terms(x)))
-                   .isGraphical_glist( rhsf2list( x ) )
-               },
-               "list"={
-                   if (!all(unlist(lapply(x, is.atomic))))
-                       stop("'x' must be a list of atomic vectors")
-                   if (length( x ) == 0)
-                       stop("'x' must have positive length")
-                   .isGraphical_glist( x )
-               },
-               stop("'x' must be a formula or a list of atomic vectors\n")
-               )
+## FIXME export of isGraphical.default needed for gRain; remove when
+## no longer imported explicitly in gRain
 
+#' @method isGraphical default
+#' @export isGraphical.default
+#' @export
+isGraphical.default <- function( x ){
+    if (!(inherits(x, c("formula", "list"))))
+        stop("'x' must be a formula or a list of atomic vectors\n")
+
+    if (inherits(x, "formula")){
+        if (length(x) == 3)
+            stop("'x' is not right hand sided formula\n")
+        x <- formula(delete.response(terms(x)))
+        x <- rhsf2list(x)
+    } else {
+        if (!.is_list_of_atomic(x))
+            stop("'x' must be a list of atomic vectors")
+        if (length(x) == 0)
+            stop("'x' must have positive length")
     }
+    .isGraphical_glist( x )
 }
 
 .isGraphical_glist <- function(x){
-    vn <- unique( unlist(x) )
-    ##amat <- ugList2M(x, vn=vn)
-    amat <- g_ugl2M_(x, vn=vn)
+    amat <- g_ugl2M_(x, vn=unique(unlist(x)))
     cliq <- max_cliqueMAT(amat)[[1]]
-    all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
+    all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
 }
+
 
 #' @export
 #' @rdname graph-gcproperties
@@ -105,39 +101,41 @@ isDecomposable <- function(x){
     UseMethod("isDecomposable")
 }
 
-#' @export
-#' @rdname graph-gcproperties
-isDecomposable.default <- function( x ){
-    if ((cls <- class( x )) %in% c("formula","list")){
-        switch(cls,
-               "formula"={
-                   if (length(x)==3)
-                       x <- formula(delete.response(terms(x)))
-                   .isDecomposable_glist( rhsf2list( x ) )
-               },
-               "list"={
-                   if (!all(unlist(lapply(x, is.atomic))))
-                       stop("'x' must be a list of atomic vectors")
-                   if (length( x ) == 0)
-                       stop("'x' must have positive length")
-                   .isDecomposable_glist( x )
-               },
-               stop("'x' must be a formula or a list of atomic vectors\n")
-               )
+## FIXME export of isDecomposable.default needed for gRain; remove when
+## no longer imported explicitly in gRain
 
+#' @method isDecomposable default
+#' @export isDecomposable.default
+#' @export
+isDecomposable.default <- function( x ){
+    if (!(inherits(x, c("formula", "list"))))
+        stop("'x' must be a formula or a list of atomic vectors\n")
+
+    if (inherits(x, "formula")){
+        if (length(x) == 3)
+            stop("'x' is not right hand sided formula\n")
+        x <- formula(delete.response(terms(x)))
+        x <- rhsf2list(x)
+    } else {
+        if (!.is_list_of_atomic(x))
+            stop("'x' must be a list of atomic vectors")
+        if (length(x) == 0)
+            stop("'x' must have positive length")
     }
+    .isDecomposable_glist( x )
+}
+
+
+.is_list_of_atomic <- function(z){
+    is.list(z) && all(sapply(z, is.atomic))            
 }
 
 .isDecomposable_glist <- function(x){
-    vn <- unique( unlist(x) )
-    ##amat <- ugList2M(x, vn=vn)
-    amat <- g_ugl2M_(x, vn=vn)
+    amat <- g_ugl2M_(x, vn=unique(unlist(x)))
     cliq <- max_cliqueMAT(amat)[[1]]
-    isg <- all(unlist(lapply(cliq, function(sss) .isin(x, sss))))
-    if (isg){
-        length(mcsMAT(amat)) > 0
-    } else
-        FALSE
+    isg <- all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
+    if (isg) length(mcsMAT(amat)) > 0
+    else FALSE
 }
 
 ## Is model defined by <glist> graphical and strongly decomposable
@@ -178,6 +176,9 @@ is.adjMAT <- function(x){
     .check.is.matrix(x)
     isadjMAT_( x )
 }
+
+## dot-functions
+
 
 ## #####################################################
 ##
