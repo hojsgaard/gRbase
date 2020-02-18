@@ -22,6 +22,9 @@
 \alias{g_gn2xm_}
 \alias{g_gn2ftM_}
 \alias{g_gn2tfM_}
+\alias{graphNEL2adjMAT}
+\alias{M2graphNEL}
+\alias{graphNEL2M}
 \title{API for coercing graph representations}
 \usage{
 g_gn2dm_(object)
@@ -63,6 +66,8 @@ g_gn2xm_(object, result = "matrix")
 g_gn2ftM_(object)
 
 g_gn2tfM_(object)
+
+graphNEL2adjMAT(object, result = "matrix")
 }
 \arguments{
 \item{object}{An object representing a graph}
@@ -75,11 +80,28 @@ API for coercing graph representations.
 }
 \details{
 No checking is made. In the function the following names are used:
+
 * "ig": "igraph";
+
 * "gn": "graphNEL";
+
 * "sm": "dgCMatrix" (sparse matrix);
+
 * "dm": "matrix" (dense matrix)
 }
+\section{Synonymous functions}{
+
+
+For backward compatibility with downstream packages we have the
+following synonymous functions:
+
+* graphNEL2adjMAT = g_gn2xm_ (Used in HydeNet)
+
+* graphNEL2M = g_gn2xm_ (Used in simPATHy)
+
+* M2graphNEL = g_xm2gn_ (Used in simPATHy)
+}
+
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}
 }

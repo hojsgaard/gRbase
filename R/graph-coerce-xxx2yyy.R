@@ -11,9 +11,13 @@
 #'     be abbreviated to 'Matrix').
 #'
 #' @details No checking is made. In the function the following names are used:
+#' 
 #' * "ig": "igraph";
+#' 
 #' * "gn": "graphNEL";
+#' 
 #' * "sm": "dgCMatrix" (sparse matrix);
+#' 
 #' * "dm": "matrix" (dense matrix)
 #' 
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
@@ -177,12 +181,29 @@ g_gn2tfM_ <- function(object){
 }
 
 
-.check.is.matrix <- function(x){
-    if (!inherits(x, c("matrix", "dgCMatrix")))
-        stop("Input must be a matrix or a dgCMatrix\n")
-}
 
-.check.is.graphNEL <- function(x){
-    if (!inherits(x, "graphNEL"))
-        stop("'x' not a graphNEL object...")    
-}
+
+
+
+#' @rdname graph-coerce-api
+#' @section Synonymous functions:
+#'
+#' For backward compatibility with downstream packages we have the
+#' following synonymous functions:
+#'
+#' * graphNEL2adjMAT = g_gn2xm_ (Used in HydeNet)
+#' 
+#' * graphNEL2M = g_gn2xm_ (Used in simPATHy)
+#' 
+#' * M2graphNEL = g_xm2gn_ (Used in simPATHy)
+#'
+#' @aliases M2graphNEL graphNEL2M graphNEL2adjMAT
+
+#' @export
+graphNEL2adjMAT <- g_gn2xm_
+
+#' @export
+graphNEL2M <- g_gn2xm_
+
+#' @export
+M2graphNEL <- g_xm2gn_

@@ -3,39 +3,35 @@
 \name{graph-edgeList}
 \alias{graph-edgeList}
 \alias{edgeList}
-\alias{edgeList.default}
 \alias{edgeListMAT}
 \alias{nonEdgeList}
-\alias{nonEdgeList.default}
 \alias{nonEdgeListMAT}
 \title{Find edges in a graph and edges not in a graph.}
 \usage{
 edgeList(object, matrix = FALSE)
 
-\method{edgeList}{default}(object, matrix = FALSE)
-
 edgeListMAT(adjmat, matrix = FALSE)
 
 nonEdgeList(object, matrix = FALSE)
 
-\method{nonEdgeList}{default}(object, matrix = FALSE)
-
 nonEdgeListMAT(adjmat, matrix = FALSE)
 }
 \arguments{
-\item{object}{A graphNEL object or an adjacency matrix.}
+\item{object}{A `graphNEL` object, an `igraph` object, a dense
+matrix or a sparse `dgCMatrix` (the two latter representing an
+adjacency matrix).}
 
-\item{matrix}{If TRUE the result is a matrix; otherwise the result is a list.}
+\item{matrix}{If TRUE the result is a matrix; otherwise the result
+is a list.}
 
 \item{adjmat}{An adjacency matrix.}
 }
 \description{
 Returns the edges of a graph (or edges not in a graph)
-    where the graph can be either a graphNEL object or an adjacency
-    matrix.
+    where the graph can be either a `graphNEL` object, an `igraph`
+    object or an adjacency matrix.
 }
 \examples{
-
 ## A graph with edges
 g  <- ug(~a:b + b:c + c:d)
 gm <- as(g, "matrix")

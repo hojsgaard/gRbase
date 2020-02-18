@@ -1,4 +1,3 @@
-
 ######################################################################
 ##
 #' @title Functions from Graphical Modelling with R book
@@ -21,5 +20,4 @@ NULL
 
 #' @export
 #' @rdname gmwr_book
-##as.adjMAT       <- graphNEL2M
 as.adjMAT       <- g_gn2xm_

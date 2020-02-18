@@ -5,7 +5,7 @@
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 ########################################################
 #' 
-#' @param a,a1,a2,... Arrays (with named dimnames)
+#' @param a,a1,a2 Arrays (with named dimnames)
 ## #' @param lst List of arrays.
 #' @param tab1,tab2 Multidimensional arrays with named dimnames
 #'     (we call them 'named arrays').

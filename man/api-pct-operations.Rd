@@ -46,7 +46,7 @@ formula giving the desired marginal.}
 
 \item{extra}{List defining the extra dimensions.}
 
-\item{a, a1, a2, ...}{Arrays (with named dimnames)}
+\item{a, a1, a2}{Arrays (with named dimnames)}
 }
 \description{
 Addition, subtraction etc. of arrays

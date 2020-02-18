@@ -4,35 +4,17 @@
 \alias{graph-vpar}
 \alias{vchi}
 \alias{vchiMAT}
-\alias{vchi.graphNEL}
-\alias{vchi.Matrix}
-\alias{vchi.matrix}
 \alias{vpar}
 \alias{vparMAT}
-\alias{vpar.graphNEL}
-\alias{vpar.Matrix}
-\alias{vpar.matrix}
 \title{List of vertices and their parents for graph.}
 \usage{
 vchi(object, getv = TRUE, forceCheck = TRUE)
 
 vchiMAT(object, getv = TRUE, forceCheck = TRUE)
 
-\method{vchi}{graphNEL}(object, getv = TRUE, forceCheck = TRUE)
-
-\method{vchi}{Matrix}(object, getv = TRUE, forceCheck = TRUE)
-
-\method{vchi}{matrix}(object, getv = TRUE, forceCheck = TRUE)
-
 vpar(object, getv = TRUE, forceCheck = TRUE)
 
 vparMAT(object, getv = TRUE, forceCheck = TRUE)
-
-\method{vpar}{graphNEL}(object, getv = TRUE, forceCheck = TRUE)
-
-\method{vpar}{Matrix}(object, getv = TRUE, forceCheck = TRUE)
-
-\method{vpar}{matrix}(object, getv = TRUE, forceCheck = TRUE)
 }
 \arguments{
 \item{object}{An object representing a graph. Valid objects are an

@@ -3,16 +3,18 @@
 \name{graph-toposort}
 \alias{graph-toposort}
 \alias{topo_sort}
-\alias{topo_sort.default}
 \alias{topo_sortMAT}
-\alias{topo_sort_vparList}
+\alias{topoSort}
+\alias{topoSortMAT}
 \title{Topological sort of vertices in directed acyclic graph}
 \usage{
 topo_sort(object, index = FALSE)
 
-\method{topo_sort}{default}(object, index = FALSE)
-
 topo_sortMAT(amat, index = FALSE)
+
+topoSort(object, index = FALSE)
+
+topoSortMAT(amat, index = FALSE)
 }
 \arguments{
 \item{object}{An graph represented either as a \code{graphNEL}
@@ -41,21 +43,25 @@ A topological ordering of a directed graph is a linear
     least one topological ordering. Can hence be used for checking
     if a graph is a DAG.
 }
-\section{Note}{
- The workhorse is the \code{topo_sortMAT} function
-    which takes an adjacency matrix as input
+\note{
+The workhorse is the \code{topo_sortMAT} function which takes
+    an adjacency matrix as input.
+}
+\section{Synonymous functions}{
+
+
+The functions `topo_sort` / `topoSort` are synonymous with `topo_sortMAT` /
+`topoSortMAT`. One of the groups may be deprecated in the future.
 }
 
 \examples{
-
-dagMAT  <- dag(~a:b:c+c:d:e, result="matrix")
+dagMAT  <- dag(~a:b:c + c:d:e, result="matrix")
 dagMATS <- as(dagMAT, "dgCMatrix")
 dagNEL  <- as(dagMAT, "graphNEL")
 
 topo_sort(dagMAT)
 topo_sort(dagMATS)
 topo_sort(dagNEL)
-
 }
 \seealso{
 \code{\link{dag}}, \code{\link{ug}}

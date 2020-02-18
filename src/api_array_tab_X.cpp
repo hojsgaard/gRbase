@@ -6,6 +6,14 @@
 //
 // ------------------------------------------------------------
 
+
+//' @title Table operations implemented in c++
+//' @description Table operations implemented in c++. Corresponding R
+//'    functions without the trailing underscore exist.
+//' @name api-tabX_
+//' @inheritParams api-tabX
+//' @param op The operation to be carried out; "+", "-", "*", "/".
+
 #include <Rcpp.h>
 #include "concatenate.h"         // my version of c(x,y)
 #include "t_array_properties.h"  
@@ -47,7 +55,6 @@ bool seteq_(CharacterVector x, CharacterVector y){
 // Author: Søren Højsgaard
 // ------------------------------------------------------------
 
-// //[[Rcpp::export]]
 bool is_valid_perm_(const IntegerVector& dim, const IntegerVector& permi){
   bool out = false;
   if (dim.length() != permi.length()){
@@ -64,7 +71,6 @@ bool is_valid_perm_(const IntegerVector& dim, const IntegerVector& permi){
   }
   return out;
 }
-
 
 // This function also exists elsewhere
 inline IntegerVector make_prod__(const IntegerVector& adim ){
@@ -89,7 +95,6 @@ inline IntegerVector make_prod__(const IntegerVector& adim ){
       break;								\
     }									\
   };
-
 
 template <int RTYPE>
 Vector<RTYPE> do_aperm_vec(const Vector<RTYPE>& tab,
@@ -152,14 +157,15 @@ Vector<RTYPE> do_aperm_gen(const Vector<RTYPE>& tab, const SEXP& perm){
 }
 
 
+
+
+
+//' @rdname api-tabX_
 // [[Rcpp::export]]
 SEXP tab_perm_(const SEXP& tab, const SEXP& perm){
   DISPATCH1_METHOD(do_aperm_gen, tab, perm);
   return R_NilValue ;
 }
-
-
-
 
 
 
@@ -307,6 +313,7 @@ Vector<RTYPE> do_tab_expand_gen(const Vector<RTYPE>& tab1, const List& dn2){
 // We need a list with extra dimnames (tab2) to expand an array, but if we are
 // instead given a named array then we can extract info from there.
 
+//' @rdname api-tabX_
 // [[Rcpp::export]]
 SEXP tab_expand_(const SEXP& tab, const SEXP& aux){
   List dn;
@@ -322,6 +329,7 @@ SEXP tab_expand_(const SEXP& tab, const SEXP& aux){
 
 // Note: is_dimnames_(x) checks if x is a list an nothing model
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 SEXP tab_align_(const SEXP& tab1, const SEXP& tab2){
 
@@ -443,6 +451,7 @@ Vector<RTYPE> do_tabmarg_gen(const Vector<RTYPE>& tab, const SEXP& marg){
   return R_NilValue ;
 }
 
+//' @rdname api-tabX_
 // [[Rcpp::export]]
 SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
   switch( TYPEOF(tab) ){
@@ -481,6 +490,7 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
     }									\
   }									\
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, const char op='*'){
 
@@ -498,26 +508,31 @@ NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, cons
   return out;
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_add_(const NumericVector& tab1, const NumericVector& tab2){
   return tab_op_(tab1, tab2, '+');
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_subt_(const NumericVector& tab1, const NumericVector& tab2){
   return tab_op_(tab1, tab2, '-');
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_mult_(const NumericVector& tab1, const NumericVector& tab2){
   return tab_op_(tab1, tab2, '*');
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_div_(const NumericVector& tab1, const NumericVector& tab2){
   return tab_op_(tab1, tab2, '/');
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_div0_(const NumericVector& tab1, const NumericVector& tab2){
   NumericVector out = tab_op_(tab1, tab2, '/');
@@ -528,7 +543,7 @@ NumericVector tab_div0_(const NumericVector& tab1, const NumericVector& tab2){
   return out;
 }
 
-
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps=1e-12){
 
@@ -567,11 +582,13 @@ bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps
     return out;					\
   }						\
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_list_mult_(const List& lst){
   looplist(tab_mult_);
 }
 
+//' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_list_add_(const List& lst){
   looplist(tab_add_);
@@ -583,6 +600,7 @@ NumericVector tab_list_add_(const List& lst){
 // FIXME: ALIASES for gRain compatibility; July 2017
 //
 // -------------------------------------------------------
+
 
 // [[Rcpp::export]]
 SEXP tabMarg__(const SEXP& tab, const SEXP& marg){
@@ -598,6 +616,29 @@ NumericVector tabDiv0__(const NumericVector& tab1, const NumericVector& tab2){
 NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
   return tab_mult_(tab1, tab2);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

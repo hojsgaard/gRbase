@@ -32,13 +32,10 @@ A cross classified table with observational data from a Danish heart clinic.
 The response variable is CAD.
 }
 \details{
-cad1: Complete dataset, 236 cases.  cad2: Incomplete dataset, 67 cases.
-Information on (some of) the variables Hyperchol, Smoker, Inherit is
-missing.
+* cad1: Complete dataset, 236 cases.
 
-cad1: Complete dataset, 236 cases.  cad2: Incomplete
-    dataset, 67 cases. Information on (some of) the variables
-    Hyperchol, Smoker, Inherit is missing.
+* cad2: Incomplete dataset, 67 cases. Information on (some of) the
+    variables Hyperchol, Smoker, Inherit is missing.
 }
 \examples{
 

@@ -6,9 +6,8 @@
 \alias{mcs.default}
 \alias{mcsMAT}
 \alias{mcs_marked}
-\alias{mcsmarked.default}
-\alias{mcs_markedMAT}
 \alias{mcs_marked.default}
+\alias{mcs_markedMAT}
 \title{Maximum cardinality search on undirected graph.}
 \usage{
 mcs(object, root = NULL, index = FALSE)
@@ -59,9 +58,9 @@ An undirected graph is decomposable iff there exists a
     decomposability. The \code{mcs()} functions finds such an
     ordering if it exists.
 
-    The notion of strong decomposability is used in connection
-    with e.g. mixed interaction models where some vertices
-    represent discrete variables and some represent continuous
+    The notion of strong decomposability is used in connection with
+    e.g. mixed interaction models where some vertices represent
+    discrete variables and some represent continuous
     variables. Such graphs are said to be marked. The
     \code{mcsmarked()} function will return a perfect ordering iff
     the graph is strongly decomposable. As graphs do not know about

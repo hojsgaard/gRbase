@@ -18,8 +18,9 @@
 #' @param aux Either a list with names and dimnames or a named array
 #'     from which such a list can be extracted.
 #'
-#' @aliases 
-#'     tab_align_ tab_expand_ tab_marg_ tab_perm_
+## #' @aliases 
+## #'     tab_align_
+## #' tab_expand_ tab_marg_ tab_perm_
 #' 
 
 ## ------------------------
@@ -186,7 +187,7 @@ tabNormalize <- function(tab, type="none"){
 #' @description Marginalize and condition in a multidimensional array
 #'     which is assumed to represent a discrete multivariate
 #'     distribution.
-#' @name api_tabDist
+#' @name api-tabDist
 ##
 ########################################################################
 #'
@@ -250,7 +251,7 @@ NULL
 
 
 #' @export
-#' @rdname api_tabDist
+#' @rdname api-tabDist
 tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
     
     if (!is.named.array(tab))

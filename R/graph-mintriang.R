@@ -37,7 +37,7 @@
 #'     edges to the graph, so called fill-ins which gives the graph
 #'     TuG.  A triangulation TuG is minimal if no fill-ins can be
 #'     removed without breaking the property that TuG is triangulated.
-#' @name graph-mintriang
+#' @name graph-min-triangulate
 ##############################################################################
 
 #' @details For a given triangulation tobject it may be so that some
@@ -51,7 +51,6 @@
 #'     of fill-ins. The minimum triangulation is unique. Finding the
 #'     minimum triangulation is NP-hard.
 #' 
-#' @aliases minimal_triang minimal_triang.default minimal_triangMAT
 #' @param object An undirected graph represented either as a \code{graphNEL}
 #'     object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param tobject Any triangulation of \code{object}; must be of the same
@@ -94,7 +93,7 @@ minimal_triang <- function(object, tobject=triangulate(object), result=NULL, det
 }
 
 #' @export 
-#' @rdname graph-mintriang
+## #' @rdname graph-min-triangulate
 minimal_triang.default <- function(object, tobject=triangulate(object), result=NULL, details=0){
 
     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
@@ -128,7 +127,7 @@ minimal_triang.default <- function(object, tobject=triangulate(object), result=N
 
 
 #' @export
-#' @rdname graph-mintriang
+#' @rdname graph-min-triangulate
 minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
     as.adjMAT(.minimal_triang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"),
                               details=details))

@@ -61,12 +61,11 @@ processFormula <- function (formula, data, marginal, type = c("Discrete", "Conti
 
 
 
-#' @export
+
 selectOrder  <- function(x, order=2){
     combn_prim(x, order, simplify=FALSE)
 }
 
-#' @export
 extract.power<-function(fff){
   mimf  <- paste(as.formula(fff))[2]
   mimf.split <- unlist(strsplit(mimf,""))
@@ -316,9 +315,9 @@ readf <- function(s, v.sep="*", g.sep="+") {
 
 .delete.edge <- function(m, edge) {
   S <- ..varset(m)
-  dr <- dual.rep(m, S)
+  dr <- .dual.rep(m, S)
   dr <- c(dr, list(edge))
-  remove_redundant(dual.rep(dr, S, FALSE))
+  remove_redundant(.dual.rep(dr, S, FALSE))
 }
 
 #m2 <- readf('B.D+A.D+C.D')
@@ -336,12 +335,12 @@ readf <- function(s, v.sep="*", g.sep="+") {
 
 .add.edge <- function(m, edge) {
   S <- ..varset(m)
-  dr <- dual.rep(m, S)
+  dr <- .dual.rep(m, S)
   k <- length(dr)
   if (k>0) {for (i in 1:k) if (setequal(dr[[i]], edge)) dr[[i]] <- vector()}
 #  if (k>0) {for (i in 1:k) if (setequal(dr[[i]], edge)) dr[[i]] <- NULL}
   dr <- remove_redundant(dr, FALSE)
-  dual.rep(dr, S, FALSE)
+  .dual.rep(dr, S, FALSE)
 }
 
 #m2 <- readf('B.D+A.D+C.D')
@@ -363,7 +362,7 @@ readf <- function(s, v.sep="*", g.sep="+") {
 # we get a neat function for graphicalness:
 
 ..is.graphical <- function(m) {
-   dr <- dual.rep(m, ..varset(m))
+   dr <- .dual.rep(m, ..varset(m))
    lengths <- lapply(dr, length)
    all(lengths==2)
 }

@@ -8,10 +8,8 @@
 \alias{junction_tree}
 \alias{junction_tree.default}
 \alias{junction_treeMAT}
-\alias{junctionTree}
-\alias{junctionTree.default}
-\alias{junctionTreeMAT}
-\title{Create  RIP ordering of the cliques of  an undirected graph;
+\alias{jTree}
+\title{Create RIP ordering of the cliques of  an undirected graph;
     create junction tree.}
 \usage{
 rip(object, ...)
@@ -25,6 +23,8 @@ junction_tree(object, ...)
 \method{junction_tree}{default}(object, nLevels = NULL, ...)
 
 junction_treeMAT(amat, nLevels = rep(2, ncol(amat)), ...)
+
+jTree(object, ...)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a
@@ -60,15 +60,25 @@ The RIP ordering of the cliques of a decomposable
     variables linearly with maximum cardinality search (by
     \code{mcs}). The root argument is transfered to \code{mcs} as a
     way of controlling which clique will be the first in the RIP
-    ordering.  The \code{junction_tree()} (and \code{junction_tree()}) (for
-    "junction tree") is just a wrapper for a call of
-    \code{triangulate()} followed by a call of \code{rip()}.
+    ordering.  The \code{junction_tree()} (and
+    \code{junction_tree()}) (for "junction tree") is just a wrapper
+    for a call of \code{triangulate()} followed by a call of
+    \code{rip()}.
 }
 \note{
 The workhorse is the \code{ripMAT()} function. The
     \code{nLevels} argument to the \code{rip} functions has no
     meaning.
 }
+\section{Synonymous functions}{
+
+
+For backward compatibility with downstream packages we have the
+following synonymous functions:
+
+* jTree = junction_tree (Used in rags2ridges)
+}
+
 \examples{
 
 ## graphNEL
@@ -98,8 +108,8 @@ junction_tree(uG)
 
 }
 \seealso{
-\code{\link{mcs}} \code{\link{triangulate}}
-    \code{\link{moralize}} \code{\link{ug}}, \code{\link{dag}}
+\code{\link{mcs}}, \code{\link{triangulate}},
+    \code{\link{moralize}}, \code{\link{ug}}, \code{\link{dag}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

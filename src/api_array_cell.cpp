@@ -1,3 +1,10 @@
+//' @title Low level table cell operations implemented in c++
+//' @description Corresponding R
+//'    functions without the trailing underscore exist.
+//' @name api-cell_
+//' @inheritParams api-cell
+
+
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -15,9 +22,6 @@ IntegerVector make_indic(int ndim, const IntegerVector& slice){
   return indic;
 }
 
-
-// //' @rdname api_cell
-// //[[Rcpp::export]]
 int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
   double out=0;
   for (int i=0; i < cell.length(); ++i){
@@ -26,7 +30,7 @@ int cell2entry_prim_(const NumericVector& cell, const IntegerVector& plevels){
   return ((int) out) + 1;
 }
 
-//' @rdname api_cell
+//' @name api-cell_
 //[[Rcpp::export]]
 int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   int i, ss=1;
@@ -38,7 +42,7 @@ int cell2entry_(const NumericVector& cell, const IntegerVector& dim){
   return ((int) out) + 1;
 }
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 IntegerVector make_plevels_(const IntegerVector& dim){
   IntegerVector plevels(dim.length());
@@ -53,8 +57,6 @@ IntegerVector make_plevels_(const IntegerVector& dim){
 
 // ------------------------------------------------
 
-// //' @rdname api_cell
-// //[[Rcpp::export]]
 IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels){
   IntegerVector cell(plevels.length());
   int rrr = entry - 1;
@@ -66,7 +68,7 @@ IntegerVector entry2cell_prim_(const int& entry, const IntegerVector& plevels){
   return cell + 1;
 }
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
   IntegerVector plevels = make_plevels_(dim);
@@ -76,7 +78,7 @@ IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
 // ----------------------------------------------------
 
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim){
   numVec out_cell = clone(cell);
@@ -117,7 +119,7 @@ NumericVector next_cell_slice_prim_(const NumericVector& cell, const IntegerVect
   return out_cell;
 }
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_marg){
   IntegerVector slice_idx = make_indic(dim.length(), slice_marg);
@@ -161,7 +163,7 @@ IntegerVector slice2entry_prim_(const IntegerVector& slice_cell, const IntegerVe
   return out;
 }
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector& slice_marg, const IntegerVector& dim){
   IntegerVector slice_idx = make_indic(dim.length(), slice_marg);
@@ -177,7 +179,7 @@ IntegerVector slice2entry_(const IntegerVector& slice_cell, const IntegerVector&
 // ---------------------------------
 
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 int cell2entry_perm_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
 
@@ -199,7 +201,7 @@ int cell2entry_perm_prim_(const NumericVector& cell, const IntegerVector& perm, 
   return cell_number + 1;
 }
 
-//' @rdname api_cell
+//' @rdname api-cell_
 //[[Rcpp::export]]
 IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector& dim){
 
@@ -224,39 +226,6 @@ IntegerVector perm_cell_entries_(const IntegerVector& perm, const IntegerVector&
   return entry_new;
 }
 
-
-
-
-// //' @rdname api_cell
-// //[[Rcpp::export]]
-// int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
-//   IntegerVector plevels=make_plevels_(dim);
-
-//   NumericVector new_cell(cell.length());
-//   for (int i=0; i < cell.length(); ++i)
-//     new_cell[i] = cell[perm[i] - 1];
-
-//   IntegerVector dim_new(dim.length());
-//   dim_new = dim[perm - 1];
-  
-//   Rcout << "cell : " << cell;
-//   Rcout << " new_cell : " << new_cell << std::endl;
-  
-//   return get_cell_number_prim_(new_cell, perm, plevels);
-// }
-
-
-
-
-
-
-// //' @rdname api_cell
-// //[[Rcpp::export]]
-// int gcn_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
-//   IntegerVector plevels=make_plevels_(dim);
-//   //Rf_PrintValue( plevels );
-//   return get_cell_number_prim_(cell, perm, plevels);
-// }
 
 
 
@@ -358,3 +327,38 @@ as.integer(aperm(ii, pp))
 //   }
 //   return res + 1;
 // }
+
+
+
+// //' @rdname api_cell
+// //[[Rcpp::export]]
+// int get_cell_number_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
+//   IntegerVector plevels=make_plevels_(dim);
+
+//   NumericVector new_cell(cell.length());
+//   for (int i=0; i < cell.length(); ++i)
+//     new_cell[i] = cell[perm[i] - 1];
+
+//   IntegerVector dim_new(dim.length());
+//   dim_new = dim[perm - 1];
+  
+//   Rcout << "cell : " << cell;
+//   Rcout << " new_cell : " << new_cell << std::endl;
+  
+//   return get_cell_number_prim_(new_cell, perm, plevels);
+// }
+
+
+
+
+
+
+// //' @rdname api_cell
+// //[[Rcpp::export]]
+// int gcn_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& perm){
+//   IntegerVector plevels=make_plevels_(dim);
+//   //Rf_PrintValue( plevels );
+//   return get_cell_number_prim_(cell, perm, plevels);
+// }
+
+

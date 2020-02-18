@@ -25,7 +25,6 @@
 #' If \code{smooth} is positive then \code{smooth} is added to
 #' \code{values} before normalization takes place.
 #' 
-#' @aliases parray as.parray data2parray
 #' @param varNames Names of variables defining table; can be a right hand sided
 #'     formula.
 #' @param levels Either 1) a vector with number of levels of the factors in
@@ -158,25 +157,25 @@ as.parray  <- function(values, normalize="none", smooth=0){
 #' @rdname api-parray
 data2parray <- function(data, varNames=NULL, normalize="none", smooth=0){
     ## FIXME: should be inherits
-  cls <- match(class(data), c("data.frame","table", "xtabs", "matrix"))[1]
-  if (is.na(cls)){
-    stop("'data' must be one of  dataframe, table, xtabs, matrix")
-  }
-
-  .set.varNames <- function(varNames, dataNames){
-    if (is.null(varNames)){
-      if (is.null(dataNames))
-        stop("'data' has no variable names")
-      varNames <- dataNames
-    } else {
-      if (class(varNames) %in% c("formula", "character")){
-        varNames <- rhsf2list(varNames)[[1]]
-      }
+    cls <- match(class(data), c("data.frame","table", "xtabs", "matrix"))[1]
+    if (is.na(cls)){
+        stop("'data' must be one of  dataframe, table, xtabs, matrix")
     }
-    varNames
-  }
-
-  switch(as.character(cls),
+    
+    .set.varNames <- function(varNames, dataNames){
+        if (is.null(varNames)){
+            if (is.null(dataNames))
+                stop("'data' has no variable names")
+            varNames <- dataNames
+        } else {
+            if (class(varNames) %in% c("formula", "character")){
+                varNames <- rhsf2list(varNames)[[1]]
+            }
+        }
+        varNames
+    }
+    
+    switch(as.character(cls),
          "1"={
            dataNames <- names(data)
            varNames <- .set.varNames(varNames, dataNames)

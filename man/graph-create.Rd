@@ -19,19 +19,22 @@ dagList(x, result = "graphNEL", forceCheck = FALSE)
 \arguments{
 \item{\dots}{A generating class for a graph, see examples below}
 
-\item{result}{The format of the graph. The possible choices are "graphNEL"
-(for a graphNEL object), "matrix" (for an adjacency matrix), "dgCMatrix"
-(for a sparse matrix), "igraph" (for an igraph object).}
+\item{result}{The format of the graph. The possible choices are
+"graphNEL" (for a `graphNEL` object), "igraph" (for an `igraph`
+object), "matrix" (for an adjacency matrix), "dgCMatrix" (for a
+sparse matrix).}
 
-\item{x}{A list or individual components from which a graph can be created.}
+\item{x}{A list or individual components from which a graph can be
+created.}
 
-\item{forceCheck}{Logical determining if it should be checked if the graph is
-acyclical. Yes, one can specify graphs with cycles using the \code{dag()}
-function.}
+\item{forceCheck}{Logical determining if it should be checked if
+the graph is acyclical. Yes, one can specify graphs with cycles
+using the \code{dag()} function.}
 }
 \value{
-Functions \code{ug()}, and \code{dag()} can return a \code{graphNEL}
-    object, a sparse or dense adjacency matrix or an \code{igraph} object.
+Functions \code{ug()}, and \code{dag()} can return a
+    \code{graphNEL} object, an `igraph` object, a sparse or a dense
+    adjacency matrix.
 }
 \description{
 These functions are wrappers for creation of graphs as
@@ -41,15 +44,15 @@ These functions are wrappers for creation of graphs as
 
 ## The following specifications of undirected graphs are equivalent:
 uG1 <- ug(~ a:b:c + c:d)
-uG2 <- ug(c("a","b","c"), c("c","d"))
-uG3 <- ug(c("a","b"), c("a","c"), c("b","c"), c("c","d"))
+uG2 <- ug(c("a", "b", "c"), c("c", "d"))
+uG3 <- ug(c("a", "b"), c("a", "c"), c("b", "c"), c("c", "d"))
 
 graph::edges(uG1)
 graph::nodes(uG1)
 
 ## The following specifications of directed acyclig graphs are equivalent:
 daG1 <- dag(~ a:b:c + b:c + c:d)
-daG2 <- dag(c("a","b","c"), c("b","c"), c("c","d"))
+daG2 <- dag(c("a", "b", "c"), c("b", "c"), c("c", "d"))
 
 graph::edges(daG1)
 graph::nodes(daG2)
@@ -66,12 +69,9 @@ topo_sort( daG4 )
 
 ## Different representations
 uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
-uG6
+uG7 <- ug(~a:b:c + c:d, result="igraph")    # igraph
 uG8 <- ug(~a:b:c + c:d, result="matrix")    # dense matrix
-uG8
 uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix
-uG9
-
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

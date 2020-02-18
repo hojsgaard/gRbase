@@ -5,7 +5,7 @@
 #'     observations from the array x conditional on the variables in
 #'     margin (a vector of indices) takes values given by margin.value
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @name array_simulate
+#' @name array-simulate
 #'
 ## ##############################################################
 #'
@@ -77,15 +77,15 @@ simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL){
 }
 
 #' @export
-#' @rdname array_simulate
+#' @rdname array-simulate
 simulate.table <- function(object, nsim=1, seed=NULL, margin, value.margin, ...){
     simulateArray(object, nsim=nsim, margin=margin, value.margin=value.margin, seed=seed)
 }
 
 #' @export
-#' @rdname array_simulate
+#' @rdname array-simulate
 simulate.xtabs  <- simulate.table
 
 #' @export
-#' @rdname array_simulate
+#' @rdname array-simulate
 simulate.array  <- simulate.table

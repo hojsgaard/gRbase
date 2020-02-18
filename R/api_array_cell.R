@@ -2,7 +2,7 @@
 ##
 #' @title Table cell operations.
 #' @description Low level table cell operations.
-#' @name api_cell
+#' @name api-cell
 ##
 ## #########################################################################
 #'
@@ -13,7 +13,7 @@
 #' @param slice_cell Vector giving the corresponding cell of marginal
 #'     table, e.g. c(1, 2)
 #' @param entry An entry in an array (a number indexing a vector).
-#' 
+#'
 #' @examples
 #'
 #' di <- c(2, 2, 3)
@@ -44,31 +44,31 @@
 ## --------------------------
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 cell2entry    <- cell2entry_
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 entry2cell    <- entry2cell_
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 next_cell      <- next_cell_
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 next_cell_slice <- next_cell_slice_
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 slice2entry   <- slice2entry_
 
 #' @export
-##' @rdname api_cell
+##' @rdname api-cell
 cell2entry_perm <- cell2entry_perm_
 
 #' @export
-#' @rdname api_cell
+#' @rdname api-cell
 perm_cell_entries <- perm_cell_entries_
 
 ## --- END ---
@@ -92,7 +92,7 @@ perm_cell_entries <- perm_cell_entries_
 ## -----------------------------------------------------------
 
 #' @export
-#' @rdname api_cell                              
+#' @rdname api-cell                              
 fact_grid <- function(dim, slice_cell=NULL, slice_marg=NULL){
   if (is.null(slice_cell)){
     .factgrid1Prim(dim)

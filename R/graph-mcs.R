@@ -1,19 +1,10 @@
-## ###################################################################
-##
-## Maximum Cardinality Search (mcs)
-## Maximum Cardinality Search for marked graphs (mcsmarked)
-##
-## Returns perfect ordering if it exists and character(0) otherwise
-##
-## ###################################################################
-
-## ###################################################################
+######################################################################
 #' @title Maximum cardinality search on undirected graph.
 #' @description Returns (if it exists) a perfect ordering of the
 #'     vertices in an undirected graph.
 #' @name graph-mcs
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-## ###################################################################
+######################################################################
 #' 
 #' @details An undirected graph is decomposable iff there exists a
 #'     perfect ordering of the vertices. The maximum cardinality
@@ -22,17 +13,17 @@
 #'     decomposability. The \code{mcs()} functions finds such an
 #'     ordering if it exists.
 #' 
-#'     The notion of strong decomposability is used in connection
-#'     with e.g. mixed interaction models where some vertices
-#'     represent discrete variables and some represent continuous
+#'     The notion of strong decomposability is used in connection with
+#'     e.g. mixed interaction models where some vertices represent
+#'     discrete variables and some represent continuous
 #'     variables. Such graphs are said to be marked. The
 #'     \code{mcsmarked()} function will return a perfect ordering iff
 #'     the graph is strongly decomposable. As graphs do not know about
 #'     whether vertices represent discrete or continuous variables,
 #'     this information is supplied in the \code{discrete} argument.
 #' 
-#' @aliases mcs mcs.default mcsMAT mcs_marked mcsmarked.default
-#'     mcs_markedMAT
+## #' @aliases mcs mcs.default mcsMAT mcs_marked mcsmarked.default
+## #'     mcs_markedMAT
 #' @param object An undirected graph represented either as a
 #'     \code{graphNEL} object, an \code{igraph}, a (dense)
 #'     \code{matrix}, a (sparse) \code{dgCMatrix}.
@@ -45,9 +36,11 @@
 #' @param index If TRUE, then a permutation is returned
 #' @param amat Adjacency matrix
 #' @param vn Nodes in the graph given by adjacency matrix
+#' 
 #' @return A vector with a linear ordering (obtained by maximum
 #'     cardinality search) of the variables or character(0) if such an
 #'     ordering can not be created.
+#'
 #' @note The workhorse is the \code{mcsMAT} function.
 
 #' @seealso \code{\link{moralize}}, \code{\link{junction_tree}},

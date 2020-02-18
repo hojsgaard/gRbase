@@ -35,6 +35,7 @@ table(sapply(vpar(dg),length))
 
 dg   <- random_dag(1:1000, maxpar=5, wgt=.1)
 table(sapply(vpar(dg),length))
+
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

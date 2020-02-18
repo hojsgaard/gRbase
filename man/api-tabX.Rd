@@ -3,10 +3,6 @@
 \name{api-tabX}
 \alias{api-tabX}
 \alias{tabAdd}
-\alias{tab_align_}
-\alias{tab_expand_}
-\alias{tab_marg_}
-\alias{tab_perm_}
 \alias{tabAlign}
 \alias{tabDiv}
 \alias{tabDiv0}

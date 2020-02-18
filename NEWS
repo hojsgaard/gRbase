@@ -1,3 +1,18 @@
+gRbase v1.8-5.3 (Release date: 2020-02-18)
+==========================================
+
+Bug fixes:
+
+  * Even more functions are exported (changed from manually generated
+    to automatically generated NAMESPACE file; this has caused
+    downstream trouble.
+
+Other changes:
+
+  * More tests added Would like to use snake_case rather than
+  * camelCase in function names, but this causes too much trouble to
+  * change downstream so we accept dual names for some functions for now.
+
 gRbase v1.8-5.2 (Release date: 2020-02-06)
 ==========================================
 

@@ -838,17 +838,6 @@ RcppExport SEXP _gRbase_all_pairs__(SEXP xSEXP, SEXP ySEXP, SEXP sortSEXP, SEXP 
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// solveSPD
-SEXP solveSPD(arma::mat X);
-RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(solveSPD(X));
-    return rcpp_result_gen;
-END_RCPP
-}
 // cell2entry_
 int cell2entry_(const NumericVector& cell, const IntegerVector& dim);
 static SEXP _gRbase_cell2entry__try(SEXP cellSEXP, SEXP dimSEXP) {
@@ -1690,6 +1679,17 @@ RcppExport SEXP _gRbase_tabMult__(SEXP tab1SEXP, SEXP tab2SEXP) {
     }
     UNPROTECT(1);
     return rcpp_result_gen;
+}
+// solveSPD
+SEXP solveSPD(arma::mat X);
+RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(solveSPD(X));
+    return rcpp_result_gen;
+END_RCPP
 }
 // is_dimnames_
 bool is_dimnames_(const SEXP& obj);

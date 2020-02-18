@@ -2,7 +2,7 @@
 ##
 #' @title Graph coercion
 #' @description Methods for changing graph representations
-#' @name graph_coerce
+#' @name graph-coerce
 ##
 ## #####################################################################
 #' 
@@ -27,7 +27,7 @@
 #' graph_as(l1, "graphNEL", "ugList")
 #' 
 #' @export
-#' @rdname graph_coerce
+#' @rdname graph-coerce
 coerceGraph <- function(object, class){
     ##.as_fun(object, class)
     as(object, class)
@@ -63,7 +63,7 @@ setAs("dgCMatrix", "igraph",   function(from) g_sm2ig_(from))
 
 
 #' @export
-#' @rdname graph_coerce
+#' @rdname graph-coerce
 #'
 #' @param outtype The desired output outtype
 #' @param intype The desired output outtype (only relevant if object is a list)

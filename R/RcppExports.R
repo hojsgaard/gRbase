@@ -145,98 +145,122 @@ all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
     .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
 }
 
-solveSPD <- function(X) {
-    .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
-}
+#' @title Low level table cell operations implemented in c++
+#' @description Corresponding R
+#'    functions without the trailing underscore exist.
+#' @name api-cell_
+#' @inheritParams api-cell
+NULL
 
-#' @rdname api_cell
+#' @name api-cell_
 cell2entry_ <- function(cell, dim) {
     .Call('_gRbase_cell2entry_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 make_plevels_ <- function(dim) {
     .Call('_gRbase_make_plevels_', PACKAGE = 'gRbase', dim)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 entry2cell_ <- function(entry, dim) {
     .Call('_gRbase_entry2cell_', PACKAGE = 'gRbase', entry, dim)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 next_cell_ <- function(cell, dim) {
     .Call('_gRbase_next_cell_', PACKAGE = 'gRbase', cell, dim)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 next_cell_slice_ <- function(cell, dim, slice_marg) {
     .Call('_gRbase_next_cell_slice_', PACKAGE = 'gRbase', cell, dim, slice_marg)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 slice2entry_ <- function(slice_cell, slice_marg, dim) {
     .Call('_gRbase_slice2entry_', PACKAGE = 'gRbase', slice_cell, slice_marg, dim)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 cell2entry_perm_ <- function(cell, dim, perm) {
     .Call('_gRbase_cell2entry_perm_', PACKAGE = 'gRbase', cell, dim, perm)
 }
 
-#' @rdname api_cell
+#' @rdname api-cell_
 perm_cell_entries_ <- function(perm, dim) {
     .Call('_gRbase_perm_cell_entries_', PACKAGE = 'gRbase', perm, dim)
 }
 
+#' @title Table operations implemented in c++
+#' @description Table operations implemented in c++. Corresponding R
+#'    functions without the trailing underscore exist.
+#' @name api-tabX_
+#' @inheritParams api-tabX
+#' @param op The operation to be carried out; "+", "-", "*", "/".
+NULL
+
+#' @rdname api-tabX_
 tab_perm_ <- function(tab, perm) {
     .Call('_gRbase_tab_perm_', PACKAGE = 'gRbase', tab, perm)
 }
 
+#' @rdname api-tabX_
 tab_expand_ <- function(tab, aux) {
     .Call('_gRbase_tab_expand_', PACKAGE = 'gRbase', tab, aux)
 }
 
+#' @rdname api-tabX_
 tab_align_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_align_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_marg_ <- function(tab, marg) {
     .Call('_gRbase_tab_marg_', PACKAGE = 'gRbase', tab, marg)
 }
 
+#' @rdname api-tabX_
 tab_op_ <- function(tab1, tab2, op = '*') {
     .Call('_gRbase_tab_op_', PACKAGE = 'gRbase', tab1, tab2, op)
 }
 
+#' @rdname api-tabX_
 tab_add_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_add_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_subt_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_subt_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_mult_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_mult_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_div_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_div_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_div0_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_div0_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+#' @rdname api-tabX_
 tab_equal_ <- function(tab1, tab2, eps = 1e-12) {
     .Call('_gRbase_tab_equal_', PACKAGE = 'gRbase', tab1, tab2, eps)
 }
 
+#' @rdname api-tabX_
 tab_list_mult_ <- function(lst) {
     .Call('_gRbase_tab_list_mult_', PACKAGE = 'gRbase', lst)
 }
 
+#' @rdname api-tabX_
 tab_list_add_ <- function(lst) {
     .Call('_gRbase_tab_list_add_', PACKAGE = 'gRbase', lst)
 }
@@ -251,6 +275,10 @@ tabDiv0__ <- function(tab1, tab2) {
 
 tabMult__ <- function(tab1, tab2) {
     .Call('_gRbase_tabMult__', PACKAGE = 'gRbase', tab1, tab2)
+}
+
+solveSPD <- function(X) {
+    .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }
 
 is_dimnames_ <- function(obj) {
