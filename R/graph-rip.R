@@ -284,13 +284,23 @@ junction_treeMAT <- function(amat, nLevels=rep(2, ncol(amat)), ...){
 #' following synonymous functions:
 #'
 #' * jTree = junction_tree (Used in rags2ridges)
+#'
+#' * junctionTree = junction_tree
+#' 
+#' @aliases junctionTree jTree
 
 #' @export
-jTree <- function(object, ...){
-  UseMethod("jTree")
-}
+jTree <- junction_tree
 
 #' @export
-jTree.default  <- junction_tree.default
+junctionTree <- junction_tree
 
+
+## #' @export
+## jTree <- function(object, ...){
+##   UseMethod("jTree")
+## }
+
+## #' @export
+## jTree.default  <- junction_tree.default
 

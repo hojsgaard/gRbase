@@ -9,6 +9,7 @@
 \alias{junction_tree.default}
 \alias{junction_treeMAT}
 \alias{jTree}
+\alias{junctionTree}
 \title{Create RIP ordering of the cliques of  an undirected graph;
     create junction tree.}
 \usage{
@@ -77,6 +78,8 @@ For backward compatibility with downstream packages we have the
 following synonymous functions:
 
 * jTree = junction_tree (Used in rags2ridges)
+
+* junctionTree = junction_tree
 }
 
 \examples{

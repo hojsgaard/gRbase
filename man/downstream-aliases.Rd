@@ -24,6 +24,9 @@
 \alias{get_superset_}
 \alias{get_subset_}
 \alias{subsetof}
+\alias{tabMult__}
+\alias{tabDiv0__}
+\alias{tabMarg__}
 \title{Downstream aliases}
 \usage{
 ar_prod_list(lst)

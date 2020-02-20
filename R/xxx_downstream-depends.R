@@ -14,6 +14,7 @@
 #' mcsmarked mcsmarkedMAT 
 #' nextCell ell ellK glist2adjMAT
 
+
 ## graphNEL2M M2graphNEL graphNEL2adjMAT
 ## tabAdd__ tabDiv__ tabDiv0__ tabMarg__ tabMult__ tabSubt__
 
@@ -29,7 +30,8 @@
 #' @rdname downstream-aliases
 #' @aliases ar_marg ar_mult ar_slice ar_slice_mult ar_new ar_prod
 #'     ar_perm ar_prod_list isin tab is_subsetof_ get_superset_
-#'     get_subset_ subsetof 
+#'     get_subset_ subsetof
+#' tabMult__ tabDiv0__ tabMarg__
 
 #' @export
 #' @param lst A list of arrays
@@ -79,6 +81,17 @@ get_subset_  <- get_subset_
 subsetof <- function(x, y){
   all(match(x, y, 0) > 0)
 }
+
+
+#' @export
+tabMult__ <- tabMult__
+
+#' @export
+tabDiv0__ <- tabDiv0__
+
+#' @export
+tabMarg__ <- tabMarg__
+
 
 ## ### Used by gRim ###
 
