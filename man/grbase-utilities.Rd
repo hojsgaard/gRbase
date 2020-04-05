@@ -37,7 +37,7 @@ rowmat2list(X)
 
 colmat2list(X)
 
-matrix2list(X, byrow = TRUE)
+matrix2list(X, MARGIN = 1)
 
 which.arr.index(X)
 
@@ -61,7 +61,7 @@ numeric/character vector or a list of vectors).}
 
 \item{X}{A matrix.}
 
-\item{byrow}{Should the split be by row or by column.}
+\item{MARGIN}{Should the split be by row (MARGIN=1) or by column (MARGIN=2).}
 
 \item{v}{A vector.}
 

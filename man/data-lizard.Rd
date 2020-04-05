@@ -7,8 +7,10 @@
 \alias{lizardRAW}
 \alias{lizardAGG}
 \title{Lizard behaviour}
-\format{A 3--dimensional array with factors diam: "<=4" ">4" height: ">4.75"
-"<=4.75" species: "anoli" "dist"}
+\format{
+A 3--dimensional array with factors diam: "<=4" ">4" height: ">4.75"
+"<=4.75" species: "anoli" "dist"
+}
 \usage{
 data(lizard)
 }

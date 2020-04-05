@@ -48,4 +48,4 @@ Suggests:
     knitr
 biocViews: 
 LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

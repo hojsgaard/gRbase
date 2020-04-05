@@ -6,7 +6,8 @@
 \alias{cad1}
 \alias{cad2}
 \title{Coronary artery disease data}
-\format{A data frame with 236 observations on the following 14 variables.
+\format{
+A data frame with 236 observations on the following 14 variables.
 
   \describe{
   \item{\code{Sex}}{a factor with levels \code{Female} \code{Male}}
@@ -23,7 +24,8 @@
   \item{\code{Inherit}}{a factor with levels \code{No} \code{Yes}}
   \item{\code{Heartfail}}{a factor with levels \code{No} \code{Yes}}
   \item{\code{CAD}}{a factor with levels \code{No} \code{Yes}}
-}}
+}
+}
 \usage{
 data(cad1)
 }

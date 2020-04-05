@@ -9,7 +9,8 @@
 \alias{chestSim50000}
 \alias{chestSim100000}
 \title{Simulated data from the Chest Clinic example}
-\format{A data frame with 500 observations on the following 8 variables.
+\format{
+A data frame with 500 observations on the following 8 variables.
   \describe{
   \item{\code{asia}}{a factor with levels \code{yes} \code{no}}
   \item{\code{tub}}{a factor with levels \code{yes} \code{no}}
@@ -19,7 +20,8 @@
   \item{\code{either}}{a factor with levels \code{yes} \code{no}}
   \item{\code{xray}}{a factor with levels \code{yes} \code{no}}
   \item{\code{dysp}}{a factor with levels \code{yes} \code{no}}
-}}
+}
+}
 \usage{
 data(chestSim500)
 }

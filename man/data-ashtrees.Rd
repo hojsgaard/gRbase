@@ -5,7 +5,8 @@
 \alias{data-ashtrees}
 \alias{ashtrees}
 \title{Crown dieback in ash trees}
-\format{A data frame with 454 observations on the following 9 variables.
+\format{
+A data frame with 454 observations on the following 9 variables.
 \describe{
   \item{\code{plot}}{a factor with levels \code{2} \code{6}}
   \item{\code{dieback}}{a factor with levels \code{0} \code{1} \code{2}}
@@ -16,7 +17,8 @@
   \item{\code{roses}}{a factor with levels \code{0} \code{1}}
   \item{\code{discolour}}{a factor with levels \code{0} \code{1}}
   \item{\code{dbh}}{a numeric vector}
-}}
+}
+}
 \usage{
 data(ashtrees)
 }

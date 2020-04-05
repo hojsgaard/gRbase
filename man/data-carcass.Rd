@@ -6,7 +6,8 @@
 \alias{carcass}
 \alias{carcassall}
 \title{Lean meat contents of 344 pig carcasses}
-\format{carcassall: A data frame with 344 observations on the following 17
+\format{
+carcassall: A data frame with 344 observations on the following 17
 variables.
  \describe{
   \item{\code{weight}}{Weight of carcass}
@@ -26,7 +27,8 @@ variables.
   \item{\code{sex}}{Sex of the pig; a factor with \code{a} \code{b}
     \code{c}. Notice that it is no an error to have three levels; the
     third level refers to castrates}
-}}
+}
+}
 \source{
 Busk, H., Olsen, E. V., Brøndum, J. (1999) Determination of
     lean meat in pig carcasses with the Autofom classification

@@ -5,7 +5,8 @@
 \alias{data-mildew}
 \alias{mildew}
 \title{Mildew fungus}
-\format{The format is: 
+\format{
+The format is: 
  table [1:2, 1:2, 1:2, 1:2, 1:2, 1:2] 0 0 0 0 3 0 1 0 0 1 ...
 - attr(*, "dimnames")=List of 6
  ..$ la10: chr [1:2] "1" "2"
@@ -13,7 +14,8 @@
  ..$ mp58: chr [1:2] "1" "2"
  ..$ c365: chr [1:2] "1" "2"
  ..$ p53a: chr [1:2] "1" "2"
- ..$ a367: chr [1:2] "1" "2"}
+ ..$ a367: chr [1:2] "1" "2"
+}
 \usage{
 data(mildew)
 }

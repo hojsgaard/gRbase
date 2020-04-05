@@ -5,8 +5,10 @@
 \alias{data-dumping}
 \alias{dumping}
 \title{Gastric Dumping}
-\format{A 3x4x4 table of counts cross-classified by Symptom
-(none/slight/moderate), Operation (Vd/Va/Vh/Gr) and Centre (1:4).}
+\format{
+A 3x4x4 table of counts cross-classified by Symptom
+(none/slight/moderate), Operation (Vd/Va/Vh/Gr) and Centre (1:4).
+}
 \source{
 Grizzle JE, Starmer CF, Koch GG (1969) Analysis of categorical data
 by linear models. Biometrics 25(3):489-504.

@@ -5,10 +5,12 @@
 \alias{data-reinis}
 \alias{reinis}
 \title{Risk factors for coronary heart disease.}
-\format{A table with 6 discrete variables. A: smoking, B: strenous
+\format{
+A table with 6 discrete variables. A: smoking, B: strenous
     mental work, D: strenuous physical work, E: systolic blood
     pressure, F: ratio of lipoproteins, G: Family anamnesis of
-    coronary heart disease.}
+    coronary heart disease.
+}
 \usage{
 data(reinis)
 }

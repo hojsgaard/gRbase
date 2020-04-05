@@ -5,7 +5,8 @@
 \alias{data-wine}
 \alias{wine}
 \title{Chemical composition of wine}
-\format{A data frame with 178 observations on the following 14 variables.
+\format{
+A data frame with 178 observations on the following 14 variables.
   \describe{
   \item{\code{Cult}}{a factor with levels \code{v1} \code{v2}
     \code{v3}: 3 different graph varieties}
@@ -22,7 +23,8 @@
   \item{\code{Hue}}{Hue}
   \item{\code{Oodw}}{OD280/OD315 of diluted wines}
   \item{\code{Prln}}{Proline}
-}}
+}
+}
 \source{
 Frank, A. & Asuncion, A. (2010). UCI Machine Learning
     Repository [http://archive.ics.uci.edu/ml]. Irvine, CA:

@@ -5,9 +5,11 @@
 \alias{data-rats}
 \alias{rats}
 \title{Weightloss of rats}
-\format{A dataframe with 4 variables. Sex: "M" (male), "F" (female). Drug:
+\format{
+A dataframe with 4 variables. Sex: "M" (male), "F" (female). Drug:
 "D1", "D2", "D3" (three types). W1 weightloss, week one. W2 weightloss, week
-2.}
+2.
+}
 \usage{
 data(rats)
 }

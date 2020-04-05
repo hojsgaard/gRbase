@@ -5,14 +5,16 @@
 \alias{data-Nutrimouse}
 \alias{Nutrimouse}
 \title{The Nutrimouse Dataset}
-\format{A data frame with 40 observations on 143 variables of which two are factors and 141 are numeric.
+\format{
+A data frame with 40 observations on 143 variables of which two are factors and 141 are numeric.
 
 \describe{
   \item{\code{genotype}}{a factor with levels \code{wt}
   \code{ppar}}
 \item{\code{diet}}{a factor with levels \code{coc}
   \code{fish} \code{lin} \code{ref} \code{sun}}
-}}
+}
+}
 \source{
 The data were provided by Pascal Martin from the Toxicology
     and Pharmacology Laboratory, National Institute for Agronomic

@@ -6,8 +6,10 @@
 \alias{mathmark}
 \alias{math}
 \title{Mathematics marks for students}
-\format{This data frame contains the following columns: mechanics, vectors,
-algebra, analysis, statistics.}
+\format{
+This data frame contains the following columns: mechanics, vectors,
+algebra, analysis, statistics.
+}
 \usage{
 data(mathmark)
 }

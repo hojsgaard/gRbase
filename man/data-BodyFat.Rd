@@ -5,7 +5,8 @@
 \alias{data-BodyFat}
 \alias{BodyFat}
 \title{Body Fat Data}
-\format{A data frame with 252 observations on the following 15
+\format{
+A data frame with 252 observations on the following 15
     variables.
   \describe{
   \item{\code{Density}}{Density determined from underwater weighing, a numeric vector}
@@ -23,7 +24,8 @@
   \item{\code{Biceps}}{circumference in cm, a numeric vector}
   \item{\code{Forearm}}{circumference in cm, a numeric vector}
   \item{\code{Wrist}}{circumference in cm, a numeric vector}
-}}
+}
+}
 \source{
 For more information see
     http://lib.stat.cmu.edu/datasets/bodyfat

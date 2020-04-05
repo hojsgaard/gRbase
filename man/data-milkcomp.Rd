@@ -6,7 +6,8 @@
 \alias{milkcomp}
 \alias{milkcomp1}
 \title{Milk composition data}
-\format{A data frame with 214 observations on the following 7 variables.
+\format{
+A data frame with 214 observations on the following 7 variables.
 \describe{
   \item{\code{sow}}{a numeric vector}
   \item{\code{lactime}}{a numeric vector}
@@ -15,7 +16,8 @@
   \item{\code{protein}}{a numeric vector}
   \item{\code{dm}}{(dry matter) a numeric vector}
   \item{\code{lactose}}{a numeric vector}
-}}
+}
+}
 \usage{
 data(milkcomp)
 }

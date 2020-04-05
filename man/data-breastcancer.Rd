@@ -6,10 +6,12 @@
 \alias{breastcancer}
 \title{Gene expression signatures for p53 mutation status in 250 breast cancer
 samples}
-\format{A data frame with 250 observations on 1001 variables. The
+\format{
+A data frame with 250 observations on 1001 variables. The
     first 1000 columns are numerical variables; the last column
     (named \code{code}) is a factor with levels \code{case} and
-    \code{control}.}
+    \code{control}.
+}
 \source{
 Dr. Chris Holmes, c.holmes at stats
     dot. ox . ac .uk
