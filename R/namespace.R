@@ -5,12 +5,10 @@
 ## -------------------------------
 
 #' @importFrom stats as.formula cov cov2cor delete.response deviance
-#'     formula runif terms xtabs simulate
-#'
-#' xtabs runif terms
-#'     addmargins as.formula cov.wt fitted formula
-#'     ftable getCall logLik loglin na.omit pchisq pf pnorm r2dtable
-#'     terms update update.formula 
+#'     formula runif terms xtabs simulate xtabs runif terms addmargins
+#'     as.formula cov.wt fitted formula ftable getCall logLik loglin
+#'     na.omit pchisq pf pnorm r2dtable terms update update.formula
+#' 
 #' @importFrom utils combn str
 #'
 #' @importMethodsFrom stats4 plot

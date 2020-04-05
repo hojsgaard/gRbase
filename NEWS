@@ -1,3 +1,11 @@
+gRbase v1.8-5.5 (Release date: 2020-XX-XX)
+==========================================
+
+Other changes:
+
+  * matrix2list changed to take MARGIN argument
+  
+
 gRbase v1.8-5.3 (Release date: 2020-02-18)
 ==========================================
 
