@@ -206,8 +206,12 @@ tab_perm_ <- function(tab, perm) {
 }
 
 #' @rdname api-tabX_
-tab_expand_ <- function(tab, aux) {
-    .Call('_gRbase_tab_expand_', PACKAGE = 'gRbase', tab, aux)
+tab_expand_ <- function(tab, aux, type = 0L) {
+    .Call('_gRbase_tab_expand_', PACKAGE = 'gRbase', tab, aux, type)
+}
+
+foo <- function(tab, aux) {
+    .Call('_gRbase_foo', PACKAGE = 'gRbase', tab, aux)
 }
 
 #' @rdname api-tabX_

@@ -1156,21 +1156,57 @@ RcppExport SEXP _gRbase_tab_perm_(SEXP tabSEXP, SEXP permSEXP) {
     return rcpp_result_gen;
 }
 // tab_expand_
-SEXP tab_expand_(const SEXP& tab, const SEXP& aux);
-static SEXP _gRbase_tab_expand__try(SEXP tabSEXP, SEXP auxSEXP) {
+SEXP tab_expand_(const SEXP& tab, const SEXP& aux, const int& type);
+static SEXP _gRbase_tab_expand__try(SEXP tabSEXP, SEXP auxSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const SEXP& >::type tab(tabSEXP);
     Rcpp::traits::input_parameter< const SEXP& >::type aux(auxSEXP);
-    rcpp_result_gen = Rcpp::wrap(tab_expand_(tab, aux));
+    Rcpp::traits::input_parameter< const int& >::type type(typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(tab_expand_(tab, aux, type));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _gRbase_tab_expand_(SEXP tabSEXP, SEXP auxSEXP) {
+RcppExport SEXP _gRbase_tab_expand_(SEXP tabSEXP, SEXP auxSEXP, SEXP typeSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_gRbase_tab_expand__try(tabSEXP, auxSEXP));
+        rcpp_result_gen = PROTECT(_gRbase_tab_expand__try(tabSEXP, auxSEXP, typeSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// foo
+SEXP foo(const SEXP& tab, SEXP& aux);
+static SEXP _gRbase_foo_try(SEXP tabSEXP, SEXP auxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const SEXP& >::type tab(tabSEXP);
+    Rcpp::traits::input_parameter< SEXP& >::type aux(auxSEXP);
+    rcpp_result_gen = Rcpp::wrap(foo(tab, aux));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_foo(SEXP tabSEXP, SEXP auxSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_foo_try(tabSEXP, auxSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1769,7 +1805,8 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("int(*cell2entry_perm_)(const NumericVector&,const IntegerVector&,const IntegerVector&)");
         signatures.insert("IntegerVector(*perm_cell_entries_)(const IntegerVector&,const IntegerVector&)");
         signatures.insert("SEXP(*tab_perm_)(const SEXP&,const SEXP&)");
-        signatures.insert("SEXP(*tab_expand_)(const SEXP&,const SEXP&)");
+        signatures.insert("SEXP(*tab_expand_)(const SEXP&,const SEXP&,const int&)");
+        signatures.insert("SEXP(*foo)(const SEXP&,SEXP&)");
         signatures.insert("SEXP(*tab_align_)(const SEXP&,const SEXP&)");
         signatures.insert("SEXP(*tab_marg_)(const SEXP&,const SEXP&)");
         signatures.insert("NumericVector(*tab_op_)(const NumericVector&,const NumericVector&,const char)");
@@ -1818,6 +1855,7 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_perm_cell_entries_", (DL_FUNC)_gRbase_perm_cell_entries__try);
     R_RegisterCCallable("gRbase", "_gRbase_tab_perm_", (DL_FUNC)_gRbase_tab_perm__try);
     R_RegisterCCallable("gRbase", "_gRbase_tab_expand_", (DL_FUNC)_gRbase_tab_expand__try);
+    R_RegisterCCallable("gRbase", "_gRbase_foo", (DL_FUNC)_gRbase_foo_try);
     R_RegisterCCallable("gRbase", "_gRbase_tab_align_", (DL_FUNC)_gRbase_tab_align__try);
     R_RegisterCCallable("gRbase", "_gRbase_tab_marg_", (DL_FUNC)_gRbase_tab_marg__try);
     R_RegisterCCallable("gRbase", "_gRbase_tab_op_", (DL_FUNC)_gRbase_tab_op__try);

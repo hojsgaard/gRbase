@@ -1,6 +1,11 @@
 gRbase v1.8-5.5 (Release date: 2020-XX-XX)
 ==========================================
 
+Bug fixes
+
+  * tab_expand_ fixed and expanded to take arguement describing how
+    expansiion should bed made.
+
 Other changes:
 
   * matrix2list changed to take MARGIN argument

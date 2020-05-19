@@ -72,6 +72,14 @@ SpMat do_dagList2dgCMatrix ( List LL, CharacterVector vn ){
 }
 
 SpMat do_ugList2dgCMatrix ( List LL, CharacterVector vn ){
+
+  if (LL.length() == 0){
+    SpMat out(0,0);
+    return out;
+    
+  }
+    
+  
   int n = vn.length();
   SpMat fill(n, n);
   std::vector<T> triplets;

@@ -13,9 +13,9 @@
 #' @param resize A flag indicating whether the vector should be
 #'     resized as well as having its elements reordered (default
 #'     TRUE).
-
 #' @param keep.class Obsolete argument.
-
+#' @details `tableOp3` is brute force implementation based on
+#'     dataframes. It is very slow, but useful for error checking.
 
 #' @export
 #' @rdname api-array-07
@@ -50,61 +50,68 @@ tableDiv <- function(tab1, tab2){
   tableOp(tab1, tab2, op="/")
 }
 
+
 #' @export
 #' @rdname api-array-07
 #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
 tableOp <- function(tab1, tab2, op="*"){
 
-  if (!is.array(tab1)) {stop("'tab1' is not an array")}
-  if (!is.array(tab2)) {stop("'tab2' is not an array")}
+    if (!is.array(tab1)) {stop("'tab1' is not an array")}
+    if (!is.array(tab2)) {stop("'tab2' is not an array")}
 
-  di1 <- dim(tab1)
-  di2 <- dim(tab2)
-  dn1 <- dimnames(tab1)
-  dn2 <- dimnames(tab2)
-  vn1 <- names(dn1)
-  vn2 <- names(dn2)
+    i <- which(inherits(op, c("function", "character"), which=TRUE)>0)
+    if (length(i) == 0) stop("'op' is illegal operation (I) \n")
+    if (i == 2){
+        j <- match(op, c("+", "-", "*", "/"))
+        if (is.na(j)) stop("'op' in illegal operation (II)\n")
+        op <- c(`+`, `-`, `*`, `/`)[[j]]
+    }
+    
+    di1 <- dim(tab1)
+    di2 <- dim(tab2)
+    dn1 <- dimnames(tab1)
+    dn2 <- dimnames(tab2)
+    vn1 <- names(dn1)
+    vn2 <- names(dn2)
+    
+    idx <- match(vn2, vn1)    ## location of variables in vn2 in vn1:
+    idx.na <- is.na(idx)      ## logical of variables in {vn2\vn1}
+    
+    if (any(idx.na)){         ## If there are variables in {vn2 \ vn1}
+        aug.vn <- vn2[idx.na]   ## Find those variables
+        aug.di <- di2[idx.na]   ## - and their levels
+        aug.dn <- dn2[idx.na]   ## - and their dimnames
+        
+        ## Create "augmented" table defined over (vn1, vn2\vn1) by repeating tab1.
+        pot1      <- rep.int(as.numeric(tab1), prod(aug.di))
+        vn.new    <- c(vn1, aug.vn)
+        di.new    <- c(di1, aug.di)
+        dn.new    <- c(dn1, aug.dn)
+        dim(pot1)      <- di.new
+        dimnames(pot1) <- dn.new
+    } else {
+        pot1   <- tab1
+        vn.new <- vn1
+        di.new <- di1
+        dn.new <- dn1
+    }
 
-  idx <- match(vn2, vn1)    ## location of variables in vn2 in vn1:
-  idx.na <- is.na(idx)      ## logical of variables in {vn2\vn1}
+    ## Find indices of vn2 in augmented table (vn1, vn2\vn1)
+    vn2.idx    <- match(vn2, vn.new)
+    ## Create perumation indices; first variables in vn2; then vn1\vn2
+    perm  <-  c(vn2.idx, (1:length(vn.new))[-vn2.idx])
 
-  if (any(idx.na)){         ## If there are variables in {vn2 \ vn1}
-    aug.vn <- vn2[idx.na]   ## Find those variables
-    aug.di <- di2[idx.na]   ## - and their levels
-    aug.dn <- dn2[idx.na]   ## - and their dimnames
 
-    ## Create "augmented" table defined over (vn1, vn2\vn1) by repeating tab1.
-    pot1      <- rep.int(as.numeric(tab1), prod(aug.di))
-    vn.new    <- c(vn1, aug.vn)
-    di.new    <- c(di1, aug.di)
-    dn.new    <- c(dn1, aug.dn)
-    dim(pot1)      <- di.new
-    dimnames(pot1) <- dn.new
-  } else {
-    pot1   <- tab1
-    vn.new <- vn1
-    di.new <- di1
-    dn.new <- dn1
-  }
+    pot1 <- op(as.numeric(aperm.default(pot1, perm, TRUE)), as.numeric(tab2))
+    
+    if (identical(op, `/`)) 
+        pot1[!is.finite(pot1)] <- 0
 
-  ## Find indices of vn2 in augmented table (vn1, vn2\vn1)
-  vn2.idx    <- match(vn2, vn.new)
-  ## Create perumation indices; first variables in vn2; then vn1\vn2
-  perm  <-  c(vn2.idx, (1:length(vn.new))[-vn2.idx])
-
-  if (op == "*") {
-    pot1 <- as.numeric(aperm.default(pot1, perm, TRUE)) * as.numeric(tab2)
-  }
-  else {
-    pot1 <- as.numeric(aperm.default(pot1, perm, TRUE)) / as.numeric(tab2)
-    pot1[!is.finite(pot1)] <- 0
-  }
-  dim(pot1)      <- di.new[perm]
-  dimnames(pot1) <- dn.new[perm]
-
-  pot1
+    dim(pot1)      <- di.new[perm]
+    dimnames(pot1) <- dn.new[perm]
+    
+    pot1
 }
-
 
 
 
@@ -121,6 +128,10 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 
     ## indices of vn2 in vn1:
     vn2.idx   <- match(vn2, vn1)
+
+    if (any(is.na(vn2.idx)))
+        stop("Varnames in tab2 must be contained in varnames in tab1\n")
+
     ## Create perumation indices; first variables in vn2; then vn1\vn2
     perm <- c(vn2.idx, (1:length(vn1))[-vn2.idx])
     
@@ -137,6 +148,82 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
         pot1[!is.finite(pot1)] <- 0
     pot1
 }
+
+
+
+#' @export
+#' @rdname api-array-07
+tableOp3 <- function(tab1, tab2, op=`*`){
+    vn1 <- names(dimnames(tab1))
+    vn2 <- names(dimnames(tab2))
+    
+    d1 <- as.data.frame.table(tab1)
+    d2 <- as.data.frame.table(tab2)
+    isect <- intersect(vn1, vn2)
+    
+    jj <- merge(d1, d2, all=TRUE, by=isect, sort=FALSE)
+
+    jj$Freq <- op(jj$Freq.x, jj$Freq.y)
+    jj$Freq.x <- jj$Freq.y  <- NULL
+    out <- xtabs(Freq ~ ., data=jj)
+    out
+}
+
+
+
+
+
+
+
+## #' @export
+## #' @rdname api-array-07
+## #' @param restore Not so clear anymore.
+## tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
+
+##     if (!is.array(tab1)) {stop("'tab1' is not an array")}
+##     if (!is.array(tab2)) {stop("'tab2' is not an array")}
+
+##     vn1  <- names(dimnames(tab1))
+##     vn2  <- names(dimnames(tab2))
+
+##     ## indices of vn2 in vn1:
+##     vn2.idx   <- match(vn2, vn1)
+##     ## Create perumation indices; first variables in vn2; then vn1\vn2
+##     perm <- c(vn2.idx, (1:length(vn1))[-vn2.idx])
+    
+##     pot1 <-
+##         if (restore) {
+##             zz    <- op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
+##             newvn <- c(vn2, vn1[-vn2.idx])
+##             perm2 <- match(vn1, newvn)
+##             aperm.default(zz, perm2, TRUE)
+##         } else {
+##             op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
+##         }
+##     if (identical(op, `/`))
+##         pot1[!is.finite(pot1)] <- 0
+##     pot1
+## }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #' @export
@@ -349,5 +436,62 @@ tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){
 
 
 
+
+
+
+## #' @export
+## #' @rdname api-array-07
+## #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
+## tableOp <- function(tab1, tab2, op="*"){
+
+##   if (!is.array(tab1)) {stop("'tab1' is not an array")}
+##   if (!is.array(tab2)) {stop("'tab2' is not an array")}
+
+##   di1 <- dim(tab1)
+##   di2 <- dim(tab2)
+##   dn1 <- dimnames(tab1)
+##   dn2 <- dimnames(tab2)
+##   vn1 <- names(dn1)
+##   vn2 <- names(dn2)
+
+##   idx <- match(vn2, vn1)    ## location of variables in vn2 in vn1:
+##   idx.na <- is.na(idx)      ## logical of variables in {vn2\vn1}
+
+##   if (any(idx.na)){         ## If there are variables in {vn2 \ vn1}
+##     aug.vn <- vn2[idx.na]   ## Find those variables
+##     aug.di <- di2[idx.na]   ## - and their levels
+##     aug.dn <- dn2[idx.na]   ## - and their dimnames
+
+##     ## Create "augmented" table defined over (vn1, vn2\vn1) by repeating tab1.
+##     pot1      <- rep.int(as.numeric(tab1), prod(aug.di))
+##     vn.new    <- c(vn1, aug.vn)
+##     di.new    <- c(di1, aug.di)
+##     dn.new    <- c(dn1, aug.dn)
+##     dim(pot1)      <- di.new
+##     dimnames(pot1) <- dn.new
+##   } else {
+##     pot1   <- tab1
+##     vn.new <- vn1
+##     di.new <- di1
+##     dn.new <- dn1
+##   }
+
+##   ## Find indices of vn2 in augmented table (vn1, vn2\vn1)
+##   vn2.idx    <- match(vn2, vn.new)
+##   ## Create perumation indices; first variables in vn2; then vn1\vn2
+##   perm  <-  c(vn2.idx, (1:length(vn.new))[-vn2.idx])
+
+##   if (op == "*") {
+##     pot1 <- as.numeric(aperm.default(pot1, perm, TRUE)) * as.numeric(tab2)
+##   }
+##   else {
+##     pot1 <- as.numeric(aperm.default(pot1, perm, TRUE)) / as.numeric(tab2)
+##     pot1[!is.finite(pot1)] <- 0
+##   }
+##   dim(pot1)      <- di.new[perm]
+##   dimnames(pot1) <- dn.new[perm]
+
+##   pot1
+## }
 
 
