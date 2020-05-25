@@ -57,6 +57,7 @@ prettyDate <- format(Sys.Date())
 
 
 \begin{document}
+%%\SweaveOpts{concordance=TRUE}
 
 %%\SweaveInput{Rmarkup.STY}
 
@@ -96,7 +97,7 @@ library(gRbase)
 options("width"=100, "digits"=4)
 options(useFancyQuotes="UTF-8")
 #chk = 'markup'
-chk = 'hide'
+chk = "hide"
 @ %def
 
 
