@@ -40,6 +40,93 @@ typedef Eigen::SparseMatrix<double> SpMat;
 typedef Eigen::MappedSparseMatrix<double> MSpMat;
 typedef Eigen::Map<Eigen::MatrixXd> MapMatd;
 typedef Eigen::Triplet<double> T;
+typedef Rcpp::NumericVector   numVec;
+typedef Rcpp::IntegerVector   intVec;
+typedef Rcpp::CharacterVector chrVec;
+
+
+//[[Rcpp::export]]
+CharacterVector unlist_chr__(const List& list)
+{
+   std::size_t n = list.size();
+
+   // Figure out the length of the output vector
+   std::size_t total_length = 0;
+   for (std::size_t i = 0; i < n; ++i)
+      total_length += Rf_length(list[i]);
+
+   // Allocate the vector
+   chrVec output = no_init(total_length);
+
+   // Loop and fill
+   std::size_t index = 0;
+   for (std::size_t i = 0; i < n; ++i)
+   {
+      chrVec el = list[i];
+      std::copy(el.begin(), el.end(), output.begin() + index);
+
+      // Update the index
+      index += el.size();
+   }
+   return output;
+}
+
+
+
+//[[Rcpp::export]]
+List adjList2tfList__(List LL){
+  //Rcout << "adjList2tfList__" << std::endl;
+  if (LL.length() == 0) return List::create();
+
+  CharacterVector NN = LL.names();
+  int n = LL.length() ;
+  int mm=0;
+  for (int ii=0; ii < n; ii++){
+    mm += as<CharacterVector>(LL[ii]).size();
+  }
+
+  //Rcout << "mm : " << mm;
+  List out(mm);
+  for (int ii=0, mm=0; ii < n; ii++){
+    String parent = NN[ii];
+    CharacterVector childVec = LL[ii];
+    for (int jj = 0; jj < childVec.length(); jj++){
+      out[mm++] = CharacterVector::create( childVec[jj], parent );
+    }
+  }
+  return out;
+}
+
+//[[Rcpp::export]]
+List adjList2ftList__(List LL){
+
+  if (LL.length() == 0) return List::create();
+  
+  CharacterVector NN = LL.names();
+  int n = LL.length() ;
+  int mm=0;
+  for (int ii=0; ii < n; ii++){
+    mm += as<CharacterVector>(LL[ii]).size();
+  }
+
+  List out(mm);
+  for (int ii=0, mm=0; ii<n; ii++){
+    String parent = NN[ii];
+    CharacterVector childVec = LL[ii];
+    for (int jj=0; jj < childVec.length(); jj++){
+      out[mm++] = CharacterVector::create( parent, childVec[jj] );
+    }
+  }
+  return out;
+}
+
+// adjList2tfList__(list("1"=2:3, "2"=3:4))
+// adjList2tfList__(list())
+// adjList2ftList__(list("1"=2:3, "2"=3:4))
+// adjList2ftList__(list())
+
+
+
 
 SpMat do_dagList2dgCMatrix ( List LL, CharacterVector vn ){
   int n = vn.length();
@@ -72,13 +159,6 @@ SpMat do_dagList2dgCMatrix ( List LL, CharacterVector vn ){
 }
 
 SpMat do_ugList2dgCMatrix ( List LL, CharacterVector vn ){
-
-  if (LL.length() == 0){
-    SpMat out(0,0);
-    return out;
-    
-  }
-    
   
   int n = vn.length();
   SpMat fill(n, n);
@@ -127,75 +207,54 @@ SEXP inline setnames_de( SpMat AA, CharacterVector vn) {
   return Xout;
 }
 
-// //' @name internal_grbase_cpp
-// //' @aliases dagList2dgCMatrix__ ugList2dgCMatrix__
-// //'     dagList2matrix__ ugList2matrix__
-// //'     adjList2tfList__ adjList2ftList__
-// //'     adjList2tfM__ adjList2ftM__
-// //'     adjList2matrix__ adjList2dgCMatrix__
+
+// Functions in BEGIN{{{ END}}} are checked for working with empty arguments
+
+// BEGIN{{{
 
 //[[Rcpp::export]]
-SEXP dagList2dgCMatrix__( List LL, CharacterVector vn ){
-  SpMat AA = do_dagList2dgCMatrix(LL, vn);
-  return setnames_sp(AA, vn);
+SEXP dagList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue){
+
+  chrVec vn_;
+  if (LL.length() == 0){SpMat out(0,0); return wrap(out); }
+  if (vn.isNotNull()) vn_ = vn; else vn_ = unlist_chr__(LL);
+  
+  SpMat AA = do_dagList2dgCMatrix(LL, vn_);
+  return setnames_sp(AA, vn_);
 }
 
 //[[Rcpp::export]]
-SEXP ugList2dgCMatrix__( List LL, CharacterVector vn ){
-  SpMat AA = do_ugList2dgCMatrix(LL, vn);
-  return setnames_sp(AA, vn);
+SEXP dagList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue){
+
+  chrVec vn_;
+  if (LL.length() == 0){NumericMatrix out(0,0); return wrap(out); }  
+  if (vn.isNotNull()) vn_ = vn; else vn_ = unlist_chr__(LL);
+
+  SpMat AA = do_dagList2dgCMatrix(LL, vn_);
+  return setnames_de(AA, vn_);  // Coerces to dense as well
+}
+
+
+//[[Rcpp::export]]
+SEXP ugList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue){
+
+  chrVec vn_;
+  if (LL.length() == 0){SpMat out(0,0); return wrap(out); }
+  if (vn.isNotNull()) vn_ = vn; else vn_ = unlist_chr__(LL);
+  
+  SpMat AA = do_ugList2dgCMatrix(LL, vn_);
+  return setnames_sp(AA, vn_);
 }
 
 //[[Rcpp::export]]
-SEXP dagList2matrix__( List LL, CharacterVector vn ){
-  SpMat AA = do_dagList2dgCMatrix(LL, vn);
-  return setnames_de(AA, vn);  // Coerces to dense as well
-}
+SEXP ugList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue){
 
-//[[Rcpp::export]]
-SEXP ugList2matrix__( List LL, CharacterVector vn ){
-  SpMat AA = do_ugList2dgCMatrix(LL, vn);
-  return setnames_de(AA, vn);  // Coerces to dense as well
-}
+  chrVec vn_;
+  if (LL.length() == 0){NumericMatrix out(0,0); return wrap(out); }
+  if (vn.isNotNull()) vn_ = vn; else vn_ = unlist_chr__(LL);
 
-//[[Rcpp::export]]
-List adjList2tfList__(List LL){
-  CharacterVector NN = LL.names();
-  int n = LL.length() ;
-  int mm=0;
-  for (int ii=0; ii < n; ii++){
-    mm += as<CharacterVector>(LL[ii]).size();
-  }
-
-  List out(mm);
-  for (int ii=0, mm=0; ii < n; ii++){
-    String parent = NN[ii];
-    CharacterVector childVec = LL[ii];
-    for (int jj = 0; jj < childVec.length(); jj++){
-      out[mm++] = CharacterVector::create( childVec[jj], parent );
-    }
-  }
-  return out;
-}
-
-//[[Rcpp::export]]
-List adjList2ftList__(List LL){
-  CharacterVector NN = LL.names();
-  int n = LL.length() ;
-  int mm=0;
-  for (int ii=0; ii < n; ii++){
-    mm += as<CharacterVector>(LL[ii]).size();
-  }
-
-  List out(mm);
-  for (int ii=0, mm=0; ii<n; ii++){
-    String parent = NN[ii];
-    CharacterVector childVec = LL[ii];
-    for (int jj=0; jj < childVec.length(); jj++){
-      out[mm++] = CharacterVector::create( parent, childVec[jj] );
-    }
-  }
-  return out;
+  SpMat AA = do_ugList2dgCMatrix(LL, vn_);
+  return setnames_de(AA, vn_);  // Coerces to dense as well
 }
 
 
@@ -242,6 +301,9 @@ CharacterMatrix adjList2tfM__(List LL){
 
 //[[Rcpp::export]]
 SEXP adjList2matrix__(List LL){
+
+  if (LL.length() == 0) return NumericMatrix(0,0);
+
   List tfList = adjList2tfList__( LL );
   CharacterVector vn = LL.names();
   return dagList2matrix__(tfList, vn);
@@ -249,10 +311,17 @@ SEXP adjList2matrix__(List LL){
 
 //[[Rcpp::export]]
 SEXP adjList2dgCMatrix__(List LL){
+
+  if (LL.length() == 0) {SpMat out(0,0); return wrap(out);};
+  
   List tfList = adjList2tfList__( LL );
   CharacterVector vn = LL.names();
   return dagList2dgCMatrix__(tfList, vn);
 }
+
+// END}}}
+
+
 
 
 
@@ -275,3 +344,21 @@ M<-ugList2dgCMatrix(terms(s), unique(unlist(terms(s))));M
 
 */
 
+
+// //[[Rcpp::export]]
+// SEXP dagList2dgCMatrix__( List LL, CharacterVector vn ){
+//   SpMat AA = do_dagList2dgCMatrix(LL, vn);
+//   return setnames_sp(AA, vn);
+// }
+
+// //[[Rcpp::export]]
+// SEXP dagList2matrix__( List LL, CharacterVector vn ){
+//   SpMat AA = do_dagList2dgCMatrix(LL, vn);
+//   return setnames_de(AA, vn);  // Coerces to dense as well
+// }
+
+
+// SEXP ugList2matrix__( List LL, CharacterVector vn ){
+//   SpMat AA = do_ugList2dgCMatrix(LL, vn);
+//   return setnames_de(AA, vn);  // Coerces to dense as well
+// }

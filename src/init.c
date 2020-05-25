@@ -83,6 +83,7 @@ extern SEXP _gRbase_triang_elo_MAT__(SEXP, SEXP);
 extern SEXP _gRbase_triang_mcwh_MAT__(SEXP, SEXP);
 extern SEXP _gRbase_ugList2dgCMatrix__(SEXP, SEXP);
 extern SEXP _gRbase_ugList2matrix__(SEXP, SEXP);
+extern SEXP _gRbase_unlist_chr__(SEXP);
 extern SEXP _gRbase_which_matrix_index__(SEXP);
 
 static const R_CMethodDef CEntries[] = {
@@ -163,6 +164,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_triang_mcwh_MAT__",            (DL_FUNC) &_gRbase_triang_mcwh_MAT__,            2},
     {"_gRbase_ugList2dgCMatrix__",           (DL_FUNC) &_gRbase_ugList2dgCMatrix__,           2},
     {"_gRbase_ugList2matrix__",              (DL_FUNC) &_gRbase_ugList2matrix__,              2},
+    {"_gRbase_unlist_chr__",                 (DL_FUNC) &_gRbase_unlist_chr__,                 1},
     {"_gRbase_which_matrix_index__",         (DL_FUNC) &_gRbase_which_matrix_index__,         1},
     {NULL, NULL, 0}
 };

@@ -53,20 +53,8 @@ M2matrix__ <- function(XX_) {
     .Call('_gRbase_M2matrix__', PACKAGE = 'gRbase', XX_)
 }
 
-dagList2dgCMatrix__ <- function(LL, vn) {
-    .Call('_gRbase_dagList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-ugList2dgCMatrix__ <- function(LL, vn) {
-    .Call('_gRbase_ugList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-dagList2matrix__ <- function(LL, vn) {
-    .Call('_gRbase_dagList2matrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-ugList2matrix__ <- function(LL, vn) {
-    .Call('_gRbase_ugList2matrix__', PACKAGE = 'gRbase', LL, vn)
+unlist_chr__ <- function(list) {
+    .Call('_gRbase_unlist_chr__', PACKAGE = 'gRbase', list)
 }
 
 adjList2tfList__ <- function(LL) {
@@ -75,6 +63,22 @@ adjList2tfList__ <- function(LL) {
 
 adjList2ftList__ <- function(LL) {
     .Call('_gRbase_adjList2ftList__', PACKAGE = 'gRbase', LL)
+}
+
+dagList2dgCMatrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_dagList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+dagList2matrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_dagList2matrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+ugList2dgCMatrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_ugList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+ugList2matrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_ugList2matrix__', PACKAGE = 'gRbase', LL, vn)
 }
 
 adjList2ftM__ <- function(LL) {
