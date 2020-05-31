@@ -158,7 +158,7 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
         
         ## TT <- as(TuG,"matrix") - as(uG,"matrix")
         ## edges added in triangulation in adjacency representation
-        TT <- as(TT,"graphNEL")
+        TT <- as(TT, "graphNEL")
         Tn <- edgeList(TT)
         
         if (details>0)
@@ -180,8 +180,8 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
                 ##           print(sg)
                 if(is.complete(graph::subGraph(neXY,TuG)))
                 {
-                    TuG   <- graph::removeEdge(Rn[[i]][1],Rn[[i]][2],TuG)	# directly updates TuG
-                    exclT <- graph::addEdge(Rn[[i]][1],Rn[[i]][2],exclT)	# keep track of excluded edges as a graph
+                    TuG   <- graph::removeEdge(Rn[[i]][1], Rn[[i]][2], TuG)	# directly updates TuG
+                    exclT <- graph::addEdge(Rn[[i]][1], Rn[[i]][2], exclT)	# keep track of excluded edges as a graph
                     removed <- removed + 1
                 }
             }
@@ -194,9 +194,13 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0){
             TuGmat <- as(TuG,"matrix")
             TuGmat <- TuGmat[di[[1]],di[[1]]]
             TT <- TuGmat - uGmat # edges added in triangulatn in adjacency representatn
+            
             ## ends here...
             ##TT <- as(TuG,"matrix") - as(uG,"matrix")		# recompute the triangulation edges retained
+
             
+            ##TT <<- TT
+
             TT <- as(TT,"graphNEL")
             Tn <- edgeList(TT)
             

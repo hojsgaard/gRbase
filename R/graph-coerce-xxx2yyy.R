@@ -33,14 +33,18 @@
 #' @rdname graph-coerce-api
 g_gn2dm_ <- function(object) {
     .check.is.graphNEL(object)
-    adjList2matrix__(graph::edges(object))
+    ##adjList2matrix__(graph::edges(object))
+    as(igraph::as_adjacency_matrix(as(object, "igraph")), "matrix")
+
 }
 
 #' @export
 #' @rdname graph-coerce-api
 g_gn2sm_ <- function(object) {
     .check.is.graphNEL(object)
-    adjList2dgCMatrix__(graph::edges(object))
+    ##adjList2dgCMatrix__(graph::edges(object))
+    igraph::as_adjacency_matrix(as(object, "igraph"))
+
 }
 
 #' @export
@@ -48,7 +52,10 @@ g_gn2sm_ <- function(object) {
 g_gn2ig_ <- function(object){
     .check.is.graphNEL(object)
     gg <- igraph::igraph.from.graphNEL(object)
-    igraph::V(gg)$label <- igraph::V(gg)$name
+
+    ## if (length(V(gg)$name) > 0)
+    ##     igraph::V(gg)$label <- igraph::V(gg)$name
+
     gg
 }
 

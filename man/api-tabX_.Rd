@@ -19,7 +19,7 @@
 \usage{
 tab_perm_(tab, perm)
 
-tab_expand_(tab, aux)
+tab_expand_(tab, aux, type = 0L)
 
 tab_align_(tab1, tab2)
 
@@ -52,6 +52,8 @@ formula giving the desired permutation/margin.}
 
 \item{aux}{Either a list with names and dimnames or a named array
 from which such a list can be extracted.}
+
+\item{type}{One of "none", "first" and "all".}
 
 \item{tab1}{Arrays with named dimnames (we call them
 'named arrays').}

@@ -635,27 +635,6 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
-    inline SEXP foo(const SEXP& tab, SEXP& aux) {
-        typedef SEXP(*Ptr_foo)(SEXP,SEXP);
-        static Ptr_foo p_foo = NULL;
-        if (p_foo == NULL) {
-            validateSignature("SEXP(*foo)(const SEXP&,SEXP&)");
-            p_foo = (Ptr_foo)R_GetCCallable("gRbase", "_gRbase_foo");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_foo(Shield<SEXP>(Rcpp::wrap(tab)), Shield<SEXP>(Rcpp::wrap(aux)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
     inline SEXP tab_align_(const SEXP& tab1, const SEXP& tab2) {
         typedef SEXP(*Ptr_tab_align_)(SEXP,SEXP);
         static Ptr_tab_align_ p_tab_align_ = NULL;

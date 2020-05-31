@@ -6,7 +6,9 @@ Bug fixes
   * tab_expand_ fixed and expanded to take arguement describing how
     expansiion should bed made.
 
-  * list based coercion functions fixed to work with empty lists   
+  * list based coercion functions fixed to work with empty lists
+
+  * fixed minor bug in graph coercion.
 
 Other changes:
 

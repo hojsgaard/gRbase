@@ -214,10 +214,6 @@ tab_expand_ <- function(tab, aux, type = 0L) {
     .Call('_gRbase_tab_expand_', PACKAGE = 'gRbase', tab, aux, type)
 }
 
-foo <- function(tab, aux) {
-    .Call('_gRbase_foo', PACKAGE = 'gRbase', tab, aux)
-}
-
 #' @rdname api-tabX_
 tab_align_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_align_', PACKAGE = 'gRbase', tab1, tab2)

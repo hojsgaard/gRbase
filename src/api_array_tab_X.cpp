@@ -342,9 +342,10 @@ SEXP tab_expand_(const SEXP& tab, const SEXP& aux, const int& type=0){
     dn = ((numVec) aux).attr("dimnames"); // FIXME: What is this??
   } else ::Rf_error("dont know what to do");		
 
+  
   switch(TYPEOF(tab)){
-  case REALSXP: return do_tab_expand_gen<REALSXP>(tab, aux, type);
-  case INTSXP: return do_tab_expand_gen<INTSXP>(tab, aux, type);
+  case REALSXP: return do_tab_expand_gen<REALSXP>(tab, dn, type);
+  case INTSXP: return do_tab_expand_gen<INTSXP>(tab, dn, type);
   default: Rf_error("Unsupported type");
   }
 
@@ -354,28 +355,28 @@ SEXP tab_expand_(const SEXP& tab, const SEXP& aux, const int& type=0){
 
 
 
-template <int RTYPE>
-Vector<RTYPE> do_foo(const Vector<RTYPE>& tab, NumericVector aux){
-  Vector<RTYPE> aug (tab.length() * 2);
-  IntegerVector ii = seq(0,6);
+// template <int RTYPE>
+// Vector<RTYPE> do_foo(const Vector<RTYPE>& tab, NumericVector aux){
+//   Vector<RTYPE> aug (tab.length() * 2);
+//   IntegerVector ii = seq(0,6);
 
-  double ee = tab.length();
-  aug[ii] = tab[ii];
+//   double ee = tab.length();
+//   aug[ii] = tab[ii];
 
-  aug = aug / ee;
+//   aug = aug / ee;
   
-  return aug;
-}
+//   return aug;
+// }
   
-//[[Rcpp::export]]
-SEXP foo (const SEXP& tab, SEXP& aux){
-  switch(TYPEOF(tab)){
-  case REALSXP: return do_foo<REALSXP>(tab, aux);
-  case INTSXP: return do_foo<INTSXP>(tab, aux);
-  default: Rf_error("Unsupported type");
-  }
-  return R_NilValue;
-}
+// //[[Rcpp::export]]
+// SEXP foo (const SEXP& tab, SEXP& aux){
+//   switch(TYPEOF(tab)){
+//   case REALSXP: return do_foo<REALSXP>(tab, aux);
+//   case INTSXP: return do_foo<INTSXP>(tab, aux);
+//   default: Rf_error("Unsupported type");
+//   }
+//   return R_NilValue;
+// }
 
 
 

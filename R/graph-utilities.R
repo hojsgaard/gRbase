@@ -72,6 +72,9 @@ edgeList.default <- function(object, matrix=FALSE){
 edgeListMAT <- function(adjmat, matrix=FALSE){
     out <- if (issymMAT_(adjmat)) symMAT2ftM_(adjmat)
            else MAT2ftM_(adjmat)
+
+    ## cat("edgeListMAT\n")
+    ## print(adjmat)
     
     di  <- dim(out)
     out <- colnames(adjmat)[out]
