@@ -59,10 +59,8 @@ void C_maxset(char **setlist, int *ends, int *nset, int *keepvec)
 	  /* Rprintf("  SET 2: %i %i %i\n", jj, starts[jj], ends[jj]);   */
 	  C_subsetof1(setlist, &starts[jj], &ends[jj], &starts[ii], &ends[ii], &ans); 
 	  /* Rprintf("  ans: %i \n", ans);    */
-	  if (ans==1)
-	    keepvec[jj] = 0;
-	  else
-	    keepvec[jj] = 1;
+	  if (ans==1) keepvec[jj] = 0;
+	  else keepvec[jj] = 1;
 	}
       }
     }
@@ -72,7 +70,6 @@ void C_maxset(char **setlist, int *ends, int *nset, int *keepvec)
 
 void C_minset(char **setlist, int *ends, int *nset, int *keepvec)
 {
-  
   int ii, jj;
   int ans;
 
@@ -92,10 +89,8 @@ void C_minset(char **setlist, int *ends, int *nset, int *keepvec)
 	  /* 	  Rprintf("  SET 2: %i %i %i\n", jj, starts[jj], ends[jj]);    */
 	  C_subsetof1(setlist, &starts[ii], &ends[ii], &starts[jj], &ends[jj],  &ans); 
 	  /* 	  Rprintf("  ans: %i \n", ans);     */
-	  if (ans==1)
-	    keepvec[jj] = 0;
-	  else
-	    keepvec[jj] = 1;
+	  if (ans==1) keepvec[jj] = 0;
+	  else keepvec[jj] = 1;
 	}
       }
     }

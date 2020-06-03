@@ -12,6 +12,12 @@
 
 using namespace Rcpp;
 
+
+typedef Rcpp::NumericVector   numVec;
+typedef Rcpp::IntegerVector   intVec;
+typedef Rcpp::CharacterVector chrVec;
+
+
 /* *************************************************
 
    Implements:
@@ -126,8 +132,7 @@ IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false)
 //[[Rcpp::export]]
 bool is_subsetof_(CharacterVector set, CharacterVector set2)
 {
-  if (set.length() > set2.length())
-    return false;
+  if (set.length() > set2.length()) return false;
   else {
     IntegerVector m = match(set, set2);
     //Rf_PrintValue(m);
@@ -135,6 +140,38 @@ bool is_subsetof_(CharacterVector set, CharacterVector set2)
     return !out;
   }
 }
+
+template <int RTYPE>
+bool is_subsetof_impl(Vector<RTYPE> set, Vector<RTYPE> set2) {
+  if (set.length() > set2.length()) return false;
+  else {
+    IntegerVector m = match(set, set2);
+    //Rf_PrintValue(m);
+    bool out = any(is_na(m));
+    return !out;
+  }
+}
+
+// [[Rcpp::export]]
+bool is_subsetof2_(SEXP set, SEXP set2) {
+    switch(TYPEOF(set)) {
+    case INTSXP:  return is_subsetof_impl<INTSXP>(set, set2);
+    case REALSXP: return is_subsetof_impl<REALSXP>(set, set2);
+    case STRSXP:  return is_subsetof_impl<STRSXP>(set, set2);
+    default: stop("Unsupported type.");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* **************************************************************
 
@@ -296,6 +333,120 @@ SEXP all_pairs__(CharacterVector x,
     return(out);
   } 
 }
+
+
+
+// [[Rcpp::plugins(cpp11)]]
+// See https://stackoverflow.com/questions/21609934/ordering-permutation-in-rcpp-i-e-baseorder
+template <int RTYPE>
+IntegerVector order_impl(const Vector<RTYPE>& x, bool desc) {
+    auto n = x.size();
+    IntegerVector idx = no_init(n);
+    std::iota(idx.begin(), idx.end(), static_cast<size_t>(1));
+    if (desc) {
+        auto comparator = [&x](size_t a, size_t b){ return x[a - 1] > x[b - 1]; };
+        std::stable_sort(idx.begin(), idx.end(), comparator);
+    } else {
+        auto comparator = [&x](size_t a, size_t b){ return x[a - 1] < x[b - 1]; };
+        std::stable_sort(idx.begin(), idx.end(), comparator);
+        // simulate na.last
+        size_t nas = 0;
+        for (size_t i = 0; i < n; ++i, ++nas)
+            if (!Vector<RTYPE>::is_na(x[idx[i] - 1])) break;
+        std::rotate(idx.begin(), idx.begin() + nas, idx.end());
+    }
+    return idx;
+}
+
+// [[Rcpp::export]]
+IntegerVector order2_(SEXP x, bool desc = false) {
+    switch(TYPEOF(x)) {
+    case INTSXP: return order_impl<INTSXP>(x, desc);
+    case REALSXP: return order_impl<REALSXP>(x, desc);
+    case STRSXP: return order_impl<STRSXP>(x, desc);
+    default: stop("Unsupported type.");
+    }
+}
+
+inline int get_length(CharacterVector x){return x.length();}
+
+//[[Rcpp::export]]
+List max_set_(const List L){
+  int nset = L.length();
+  intVec len = sapply(L, get_length);
+  //Rf_PrintValue(len);
+
+  intVec ooo = order2_(len, true);
+  //Rf_PrintValue(ooo);
+  
+  List L2 = L[ooo - 1];
+  //Rf_PrintValue(L2);
+  
+  intVec keepvec = rep(1, nset);
+  //keepvec[0] = 0;
+  for (int i=0; i<nset-1; i++){
+    if (keepvec[i] == 1){
+      for (int j=i+1; j<nset; j++){
+	if (keepvec[j] == 1){
+	  //Rf_PrintValue(L2[j]);	  Rf_PrintValue(L2[i]);
+	  bool omit = is_subsetof2_(L2[j], L2[i]);
+	  if (omit) keepvec[j]=0;
+	}
+      }
+    }
+  }
+  //Rf_PrintValue(keepvec);
+  L2 = L2[(LogicalVector) keepvec];
+  return L2;
+}
+
+
+//[[Rcpp::export]]
+List min_set_(const List L){
+  int nset = L.length();
+  intVec len = sapply(L, get_length);
+  //Rf_PrintValue(len);
+
+  intVec ooo = order2_(len, false);
+  //Rf_PrintValue(ooo);
+  
+  List L2 = L[ooo - 1];
+  //Rf_PrintValue(L2);
+  
+  intVec keepvec = rep(1, nset);
+  //keepvec[0] = 0;
+  
+  for (int i=0; i<nset-1; i++){
+    if (keepvec[i] == 1){
+      for (int j=i+1; j<nset; j++){
+	if (keepvec[j] == 1){
+	  //Rf_PrintValue(L2[j]);	  Rf_PrintValue(L2[i]);
+	  bool omit = is_subsetof2_(L2[i], L2[j]);
+	  if (omit) keepvec[j]=0;
+	}
+      }
+    }
+  }
+  //Rf_PrintValue(keepvec);
+  L2 = L2[(LogicalVector) keepvec];
+  return L2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*** R

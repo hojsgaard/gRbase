@@ -2,6 +2,23 @@ context("test-graph-coercion.R")
 
 ## #########################################################
 
+## Graph with no edges
+
+test_that("empty-graph", {
+    g <- ug(~a+b+c+d+g)
+    
+    m <- as(g, "matrix")
+    M <- as(m, "Matrix")
+    
+    expect_true(all(m == 0))
+    expect_true(all(M == 0))
+})
+
+
+
+
+## #########################################################
+
 ## Coercion of adjacency lists to ft-matrix and tf-matrix
 
 ll <-

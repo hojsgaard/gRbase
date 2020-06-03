@@ -13,8 +13,9 @@
 #' @param resize A flag indicating whether the vector should be
 #'     resized as well as having its elements reordered (default
 #'     TRUE).
+#' @param op The operation to be made.
 #' @param keep.class Obsolete argument.
-#' @details `tableOp3` is brute force implementation based on
+#' @details `tableOp0` is brute force implementation based on
 #'     dataframes. It is very slow, but useful for error checking.
 
 #' @export
@@ -153,12 +154,17 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 
 #' @export
 #' @rdname api-array-07
-tableOp3 <- function(tab1, tab2, op=`*`){
+tableOp0 <- function(tab1, tab2, op=`*`){
+
+    if (!is.named.array(tab1)) {stop("'tab1' is not an array")}
+    if (!is.named.array(tab2)) {stop("'tab2' is not an array")}
+    
     vn1 <- names(dimnames(tab1))
     vn2 <- names(dimnames(tab2))
     
     d1 <- as.data.frame.table(tab1)
     d2 <- as.data.frame.table(tab2)
+
     isect <- intersect(vn1, vn2)
     
     jj <- merge(d1, d2, all=TRUE, by=isect, sort=FALSE)

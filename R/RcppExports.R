@@ -137,6 +137,10 @@ is_subsetof_ <- function(set, set2) {
     .Call('_gRbase_is_subsetof_', PACKAGE = 'gRbase', set, set2)
 }
 
+is_subsetof2_ <- function(set, set2) {
+    .Call('_gRbase_is_subsetof2_', PACKAGE = 'gRbase', set, set2)
+}
+
 allSubsets0_ <- function(x) {
     .Call('_gRbase_allSubsets0_', PACKAGE = 'gRbase', x)
 }
@@ -147,6 +151,18 @@ allSubsets_ <- function(x) {
 
 all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
     .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
+}
+
+order2_ <- function(x, desc = FALSE) {
+    .Call('_gRbase_order2_', PACKAGE = 'gRbase', x, desc)
+}
+
+max_set_ <- function(L) {
+    .Call('_gRbase_max_set_', PACKAGE = 'gRbase', L)
+}
+
+min_set_ <- function(L) {
+    .Call('_gRbase_min_set_', PACKAGE = 'gRbase', L)
 }
 
 #' @title Low level table cell operations implemented in c++

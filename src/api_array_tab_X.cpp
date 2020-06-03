@@ -536,14 +536,31 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
 // //' tab_mult_ tab_div_ tab_div0_ tab_equal_
 
 
+
+// June 2020: This macro is based on that in tab_expand_ the new
+// dimensions are added at the end of the original array.
+
 #define _tab_op_loopit(_op_)						\
-  int n1 = out.size(), n2=tab2.size(), n3=n1/n2, zz;			\
-  for (int i=0; i < n2; ++i){						\
-    for (int k=0; k < n3; ++k){						\
-      zz = i + k * n2;							\
-      out[zz] = out[zz] _op_ tab2[i];					\
+  int out_len = out.size(), tab2_len=tab2.size();			\
+  int rest_len=out_len/tab2_len, zz;					\
+  for (int i=0; i < tab2_len; ++i){					\
+    for (int k=0; k < rest_len; ++k){					\
+      zz = i * rest_len + k;						\
+      out[zz] = out[zz] _op_ tab2[i];				       	\
     }									\
   }									\
+
+//Rcout << "zz: " << zz << " out: " << out[zz] << " tab2: " << tab2[i] <<std::endl;
+
+// #define _tab_op_loopit(_op_)						\
+//   int out_len = out.size(), tab2_len=tab2.size(), rest_len=out_len/tab2_len, zz; \
+//   for (int i=0; i < tab2_len; ++i){					\
+//     for (int k=0; k < rest_len; ++k){				\
+//       zz = i + k * tab2_len;						\
+//       out[zz] = out[zz] _op_ tab2[i];				\
+//     }								\
+//   }									\
+
 
 //' @rdname api-tabX_
 //[[Rcpp::export]]
@@ -551,6 +568,10 @@ NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, cons
 
   if (!dimnames_match_( tab1, tab2)) ::Rf_error("dimnames do not match");
   NumericVector out = tab_expand_(tab1, tab2);
+
+  // Rf_PrintValue(tab1);
+  // Rf_PrintValue(tab2);
+  // Rf_PrintValue(out);
   
   switch(op){
   case '+' : {  _tab_op_loopit(+); break;}

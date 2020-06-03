@@ -12,11 +12,14 @@
 #' 
 #' @param lst List of arrays.
 #'
-#' @param perm,marg A vector of indices or dimnames or a right hand sided
-#'     formula giving the desired permutation/margin.
+#' @param perm,marg A vector of indices or dimnames or a right hand
+#'     sided formula giving the desired permutation/margin.
 #' @param eps Criterion for checking equality of two arrays.
 #' @param aux Either a list with names and dimnames or a named array
 #'     from which such a list can be extracted.
+#' @param type If 0 then entries are duplicated. If 3 then averages
+#'     are computed. If 2 then 0 slices are inserted.
+#' @param op The algebraic operation to be carried out.
 #'
 ## #' @aliases 
 ## #'     tab_align_
@@ -45,24 +48,29 @@ tabDiv0     <- tab_div0_
 
 #' @export
 #' @rdname api-tabX
+tabOp     <- tab_op_
+
+
+#' @export
+#' @rdname api-tabX
 tabEqual  <- tab_equal_
 
 #' @export
 #' @rdname api-tabX
-tabExpand <- function(tab, aux){  ## FIXME Rethink this
-    ## if (!is.named.array(tab)) stop("'tab' not a named array")
-    ## if (!is.null(aux))
-    ##     if (!(is.numeric(aux) || is.character(aux) || inherits(aux, "formula")))
-    ##         stop("'aux' must be character/numeric vector or right hand sided formula")
-    
-    ## aux <- .get_perm_or_marg(tab, aux)
+tabExpand <- function(tab, aux, type=0L){  ## FIXME Rethink this
 
     if (is.list(aux))
         aux <- lapply(aux, rhsf2vec)
     
-    tab_expand_(tab, aux)
+    tab_expand_(tab, aux, type)
 }
 
+## if (!is.named.array(tab)) stop("'tab' not a named array")
+## if (!is.null(aux))
+##     if (!(is.numeric(aux) || is.character(aux) || inherits(aux, "formula")))
+##         stop("'aux' must be character/numeric vector or right hand sided formula")
+
+## aux <- .get_perm_or_marg(tab, aux)
 
 
 ## tabMult used by grain; 

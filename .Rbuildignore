@@ -5,3 +5,6 @@ LICENSE
 ^revdep$
 old_NAMESPACE
 removed
+vignettes/*.tex
+vignettes/*.log
+vignettes/.Rhistory

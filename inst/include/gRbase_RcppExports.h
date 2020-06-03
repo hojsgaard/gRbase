@@ -362,6 +362,27 @@ namespace gRbase {
         return Rcpp::as<bool >(rcpp_result_gen);
     }
 
+    inline bool is_subsetof2_(SEXP set, SEXP set2) {
+        typedef SEXP(*Ptr_is_subsetof2_)(SEXP,SEXP);
+        static Ptr_is_subsetof2_ p_is_subsetof2_ = NULL;
+        if (p_is_subsetof2_ == NULL) {
+            validateSignature("bool(*is_subsetof2_)(SEXP,SEXP)");
+            p_is_subsetof2_ = (Ptr_is_subsetof2_)R_GetCCallable("gRbase", "_gRbase_is_subsetof2_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_is_subsetof2_(Shield<SEXP>(Rcpp::wrap(set)), Shield<SEXP>(Rcpp::wrap(set2)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<bool >(rcpp_result_gen);
+    }
+
     inline List allSubsets0_(const IntegerVector& x) {
         typedef SEXP(*Ptr_allSubsets0_)(SEXP);
         static Ptr_allSubsets0_ p_allSubsets0_ = NULL;
@@ -423,6 +444,69 @@ namespace gRbase {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline IntegerVector order2_(SEXP x, bool desc = false) {
+        typedef SEXP(*Ptr_order2_)(SEXP,SEXP);
+        static Ptr_order2_ p_order2_ = NULL;
+        if (p_order2_ == NULL) {
+            validateSignature("IntegerVector(*order2_)(SEXP,bool)");
+            p_order2_ = (Ptr_order2_)R_GetCCallable("gRbase", "_gRbase_order2_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_order2_(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(desc)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<IntegerVector >(rcpp_result_gen);
+    }
+
+    inline List max_set_(const List L) {
+        typedef SEXP(*Ptr_max_set_)(SEXP);
+        static Ptr_max_set_ p_max_set_ = NULL;
+        if (p_max_set_ == NULL) {
+            validateSignature("List(*max_set_)(const List)");
+            p_max_set_ = (Ptr_max_set_)R_GetCCallable("gRbase", "_gRbase_max_set_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_max_set_(Shield<SEXP>(Rcpp::wrap(L)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List min_set_(const List L) {
+        typedef SEXP(*Ptr_min_set_)(SEXP);
+        static Ptr_min_set_ p_min_set_ = NULL;
+        if (p_min_set_ == NULL) {
+            validateSignature("List(*min_set_)(const List)");
+            p_min_set_ = (Ptr_min_set_)R_GetCCallable("gRbase", "_gRbase_min_set_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_min_set_(Shield<SEXP>(Rcpp::wrap(L)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
     }
 
     inline int cell2entry_(const NumericVector& cell, const IntegerVector& dim) {

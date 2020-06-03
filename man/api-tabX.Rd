@@ -6,6 +6,7 @@
 \alias{tabAlign}
 \alias{tabDiv}
 \alias{tabDiv0}
+\alias{tabOp}
 \alias{tabEqual}
 \alias{tabExpand}
 \alias{tabMult}
@@ -27,9 +28,11 @@ tabDiv(tab1, tab2)
 
 tabDiv0(tab1, tab2)
 
+tabOp(tab1, tab2, op = "*")
+
 tabEqual(tab1, tab2, eps = 1e-12)
 
-tabExpand(tab, aux)
+tabExpand(tab, aux, type = 0L)
 
 tabMult(tab1, tab2)
 
@@ -50,6 +53,8 @@ tabProd(tab, ...)
 tabNormalize(tab, type = "none")
 }
 \arguments{
+\item{op}{The algebraic operation to be carried out.}
+
 \item{eps}{Criterion for checking equality of two arrays.}
 
 \item{tab, tab1, tab2, ...}{Arrays with named dimnames (we call them
@@ -58,12 +63,13 @@ tabNormalize(tab, type = "none")
 \item{aux}{Either a list with names and dimnames or a named array
 from which such a list can be extracted.}
 
+\item{type}{If 0 then entries are duplicated. If 3 then averages
+are computed. If 2 then 0 slices are inserted.}
+
 \item{lst}{List of arrays.}
 
-\item{perm, marg}{A vector of indices or dimnames or a right hand sided
-formula giving the desired permutation/margin.}
-
-\item{type}{One of "none", "first" and "all".}
+\item{perm, marg}{A vector of indices or dimnames or a right hand
+sided formula giving the desired permutation/margin.}
 }
 \description{
 Interface functions and minor extensions to cpp functions.

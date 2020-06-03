@@ -44,6 +44,7 @@ extern SEXP _gRbase_get_superset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_is_dimnames_(SEXP);
 extern SEXP _gRbase_is_named_array_(SEXP);
 extern SEXP _gRbase_is_number_vector_(SEXP);
+extern SEXP _gRbase_is_subsetof2_(SEXP, SEXP);
 extern SEXP _gRbase_is_subsetof_(SEXP, SEXP);
 extern SEXP _gRbase_isadjMAT_(SEXP);
 extern SEXP _gRbase_isdagMAT_(SEXP);
@@ -51,10 +52,13 @@ extern SEXP _gRbase_issymMAT_(SEXP);
 extern SEXP _gRbase_isugMAT_(SEXP);
 extern SEXP _gRbase_make_plevels_(SEXP);
 extern SEXP _gRbase_matrix2dgCMatrix__(SEXP);
+extern SEXP _gRbase_max_set_(SEXP);
 extern SEXP _gRbase_mcsMAT__(SEXP, SEXP);
+extern SEXP _gRbase_min_set_(SEXP);
 extern SEXP _gRbase_moralizeMAT(SEXP);
 extern SEXP _gRbase_next_cell_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_slice_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_order2_(SEXP, SEXP);
 extern SEXP _gRbase_perm_cell_entries_(SEXP, SEXP);
 extern SEXP _gRbase_rip_internal(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_rowmat2list__(SEXP);
@@ -124,6 +128,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_is_dimnames_",                 (DL_FUNC) &_gRbase_is_dimnames_,                 1},
     {"_gRbase_is_named_array_",              (DL_FUNC) &_gRbase_is_named_array_,              1},
     {"_gRbase_is_number_vector_",            (DL_FUNC) &_gRbase_is_number_vector_,            1},
+    {"_gRbase_is_subsetof2_",                (DL_FUNC) &_gRbase_is_subsetof2_,                2},
     {"_gRbase_is_subsetof_",                 (DL_FUNC) &_gRbase_is_subsetof_,                 2},
     {"_gRbase_isadjMAT_",                    (DL_FUNC) &_gRbase_isadjMAT_,                    1},
     {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
@@ -131,10 +136,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_isugMAT_",                     (DL_FUNC) &_gRbase_isugMAT_,                     1},
     {"_gRbase_make_plevels_",                (DL_FUNC) &_gRbase_make_plevels_,                1},
     {"_gRbase_matrix2dgCMatrix__",           (DL_FUNC) &_gRbase_matrix2dgCMatrix__,           1},
+    {"_gRbase_max_set_",                     (DL_FUNC) &_gRbase_max_set_,                     1},
     {"_gRbase_mcsMAT__",                     (DL_FUNC) &_gRbase_mcsMAT__,                     2},
+    {"_gRbase_min_set_",                     (DL_FUNC) &_gRbase_min_set_,                     1},
     {"_gRbase_moralizeMAT",                  (DL_FUNC) &_gRbase_moralizeMAT,                  1},
     {"_gRbase_next_cell_",                   (DL_FUNC) &_gRbase_next_cell_,                   2},
     {"_gRbase_next_cell_slice_",             (DL_FUNC) &_gRbase_next_cell_slice_,             3},
+    {"_gRbase_order2_",                      (DL_FUNC) &_gRbase_order2_,                      2},
     {"_gRbase_perm_cell_entries_",           (DL_FUNC) &_gRbase_perm_cell_entries_,           2},
     {"_gRbase_rip_internal",                 (DL_FUNC) &_gRbase_rip_internal,                 3},
     {"_gRbase_rowmat2list__",                (DL_FUNC) &_gRbase_rowmat2list__,                1},

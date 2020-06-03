@@ -7,7 +7,7 @@
 \alias{tableDiv}
 \alias{tableOp}
 \alias{tableOp2}
-\alias{tableOp3}
+\alias{tableOp0}
 \alias{tableSlice}
 \alias{tableSlicePrim}
 \alias{tableMargin}
@@ -25,7 +25,7 @@ tableOp(tab1, tab2, op = "*")
 
 tableOp2(tab1, tab2, op = `*`, restore = FALSE)
 
-tableOp3(tab1, tab2, op = `*`)
+tableOp0(tab1, tab2, op = `*`)
 
 tableSlice(tab, margin, level, impose)
 
@@ -72,6 +72,6 @@ Array operations; created to facilitate the gRain
     faster) functions implemented in Rcpp.
 }
 \details{
-`tableOp3` is brute force implementation based on
+`tableOp0` is brute force implementation based on
     dataframes. It is very slow, but useful for error checking.
 }

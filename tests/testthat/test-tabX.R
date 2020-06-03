@@ -8,6 +8,12 @@ dimnames(hec) <- list(Hair = c("Black", "Brown"),
                       Eye = c("Brown", "Blue", "Hazel"), 
                       Sex = c("Male", "Female"))
 
+t12a <- tabMarg(hec, 1:2)
+t12b <- tabMarg(hec, c("Hair", "Eye"))
+t12c <- tabMarg(hec, ~Hair+Eye)
+
+t23a <- tabMarg(hec, 2:3)
+
 
 test_that("tabPerm()", {
 
@@ -21,3 +27,27 @@ test_that("tabPerm()", {
     expect_equal(t3, t0)
     expect_equal(t4, t0)    
 })
+
+
+test_that("tabMarg()", {
+    
+    expect_equal(t12a, t12b)
+    expect_equal(t12a, t12c)    
+})
+
+test_that("tabOp()", {
+    t0 <- tableOp0(t12a, t23a, `*`)%>% tabPerm(~Hair+Eye+Sex)
+    t1 <- tabMult(t12a, t23a) %>% tabPerm(~Hair+Eye+Sex)
+    t2 <- tabOp(t12a, t23a, "*")
+    t3 <- tableOp(t12a, t23a, "*") %>% tabPerm(~Hair+Eye+Sex)
+    t4 <- tableOp(t12a, t23a, `*`) %>% tabPerm(~Hair+Eye+Sex)
+    t5 <- t12a %a*% t23a
+
+    expect_equal(t0, t1)
+    expect_equal(t0, t2)
+    expect_equal(t0, t3)
+    expect_equal(t0, t4)
+    expect_equal(t0, t5)    
+})
+
+

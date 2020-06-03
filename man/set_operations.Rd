@@ -65,12 +65,12 @@ Set operations for gRbase and related packages.
 }
 \examples{
 
-set <- list(c(1,2), c(1,2,3), c(2,3,6), c(2,4), c(5,6), 5)            
+set <- list(c(1, 2), c(1, 2, 3), c(2, 3, 6), c(2, 4), c(5, 6), 5)            
                                                             
-el1 <- c(2,1)                                               
-el2 <- c(2,3)                                               
-el3 <- c(4,3)                                               
-el4 <- c(2,1,3)                                             
+el1 <- c(2, 1)                                               
+el2 <- c(2, 3)                                               
+el3 <- c(4, 3)                                               
+el4 <- c(2, 1, 3)                                             
                                                             
 maximal_sets(set)                                           
 minimal_sets(set)                                           
@@ -82,19 +82,6 @@ is_inset(el1, set)
 is_inset(el2, set)                                          
 is_inset(el3, set)                                          
                                                             
-get_subset(el1, set)
-get_subset(el1, set)                                        
-get_subset(el2, set)                                        
-get_subset(el3, set)                                        
-
-get_superset(el1, set)                                      
-get_superset(el1, set, all=TRUE)                                      
-get_superset(el2, set)                                      
-get_superset(el3, set)                                      
-                                                            
-is_subsetof(el1, el1)                                       
-is_subsetof(el1, el2)                                       
-is_subsetof(el1, el4)                                       
 
 }
 \author{

@@ -47,13 +47,14 @@ tab_list_add_(lst)
 \item{tab}{Arrays with named dimnames (we call them
 'named arrays').}
 
-\item{perm}{A vector of indices or dimnames or a right hand sided
-formula giving the desired permutation/margin.}
+\item{perm}{A vector of indices or dimnames or a right hand
+sided formula giving the desired permutation/margin.}
 
 \item{aux}{Either a list with names and dimnames or a named array
 from which such a list can be extracted.}
 
-\item{type}{One of "none", "first" and "all".}
+\item{type}{If 0 then entries are duplicated. If 3 then averages
+are computed. If 2 then 0 slices are inserted.}
 
 \item{tab1}{Arrays with named dimnames (we call them
 'named arrays').}
@@ -61,8 +62,8 @@ from which such a list can be extracted.}
 \item{tab2}{Arrays with named dimnames (we call them
 'named arrays').}
 
-\item{marg}{A vector of indices or dimnames or a right hand sided
-formula giving the desired permutation/margin.}
+\item{marg}{A vector of indices or dimnames or a right hand
+sided formula giving the desired permutation/margin.}
 
 \item{op}{The operation to be carried out; "+", "-", "*", "/".}
 
