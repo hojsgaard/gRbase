@@ -1,8 +1,20 @@
-
 // ------------------------------------------------------------
-// Utility functions intended to mimic R's c() function
+//
+// Mimicing some R functions
+//
 // Author: Søren Højsgaard
-// ------------------------------------------------------------
+//
+//------------------------------------------------------------ 
+
+#include <Rcpp.h>
+using namespace Rcpp;
+using namespace std;
+
+
+#ifndef RLIKE_H
+#define RLIKE_H
+
+// ### Mimic c() function ###
 
 #define DO_CONCAT							\
   for (int i=0; i<nx; ++i)   out[i] = x[i];				\
@@ -16,7 +28,7 @@
       for (int i=0; i<nx; ++i)	nam[i] = xnam[i];			\
     }									\
     if ( has_ynames ){							\
-      Rcpp::CharacterVector ynam = y.names();														\
+      Rcpp::CharacterVector ynam = y.names();				\
       for (int i=0; i<ny; ++i)	nam[i+nx] = ynam[i];			\
     }									\
     out.names() = nam;							\
@@ -30,13 +42,43 @@ T do_concat_(const T& x, const T& y){
   return out;
 }
 
-template <int RTYPE>
-Rcpp::Vector<RTYPE> do_concat2_(const Rcpp::Vector<RTYPE>& x, const Rcpp::Vector<RTYPE>& y){
-  int nx=x.size(), ny=y.size();
-  Rcpp::Vector<RTYPE>   out( nx + ny );
-  DO_CONCAT;
-  return out;
-}
+// ### Mimic order() ###
+Rcpp::IntegerVector order_(Rcpp::IntegerVector x);
+
+
+
+// ### Mimic order()
+
+// NOTE TO SELF: Template can be in .cpp or .h
+// template <int RTYPE>
+// IntegerVector order_impl(const Vector<RTYPE>& x, bool desc);
+
+// [[Rcpp::export]]
+IntegerVector order2_(SEXP x, bool desc = false);
+
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+// template <int RTYPE>
+// Rcpp::Vector<RTYPE> do_concat2_(const Rcpp::Vector<RTYPE>& x, const Rcpp::Vector<RTYPE>& y){
+//   int nx=x.size(), ny=y.size();
+//   Rcpp::Vector<RTYPE>   out( nx + ny );
+//   DO_CONCAT;
+//   return out;
+// }
+
+
 
 /*** R
      

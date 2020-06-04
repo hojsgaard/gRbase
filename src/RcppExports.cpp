@@ -696,6 +696,42 @@ RcppExport SEXP _gRbase_get_superset_(SEXP setSEXP, SEXP setlistSEXP, SEXP allSE
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// get_superset2_
+IntegerVector get_superset2_(CharacterVector x, List setlist, bool all);
+static SEXP _gRbase_get_superset2__try(SEXP xSEXP, SEXP setlistSEXP, SEXP allSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< List >::type setlist(setlistSEXP);
+    Rcpp::traits::input_parameter< bool >::type all(allSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_superset2_(x, setlist, all));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_get_superset2_(SEXP xSEXP, SEXP setlistSEXP, SEXP allSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_get_superset2__try(xSEXP, setlistSEXP, allSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // get_subset_
 IntegerVector get_subset_(CharacterVector set, List setlist, bool all);
 static SEXP _gRbase_get_subset__try(SEXP setSEXP, SEXP setlistSEXP, SEXP allSEXP) {
@@ -713,6 +749,42 @@ RcppExport SEXP _gRbase_get_subset_(SEXP setSEXP, SEXP setlistSEXP, SEXP allSEXP
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
         rcpp_result_gen = PROTECT(_gRbase_get_subset__try(setSEXP, setlistSEXP, allSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// get_subset2_
+IntegerVector get_subset2_(CharacterVector x, List setlist, bool all);
+static SEXP _gRbase_get_subset2__try(SEXP xSEXP, SEXP setlistSEXP, SEXP allSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< List >::type setlist(setlistSEXP);
+    Rcpp::traits::input_parameter< bool >::type all(allSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_subset2_(x, setlist, all));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_get_subset2_(SEXP xSEXP, SEXP setlistSEXP, SEXP allSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_get_subset2__try(xSEXP, setlistSEXP, allSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1929,7 +2001,9 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("SEXP(*adjList2matrix__)(List)");
         signatures.insert("SEXP(*adjList2dgCMatrix__)(List)");
         signatures.insert("IntegerVector(*get_superset_)(CharacterVector,List,bool)");
+        signatures.insert("IntegerVector(*get_superset2_)(CharacterVector,List,bool)");
         signatures.insert("IntegerVector(*get_subset_)(CharacterVector,List,bool)");
+        signatures.insert("IntegerVector(*get_subset2_)(CharacterVector,List,bool)");
         signatures.insert("bool(*is_subsetof_)(CharacterVector,CharacterVector)");
         signatures.insert("bool(*is_subsetof2_)(SEXP,SEXP)");
         signatures.insert("List(*allSubsets0_)(const IntegerVector&)");
@@ -1982,7 +2056,9 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_adjList2matrix__", (DL_FUNC)_gRbase_adjList2matrix___try);
     R_RegisterCCallable("gRbase", "_gRbase_adjList2dgCMatrix__", (DL_FUNC)_gRbase_adjList2dgCMatrix___try);
     R_RegisterCCallable("gRbase", "_gRbase_get_superset_", (DL_FUNC)_gRbase_get_superset__try);
+    R_RegisterCCallable("gRbase", "_gRbase_get_superset2_", (DL_FUNC)_gRbase_get_superset2__try);
     R_RegisterCCallable("gRbase", "_gRbase_get_subset_", (DL_FUNC)_gRbase_get_subset__try);
+    R_RegisterCCallable("gRbase", "_gRbase_get_subset2_", (DL_FUNC)_gRbase_get_subset2__try);
     R_RegisterCCallable("gRbase", "_gRbase_is_subsetof_", (DL_FUNC)_gRbase_is_subsetof__try);
     R_RegisterCCallable("gRbase", "_gRbase_is_subsetof2_", (DL_FUNC)_gRbase_is_subsetof2__try);
     R_RegisterCCallable("gRbase", "_gRbase_allSubsets0_", (DL_FUNC)_gRbase_allSubsets0__try);

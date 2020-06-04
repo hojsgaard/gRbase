@@ -13,13 +13,13 @@
 
 #include <RcppEigen.h>
 #include "_g_mcsMAT2.h"
+#include "R_like.h"
 //[[Rcpp::depends(RcppEigen)]]
 //[[Rcpp::interfaces(r,cpp)]]
 
 // //[[Rcpp::depends(RcppEigen,RcppArmadillo,gRbase)]]
 // #include <gRbase.h>
 // using namespace gRbase
-
 
 using namespace Rcpp;
 using namespace Eigen;
@@ -34,13 +34,6 @@ typedef Eigen::SparseVector<double> SpVec;
 typedef SpVec::InnerIterator InIterVec;
 typedef MSpMat::InnerIterator InIterMat;
 
-IntegerVector order_(IntegerVector x) {
-  if (is_true(any(duplicated(x)))) {
-    Rf_warning("There are duplicates in 'x'; order not guaranteed to match that of R's base::order");
-  }
-  IntegerVector sorted = clone(x).sort();
-  return match(sorted, x);
-}
 
 bool is_subset_of_ (CharacterVector v1, CharacterVector v2){
   if ( setdiff( v1, v2 ).size() > 0){
@@ -66,7 +59,7 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
     CharacterVector cq = cqlist[i]; //Rf_PrintValue( cq );  Rf_PrintValue( match( cq, vn) );
     ord[i] = max( match( cq, mcs_vn) );
   }
-  ord = order_( ord );
+  ord = order_(ord);
 
   List cqlist2( ncq ), separators( ncq );
   IntegerVector pavec( ncq ), chvec( ncq ), host( vn.size() );

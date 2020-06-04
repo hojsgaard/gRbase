@@ -15,7 +15,7 @@
 //' @param op The operation to be carried out; "+", "-", "*", "/".
 
 #include <Rcpp.h>
-#include "concatenate.h"         // my version of c(x,y)
+#include "R_like.h"         // my version of c(x,y)
 #include "t_array_properties.h"  
 
 using namespace Rcpp;

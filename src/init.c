@@ -39,7 +39,9 @@ extern SEXP _gRbase_dgCMatrix2matrix__(SEXP);
 extern SEXP _gRbase_dimnames_match_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_entry2cell_(SEXP, SEXP);
 extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
+extern SEXP _gRbase_get_subset2_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_subset_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_get_superset2_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_superset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_is_dimnames_(SEXP);
 extern SEXP _gRbase_is_named_array_(SEXP);
@@ -123,7 +125,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_dimnames_match_",              (DL_FUNC) &_gRbase_dimnames_match_,              3},
     {"_gRbase_entry2cell_",                  (DL_FUNC) &_gRbase_entry2cell_,                  2},
     {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
+    {"_gRbase_get_subset2_",                 (DL_FUNC) &_gRbase_get_subset2_,                 3},
     {"_gRbase_get_subset_",                  (DL_FUNC) &_gRbase_get_subset_,                  3},
+    {"_gRbase_get_superset2_",               (DL_FUNC) &_gRbase_get_superset2_,               3},
     {"_gRbase_get_superset_",                (DL_FUNC) &_gRbase_get_superset_,                3},
     {"_gRbase_is_dimnames_",                 (DL_FUNC) &_gRbase_is_dimnames_,                 1},
     {"_gRbase_is_named_array_",              (DL_FUNC) &_gRbase_is_named_array_,              1},

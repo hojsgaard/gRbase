@@ -7,43 +7,38 @@
   ***************************************************** */
 
 #include <Rcpp.h>
+#include "R_like.h"
 //[[Rcpp::interfaces(r,cpp)]]
 //[[Rcpp::depends(RcppEigen)]]
 
 using namespace Rcpp;
 
-
 typedef Rcpp::NumericVector   numVec;
 typedef Rcpp::IntegerVector   intVec;
 typedef Rcpp::CharacterVector chrVec;
 
-
 /* *************************************************
 
-   Implements:
-   
-   get_superset, get_subset, is_subsetof
+   Implements: 
+   get_superset, 
+   get_subset
    
    ************************************************* */
-
-// //' @name internal_grbase_cpp
-// //' @aliases is_subsetof__ get_superset__ get_subset__
 
 IntegerVector get_superset_one_(CharacterVector x, List setlist){
   bool outb=false;
   int val=-1, k=0;
   
-  for (int i=0; i<setlist.length(); ++i)
-    {
-      CharacterVector set=setlist[i];
-      outb = (any(is_na(match(x, set))));
-      outb = ! outb;
-      if (outb){
-	val = i+1;
-	k   = 1;
-	break;
-      }
+  for (int i=0; i<setlist.length(); ++i) {
+    CharacterVector set=setlist[i];
+    outb = (any(is_na(match(x, set))));
+    outb = ! outb;
+    if (outb){
+      val = i+1;
+      k   = 1;
+      break;
     }
+  }
   IntegerVector out = IntegerVector(k);
   out[0] = val;
   return out;
@@ -53,38 +48,67 @@ IntegerVector get_superset_all_(CharacterVector x, List setlist){
   IntegerVector vec(setlist.length());
   int k=0;
   
-  for (int i=0; i<setlist.length(); ++i)
-    {
-      CharacterVector set=setlist[i];
-      bool out = (any(is_na(match(x, set))));
-      out = ! out;
-      if (out) vec[k++] = i+1;
-    }
+  for (int i=0; i<setlist.length(); ++i){
+    CharacterVector set=setlist[i];
+    bool out = (any(is_na(match(x, set))));
+    out = ! out;
+    if (out) vec[k++] = i+1;
+  }
   
   IntegerVector out = IntegerVector(k);
-  if (k>0){
-    for (int i=0; i<k; ++i)	out[i]=vec[i];
+  if (k > 0){
+    for (int i=0; i<k; ++i) out[i]=vec[i];
   }
   
   return out;
 }
+
+
+//[[Rcpp::export]]
+IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false)
+{
+  if (all) return get_superset_all_(set, setlist);
+  else return get_superset_one_(set, setlist);
+}
+
+// FIXME: REPLACES get_superset_
+//[[Rcpp::export]]
+IntegerVector get_superset2_ (CharacterVector x, List setlist, bool all=false){
+  IntegerVector vec(setlist.length());
+  int k=0;
+  
+  for (int i=0; i<setlist.length(); ++i){
+    CharacterVector set=setlist[i];
+    bool not_contained = (any(is_na(match(x, set))));
+    if (!not_contained){
+      vec[k++] = i+1;
+      if (!all) break;
+    }
+  }
+  
+  IntegerVector out = IntegerVector(k);
+  if (k > 0) for (int i=0; i<k; ++i) out[i]=vec[i];
+  
+  return out;
+}
+
+
 
 IntegerVector get_subset_one_(CharacterVector x, List setlist)
 {
   bool outb=false;
   int val=-1, k=0;
   
-  for (int i=0; i<setlist.length(); ++i)
-    {
-      CharacterVector set=setlist[i];
-      outb = (any(is_na(match(set, x))));
-      outb = ! outb;
-      if (outb){
-	val = i+1;
-	k   = 1;
-	break;
-      }
+  for (int i=0; i<setlist.length(); ++i){
+    CharacterVector set=setlist[i];
+    outb = (any(is_na(match(set, x))));
+    outb = ! outb;
+    if (outb){
+      val = i+1;
+      k   = 1;
+      break;
     }
+  }
   IntegerVector out = IntegerVector(k);
   out[0] = val;
   return out;
@@ -94,14 +118,13 @@ IntegerVector get_subset_all_(CharacterVector x, List setlist){
   IntegerVector vec(setlist.length());
   int k=0;
   
-  for (int i=0; i<setlist.length(); ++i)
-    {
-      CharacterVector set=setlist[i];
-      bool out = (any(is_na(match(set, x))));
-      out = ! out;
-      if (out)
-	vec[k++] = i+1;
-    }
+  for (int i=0; i<setlist.length(); ++i){
+    CharacterVector set=setlist[i];
+    bool out = (any(is_na(match(set, x))));
+    out = ! out;
+    if (out)
+      vec[k++] = i+1;
+  }
   
   IntegerVector out = IntegerVector(k);
   if (k > 0){
@@ -113,18 +136,44 @@ IntegerVector get_subset_all_(CharacterVector x, List setlist){
 // get_superset_ is used in gRain
 
 //[[Rcpp::export]]
-IntegerVector get_superset_(CharacterVector set, List setlist, bool all=false)
-{
-  if (all) return get_superset_all_(set, setlist);
-  else return get_superset_one_(set, setlist);
-}
-
-//[[Rcpp::export]]
 IntegerVector get_subset_(CharacterVector set, List setlist, bool all=false)
 {
   if (all) return get_subset_all_(set, setlist);
   else return get_subset_one_(set, setlist);
 }
+
+// FIXME: REPLACES get_subset_
+//[[Rcpp::export]]
+IntegerVector get_subset2_ (CharacterVector x, List setlist, bool all=false){
+  IntegerVector vec(setlist.length());
+  int k=0;
+  
+  for (int i=0; i<setlist.length(); ++i){
+    CharacterVector set=setlist[i];
+    bool not_contained = (any(is_na(match(set, x))));
+    if (!not_contained){
+      vec[k++] = i+1;
+      if (!all) break;
+    }
+  }
+  
+  IntegerVector out = IntegerVector(k);
+  if (k > 0) for (int i=0; i<k; ++i) out[i]=vec[i];
+  return out;
+}
+
+
+
+
+
+
+/* *************************************************
+
+   Implements: 
+   
+   is_subsetof
+   
+   ************************************************* */
 
 
 // is_subsetof_ is used in gRain
@@ -161,16 +210,6 @@ bool is_subsetof2_(SEXP set, SEXP set2) {
     default: stop("Unsupported type.");
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 /* **************************************************************
@@ -312,9 +351,6 @@ CharacterMatrix sortmat_(CharacterMatrix X){
   return X2;
 }
 
-// //' @name internal_grbase_cpp
-// //' @aliases all_pairs__
-
 //[[Rcpp::export]]
 SEXP all_pairs__(CharacterVector x,
 		 CharacterVector y=CharacterVector(0),
@@ -336,37 +372,8 @@ SEXP all_pairs__(CharacterVector x,
 
 
 
-// [[Rcpp::plugins(cpp11)]]
-// See https://stackoverflow.com/questions/21609934/ordering-permutation-in-rcpp-i-e-baseorder
-template <int RTYPE>
-IntegerVector order_impl(const Vector<RTYPE>& x, bool desc) {
-    auto n = x.size();
-    IntegerVector idx = no_init(n);
-    std::iota(idx.begin(), idx.end(), static_cast<size_t>(1));
-    if (desc) {
-        auto comparator = [&x](size_t a, size_t b){ return x[a - 1] > x[b - 1]; };
-        std::stable_sort(idx.begin(), idx.end(), comparator);
-    } else {
-        auto comparator = [&x](size_t a, size_t b){ return x[a - 1] < x[b - 1]; };
-        std::stable_sort(idx.begin(), idx.end(), comparator);
-        // simulate na.last
-        size_t nas = 0;
-        for (size_t i = 0; i < n; ++i, ++nas)
-            if (!Vector<RTYPE>::is_na(x[idx[i] - 1])) break;
-        std::rotate(idx.begin(), idx.begin() + nas, idx.end());
-    }
-    return idx;
-}
 
-// [[Rcpp::export]]
-IntegerVector order2_(SEXP x, bool desc = false) {
-    switch(TYPEOF(x)) {
-    case INTSXP: return order_impl<INTSXP>(x, desc);
-    case REALSXP: return order_impl<REALSXP>(x, desc);
-    case STRSXP: return order_impl<STRSXP>(x, desc);
-    default: stop("Unsupported type.");
-    }
-}
+
 
 inline int get_length(CharacterVector x){return x.length();}
 

@@ -55,15 +55,15 @@
 #' is_inset(el2, set)                                          
 #' is_inset(el3, set)                                          
 #'                                                             
-## #' get_subset(el1, set)
-## #' get_subset(el1, set)                                        
-## #' get_subset(el2, set)                                        
-## #' get_subset(el3, set)                                        
-## #'
-## #' get_superset(el1, set)                                      
-## #' get_superset(el1, set, all=TRUE)                                      
-## #' get_superset(el2, set)                                      
-## #' get_superset(el3, set)                                      
+#' get_subset(el1, set)
+#' get_subset(el1, set)                                        
+#' get_subset(el2, set)                                        
+#' get_subset(el3, set)                                        
+#'
+#' get_superset(el1, set)                                      
+#' get_superset(el1, set, all=TRUE)                                      
+#' get_superset(el2, set)                                      
+#' get_superset(el3, set)                                      
 ## #'                                                             
 ## #' is_subsetof(el1, el1)                                       
 ## #' is_subsetof(el1, el2)                                       

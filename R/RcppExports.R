@@ -129,8 +129,16 @@ get_superset_ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_superset_', PACKAGE = 'gRbase', set, setlist, all)
 }
 
+get_superset2_ <- function(x, setlist, all = FALSE) {
+    .Call('_gRbase_get_superset2_', PACKAGE = 'gRbase', x, setlist, all)
+}
+
 get_subset_ <- function(set, setlist, all = FALSE) {
     .Call('_gRbase_get_subset_', PACKAGE = 'gRbase', set, setlist, all)
+}
+
+get_subset2_ <- function(x, setlist, all = FALSE) {
+    .Call('_gRbase_get_subset2_', PACKAGE = 'gRbase', x, setlist, all)
 }
 
 is_subsetof_ <- function(set, set2) {

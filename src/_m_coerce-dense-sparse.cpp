@@ -38,7 +38,7 @@ SEXP do_matrix2dgCMatrix( SEXP XX_ ){
     Xout.slot("Dimnames") = dn;
   }
   return(Xout);
-};
+}
 
 SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
   S4 DD(wrap(XX_));
