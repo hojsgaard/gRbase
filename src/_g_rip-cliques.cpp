@@ -11,9 +11,11 @@
 
 // **********************************************************************
 
+#include <RcppArmadillo.h>
 #include <RcppEigen.h>
-#include "_g_mcsMAT2.h"
 #include "R_like.h"
+#include "_g_mcsMAT2.h"
+
 //[[Rcpp::depends(RcppEigen)]]
 //[[Rcpp::interfaces(r,cpp)]]
 

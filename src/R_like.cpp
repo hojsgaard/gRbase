@@ -1,6 +1,12 @@
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 using namespace std;
+using namespace arma;
+
+typedef Rcpp::NumericVector   numVec;
+typedef Rcpp::IntegerVector   intVec;
+typedef Rcpp::CharacterVector chrVec;
+typedef Rcpp::LogicalVector   logVec;
 
 Rcpp::IntegerVector order_(Rcpp::IntegerVector x) {
   if (is_true(any(duplicated(x)))) {
@@ -41,4 +47,13 @@ IntegerVector order2_(SEXP x, bool desc = false) {
     case STRSXP: return order_impl<STRSXP>(x, desc);
     default: stop("Unsupported type.");
     }
+}
+
+//[[Rcpp::export]]
+IntegerVector which_ (SEXP x){
+  arma::vec u = as<arma::vec>(x);
+  arma::uvec r = find(abs(u) > 1e-6);
+  intVec out = IntegerVector(r.begin(), r.end());
+  //Rf_PrintValue(out);
+  return out;
 }

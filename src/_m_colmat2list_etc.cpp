@@ -3,7 +3,7 @@
   Issues: FIXME: Not too happy about the names
 */
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 
 template <typename TT>

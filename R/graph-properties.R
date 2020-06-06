@@ -95,7 +95,8 @@ isGraphical.default <- function( x ){
 .isGraphical_glist <- function(x){
     amat <- g_ugl2M_(x, vn=unique(unlist(x)))
     cliq <- max_cliqueMAT(amat)[[1]]
-    all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
+    ## all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
+    all(unlist(lapply(cliq, function(cq) is_inset(cq, x))))
 }
 
 
@@ -134,7 +135,8 @@ isDecomposable.default <- function( x ){
 .isDecomposable_glist <- function(x){
     amat <- g_ugl2M_(x, vn=unique(unlist(x)))
     cliq <- max_cliqueMAT(amat)[[1]]
-    isg <- all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
+    ## isg <- all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
+    isg <- all(unlist(lapply(cliq, function(cq) is_inset(cq, x))))
     if (isg) length(mcsMAT(amat)) > 0
     else FALSE
 }
@@ -147,14 +149,15 @@ isDecomposable.default <- function( x ){
 isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
 {
   ##amat <- ugList2M(glist, vn=vn)
-  amat <- g_ugl2M_(glist, vn=vn)
-  cliq <- max_cliqueMAT(amat)[[1]]
-  isg  <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
-  if (!isg){
-    return(c(isg=FALSE, issd=FALSE))
-  } else {
-    return(c(isg=TRUE, issd=length(mcs_markedMAT(amat, discrete=discrete)) > 0))
-  }
+    amat <- g_ugl2M_(glist, vn=vn)
+    cliq <- max_cliqueMAT(amat)[[1]]
+    ## isg  <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
+    isg  <- all(unlist(lapply(cliq, function(ss) is_inset(ss, glist))))
+    if (!isg){
+        return(c(isg=FALSE, issd=FALSE))
+    } else {
+        return(c(isg=TRUE, issd=length(mcs_markedMAT(amat, discrete=discrete)) > 0))
+    }
 }
 
 ## #' @export
@@ -164,7 +167,8 @@ properties_glist <- function(glist,
                              amat=g_ugl2M_(glist, vn=vn),
                              cliq=max_cliqueMAT(amat)[[1]], discrete=NULL){
 
-  isg <- all(unlist(lapply(cliq, function(sss) .isin(glist, sss))))
+    ## isg <- all(unlist(lapply(cliq, function(ss) .isin(glist, ss))))
+    isg <- all(unlist(lapply(cliq, function(ss) is_inset(ss, glist))))
   if (!isg){
     return(c(isg=FALSE, issd=FALSE))
   } else {

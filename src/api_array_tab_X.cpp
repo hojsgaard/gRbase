@@ -14,8 +14,8 @@
 //' @inheritParams api-tabX
 //' @param op The operation to be carried out; "+", "-", "*", "/".
 
-#include <Rcpp.h>
-#include "R_like.h"         // my version of c(x,y)
+#include <RcppArmadillo.h>
+#include "R_like.h"    
 #include "t_array_properties.h"  
 
 using namespace Rcpp;

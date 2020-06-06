@@ -6,9 +6,10 @@
 //
 //------------------------------------------------------------ 
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 using namespace std;
+using namespace arma;
 
 
 #ifndef RLIKE_H
@@ -45,17 +46,17 @@ T do_concat_(const T& x, const T& y){
 // ### Mimic order() ###
 Rcpp::IntegerVector order_(Rcpp::IntegerVector x);
 
-
-
 // ### Mimic order()
 
 // NOTE TO SELF: Template can be in .cpp or .h
 // template <int RTYPE>
 // IntegerVector order_impl(const Vector<RTYPE>& x, bool desc);
 
-// [[Rcpp::export]]
 IntegerVector order2_(SEXP x, bool desc = false);
 
+// ### Mimic which()
+
+IntegerVector which_ (SEXP x); 
 
 #endif
 
@@ -106,7 +107,7 @@ cppFunction(
 
 
 
-/* #include <Rcpp.h> */
+
 /* /\* using namespace Rcpp; *\/ */
 
 // // [[Rcpp::export]]

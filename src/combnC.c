@@ -12,7 +12,6 @@
 
 #include <Rdefines.h>
 #include <R.h>
-#include "_utils_print.h"
 #include "combnPrimC.h"
 
 void combnC(int *nsel, int *ncand, int *nset, int *ans){

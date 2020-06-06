@@ -6,7 +6,7 @@
 
 
 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 //[[Rcpp::interfaces(r,cpp)]]
 

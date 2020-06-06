@@ -1,5 +1,7 @@
-// FIXME: There are two mcs files; what is going on? Do not remember!!!
-// FIXME: mcsMAT0 is used in get-clices; guess mcsMAT0 is 0-based indexing.
+// FIXME: mcsMAT0 is used in get-clices; guess mcsMAT0 is 0-based
+// indexing.  mcsMAT0 is not visible on R side; only used once
+// in cpp code in gRbase; no idea about the other gR-packages.
+
 
 /*
   MAXIMUM CARDINALITY SEARCH on undirected graph. 
@@ -87,8 +89,8 @@ bool do_is_complete_dense( const NumericMatrix& X, const IntegerVector& idx){
   } else {
     for (i=0; i<N-1; ++i){
       for (j=i+1; j<N; ++j){
-		//Rprintf("i=%d j=%d idx_s[i]=%d idx_s[j]=%d\n", i, j, idx_s[i], idx_s[j]);
-		if( X( idx_s[i], idx_s[j]) == 0) return false;
+	//Rprintf("i=%d j=%d idx_s[i]=%d idx_s[j]=%d\n", i, j, idx_s[i], idx_s[j]);
+	if( X( idx_s[i], idx_s[j]) == 0) return false;
       }      
     }
     return true;

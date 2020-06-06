@@ -1,8 +1,6 @@
 /*
   Maximum cardinality search on undirected graph. If fail, first returned value is -1
-  
   Known issues: FIXME: No check for symmetry, code not templated. Messy with two implementations!
-
   Author: Soren Hojsgaard
 */
 
@@ -159,8 +157,8 @@ SEXP mcsMAT__ ( SEXP XX_, SEXP OO_ ){
   case INTSXP  : return do_mcsMAT_de(XX_, OO_); // matrix - integer
   case REALSXP : return do_mcsMAT_de(XX_, OO_); // matrix - double
   case S4SXP   : return do_mcsMAT_sp(XX_, OO_); // dgCMatrix
+  default: Rf_error("Unsupported type");
   }
-  return R_NilValue ;
 }
 
 
