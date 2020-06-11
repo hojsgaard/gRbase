@@ -16,7 +16,7 @@
 
 #include <RcppArmadillo.h>
 #include "R_like.h"    
-#include "t_array_properties.h"  
+#include "array_properties.h"  
 
 using namespace Rcpp;
 using namespace std;
@@ -214,70 +214,51 @@ Vector<RTYPE> do_tab_expand_gen(const Vector<RTYPE>& tab1, const List& dn2, cons
   intVec di1=sapply(dn1, Rf_length), di2=sapply(dn2, Rf_length);
   chrVec vn1=dn1.names(),            vn2=dn2.names();
 
-  //  d21 = v2 \ v1
-  chrVec d21  = setdiff( vn2, vn1 );
-  //Rcpp::Rcout << "d21 : " << d21 << std::endl;
+  // Rcout << " vn1 : "; print(vn1);  Rcout << " vn2 : "; print(vn2);
   
-  if ( d21.size() == 0 ){  // (a) v2 is subset of v1
-    // Rprintf("++ no augmentation needed\n");
-    // create variable vector vn = { vn2 , vn1\vn2 }
-    chrVec d12 = setdiff( vn1, vn2 );
-    chrVec vn  = do_concat_<chrVec>( vn2, d12 );
+  chrVec d21  = setdiff(vn2, vn1); //Rcout << "d21 = v2 \ v1 : " << d21 << std::endl;
+  
+  if (d21.size() == 0){
+    // Rcout << "cond (a) v2 is subset of v1; no augment needed" << endl;
 
-    // check if condition (a1) or (a2)
-    intVec  perm = match(vn, vn1);
-
-    // Check if permutation is needed
-    int chk = sum( abs( perm - seq(1, vn1.size()) ) );
-    if (chk == 0){ // condition (a1)
-      //Rprintf("++ ++ no permutation needed; we are done\n");
+    // create variable vector vn_aug = {vn1\vn2, vn2} = {v1, v2\v1}
+    chrVec d12 = setdiff(vn1, vn2);
+    //chrVec vn  = do_concat_<chrVec>(vn1, d21);
+    chrVec vn  = do_concat_<chrVec>(d12, vn2);
+    
+    // check if condition (a1) or (a2) (permutation is needed?)
+    intVec perm = match(vn, vn1);
+    int chk = sum(abs(perm - seq(1, vn1.size())));
+    if (chk == 0){
+      // Rcout << "cond (a1) no perm needed; we are done" << endl;
       return clone(tab1);
-    } else { // condition (a2)
-      //Rprintf("++ ++ permutation needed\n");
+    } else {
+      // Rcout << "cond (a2) permutation needed" << endl;
       Vector<RTYPE> out   = do_aperm_vec<RTYPE>(tab1, di1, perm);
-      out.attr("dim")     = di1[ perm - 1 ];
-      out.attr("dimnames")= dn1[ perm - 1 ];
+      out.attr("dim")     = di1[perm - 1];
+      out.attr("dimnames")= dn1[perm - 1];
       return out;
     }
-  } else { // condition (b): v2 is NOT subset of v1
-    // Rprintf("++ augmentation of table needed\n");
-    
-    // Create table with variables {v1, v2\v1}:
-
+  } else {
+    // Rcout << "cond (b): v2 is NOT subset of v1; augment needed" << endl;
     // 1: need to know where the d21's are to pick out dims and dimensions
-    intVec d21_idx  = match( d21, vn2 );
-    List   d21_dn   = dn2[ d21_idx - 1 ];
-    intVec d21_di   = di2[ d21_idx - 1 ];
+    intVec d21_idx  = match(d21, vn2);
+    List   d21_dn   = dn2[d21_idx - 1];
+    intVec d21_di   = di2[d21_idx - 1];
 
-    // List lst1 = List::create(Named("d21")=d21, Named("vn2")=vn2,
-    // 			     Named("d21_idx")=d21_idx, Named("d21_dn")=d21_dn,
-    // 			     Named("d21_di")=d21_di);
-    // Rf_PrintValue(lst1);
-    
-    // 2: find product of added dimensions
-    double extra=1;
-    for (int i=0; i < d21_di.length(); ++i){ extra *= d21_di[i];}
-
-    // 3: find: vars, dimnames etc in {v1, v2\v1}-table
+    // 2: find: dimnames etc in {v1, v2\v1}-table
     chrVec vn_aug  = do_concat_<chrVec>(vn1, d21);
     List   dn_aug  = do_concat_<List>(dn1, d21_dn);
     intVec dim_aug = do_concat_<intVec>(di1, d21_di);
-    //numVec aug     = rep(tab1, e);
-
-    // List lst2 = List::create(Named("vn_aug")=vn_aug, Named("dn_aug")=dn_aug, Named("dim_aug")=dim_aug);
-    // Rf_PrintValue(lst2);
     
+    // 3: find product of added dimensions
+    double extra=1;
+    for (int i=0; i < d21_di.length(); ++i){ extra *= d21_di[i];}
+
     // FIXME: This is where we shall make sure there are zeros in the right places.
-    //Vector<RTYPE> aug     = rep(tab1, e);
     int tab1_len = tab1.length();
     int new_len  = tab1_len * extra;
-
-    //Rcpp::Rcout << "e : " << e << "tab1_len : " << tab1_len << std::endl;
     Vector<RTYPE> aug (new_len);
-    //Rf_PrintValue(wrap(aug));
-
-
-	  
         
     if (exptype == 0){
       for (int k=0; k<extra; k++){
@@ -297,36 +278,48 @@ Vector<RTYPE> do_tab_expand_gen(const Vector<RTYPE>& tab1, const List& dn2, cons
     	aug[i] = tab1[i];
       }      
     } else Rf_error("invalid 'exptype'");
-    
-    
+          
+    // 4: Set attributes
+    aug.attr("dim")      = dim_aug;
+    aug.attr("dimnames") = dn_aug;
+    return aug;    
+  }
+}
 
-    
-    // 4: need to reorder aug so that vn2-vars go first
-    chrVec d12  = setdiff(vn1, vn2);
-    chrVec vn   = do_concat_<chrVec>(vn2, d12);
-    intVec perm = match(vn, vn_aug);
 
-    int chk = sum(abs(perm - seq(1, vn_aug.size())));		
-    if (chk == 0){ // don't think this can happen!
-      //Rprintf("++ ++ no permutation needed; we are done\n");
-      aug.attr("dim")      = dim_aug;
-      aug.attr("dimnames") = dn_aug;
-      return aug;
-    } else {
+    // chrVec d12 = setdiff(vn1, vn2);
+    // chrVec vn  = do_concat_<chrVec>(d12, vn2);
+
+
+    // chrVec d12  = setdiff(vn1, vn2);
+    // chrVec vn   = do_concat_<chrVec>(vn2, d12);
+    // intVec perm = match(vn, vn_aug);
+
+    // int chk = sum(abs(perm - seq(1, vn_aug.size())));		
+    // if (chk == 0){ // don't think this can happen!
+    //   //Rprintf("++ ++ no permutation needed; we are done\n");
+    //   aug.attr("dim")      = dim_aug;
+    //   aug.attr("dimnames") = dn_aug;
+    //   return aug;
+    // } else {
+    // }
+
       //Rprintf("++ ++ permutation needed\n");
       //numVec out = do_aperm_vec<REALSXP>(aug, dim_aug, perm);
       // Vector<RTYPE> out = do_aperm_vec<RTYPE>(aug, dim_aug, perm);
       // out.attr("dim")     = dim_aug[ perm - 1 ];
       // out.attr("dimnames")= dn_aug [ perm - 1 ];      
       // return out;
-      aug.attr("dim")      = dim_aug;
-      aug.attr("dimnames") = dn_aug;
-      return aug;
 
-    }
-  }
 
-}
+    // List lst2 = List::create(Named("vn_aug")=vn_aug, Named("dn_aug")=dn_aug, Named("dim_aug")=dim_aug);
+    // Rf_PrintValue(lst2);
+
+
+    // List lst1 = List::create(Named("d21")=d21, Named("vn2")=vn2,
+    // 			     Named("d21_idx")=d21_idx, Named("d21_dn")=d21_dn,
+    // 			     Named("d21_di")=d21_di);
+    // Rf_PrintValue(lst1);
 
 
 // We need a list with extra dimnames (tab2) to expand an array, but if we are
@@ -341,45 +334,13 @@ SEXP tab_expand_(const SEXP& tab, const SEXP& aux, const int& type=0){
   } else if (is_named_array_(aux)){
     dn = ((numVec) aux).attr("dimnames"); // FIXME: What is this??
   } else ::Rf_error("dont know what to do");		
-
   
   switch(TYPEOF(tab)){
   case REALSXP: return do_tab_expand_gen<REALSXP>(tab, dn, type);
-  case INTSXP: return do_tab_expand_gen<INTSXP>(tab, dn, type);
+  case INTSXP:  return do_tab_expand_gen<INTSXP>(tab, dn, type);
   default: Rf_error("Unsupported type");
   }
-
-  //DISPATCH1_METHOD(do_tab_expand_gen, tab, dn);
-  return R_NilValue ;  
 }
-
-
-
-// template <int RTYPE>
-// Vector<RTYPE> do_foo(const Vector<RTYPE>& tab, NumericVector aux){
-//   Vector<RTYPE> aug (tab.length() * 2);
-//   IntegerVector ii = seq(0,6);
-
-//   double ee = tab.length();
-//   aug[ii] = tab[ii];
-
-//   aug = aug / ee;
-  
-//   return aug;
-// }
-  
-// //[[Rcpp::export]]
-// SEXP foo (const SEXP& tab, SEXP& aux){
-//   switch(TYPEOF(tab)){
-//   case REALSXP: return do_foo<REALSXP>(tab, aux);
-//   case INTSXP: return do_foo<INTSXP>(tab, aux);
-//   default: Rf_error("Unsupported type");
-//   }
-//   return R_NilValue;
-// }
-
-
-
 
 
 // Note: is_dimnames_(x) checks if x is a list an nothing model
@@ -514,7 +475,6 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
   case INTSXP:  return do_tabmarg_gen<INTSXP>(tab, marg);
   default: Rf_error("Unsupported type");
   }
-  return R_NilValue ;
 }
 
 
@@ -550,28 +510,28 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
     }									\
   }									\
 
-//Rcout << "zz: " << zz << " out: " << out[zz] << " tab2: " << tab2[i] <<std::endl;
 
-// #define _tab_op_loopit(_op_)						\
-//   int out_len = out.size(), tab2_len=tab2.size(), rest_len=out_len/tab2_len, zz; \
-//   for (int i=0; i < tab2_len; ++i){					\
-//     for (int k=0; k < rest_len; ++k){				\
-//       zz = i + k * tab2_len;						\
-//       out[zz] = out[zz] _op_ tab2[i];				\
-//     }								\
-//   }									\
+  // Rcout << " out_len= " << out_len << " tab2_len= " << tab2_len << " rest_len= " << rest_len << endl; \
+  // Rcout << "tab2 = "; print(tab2);					\
+      // Rcout << "i: " << i << " k: " << k << " zz: " << zz << " out: " << out[zz] << " tab2: " << tab2[i] <<std::endl; \
+      // Rcout << " out: " << out[zz]  <<std::endl;			\
+
+
+//Rcout << "zz: " << zz << " out: " << out[zz] << " tab2: " << tab2[i] <<std::endl;
 
 
 //' @rdname api-tabX_
 //[[Rcpp::export]]
 NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, const char op='*'){
 
-  if (!dimnames_match_( tab1, tab2)) ::Rf_error("dimnames do not match");
+  if (!dimnames_match_(tab1, tab2)) ::Rf_error("dimnames do not match");
   NumericVector out = tab_expand_(tab1, tab2);
-
+  // print(namesDimnames(out));
+  
   // Rf_PrintValue(tab1);
   // Rf_PrintValue(tab2);
-  // Rf_PrintValue(out);
+
+  // Rcout << "out before : " << endl; Rf_PrintValue(out);
   
   switch(op){
   case '+' : {  _tab_op_loopit(+); break;}
@@ -580,6 +540,7 @@ NumericVector tab_op_(const NumericVector& tab1, const NumericVector& tab2, cons
   case '/' : {  _tab_op_loopit(/); break;}
   default : stop("'op' is an undefined operation");
   }
+  // Rcout << "out after : " << endl;   Rf_PrintValue(out);
   // Rcout << "out (+) : " << out << std::endl;
   return out;
 }
@@ -634,6 +595,15 @@ bool tab_equal_(const NumericVector& tab1, const NumericVector& tab2, double eps
 }
 
 
+
+// #define _tab_op_loopit(_op_)						\
+//   int out_len = out.size(), tab2_len=tab2.size(), rest_len=out_len/tab2_len, zz; \
+//   for (int i=0; i < tab2_len; ++i){					\
+//     for (int k=0; k < rest_len; ++k){				\
+//       zz = i + k * tab2_len;						\
+//       out[zz] = out[zz] _op_ tab2[i];				\
+//     }								\
+//   }									\
 
 
 
@@ -894,4 +864,149 @@ NumericVector tabMult__(const NumericVector& tab1, const NumericVector& tab2){
 //     }
 //   }
 
+// }
+
+
+
+
+// template <int RTYPE>
+// Vector<RTYPE> do_foo(const Vector<RTYPE>& tab, NumericVector aux){
+//   Vector<RTYPE> aug (tab.length() * 2);
+//   IntegerVector ii = seq(0,6);
+
+//   double ee = tab.length();
+//   aug[ii] = tab[ii];
+
+//   aug = aug / ee;
+  
+//   return aug;
+// }
+  
+// //[[Rcpp::export]]
+// SEXP foo (const SEXP& tab, SEXP& aux){
+//   switch(TYPEOF(tab)){
+//   case REALSXP: return do_foo<REALSXP>(tab, aux);
+//   case INTSXP: return do_foo<INTSXP>(tab, aux);
+//   default: Rf_error("Unsupported type");
+//   }
+//   return R_NilValue;
+// }
+
+
+
+
+// JUNE 2020: The original...
+
+// template <int RTYPE>
+// Vector<RTYPE> do_tab_expand_gen(const Vector<RTYPE>& tab1, const List& dn2, const int& exptype = 0){
+//   List   dn1=tab1.attr("dimnames");
+//   intVec di1=sapply(dn1, Rf_length), di2=sapply(dn2, Rf_length);
+//   chrVec vn1=dn1.names(),            vn2=dn2.names();
+
+//   //  d21 = v2 \ v1
+//   chrVec d21  = setdiff( vn2, vn1 );
+//   //Rcpp::Rcout << "d21 : " << d21 << std::endl;
+  
+//   if ( d21.size() == 0 ){  // (a) v2 is subset of v1
+//     // Rprintf("++ no augmentation needed\n");
+//     // create variable vector vn = { vn2 , vn1\vn2 }
+//     chrVec d12 = setdiff( vn1, vn2 );
+//     chrVec vn  = do_concat_<chrVec>( vn2, d12 );
+
+//     // check if condition (a1) or (a2)
+//     intVec  perm = match(vn, vn1);
+
+//     // Check if permutation is needed
+//     int chk = sum( abs( perm - seq(1, vn1.size()) ) );
+//     if (chk == 0){ // condition (a1)
+//       //Rprintf("++ ++ no permutation needed; we are done\n");
+//       return clone(tab1);
+//     } else { // condition (a2)
+//       //Rprintf("++ ++ permutation needed\n");
+//       Vector<RTYPE> out   = do_aperm_vec<RTYPE>(tab1, di1, perm);
+//       out.attr("dim")     = di1[ perm - 1 ];
+//       out.attr("dimnames")= dn1[ perm - 1 ];
+//       return out;
+//     }
+//   } else { // condition (b): v2 is NOT subset of v1
+//     // Rprintf("++ augmentation of table needed\n");
+    
+//     // Create table with variables {v1, v2\v1}:
+
+//     // 1: need to know where the d21's are to pick out dims and dimensions
+//     intVec d21_idx  = match( d21, vn2 );
+//     List   d21_dn   = dn2[ d21_idx - 1 ];
+//     intVec d21_di   = di2[ d21_idx - 1 ];
+
+//     // List lst1 = List::create(Named("d21")=d21, Named("vn2")=vn2,
+//     // 			     Named("d21_idx")=d21_idx, Named("d21_dn")=d21_dn,
+//     // 			     Named("d21_di")=d21_di);
+//     // Rf_PrintValue(lst1);
+    
+//     // 2: find product of added dimensions
+//     double extra=1;
+//     for (int i=0; i < d21_di.length(); ++i){ extra *= d21_di[i];}
+
+//     // 3: find: vars, dimnames etc in {v1, v2\v1}-table
+//     chrVec vn_aug  = do_concat_<chrVec>(vn1, d21);
+//     List   dn_aug  = do_concat_<List>(dn1, d21_dn);
+//     intVec dim_aug = do_concat_<intVec>(di1, d21_di);
+//     //numVec aug     = rep(tab1, e);
+
+//     // List lst2 = List::create(Named("vn_aug")=vn_aug, Named("dn_aug")=dn_aug, Named("dim_aug")=dim_aug);
+//     // Rf_PrintValue(lst2);
+    
+//     // FIXME: This is where we shall make sure there are zeros in the right places.
+//     //Vector<RTYPE> aug     = rep(tab1, e);
+//     int tab1_len = tab1.length();
+//     int new_len  = tab1_len * extra;
+
+//     //Rcpp::Rcout << "e : " << e << "tab1_len : " << tab1_len << std::endl;
+//     Vector<RTYPE> aug (new_len);
+//     //Rf_PrintValue(wrap(aug));
+        
+//     if (exptype == 0){
+//       for (int k=0; k<extra; k++){
+// 	for (int i=0; i<tab1_len; i++){ 
+// 	  aug[i + k * tab1_len] = tab1[i] ;
+// 	}
+//       }      
+//     } else if (exptype == 1){
+//       for (int k=0; k<extra; k++){
+//     	for (int i=0; i<tab1_len; i++){ 
+//     	  aug[i + k * tab1_len] = tab1[i] ;
+//     	}
+//       }
+//       aug = aug / extra;    
+//     } else if (exptype == 2){
+//       for (int i=0; i<tab1_len; i++){ 
+//     	aug[i] = tab1[i];
+//       }      
+//     } else Rf_error("invalid 'exptype'");
+    
+      
+//     // 4: need to reorder aug so that vn2-vars go first
+//     chrVec d12  = setdiff(vn1, vn2);
+//     chrVec vn   = do_concat_<chrVec>(vn2, d12);
+//     intVec perm = match(vn, vn_aug);
+
+//     int chk = sum(abs(perm - seq(1, vn_aug.size())));		
+//     if (chk == 0){ // don't think this can happen!
+//       //Rprintf("++ ++ no permutation needed; we are done\n");
+//       aug.attr("dim")      = dim_aug;
+//       aug.attr("dimnames") = dn_aug;
+//       return aug;
+//     } else {
+//       //Rprintf("++ ++ permutation needed\n");
+//       //numVec out = do_aperm_vec<REALSXP>(aug, dim_aug, perm);
+//       // Vector<RTYPE> out = do_aperm_vec<RTYPE>(aug, dim_aug, perm);
+//       // out.attr("dim")     = dim_aug[ perm - 1 ];
+//       // out.attr("dimnames")= dn_aug [ perm - 1 ];      
+//       // return out;
+//       aug.attr("dim")      = dim_aug;
+//       aug.attr("dimnames") = dn_aug;
+//       return aug;
+
+//     }
+//   }
 // }

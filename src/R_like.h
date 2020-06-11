@@ -6,14 +6,21 @@
 //
 //------------------------------------------------------------ 
 
-#include <RcppArmadillo.h>
-using namespace Rcpp;
-using namespace std;
-using namespace arma;
-
-
 #ifndef RLIKE_H
 #define RLIKE_H
+
+#include <Rcpp.h>
+//[[Rcpp::plugins(cpp11)]]
+
+using namespace Rcpp;
+using namespace std;
+// using namespace arma;
+
+typedef Rcpp::NumericVector   numVec;
+typedef Rcpp::IntegerVector   intVec;
+typedef Rcpp::CharacterVector chrVec;
+typedef Rcpp::LogicalVector   logVec;
+
 
 // ### Mimic c() function ###
 
@@ -43,22 +50,50 @@ T do_concat_(const T& x, const T& y){
   return out;
 }
 
-// ### Mimic order() ###
+// ### Mimic order()
 Rcpp::IntegerVector order_(Rcpp::IntegerVector x);
 
 // ### Mimic order()
-
-// NOTE TO SELF: Template can be in .cpp or .h
-// template <int RTYPE>
-// IntegerVector order_impl(const Vector<RTYPE>& x, bool desc);
 
 IntegerVector order2_(SEXP x, bool desc = false);
 
 // ### Mimic which()
 
-IntegerVector which_ (SEXP x); 
-
+IntegerVector which2_ (const SEXP& x);
+  
 #endif
+
+
+
+// NOTE TO SELF: Template can be in .cpp or .h
+// template <int RTYPE>
+// IntegerVector order_impl(const Vector<RTYPE>& x, bool desc);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

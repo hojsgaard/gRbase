@@ -11,9 +11,11 @@
 
 // **********************************************************************
 
-#include <RcppArmadillo.h>
-#include <RcppEigen.h>
+#ifndef RIPCLIQUE_H
+#define RIPCLIQUE_H
+
 #include "R_like.h"
+#include <RcppEigen.h>
 #include "_g_mcsMAT2.h"
 
 //[[Rcpp::depends(RcppEigen)]]
@@ -46,6 +48,11 @@ bool is_subset_of_ (CharacterVector v1, CharacterVector v2){
 }
 
 
+
+
+
+
+
 //[[Rcpp::export]]
 List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   int ncq = cqlist.size();
@@ -55,10 +62,10 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   for (int i=0; i<vn.size(); ++i){
     mcs_vn[i] = vn[ mcs0idx[i] ]; //pas på; mcs0idx er 0-based her!!!
   }
-  //Rprintf("mcs_vn:"); Rf_PrintValue(mcs_vn);
+  //Rprintf("mcs_vn:"); print(mcs_vn);
 
   for (int i=0; i<ncq; ++i){
-    CharacterVector cq = cqlist[i]; //Rf_PrintValue( cq );  Rf_PrintValue( match( cq, vn) );
+    CharacterVector cq = cqlist[i]; //print( cq );  print( match( cq, vn) );
     ord[i] = max( match( cq, mcs_vn) );
   }
   ord = order_(ord);
@@ -67,31 +74,31 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   IntegerVector pavec( ncq ), chvec( ncq ), host( vn.size() );
 
   for (int i=0; i<ncq; ++i){
-    CharacterVector v = cqlist(ord[i]-1);
+    CharacterVector v = cqlist(ord[i] - 1);
     cqlist2(i) = v;
   }
 
   CharacterVector cq = cqlist2( 0 );
   CharacterVector past = cq;
   // update host
-  IntegerVector idx = match( cq, vn );
-  for (int k=0; k<cq.size(); ++k) host[idx[k]-1]=1;
+  IntegerVector idx = match(cq, vn);
+  for (int k=0; k<cq.size(); ++k) host[idx[k] - 1] = 1;
 
   for (int i=1; i<ncq; ++i){
-    //Rprintf("i=%d, past=", i);               //Rf_PrintValue(past);
-    CharacterVector cq = cqlist2(i);           //Rprintf("i=%d, cq:",i); Rf_PrintValue(cq);
+    //Rprintf("i=%d, past=", i);               //print(past);
+    CharacterVector cq = cqlist2(i);           //Rprintf("i=%d, cq:",i); print(cq);
     // update host
-    IntegerVector idx = match( cq, vn );
-    for (int k=0; k<cq.size(); ++k) host[idx[k]-1]=i+1;
+    IntegerVector idx = match(cq, vn);
+    for (int k=0; k<cq.size(); ++k) host[idx[k] - 1] = i + 1;
 
-    CharacterVector isect = intersect( past, cq ); //Rprintf("isect:"); Rf_PrintValue(isect);
+    CharacterVector isect = intersect( past, cq ); //Rprintf("isect:"); print(isect);
     separators(i) = isect;
     // if (isect.size()==0){
     //   Rprintf("empty isect\n");
     // }
     if (isect.size()>0){
       for (int j=i-1; j>=0; --j){
-	CharacterVector cq2 = cqlist2( j );      //Rprintf("j=%d, cq2:", j); Rf_PrintValue( cq2 );
+	CharacterVector cq2 = cqlist2( j );      //Rprintf("j=%d, cq2:", j); print( cq2 );
 	if (is_subset_of_( isect, cq2 ) ){       //Rprintf(" cq2 is a parent\n");
 	  pavec[i] = j+1 ;
 	  chvec[j] = i+1 ;
@@ -101,9 +108,6 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
     }
     past = union_( past, cq );
   }
-
-
-  // Rf_PrintValue( chvec );
 
   List out=List::create(_["nodes"]=vn,
 			_["cliques"]=cqlist2,
@@ -123,7 +127,6 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   mcs0idx_: Perfect ordering of nodes
   Notice: NO checks for being chordal
   ***************************************************** */
-
 
 SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
 
@@ -149,21 +152,21 @@ SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
 
   IntegerVector ladder( nrX );
   for (i=0; i<nrX-1; ++i){
-    if( ggg[i]+1>ggg[i+1]) ladder[i] = 1;
+    if(ggg[i] + 1 > ggg[i + 1]) ladder[i] = 1;
   }
-  ladder[nrX-1]=1; //Rprintf("ladder: "); Rf_PrintValue( ladder );
-  int ncq = sum( ladder );
+  ladder[nrX - 1] = 1; //Rprintf("ladder: "); print( ladder );
+  int ncq = sum(ladder);
   List cqlist(ncq);
   pas.setZero();
   l=0;
   for (i=0; i<nrX; ++i){
-    if (ladder[i]>0){
+    if (ladder[i] > 0){
       j = mcs0idx[i];
       vec_s  = X.col( j );
       vec2_s = vec_s.cwiseProduct(pas);
       past = vec2_s.sum();   //Rprintf("i=%d, j=%d, past=%d\n", i, j, past);
       IntegerVector cq(past+1);
-      //cout << "vec2_s " << vec2_s.transpose() << endl; Rf_PrintValue( cq );
+      //cout << "vec2_s " << vec2_s.transpose() << endl; print( cq );
       k=0;
       for (InIterVec it2(vec2_s); it2; ++it2){
   	cq[k++]=it2.index();
@@ -171,7 +174,7 @@ SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
       cq[past] = j;
       CharacterVector cq2(past+1);
       for (k=0; k<past+1;++k) cq2[k]=vn[cq[k]];
-      cqlist[l++] = cq2;     //Rf_PrintValue( cq );
+      cqlist[l++] = cq2;     //print( cq );
     }
     pas.coeffRef(i) = 1;
   }
@@ -181,7 +184,7 @@ SEXP do_getcq_sparse( SEXP XX_, const IntegerVector& mcs0idx_){
 
 
 
-SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
+SEXP do_getcq_dense(NumericMatrix X, const IntegerVector& mcs0idx){
 
   List vnl = clone(List(X.attr("dimnames")));
   CharacterVector vn=vnl[0];
@@ -204,10 +207,10 @@ SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
   // // cout << vec_s.transpose() << endl; cout << pas.transpose() << endl;
 
   IntegerVector ladder( nrX );
-  for (i=0; i<nrX-1; ++i){
-    if( ggg[i]+1>ggg[i+1]) ladder[i] = 1;
+  for (i=0; i<nrX - 1; ++i){
+    if( ggg[i] + 1>ggg[i+1]) ladder[i] = 1;
   }
-  ladder[nrX-1]=1; //Rprintf("ladder: "); Rf_PrintValue( ladder );
+  ladder[nrX - 1]=1; //Rprintf("ladder: "); print( ladder );
   int ncq = sum( ladder );
   List cqlist(ncq);
   for (i=0; i<nrX; ++i) pas[i]=0;
@@ -220,7 +223,7 @@ SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
       vec2_s = vec_s * pas;
       past = sum( vec2_s ) ;   //Rprintf("i=%d, j=%d, past=%d\n", i, j, past);
       IntegerVector cq(past+1);
-      //cout << "vec2_s " << vec2_s.transpose() << endl; Rf_PrintValue( cq );
+      //cout << "vec2_s " << vec2_s.transpose() << endl; print( cq );
       k=0;
       for (ii=0; ii<nrX; ++ii){
 	if (vec2_s[ii] != 0)
@@ -228,8 +231,8 @@ SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
       }
       cq[past] = j;
       CharacterVector cq2(past+1);
-      for (k=0; k<past+1;++k) cq2[k]=vn[cq[k]];
-      cqlist[l++] = cq2;     //Rf_PrintValue( cq );
+      for (k=0; k<past + 1; ++k) cq2[k]=vn[cq[k]];
+      cqlist[l++] = cq2;     //print( cq );
     }
     pas[i] = 1;
   }
@@ -240,29 +243,33 @@ SEXP do_getcq_dense( NumericMatrix X, const IntegerVector& mcs0idx){
 
 // [[Rcpp::export]]
 SEXP getCliquesDec__ (SEXP XX_, SEXP mcs0idx_=R_NilValue){
-  int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
+  int type = TYPEOF(XX_) ;  //print(wrap(type));
   IntegerVector mcs0idx ;   // = mcsMAT0_( XX_ );
   RObject zz_ = mcs0idx_;
-
+  
   if (zz_.isNULL())
     mcs0idx = mcsMAT0_( XX_ );
   else
     mcs0idx = mcs0idx_;
+
   if (mcs0idx[0] < 0)
     return R_NilValue ;
-
+  
   switch( type ){
   case INTSXP  : 
-  case REALSXP : {
-    return do_getcq_dense ( XX_, mcs0idx ); 
-  }
+  case REALSXP : return do_getcq_dense ( XX_, mcs0idx ); 
   case S4SXP   : {                               
     MSpMat X(as<MSpMat>(XX_));
     return do_getcq_sparse( XX_, mcs0idx );
-  } 
+  }
+  default: stop("Unsupported type.");  
   }
   return R_NilValue ;
 }
+
+
+#endif
+
 
 
 /*** R

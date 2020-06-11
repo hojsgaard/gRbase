@@ -1,6 +1,4 @@
-#include <RcppArmadillo.h>
-using namespace Rcpp;
-using namespace std;
+#include "array_properties.h"
 
 // Check that 'obj' is a list (should be a dimnames check, but will do for now).
 //[[Rcpp::export]]
@@ -60,7 +58,7 @@ bool is_named_array_(const SEXP& obj){
 
 
 //[[Rcpp::export]]
-bool dimnames_match_(const SEXP& tab1, const SEXP& tab2, bool verbose=false){
+bool dimnames_match_(const SEXP& tab1, const SEXP& tab2, bool verbose){
 
   if ( !(is_named_array_( tab1 )) ) stop("'tab1' is not a named array");
   if ( !(is_named_array_( tab2 )) ) stop("'tab2' is not a named array");

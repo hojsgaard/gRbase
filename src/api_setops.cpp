@@ -19,6 +19,18 @@ typedef Rcpp::IntegerVector   intVec;
 typedef Rcpp::CharacterVector chrVec;
 typedef Rcpp::LogicalVector   logVec;
 
+
+//[[Rcpp::export]]
+IntegerVector which_ (SEXP x){
+  arma::vec u = as<arma::vec>(x);
+  arma::uvec r = find(abs(u) > 1e-6);
+  //Rf_PrintValue(wrap(r));
+  intVec out = IntegerVector(r.begin(), r.end());
+  //Rf_PrintValue(out);
+  return out;
+}
+
+
 /* *************************************************
 
    Implements: 

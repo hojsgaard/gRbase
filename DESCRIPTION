@@ -47,5 +47,5 @@ Suggests:
     microbenchmark,
     knitr
 biocViews: 
-LinkingTo: Rcpp (>= 0.11.1), RcppArmadillo, RcppEigen
+LinkingTo: Rcpp (>= 0.11.1), RcppEigen, RcppArmadillo
 RoxygenNote: 7.1.0

@@ -21,17 +21,10 @@
 
 */
 
+#include "_g_mcsMAT2.h"
 #include <RcppEigen.h>
 //[[Rcpp::depends(RcppEigen)]]
 //[[Rcpp::interfaces(r,cpp)]]
-
-#ifndef BEGIN_RCPP
-#define BEGIN_RCPP
-#endif
-
-#ifndef END_RCPP
-#define END_RCPP
-#endif
 
 using namespace Rcpp;
 using namespace Eigen;
@@ -249,7 +242,7 @@ SEXP do_mcs_dense  ( const NumericMatrix& X, const IntegerVector& mcs0idx ){
 }
 
 
-SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_=R_NilValue ){
+SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_){
   RObject zz_ = mcs0idx_;
   IntegerVector mcs0idx;
   int type = TYPEOF(XX_) ;  //Rf_PrintValue(wrap(type));
@@ -270,6 +263,17 @@ SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_=R_NilValue ){
   }
   return R_NilValue ;
 }
+
+
+
+// #ifndef BEGIN_RCPP
+// #define BEGIN_RCPP
+// #endif
+
+// #ifndef END_RCPP
+// #define END_RCPP
+// #endif
+
 
 /*** R
 

@@ -3,8 +3,8 @@
 #define __gRbase_h__
 
 #include <RcppArmadillo.h>
+#define NDEBUG 1
 #include <RcppEigen.h>
-#include <Rcpp.h>
 
 typedef Rcpp::IntegerVector intVec;
 typedef Rcpp::NumericVector numVec;

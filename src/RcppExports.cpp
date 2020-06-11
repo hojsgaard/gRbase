@@ -2,8 +2,8 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include "../inst/include/gRbase.h"
-#include <RcppArmadillo.h>
 #include <RcppEigen.h>
+#include <RcppArmadillo.h>
 #include <Rcpp.h>
 #include <string>
 #include <set>
@@ -22,14 +22,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// which_
-IntegerVector which_(SEXP x);
-RcppExport SEXP _gRbase_which_(SEXP xSEXP) {
+// which2_
+IntegerVector which2_(const SEXP& x);
+RcppExport SEXP _gRbase_which2_(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(which_(x));
+    Rcpp::traits::input_parameter< const SEXP& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(which2_(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1526,6 +1526,40 @@ RcppExport SEXP _gRbase_tabMult__(SEXP tab1SEXP, SEXP tab2SEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// which_
+IntegerVector which_(SEXP x);
+static SEXP _gRbase_which__try(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(which_(x));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_which_(SEXP xSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_which__try(xSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // get_superset_
 IntegerVector get_superset_(CharacterVector x, List setlist, bool all);
 static SEXP _gRbase_get_superset__try(SEXP xSEXP, SEXP setlistSEXP, SEXP allSEXP) {
@@ -1882,17 +1916,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// solveSPD
-SEXP solveSPD(arma::mat X);
-RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(solveSPD(X));
-    return rcpp_result_gen;
-END_RCPP
-}
 // is_dimnames_
 bool is_dimnames_(const SEXP& obj);
 RcppExport SEXP _gRbase_is_dimnames_(SEXP objSEXP) {
@@ -1939,6 +1962,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// solveSPD
+SEXP solveSPD(arma::mat X);
+RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(solveSPD(X));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _gRbase_RcppExport_validate(const char* sig) { 
@@ -1981,6 +2015,7 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("SEXP(*tabMarg__)(const SEXP&,const SEXP&)");
         signatures.insert("NumericVector(*tabDiv0__)(const NumericVector&,const NumericVector&)");
         signatures.insert("NumericVector(*tabMult__)(const NumericVector&,const NumericVector&)");
+        signatures.insert("IntegerVector(*which_)(SEXP)");
         signatures.insert("IntegerVector(*get_superset_)(CharacterVector,List,bool)");
         signatures.insert("IntegerVector(*get_subset_)(CharacterVector,List,bool)");
         signatures.insert("bool(*is_subsetof_)(SEXP,SEXP)");
@@ -2033,6 +2068,7 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_tabMarg__", (DL_FUNC)_gRbase_tabMarg___try);
     R_RegisterCCallable("gRbase", "_gRbase_tabDiv0__", (DL_FUNC)_gRbase_tabDiv0___try);
     R_RegisterCCallable("gRbase", "_gRbase_tabMult__", (DL_FUNC)_gRbase_tabMult___try);
+    R_RegisterCCallable("gRbase", "_gRbase_which_", (DL_FUNC)_gRbase_which__try);
     R_RegisterCCallable("gRbase", "_gRbase_get_superset_", (DL_FUNC)_gRbase_get_superset__try);
     R_RegisterCCallable("gRbase", "_gRbase_get_subset_", (DL_FUNC)_gRbase_get_subset__try);
     R_RegisterCCallable("gRbase", "_gRbase_is_subsetof_", (DL_FUNC)_gRbase_is_subsetof__try);

@@ -1,12 +1,7 @@
-#include <RcppArmadillo.h>
-using namespace Rcpp;
-using namespace std;
-using namespace arma;
-
-typedef Rcpp::NumericVector   numVec;
-typedef Rcpp::IntegerVector   intVec;
-typedef Rcpp::CharacterVector chrVec;
-typedef Rcpp::LogicalVector   logVec;
+#include "R_like.h"
+//using namespace Rcpp;
+// using namespace std;
+// using namespace arma;
 
 Rcpp::IntegerVector order_(Rcpp::IntegerVector x) {
   if (is_true(any(duplicated(x)))) {
@@ -16,8 +11,9 @@ Rcpp::IntegerVector order_(Rcpp::IntegerVector x) {
   return match(sorted, x);
 }
 
+
 // See https://stackoverflow.com/questions/21609934/ordering-permutation-in-rcpp-i-e-baseorder
-// [[Rcpp::plugins(cpp11)]]
+
 template <int RTYPE>
 IntegerVector order_impl(const Vector<RTYPE>& x, bool desc) {
     auto n = x.size();
@@ -38,9 +34,8 @@ IntegerVector order_impl(const Vector<RTYPE>& x, bool desc) {
     return idx;
 }
 
-
 // [[Rcpp::export]]
-IntegerVector order2_(SEXP x, bool desc = false) {
+IntegerVector order2_(SEXP x, bool desc) {
     switch(TYPEOF(x)) {
     case INTSXP: return order_impl<INTSXP>(x, desc);
     case REALSXP: return order_impl<REALSXP>(x, desc);
@@ -50,10 +45,13 @@ IntegerVector order2_(SEXP x, bool desc = false) {
 }
 
 //[[Rcpp::export]]
-IntegerVector which_ (SEXP x){
-  arma::vec u = as<arma::vec>(x);
-  arma::uvec r = find(abs(u) > 1e-6);
-  intVec out = IntegerVector(r.begin(), r.end());
-  //Rf_PrintValue(out);
-  return out;
+IntegerVector which2_ (const SEXP& x){
+  logVec z = x;
+  int npos=0;
+  for (int i=0; i<z.size(); i++) npos += z[i];
+
+  intVec out(npos);
+  for (int k=0, i=0; i<z.size(); i++)
+    if (z[i]) out[k++] = i;
+  return(out);
 }

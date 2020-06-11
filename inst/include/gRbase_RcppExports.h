@@ -4,8 +4,8 @@
 #ifndef RCPP_gRbase_RCPPEXPORTS_H_GEN_
 #define RCPP_gRbase_RCPPEXPORTS_H_GEN_
 
-#include <RcppArmadillo.h>
 #include <RcppEigen.h>
+#include <RcppArmadillo.h>
 #include <Rcpp.h>
 
 namespace gRbase {
@@ -801,6 +801,27 @@ namespace gRbase {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<NumericVector >(rcpp_result_gen);
+    }
+
+    inline IntegerVector which_(SEXP x) {
+        typedef SEXP(*Ptr_which_)(SEXP);
+        static Ptr_which_ p_which_ = NULL;
+        if (p_which_ == NULL) {
+            validateSignature("IntegerVector(*which_)(SEXP)");
+            p_which_ = (Ptr_which_)R_GetCCallable("gRbase", "_gRbase_which_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_which_(Shield<SEXP>(Rcpp::wrap(x)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<IntegerVector >(rcpp_result_gen);
     }
 
     inline IntegerVector get_superset_(CharacterVector x, List setlist, bool all = false) {
