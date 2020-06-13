@@ -13,6 +13,7 @@ t12b <- tabMarg(hec, c("Hair", "Eye"))
 t12c <- tabMarg(hec, ~Hair+Eye)
 
 t23a <- tabMarg(hec, 2:3)
+t1a  <- tabMarg(hec, 1)
 
 
 test_that("tabPerm()", {
@@ -48,6 +49,15 @@ test_that("tabOp()", {
     expect_equal(t0, t3)
     expect_equal(t0, t4)
     expect_equal(t0, t5)    
+
+    t10 <- tableOp0(t12a, t1a, `*`)
+    t11 <- tableOp0(t1a, t12a, `*`)
+    t12 <- tabMult(t12a, t1a)
+    t13 <- tabMult(t1a, t12a)
+
+    expect_true(tabEqual(t10, t11))
+    expect_true(tabEqual(t12, t13))
+    expect_true(tabEqual(t10, t13))
 })
 
 
