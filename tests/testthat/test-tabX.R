@@ -58,6 +58,36 @@ test_that("tabOp()", {
     expect_true(tabEqual(t10, t11))
     expect_true(tabEqual(t12, t13))
     expect_true(tabEqual(t10, t13))
+
+
+    states <- list(asia=c("yes", "no"), tub=c("yes","no"))
+    asia <- tabNew(~asia, levels=states, c(0.01, 0.99))
+    tub  <- tabNew(~tub:asia, levels=states, c(0.05, 0.95, 0.01, 0.99))
+    
+
+    t0a=tableOp(tub, asia)
+    t0b=tableOp(asia, tub)
+    
+    t1=tabMult(asia, tub)
+    t2=tabMult(tub, asia)
+    t5=tabOp(asia, tub, "*")
+    t6=tabOp(tub, asia, "*")
+
+    expect_equal(sum(t0a), 1)
+    expect_equal(sum(t0b), 1)
+    
+    expect_equal(sum(t1), 1)
+    expect_equal(sum(t2), 1)
+    expect_equal(sum(t5), 1)
+    expect_equal(sum(t6), 1)
+
+    expect_true(tabEqual(t0a, t1))
+    expect_true(tabEqual(t0a, t2))
+    expect_true(tabEqual(t0a, t5))
+    expect_true(tabEqual(t0a, t6))
 })
+
+
+
 
 

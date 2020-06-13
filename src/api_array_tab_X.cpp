@@ -279,12 +279,73 @@ Vector<RTYPE> do_tab_expand_gen(const Vector<RTYPE>& tab1, const List& dn2, cons
       }      
     } else Rf_error("invalid 'exptype'");
           
-    // 4: Set attributes
-    aug.attr("dim")      = dim_aug;
-    aug.attr("dimnames") = dn_aug;
-    return aug;    
+    // Need to reorder so that vn2-vars go last
+    chrVec d12 = setdiff(vn1, vn2);
+    chrVec vn  = do_concat_<chrVec>(d12, vn2);
+    intVec perm = match(vn, vn_aug);
+    // Rcout << " perm: "; print(perm);
+    int chk = sum(abs(perm - seq(1, vn_aug.size())));
+    if (chk == 0){ // don't think this can happen!
+      // Rcout << "vn2-vars are last; no permutation needed; we are done" << endl;
+      aug.attr("dim")      = dim_aug;
+      aug.attr("dimnames") = dn_aug;
+      return aug;
+    } else {
+      // Rcout << "vn2-vars are not last; permutation needed" << endl;
+      Vector<RTYPE> aug2 = do_aperm_vec<RTYPE>(aug, dim_aug, perm);
+      aug2.attr("dim")     = dim_aug[ perm - 1 ];
+      aug2.attr("dimnames")= dn_aug [ perm - 1 ];
+      return aug2;
+    }
   }
 }
+
+
+//     // 3: find: vars, dimnames etc in {v1, v2\v1}-table
+//     chrVec vn_aug  = do_concat_<chrVec>( vn1, d21 );
+//     List   dn_aug  = do_concat_<List>( dn1, d21_dn );
+//     intVec dim_aug = do_concat_<intVec>(di1, d21_di);
+
+//     // 4: need to reorder aug so that vn2-vars go first
+//     chrVec d12  = setdiff(vn1, vn2);
+//     chrVec vn   = do_concat_<chrVec>(vn2, d12);
+//     intVec perm = match(vn, vn_aug);
+
+
+
+    // // 4: Set attributes
+    // aug.attr("dim")      = dim_aug;
+    // aug.attr("dimnames") = dn_aug;
+
+    // Rcout << " aug: " << endl; print(aug);
+    // return aug;    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // chrVec d12 = setdiff(vn1, vn2);
