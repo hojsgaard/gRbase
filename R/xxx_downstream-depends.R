@@ -98,23 +98,25 @@ tabMarg__ <- tabMarg__
 #' @export
 glist2adjMAT <- g_ugl2M_
 
+
+## 20/6/20: removeRedundant not used in gRim anymore
 #' @export
 removeRedundant  <- remove_redundant
 
+## 20/6/20: mcsmarked not used in gRim anymore
 #' @export
 mcsmarked     <- mcs_marked
+
+## 20/6/20: mcsmarkedMAT not used in gRim anymore
+#' @export
+mcsmarkedMAT  <- mcs_markedMAT
 
 
 #' @export
 combnPrim     <- combn_prim
 
 #' @export
-mcsmarkedMAT  <- mcs_markedMAT
-
-#' @export
 nextCell      <- next_cell
-
-
 
 #' @export
 ell <- function(Sigma, S, n){

@@ -10,7 +10,7 @@
 #'
 #' @aliases matrix2list rowmat2list colmat2list pairs2num
 #' @param X A matrix.
-#' @param MARGIN Should the split be by row (MARGIN=1) or by column (MARGIN=2).
+#' @param byrow Should the split be by row or by column.
 #' @param form Formula specification (a right-hand sided formula, a
 #'     numeric/character vector or a list of vectors).
 #' @param dots dot-arguments to be turned into a list 
@@ -75,18 +75,18 @@ colmat2list <- colmat2list__
 
 #' @export
 #' @rdname grbase-utilities
-matrix2list <- function(X, MARGIN=1){
-    if (!(MARGIN %in% c(1, 2))) stop("invalid MARGIN\n")
 
-    if (MARGIN == 1) rowmat2list__(X) # cpp implementation
-    else colmat2list__(X) # cpp implementation
+matrix2list <- function(X, byrow=TRUE){
+  if (byrow) rowmat2list__(X) # cpp implementation
+  else colmat2list__(X) # cpp implementation
 }
 
-## matrix2list <- function(X, byrow=TRUE){
-##   if (byrow) rowmat2list__(X) # cpp implementation
-##   else colmat2list__(X) # cpp implementation
-## }
+## matrix2list <- function(X, MARGIN=1){
+##     if (!(MARGIN %in% c(1, 2))) stop("invalid MARGIN\n")
 
+##     if (MARGIN == 1) rowmat2list__(X) # cpp implementation
+##     else colmat2list__(X) # cpp implementation
+## }
 
 
 
