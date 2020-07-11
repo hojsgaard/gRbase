@@ -51,7 +51,6 @@
 #' @rdname api-pct-operations
 "%a/0%" <- function(a1, a2){tabDiv0(a1,a2)}
 
-
 #' @export
 #' @rdname api-pct-operations
 "%ap%" <- function(tab1, perm){tabPerm(tab1, perm)}

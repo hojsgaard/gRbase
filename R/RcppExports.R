@@ -37,102 +37,6 @@ topo_sortMAT_ <- function(adjmat_) {
     .Call('_gRbase_triang_mcwh_MAT__', PACKAGE = 'gRbase', adjmat_, nstates_)
 }
 
-MAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
-symMAT2ftM_ <- function(XX_) {
-    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
-}
-
-matrix2dgCMatrix__ <- function(XX_) {
-    .Call('_gRbase_matrix2dgCMatrix__', PACKAGE = 'gRbase', XX_)
-}
-
-dgCMatrix2matrix__ <- function(XX_) {
-    .Call('_gRbase_dgCMatrix2matrix__', PACKAGE = 'gRbase', XX_)
-}
-
-M2dgCMatrix__ <- function(XX_) {
-    .Call('_gRbase_M2dgCMatrix__', PACKAGE = 'gRbase', XX_)
-}
-
-M2matrix__ <- function(XX_) {
-    .Call('_gRbase_M2matrix__', PACKAGE = 'gRbase', XX_)
-}
-
-unlist_chr__ <- function(list) {
-    .Call('_gRbase_unlist_chr__', PACKAGE = 'gRbase', list)
-}
-
-adjList2tfList__ <- function(LL) {
-    .Call('_gRbase_adjList2tfList__', PACKAGE = 'gRbase', LL)
-}
-
-adjList2ftList__ <- function(LL) {
-    .Call('_gRbase_adjList2ftList__', PACKAGE = 'gRbase', LL)
-}
-
-dagList2dgCMatrix__ <- function(LL, vn = NULL) {
-    .Call('_gRbase_dagList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-dagList2matrix__ <- function(LL, vn = NULL) {
-    .Call('_gRbase_dagList2matrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-ugList2dgCMatrix__ <- function(LL, vn = NULL) {
-    .Call('_gRbase_ugList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-ugList2matrix__ <- function(LL, vn = NULL) {
-    .Call('_gRbase_ugList2matrix__', PACKAGE = 'gRbase', LL, vn)
-}
-
-adjList2ftM__ <- function(LL) {
-    .Call('_gRbase_adjList2ftM__', PACKAGE = 'gRbase', LL)
-}
-
-adjList2tfM__ <- function(LL) {
-    .Call('_gRbase_adjList2tfM__', PACKAGE = 'gRbase', LL)
-}
-
-adjList2matrix__ <- function(LL) {
-    .Call('_gRbase_adjList2matrix__', PACKAGE = 'gRbase', LL)
-}
-
-adjList2dgCMatrix__ <- function(LL) {
-    .Call('_gRbase_adjList2dgCMatrix__', PACKAGE = 'gRbase', LL)
-}
-
-which_matrix_index__ <- function(X) {
-    .Call('_gRbase_which_matrix_index__', PACKAGE = 'gRbase', X)
-}
-
-rowmat2list__ <- function(X) {
-    .Call('_gRbase_rowmat2list__', PACKAGE = 'gRbase', X)
-}
-
-colmat2list__ <- function(X) {
-    .Call('_gRbase_colmat2list__', PACKAGE = 'gRbase', X)
-}
-
-issymMAT_ <- function(A_) {
-    .Call('_gRbase_issymMAT_', PACKAGE = 'gRbase', A_)
-}
-
-isugMAT_ <- function(A_) {
-    .Call('_gRbase_isugMAT_', PACKAGE = 'gRbase', A_)
-}
-
-isadjMAT_ <- function(A_) {
-    .Call('_gRbase_isadjMAT_', PACKAGE = 'gRbase', A_)
-}
-
-isdagMAT_ <- function(A_) {
-    .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
-}
-
 #' @title Low level table cell operations implemented in c++
 #' @description Corresponding R
 #'    functions without the trailing underscore exist.
@@ -265,6 +169,94 @@ tabMult__ <- function(tab1, tab2) {
     .Call('_gRbase_tabMult__', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+MAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_MAT2ftM_', PACKAGE = 'gRbase', XX_)
+}
+
+symMAT2ftM_ <- function(XX_) {
+    .Call('_gRbase_symMAT2ftM_', PACKAGE = 'gRbase', XX_)
+}
+
+unlist_chr__ <- function(list) {
+    .Call('_gRbase_unlist_chr__', PACKAGE = 'gRbase', list)
+}
+
+adjList2tfList__ <- function(LL) {
+    .Call('_gRbase_adjList2tfList__', PACKAGE = 'gRbase', LL)
+}
+
+adjList2ftList__ <- function(LL) {
+    .Call('_gRbase_adjList2ftList__', PACKAGE = 'gRbase', LL)
+}
+
+dagList2dgCMatrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_dagList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+dagList2matrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_dagList2matrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+ugList2dgCMatrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_ugList2dgCMatrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+ugList2matrix__ <- function(LL, vn = NULL) {
+    .Call('_gRbase_ugList2matrix__', PACKAGE = 'gRbase', LL, vn)
+}
+
+adjList2ftM__ <- function(LL) {
+    .Call('_gRbase_adjList2ftM__', PACKAGE = 'gRbase', LL)
+}
+
+adjList2tfM__ <- function(LL) {
+    .Call('_gRbase_adjList2tfM__', PACKAGE = 'gRbase', LL)
+}
+
+adjList2matrix__ <- function(LL) {
+    .Call('_gRbase_adjList2matrix__', PACKAGE = 'gRbase', LL)
+}
+
+adjList2dgCMatrix__ <- function(LL) {
+    .Call('_gRbase_adjList2dgCMatrix__', PACKAGE = 'gRbase', LL)
+}
+
+M2dgCMatrix__ <- function(XX_) {
+    .Call('_gRbase_M2dgCMatrix__', PACKAGE = 'gRbase', XX_)
+}
+
+M2matrix__ <- function(XX_) {
+    .Call('_gRbase_M2matrix__', PACKAGE = 'gRbase', XX_)
+}
+
+which_matrix_index__ <- function(X) {
+    .Call('_gRbase_which_matrix_index__', PACKAGE = 'gRbase', X)
+}
+
+rowmat2list__ <- function(X) {
+    .Call('_gRbase_rowmat2list__', PACKAGE = 'gRbase', X)
+}
+
+colmat2list__ <- function(X) {
+    .Call('_gRbase_colmat2list__', PACKAGE = 'gRbase', X)
+}
+
+issymMAT_ <- function(A_) {
+    .Call('_gRbase_issymMAT_', PACKAGE = 'gRbase', A_)
+}
+
+isugMAT_ <- function(A_) {
+    .Call('_gRbase_isugMAT_', PACKAGE = 'gRbase', A_)
+}
+
+isadjMAT_ <- function(A_) {
+    .Call('_gRbase_isadjMAT_', PACKAGE = 'gRbase', A_)
+}
+
+isdagMAT_ <- function(A_) {
+    .Call('_gRbase_isdagMAT_', PACKAGE = 'gRbase', A_)
+}
+
 which_ <- function(x) {
     .Call('_gRbase_which_', PACKAGE = 'gRbase', x)
 }
@@ -305,18 +297,6 @@ isin_ <- function(L, set, index = FALSE) {
     .Call('_gRbase_isin_', PACKAGE = 'gRbase', L, set, index)
 }
 
-is_subsetof_old <- function(set, set2) {
-    .Call('_gRbase_is_subsetof_old', PACKAGE = 'gRbase', set, set2)
-}
-
-get_subset_old <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_subset_old', PACKAGE = 'gRbase', set, setlist, all)
-}
-
-get_superset_old <- function(set, setlist, all = FALSE) {
-    .Call('_gRbase_get_superset_old', PACKAGE = 'gRbase', set, setlist, all)
-}
-
 is_dimnames_ <- function(obj) {
     .Call('_gRbase_is_dimnames_', PACKAGE = 'gRbase', obj)
 }
@@ -331,6 +311,14 @@ is_named_array_ <- function(obj) {
 
 dimnames_match_ <- function(tab1, tab2, verbose) {
     .Call('_gRbase_dimnames_match_', PACKAGE = 'gRbase', tab1, tab2, verbose)
+}
+
+choose_ <- function(N, K) {
+    .Call('_gRbase_choose_', PACKAGE = 'gRbase', N, K)
+}
+
+do_combn <- function(N, K) {
+    .Call('_gRbase_do_combn', PACKAGE = 'gRbase', N, K)
 }
 
 solveSPD <- function(X) {

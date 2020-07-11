@@ -7,12 +7,6 @@
    Check these declarations against the C/Fortran source code.
 */
 
-/* .C calls */
-extern void C_isin(void *, void *, void *, void *, void *, void *);
-extern void C_maxset(void *, void *, void *, void *);
-extern void C_minset(void *, void *, void *, void *);
-extern void combnC(void *, void *, void *, void *);
-
 /* .Call calls */
 extern SEXP R_colSums(SEXP);
 extern SEXP R_colwiseProd(SEXP, SEXP);
@@ -32,29 +26,26 @@ extern SEXP _gRbase_allSubsets_(SEXP);
 extern SEXP _gRbase_all_pairs__(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _gRbase_cell2entry_(SEXP, SEXP);
 extern SEXP _gRbase_cell2entry_perm_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_choose_(SEXP, SEXP);
 extern SEXP _gRbase_colmat2list__(SEXP);
 extern SEXP _gRbase_dagList2dgCMatrix__(SEXP, SEXP);
 extern SEXP _gRbase_dagList2matrix__(SEXP, SEXP);
-extern SEXP _gRbase_dgCMatrix2matrix__(SEXP);
 extern SEXP _gRbase_dimnames_match_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_do_combn(SEXP, SEXP);
 extern SEXP _gRbase_entry2cell_(SEXP, SEXP);
 extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
 extern SEXP _gRbase_get_subset_(SEXP, SEXP, SEXP);
-extern SEXP _gRbase_get_subset_old(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_superset_(SEXP, SEXP, SEXP);
-extern SEXP _gRbase_get_superset_old(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_is_dimnames_(SEXP);
 extern SEXP _gRbase_is_named_array_(SEXP);
 extern SEXP _gRbase_is_number_vector_(SEXP);
 extern SEXP _gRbase_is_subsetof_(SEXP, SEXP);
-extern SEXP _gRbase_is_subsetof_old(SEXP, SEXP);
 extern SEXP _gRbase_isadjMAT_(SEXP);
 extern SEXP _gRbase_isdagMAT_(SEXP);
 extern SEXP _gRbase_isin_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_issymMAT_(SEXP);
 extern SEXP _gRbase_isugMAT_(SEXP);
 extern SEXP _gRbase_make_plevels_(SEXP);
-extern SEXP _gRbase_matrix2dgCMatrix__(SEXP);
 extern SEXP _gRbase_max_set_(SEXP, SEXP);
 extern SEXP _gRbase_mcsMAT__(SEXP, SEXP);
 extern SEXP _gRbase_min_set_(SEXP, SEXP);
@@ -94,14 +85,6 @@ extern SEXP _gRbase_which2_(SEXP);
 extern SEXP _gRbase_which_(SEXP);
 extern SEXP _gRbase_which_matrix_index__(SEXP);
 
-static const R_CMethodDef CEntries[] = {
-    {"C_isin",   (DL_FUNC) &C_isin,   6},
-    {"C_maxset", (DL_FUNC) &C_maxset, 4},
-    {"C_minset", (DL_FUNC) &C_minset, 4},
-    {"combnC",   (DL_FUNC) &combnC,   4},
-    {NULL, NULL, 0}
-};
-
 static const R_CallMethodDef CallEntries[] = {
     {"R_colSums",                            (DL_FUNC) &R_colSums,                            1},
     {"R_colwiseProd",                        (DL_FUNC) &R_colwiseProd,                        2},
@@ -121,29 +104,26 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_all_pairs__",                  (DL_FUNC) &_gRbase_all_pairs__,                  4},
     {"_gRbase_cell2entry_",                  (DL_FUNC) &_gRbase_cell2entry_,                  2},
     {"_gRbase_cell2entry_perm_",             (DL_FUNC) &_gRbase_cell2entry_perm_,             3},
+    {"_gRbase_choose_",                      (DL_FUNC) &_gRbase_choose_,                      2},
     {"_gRbase_colmat2list__",                (DL_FUNC) &_gRbase_colmat2list__,                1},
     {"_gRbase_dagList2dgCMatrix__",          (DL_FUNC) &_gRbase_dagList2dgCMatrix__,          2},
     {"_gRbase_dagList2matrix__",             (DL_FUNC) &_gRbase_dagList2matrix__,             2},
-    {"_gRbase_dgCMatrix2matrix__",           (DL_FUNC) &_gRbase_dgCMatrix2matrix__,           1},
     {"_gRbase_dimnames_match_",              (DL_FUNC) &_gRbase_dimnames_match_,              3},
+    {"_gRbase_do_combn",                     (DL_FUNC) &_gRbase_do_combn,                     2},
     {"_gRbase_entry2cell_",                  (DL_FUNC) &_gRbase_entry2cell_,                  2},
     {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
     {"_gRbase_get_subset_",                  (DL_FUNC) &_gRbase_get_subset_,                  3},
-    {"_gRbase_get_subset_old",               (DL_FUNC) &_gRbase_get_subset_old,               3},
     {"_gRbase_get_superset_",                (DL_FUNC) &_gRbase_get_superset_,                3},
-    {"_gRbase_get_superset_old",             (DL_FUNC) &_gRbase_get_superset_old,             3},
     {"_gRbase_is_dimnames_",                 (DL_FUNC) &_gRbase_is_dimnames_,                 1},
     {"_gRbase_is_named_array_",              (DL_FUNC) &_gRbase_is_named_array_,              1},
     {"_gRbase_is_number_vector_",            (DL_FUNC) &_gRbase_is_number_vector_,            1},
     {"_gRbase_is_subsetof_",                 (DL_FUNC) &_gRbase_is_subsetof_,                 2},
-    {"_gRbase_is_subsetof_old",              (DL_FUNC) &_gRbase_is_subsetof_old,              2},
     {"_gRbase_isadjMAT_",                    (DL_FUNC) &_gRbase_isadjMAT_,                    1},
     {"_gRbase_isdagMAT_",                    (DL_FUNC) &_gRbase_isdagMAT_,                    1},
     {"_gRbase_isin_",                        (DL_FUNC) &_gRbase_isin_,                        3},
     {"_gRbase_issymMAT_",                    (DL_FUNC) &_gRbase_issymMAT_,                    1},
     {"_gRbase_isugMAT_",                     (DL_FUNC) &_gRbase_isugMAT_,                     1},
     {"_gRbase_make_plevels_",                (DL_FUNC) &_gRbase_make_plevels_,                1},
-    {"_gRbase_matrix2dgCMatrix__",           (DL_FUNC) &_gRbase_matrix2dgCMatrix__,           1},
     {"_gRbase_max_set_",                     (DL_FUNC) &_gRbase_max_set_,                     2},
     {"_gRbase_mcsMAT__",                     (DL_FUNC) &_gRbase_mcsMAT__,                     2},
     {"_gRbase_min_set_",                     (DL_FUNC) &_gRbase_min_set_,                     2},
@@ -187,6 +167,6 @@ static const R_CallMethodDef CallEntries[] = {
 
 void R_init_gRbase(DllInfo *dll)
 {
-    R_registerRoutines(dll, CEntries, CallEntries, NULL, NULL);
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

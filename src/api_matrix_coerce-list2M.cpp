@@ -20,6 +20,8 @@
 
   Author: Soren Hojsgaard
 
+  FIXME: _m_coerce-list2M : Several almost identical functions; fix this
+
  */
 
 #include <RcppEigen.h>
@@ -258,11 +260,13 @@ SEXP ugList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue){
 }
 
 
+
+
 //[[Rcpp::export]]
 CharacterMatrix adjList2ftM__(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
-  int mm=0;
+  int mm = 0;
   for (int ii=0; ii < n; ii++){
     mm += as<CharacterVector>(LL[ii]).size();
   }
@@ -283,7 +287,7 @@ CharacterMatrix adjList2ftM__(List LL){
 CharacterMatrix adjList2tfM__(List LL){
   CharacterVector NN = LL.names();
   int n = LL.length() ;
-  int mm=0;
+  int mm = 0;
   for (int ii=0; ii < n; ii++){
     mm += as<CharacterVector>(LL[ii]).size();
   }
@@ -312,7 +316,10 @@ SEXP adjList2matrix__(List LL){
 //[[Rcpp::export]]
 SEXP adjList2dgCMatrix__(List LL){
 
-  if (LL.length() == 0) {SpMat out(0,0); return wrap(out);};
+  if (LL.length() == 0) {
+    SpMat out(0,0);
+    return wrap(out);
+  };
   
   List tfList = adjList2tfList__( LL );
   CharacterVector vn = LL.names();

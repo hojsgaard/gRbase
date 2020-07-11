@@ -68,237 +68,6 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
-    inline CharacterVector unlist_chr__(const List& list) {
-        typedef SEXP(*Ptr_unlist_chr__)(SEXP);
-        static Ptr_unlist_chr__ p_unlist_chr__ = NULL;
-        if (p_unlist_chr__ == NULL) {
-            validateSignature("CharacterVector(*unlist_chr__)(const List&)");
-            p_unlist_chr__ = (Ptr_unlist_chr__)R_GetCCallable("gRbase", "_gRbase_unlist_chr__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_unlist_chr__(Shield<SEXP>(Rcpp::wrap(list)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<CharacterVector >(rcpp_result_gen);
-    }
-
-    inline List adjList2tfList__(List LL) {
-        typedef SEXP(*Ptr_adjList2tfList__)(SEXP);
-        static Ptr_adjList2tfList__ p_adjList2tfList__ = NULL;
-        if (p_adjList2tfList__ == NULL) {
-            validateSignature("List(*adjList2tfList__)(List)");
-            p_adjList2tfList__ = (Ptr_adjList2tfList__)R_GetCCallable("gRbase", "_gRbase_adjList2tfList__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2tfList__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<List >(rcpp_result_gen);
-    }
-
-    inline List adjList2ftList__(List LL) {
-        typedef SEXP(*Ptr_adjList2ftList__)(SEXP);
-        static Ptr_adjList2ftList__ p_adjList2ftList__ = NULL;
-        if (p_adjList2ftList__ == NULL) {
-            validateSignature("List(*adjList2ftList__)(List)");
-            p_adjList2ftList__ = (Ptr_adjList2ftList__)R_GetCCallable("gRbase", "_gRbase_adjList2ftList__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2ftList__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<List >(rcpp_result_gen);
-    }
-
-    inline SEXP dagList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
-        typedef SEXP(*Ptr_dagList2dgCMatrix__)(SEXP,SEXP);
-        static Ptr_dagList2dgCMatrix__ p_dagList2dgCMatrix__ = NULL;
-        if (p_dagList2dgCMatrix__ == NULL) {
-            validateSignature("SEXP(*dagList2dgCMatrix__)(List,Nullable<CharacterVector>)");
-            p_dagList2dgCMatrix__ = (Ptr_dagList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_dagList2dgCMatrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_dagList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
-    inline SEXP dagList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
-        typedef SEXP(*Ptr_dagList2matrix__)(SEXP,SEXP);
-        static Ptr_dagList2matrix__ p_dagList2matrix__ = NULL;
-        if (p_dagList2matrix__ == NULL) {
-            validateSignature("SEXP(*dagList2matrix__)(List,Nullable<CharacterVector>)");
-            p_dagList2matrix__ = (Ptr_dagList2matrix__)R_GetCCallable("gRbase", "_gRbase_dagList2matrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_dagList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
-    inline SEXP ugList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
-        typedef SEXP(*Ptr_ugList2dgCMatrix__)(SEXP,SEXP);
-        static Ptr_ugList2dgCMatrix__ p_ugList2dgCMatrix__ = NULL;
-        if (p_ugList2dgCMatrix__ == NULL) {
-            validateSignature("SEXP(*ugList2dgCMatrix__)(List,Nullable<CharacterVector>)");
-            p_ugList2dgCMatrix__ = (Ptr_ugList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_ugList2dgCMatrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_ugList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
-    inline SEXP ugList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
-        typedef SEXP(*Ptr_ugList2matrix__)(SEXP,SEXP);
-        static Ptr_ugList2matrix__ p_ugList2matrix__ = NULL;
-        if (p_ugList2matrix__ == NULL) {
-            validateSignature("SEXP(*ugList2matrix__)(List,Nullable<CharacterVector>)");
-            p_ugList2matrix__ = (Ptr_ugList2matrix__)R_GetCCallable("gRbase", "_gRbase_ugList2matrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_ugList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
-    inline CharacterMatrix adjList2ftM__(List LL) {
-        typedef SEXP(*Ptr_adjList2ftM__)(SEXP);
-        static Ptr_adjList2ftM__ p_adjList2ftM__ = NULL;
-        if (p_adjList2ftM__ == NULL) {
-            validateSignature("CharacterMatrix(*adjList2ftM__)(List)");
-            p_adjList2ftM__ = (Ptr_adjList2ftM__)R_GetCCallable("gRbase", "_gRbase_adjList2ftM__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2ftM__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<CharacterMatrix >(rcpp_result_gen);
-    }
-
-    inline CharacterMatrix adjList2tfM__(List LL) {
-        typedef SEXP(*Ptr_adjList2tfM__)(SEXP);
-        static Ptr_adjList2tfM__ p_adjList2tfM__ = NULL;
-        if (p_adjList2tfM__ == NULL) {
-            validateSignature("CharacterMatrix(*adjList2tfM__)(List)");
-            p_adjList2tfM__ = (Ptr_adjList2tfM__)R_GetCCallable("gRbase", "_gRbase_adjList2tfM__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2tfM__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<CharacterMatrix >(rcpp_result_gen);
-    }
-
-    inline SEXP adjList2matrix__(List LL) {
-        typedef SEXP(*Ptr_adjList2matrix__)(SEXP);
-        static Ptr_adjList2matrix__ p_adjList2matrix__ = NULL;
-        if (p_adjList2matrix__ == NULL) {
-            validateSignature("SEXP(*adjList2matrix__)(List)");
-            p_adjList2matrix__ = (Ptr_adjList2matrix__)R_GetCCallable("gRbase", "_gRbase_adjList2matrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
-    inline SEXP adjList2dgCMatrix__(List LL) {
-        typedef SEXP(*Ptr_adjList2dgCMatrix__)(SEXP);
-        static Ptr_adjList2dgCMatrix__ p_adjList2dgCMatrix__ = NULL;
-        if (p_adjList2dgCMatrix__ == NULL) {
-            validateSignature("SEXP(*adjList2dgCMatrix__)(List)");
-            p_adjList2dgCMatrix__ = (Ptr_adjList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_adjList2dgCMatrix__");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_adjList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<SEXP >(rcpp_result_gen);
-    }
-
     inline int cell2entry_(const NumericVector& cell, const IntegerVector& dim) {
         typedef SEXP(*Ptr_cell2entry_)(SEXP,SEXP);
         static Ptr_cell2entry_ p_cell2entry_ = NULL;
@@ -803,6 +572,237 @@ namespace gRbase {
         return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
+    inline CharacterVector unlist_chr__(const List& list) {
+        typedef SEXP(*Ptr_unlist_chr__)(SEXP);
+        static Ptr_unlist_chr__ p_unlist_chr__ = NULL;
+        if (p_unlist_chr__ == NULL) {
+            validateSignature("CharacterVector(*unlist_chr__)(const List&)");
+            p_unlist_chr__ = (Ptr_unlist_chr__)R_GetCCallable("gRbase", "_gRbase_unlist_chr__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_unlist_chr__(Shield<SEXP>(Rcpp::wrap(list)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<CharacterVector >(rcpp_result_gen);
+    }
+
+    inline List adjList2tfList__(List LL) {
+        typedef SEXP(*Ptr_adjList2tfList__)(SEXP);
+        static Ptr_adjList2tfList__ p_adjList2tfList__ = NULL;
+        if (p_adjList2tfList__ == NULL) {
+            validateSignature("List(*adjList2tfList__)(List)");
+            p_adjList2tfList__ = (Ptr_adjList2tfList__)R_GetCCallable("gRbase", "_gRbase_adjList2tfList__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2tfList__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List adjList2ftList__(List LL) {
+        typedef SEXP(*Ptr_adjList2ftList__)(SEXP);
+        static Ptr_adjList2ftList__ p_adjList2ftList__ = NULL;
+        if (p_adjList2ftList__ == NULL) {
+            validateSignature("List(*adjList2ftList__)(List)");
+            p_adjList2ftList__ = (Ptr_adjList2ftList__)R_GetCCallable("gRbase", "_gRbase_adjList2ftList__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2ftList__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline SEXP dagList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
+        typedef SEXP(*Ptr_dagList2dgCMatrix__)(SEXP,SEXP);
+        static Ptr_dagList2dgCMatrix__ p_dagList2dgCMatrix__ = NULL;
+        if (p_dagList2dgCMatrix__ == NULL) {
+            validateSignature("SEXP(*dagList2dgCMatrix__)(List,Nullable<CharacterVector>)");
+            p_dagList2dgCMatrix__ = (Ptr_dagList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_dagList2dgCMatrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dagList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline SEXP dagList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
+        typedef SEXP(*Ptr_dagList2matrix__)(SEXP,SEXP);
+        static Ptr_dagList2matrix__ p_dagList2matrix__ = NULL;
+        if (p_dagList2matrix__ == NULL) {
+            validateSignature("SEXP(*dagList2matrix__)(List,Nullable<CharacterVector>)");
+            p_dagList2matrix__ = (Ptr_dagList2matrix__)R_GetCCallable("gRbase", "_gRbase_dagList2matrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dagList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline SEXP ugList2dgCMatrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
+        typedef SEXP(*Ptr_ugList2dgCMatrix__)(SEXP,SEXP);
+        static Ptr_ugList2dgCMatrix__ p_ugList2dgCMatrix__ = NULL;
+        if (p_ugList2dgCMatrix__ == NULL) {
+            validateSignature("SEXP(*ugList2dgCMatrix__)(List,Nullable<CharacterVector>)");
+            p_ugList2dgCMatrix__ = (Ptr_ugList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_ugList2dgCMatrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ugList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline SEXP ugList2matrix__(List LL, Nullable<CharacterVector> vn = R_NilValue) {
+        typedef SEXP(*Ptr_ugList2matrix__)(SEXP,SEXP);
+        static Ptr_ugList2matrix__ p_ugList2matrix__ = NULL;
+        if (p_ugList2matrix__ == NULL) {
+            validateSignature("SEXP(*ugList2matrix__)(List,Nullable<CharacterVector>)");
+            p_ugList2matrix__ = (Ptr_ugList2matrix__)R_GetCCallable("gRbase", "_gRbase_ugList2matrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ugList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)), Shield<SEXP>(Rcpp::wrap(vn)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline CharacterMatrix adjList2ftM__(List LL) {
+        typedef SEXP(*Ptr_adjList2ftM__)(SEXP);
+        static Ptr_adjList2ftM__ p_adjList2ftM__ = NULL;
+        if (p_adjList2ftM__ == NULL) {
+            validateSignature("CharacterMatrix(*adjList2ftM__)(List)");
+            p_adjList2ftM__ = (Ptr_adjList2ftM__)R_GetCCallable("gRbase", "_gRbase_adjList2ftM__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2ftM__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<CharacterMatrix >(rcpp_result_gen);
+    }
+
+    inline CharacterMatrix adjList2tfM__(List LL) {
+        typedef SEXP(*Ptr_adjList2tfM__)(SEXP);
+        static Ptr_adjList2tfM__ p_adjList2tfM__ = NULL;
+        if (p_adjList2tfM__ == NULL) {
+            validateSignature("CharacterMatrix(*adjList2tfM__)(List)");
+            p_adjList2tfM__ = (Ptr_adjList2tfM__)R_GetCCallable("gRbase", "_gRbase_adjList2tfM__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2tfM__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<CharacterMatrix >(rcpp_result_gen);
+    }
+
+    inline SEXP adjList2matrix__(List LL) {
+        typedef SEXP(*Ptr_adjList2matrix__)(SEXP);
+        static Ptr_adjList2matrix__ p_adjList2matrix__ = NULL;
+        if (p_adjList2matrix__ == NULL) {
+            validateSignature("SEXP(*adjList2matrix__)(List)");
+            p_adjList2matrix__ = (Ptr_adjList2matrix__)R_GetCCallable("gRbase", "_gRbase_adjList2matrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2matrix__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline SEXP adjList2dgCMatrix__(List LL) {
+        typedef SEXP(*Ptr_adjList2dgCMatrix__)(SEXP);
+        static Ptr_adjList2dgCMatrix__ p_adjList2dgCMatrix__ = NULL;
+        if (p_adjList2dgCMatrix__ == NULL) {
+            validateSignature("SEXP(*adjList2dgCMatrix__)(List)");
+            p_adjList2dgCMatrix__ = (Ptr_adjList2dgCMatrix__)R_GetCCallable("gRbase", "_gRbase_adjList2dgCMatrix__");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_adjList2dgCMatrix__(Shield<SEXP>(Rcpp::wrap(LL)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
     inline IntegerVector which_(SEXP x) {
         typedef SEXP(*Ptr_which_)(SEXP);
         static Ptr_which_ p_which_ = NULL;
@@ -1011,6 +1011,48 @@ namespace gRbase {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<SEXP >(rcpp_result_gen);
+    }
+
+    inline int choose_(int N, int K) {
+        typedef SEXP(*Ptr_choose_)(SEXP,SEXP);
+        static Ptr_choose_ p_choose_ = NULL;
+        if (p_choose_ == NULL) {
+            validateSignature("int(*choose_)(int,int)");
+            p_choose_ = (Ptr_choose_)R_GetCCallable("gRbase", "_gRbase_choose_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_choose_(Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(K)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<int >(rcpp_result_gen);
+    }
+
+    inline IntegerMatrix do_combn(int N, int K) {
+        typedef SEXP(*Ptr_do_combn)(SEXP,SEXP);
+        static Ptr_do_combn p_do_combn = NULL;
+        if (p_do_combn == NULL) {
+            validateSignature("IntegerMatrix(*do_combn)(int,int)");
+            p_do_combn = (Ptr_do_combn)R_GetCCallable("gRbase", "_gRbase_do_combn");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_do_combn(Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(K)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<IntegerMatrix >(rcpp_result_gen);
     }
 
 }

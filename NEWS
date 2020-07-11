@@ -1,9 +1,17 @@
-gRbase v1.8-6.7 (Release date: 2020-xx-xx)
+gRbase v1.8-6.7 (Release date: 2020-06-28)
 ==========================================
 
 Changes:
 
   * doi's added to description file.
+  
+  * Some old c-code (from Bristol) removed and replaced by more readable c++ code.
+
+  * combn_prim reimplemented in cpp. Not quite as fast as the
+    original, but new implementation provides identical results to combn
+
+  * fastcombn added. Intended to be faster version of combn.
+
 
 gRbase v1.8-6.6 (Release date: 2020-06-14)
 ==========================================

@@ -1,6 +1,5 @@
 /*
-  Fast coercion of dense matrix to sparse matrix and vice versa.  A
-  bit overkill, as it is just here for speed.
+  Fast coercion between dense matrix to sparse (dgCMatrix) matrix.  
 
   Author: Soren Hojsgaard
 */
@@ -51,29 +50,6 @@ SEXP do_dgCMatrix2matrix ( SEXP XX_ ){
   return Xout;
 }
 
-
-// //' @name internal_grbase_cpp
-// //' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
-
-// [[Rcpp::export]]
-SEXP matrix2dgCMatrix__ ( SEXP XX_ ){
-  int type = TYPEOF(XX_) ;
-  switch( type ){
-  case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
-  case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
-  }
-  return R_NilValue ;
-}
-
-// [[Rcpp::export]]
-SEXP dgCMatrix2matrix__ ( SEXP XX_ ){
-  int type = TYPEOF(XX_) ;
-  switch( type ){
-  case S4SXP   : return do_dgCMatrix2matrix(XX_); 
-  }
-  return R_NilValue ;
-}
-
 // [[Rcpp::export]]
 SEXP M2dgCMatrix__ ( SEXP XX_ ){
   int type = TYPEOF(XX_) ;
@@ -81,8 +57,8 @@ SEXP M2dgCMatrix__ ( SEXP XX_ ){
   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
   case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
   case S4SXP   : return XX_; // matrix - double
+  default: stop("Unsupported type.");    
   }
-  return R_NilValue ;
 }
 
 // [[Rcpp::export]]
@@ -91,10 +67,35 @@ SEXP M2matrix__ ( SEXP XX_ ){
   switch( type ){
   case INTSXP  : return XX_;   
   case REALSXP : return XX_;
-  case S4SXP   : return do_dgCMatrix2matrix(XX_); 
+  case S4SXP   : return do_dgCMatrix2matrix(XX_);
+  default: stop("Unsupported type.");
   }
-  return R_NilValue ;
 }
+
+
+
+// // [[Rcpp::export]]
+// SEXP matrix2dgCMatrix__ ( SEXP XX_ ){
+//   int type = TYPEOF(XX_) ;
+//   switch( type ){
+//   case INTSXP  : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - integer 
+//   case REALSXP : return do_matrix2dgCMatrix<MapMatd>(XX_); // matrix - double
+//   }
+//   return R_NilValue ;
+// }
+
+// // [[Rcpp::export]]
+// SEXP dgCMatrix2matrix__ ( SEXP XX_ ){
+//   int type = TYPEOF(XX_) ;
+//   switch( type ){
+//   case S4SXP   : return do_dgCMatrix2matrix(XX_); 
+//   }
+//   return R_NilValue ;
+// }
+
+
+// //' @name internal_grbase_cpp
+// //' @aliases matrix2dgCMatrix__ dgCMatrix2matrix__ M2dgCMatrix__ M2matrix__
 
 
 
