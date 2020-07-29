@@ -2,38 +2,9 @@
 % Please edit documentation in R/xxx_downstream-depends.R
 \name{downstream-aliases}
 \alias{downstream-aliases}
-\alias{ar_prod_list}
-\alias{removeRedundant}
-\alias{combnPrim}
-\alias{mcsmarked}
-\alias{mcsmarkedMAT}
-\alias{nextCell}
 \alias{ell}
 \alias{ellK}
-\alias{glist2adjMAT}
-\alias{ar_marg}
-\alias{ar_mult}
-\alias{ar_slice}
-\alias{ar_slice_mult}
-\alias{ar_new}
-\alias{ar_prod}
-\alias{ar_perm}
-\alias{isin}
-\alias{tab}
-\alias{is_subsetof_}
-\alias{get_superset_}
-\alias{get_subset_}
-\alias{subsetof}
-\alias{tabMult__}
-\alias{tabDiv0__}
-\alias{tabMarg__}
 \title{Downstream aliases}
-\usage{
-ar_prod_list(lst)
-}
-\arguments{
-\item{lst}{A list of arrays}
-}
 \description{
 Downstream aliases for other graphical modelling
     packages.  Will be deprecated in due course.

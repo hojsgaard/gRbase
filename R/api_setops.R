@@ -120,7 +120,6 @@ get_superset <- get_superset_
 #' @rdname set-operations
 is_subsetof <- is_subsetof_
 
-
 ## FIXME: is.subsetof : Use Rcpp implementation
 
 #' @export
@@ -128,6 +127,21 @@ is_subsetof <- is_subsetof_
 is.subsetof <- function(x, set){
   all(match(x, set) > 0)
 }
+
+## grain/grim uses subsetof; handles NULL arguments
+## FIXME: Clean subsetof-functions
+
+#' @export
+#' @rdname set-operations
+subsetof <- function(x, set){
+  all(match(x, set, 0) > 0)
+}
+
+
+
+
+
+
 
 ## ###################################################################
 ##

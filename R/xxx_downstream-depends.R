@@ -9,120 +9,23 @@
 #'
 #' @aliases
 #'
-#' removeRedundant 
-#' combnPrim
-#' mcsmarked mcsmarkedMAT 
-#' nextCell ell ellK glist2adjMAT
-
+#' ell ellK
+#' 
+NULL
 
 ## graphNEL2M M2graphNEL graphNEL2adjMAT
 ## tabAdd__ tabDiv__ tabDiv0__ tabMarg__ tabMult__ tabSubt__
+## #' removeRedundant 
+## #' combnPrim
+## #' mcsmarked mcsmarkedMAT 
+## #' nextCell glist2adjMAT
 
-## NOTE to self: is_subsetof_ get_superset_ get_subset_ are pure cpp
-## functions; perhaps let them live as an api thing
-
-## FIXME I c-koden er der defineret tabMarg__, tabDiv0__, tabMult__ og
-## FIXME der står at dette er af hensyn til gRain. Skal ryddes op.
-
-
-## ### Used by gRain ###
-
-#' @rdname downstream-aliases
-#' @aliases ar_marg ar_mult ar_slice ar_slice_mult ar_new ar_prod
-#'     ar_perm ar_prod_list isin tab is_subsetof_ get_superset_
-#'     get_subset_ subsetof
-#' tabMult__ tabDiv0__ tabMarg__
-
-#' @export
-#' @param lst A list of arrays
-ar_prod_list  <- tabListMult
-
-#' @export
-ar_marg  <- tabMarg
-
-#' @export
-ar_mult  <- tabMult
-
-#' @export
-ar_slice  <- tabSlice
-
-#' @export
-ar_slice_mult <- tabSliceMult
-
-#' @export
-ar_new <- tabNew
-
-#' @export
-ar_prod <- tabProd
-
-#' @export
-ar_perm <- tabPerm
-
-#' @export
-isin <- .isin ## potentialList.R
-
-#' @export
-tab <- tabNew
-
-#' @export
-is_subsetof_ <- is_subsetof_
-
-#' @export
-get_superset_  <- get_superset_
-
-#' @export
-get_subset_  <- get_subset_
-
-
-## grain uses subsetof; don't remember details of this function
-## (different from is.subsetof) 
-
-#' @export
-subsetof <- function(x, y){
-  all(match(x, y, 0) > 0)
-}
-
-
-#' @export
-tabMult__ <- tabMult__
-
-#' @export
-tabDiv0__ <- tabDiv0__
-
-#' @export
-tabMarg__ <- tabMarg__
-
-
-## ### Used by gRim ###
-
-#' @export
-glist2adjMAT <- g_ugl2M_
-
-## ## 20/6/20: removeRedundant not used in gRim anymore
-## #' @export
-## removeRedundant  <- remove_redundant
-
-## ## 20/6/20: mcsmarked not used in gRim anymore
-## #' @export
-## mcsmarked     <- mcs_marked
-
-## ## 20/6/20: mcsmarkedMAT not used in gRim anymore
-## #' @export
-## mcsmarkedMAT  <- mcs_markedMAT
-
-## 1/7/20: combnPrim not used in gRim anymore
-#' @export
-combnPrim     <- combn_prim
-
-## 1/7/20: nextCell not used in gRim anymore
-#' @export
-nextCell      <- next_cell
-
-
-## removeRedundant needed by gRc
-#' @export
-removeRedundant  <- remove_redundant
-
+## #' 
+## #' @aliases
+## #'
+## #' is_subsetof_ get_superset_ get_subset_ subsetof
+## #'
+## #' tabMult__ tabDiv0__ tabMarg__
 
 
 #' @export
@@ -144,9 +47,107 @@ ellK <- function (K, S, n){
 
 
 
+## ### Used by gRim ###
+
+## #' @export
+## glist2adjMAT <- g_ugl2M_
+
+
+## ## 20/6/20: removeRedundant not used in gRim anymore
+## #' @export
+## removeRedundant  <- remove_redundant
+
+## ## 20/6/20: mcsmarked not used in gRim anymore
+## #' @export
+## mcsmarked     <- mcs_marked
+
+## ## 20/6/20: mcsmarkedMAT not used in gRim anymore
+## #' @export
+## mcsmarkedMAT  <- mcs_markedMAT
+
+## #' @export
+## combnPrim     <- combn_prim
+
+## #' @export
+## nextCell      <- next_cell
+
+## #' @export
+## isin <- .isin ## potentialList.R
+
+
+
+## #' @export
+## ## #' @param lst A list of arrays
+## ar_prod_list  <- tabListMult
+
+## #' @export
+## ar_marg  <- tabMarg
+
+## #' @export
+## ar_slice  <- tabSlice
+
+## #' @export
+## ar_slice_mult <- tabSliceMult
+
+## #' @export
+## ar_new <- tabNew
 
 
 
 
 
 
+## #' ar_marg ar_mult ar_slice ar_slice_mult ar_new ar_prod ar_perm
+## #'     ar_prod_list
+## #'
+## #' isin tab
+
+
+## #' @export
+## ar_mult  <- tabMult
+
+
+
+## #' @export
+## ar_prod <- tabProd
+
+## #' @export
+## ar_perm <- tabPerm
+
+
+## FIXME I c-koden er der defineret tabMarg__, tabDiv0__, tabMult__ og
+## FIXME der står at dette er af hensyn til gRain. Skal ryddes op.
+
+## #' @export
+## tabMult__ <- tabMult__
+
+## #' @export
+## tabDiv0__ <- tabDiv0__
+
+## #' @export
+## tabMarg__ <- tabMarg__
+
+
+
+
+## #' @export
+## tab <- tabNew
+
+
+
+## ## removeRedundant needed by gRc
+## #' @export
+## removeRedundant  <- remove_redundant
+
+
+
+### Used by gRain ###
+
+## #' @export
+## is_subsetof_ <- is_subsetof_
+
+## #' @export
+## get_superset_  <- get_superset_
+
+## #' @export
+## get_subset_  <- get_subset_

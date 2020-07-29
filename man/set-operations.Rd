@@ -10,6 +10,7 @@
 \alias{get_superset}
 \alias{is_subsetof}
 \alias{is.subsetof}
+\alias{subsetof}
 \title{Suite of set operations}
 \usage{
 maximal_sets(setlist, index = FALSE)
@@ -27,6 +28,8 @@ get_superset(x, setlist, all = FALSE)
 is_subsetof(set, set2)
 
 is.subsetof(x, set)
+
+subsetof(x, set)
 }
 \arguments{
 \item{setlist}{List of vectors (representing a set of subsets)}
