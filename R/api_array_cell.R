@@ -55,6 +55,11 @@ entry2cell    <- entry2cell_
 #' @rdname api-cell
 next_cell      <- next_cell_
 
+
+#' @export
+#' @rdname api-cell
+next_cell2      <- next_cell2_
+
 #' @export
 #' @rdname api-cell
 next_cell_slice <- next_cell_slice_

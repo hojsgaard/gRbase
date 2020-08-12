@@ -301,6 +301,40 @@ RcppExport SEXP _gRbase_next_cell_(SEXP cellSEXP, SEXP dimSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// next_cell2_
+void next_cell2_(IntegerVector& cell, const IntegerVector& dim);
+static SEXP _gRbase_next_cell2__try(SEXP cellSEXP, SEXP dimSEXP) {
+BEGIN_RCPP
+    Rcpp::traits::input_parameter< IntegerVector& >::type cell(cellSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type dim(dimSEXP);
+    next_cell2_(cell, dim);
+    return R_NilValue;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_next_cell2_(SEXP cellSEXP, SEXP dimSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_next_cell2__try(cellSEXP, dimSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // next_cell_slice_
 NumericVector next_cell_slice_(const NumericVector& cell, const IntegerVector& dim, const IntegerVector& slice_marg);
 static SEXP _gRbase_next_cell_slice__try(SEXP cellSEXP, SEXP dimSEXP, SEXP slice_margSEXP) {
@@ -1994,6 +2028,7 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("IntegerVector(*make_plevels_)(const IntegerVector&)");
         signatures.insert("IntegerVector(*entry2cell_)(const int&,const IntegerVector&)");
         signatures.insert("NumericVector(*next_cell_)(const NumericVector&,const IntegerVector&)");
+        signatures.insert("void(*next_cell2_)(IntegerVector&,const IntegerVector&)");
         signatures.insert("NumericVector(*next_cell_slice_)(const NumericVector&,const IntegerVector&,const IntegerVector&)");
         signatures.insert("IntegerVector(*slice2entry_)(const IntegerVector&,const IntegerVector&,const IntegerVector&)");
         signatures.insert("int(*cell2entry_perm_)(const NumericVector&,const IntegerVector&,const IntegerVector&)");
@@ -2049,6 +2084,7 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_make_plevels_", (DL_FUNC)_gRbase_make_plevels__try);
     R_RegisterCCallable("gRbase", "_gRbase_entry2cell_", (DL_FUNC)_gRbase_entry2cell__try);
     R_RegisterCCallable("gRbase", "_gRbase_next_cell_", (DL_FUNC)_gRbase_next_cell__try);
+    R_RegisterCCallable("gRbase", "_gRbase_next_cell2_", (DL_FUNC)_gRbase_next_cell2__try);
     R_RegisterCCallable("gRbase", "_gRbase_next_cell_slice_", (DL_FUNC)_gRbase_next_cell_slice__try);
     R_RegisterCCallable("gRbase", "_gRbase_slice2entry_", (DL_FUNC)_gRbase_slice2entry__try);
     R_RegisterCCallable("gRbase", "_gRbase_cell2entry_perm_", (DL_FUNC)_gRbase_cell2entry_perm__try);

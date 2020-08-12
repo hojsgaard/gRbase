@@ -50,6 +50,7 @@ extern SEXP _gRbase_max_set_(SEXP, SEXP);
 extern SEXP _gRbase_mcsMAT__(SEXP, SEXP);
 extern SEXP _gRbase_min_set_(SEXP, SEXP);
 extern SEXP _gRbase_moralizeMAT(SEXP);
+extern SEXP _gRbase_next_cell2_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_slice_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_order2_(SEXP, SEXP);
@@ -128,6 +129,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_mcsMAT__",                     (DL_FUNC) &_gRbase_mcsMAT__,                     2},
     {"_gRbase_min_set_",                     (DL_FUNC) &_gRbase_min_set_,                     2},
     {"_gRbase_moralizeMAT",                  (DL_FUNC) &_gRbase_moralizeMAT,                  1},
+    {"_gRbase_next_cell2_",                  (DL_FUNC) &_gRbase_next_cell2_,                  2},
     {"_gRbase_next_cell_",                   (DL_FUNC) &_gRbase_next_cell_,                   2},
     {"_gRbase_next_cell_slice_",             (DL_FUNC) &_gRbase_next_cell_slice_,             3},
     {"_gRbase_order2_",                      (DL_FUNC) &_gRbase_order2_,                      2},

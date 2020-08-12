@@ -6,6 +6,7 @@
 \alias{make_plevels_}
 \alias{entry2cell_}
 \alias{next_cell_}
+\alias{next_cell2_}
 \alias{next_cell_slice_}
 \alias{slice2entry_}
 \alias{cell2entry_perm_}
@@ -19,6 +20,8 @@ make_plevels_(dim)
 entry2cell_(entry, dim)
 
 next_cell_(cell, dim)
+
+next_cell2_(cell, dim)
 
 next_cell_slice_(cell, dim, slice_marg)
 

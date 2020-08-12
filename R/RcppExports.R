@@ -65,6 +65,11 @@ next_cell_ <- function(cell, dim) {
 }
 
 #' @rdname api-cell_
+next_cell2_ <- function(cell, dim) {
+    invisible(.Call('_gRbase_next_cell2_', PACKAGE = 'gRbase', cell, dim))
+}
+
+#' @rdname api-cell_
 next_cell_slice_ <- function(cell, dim, slice_marg) {
     .Call('_gRbase_next_cell_slice_', PACKAGE = 'gRbase', cell, dim, slice_marg)
 }

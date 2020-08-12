@@ -78,6 +78,8 @@ IntegerVector entry2cell_(const int& entry, const IntegerVector& dim){
 // ----------------------------------------------------
 
 
+// FIXME: cell has to be integer vector
+
 //' @rdname api-cell_
 //[[Rcpp::export]]
 NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim){
@@ -94,6 +96,24 @@ NumericVector next_cell_(const NumericVector& cell, const IntegerVector& dim){
   }
   return out_cell;
 }
+
+
+//' @rdname api-cell_
+//[[Rcpp::export]]
+void next_cell2_(IntegerVector& cell, const IntegerVector& dim){
+  int ndim=dim.length(), j, n_init=0;
+  for (j=0; j < ndim; j++){
+    if (cell[j]  <  dim[j]){
+      cell[j] = cell[j] + 1;
+      break;
+    } else {
+      cell[j] = 1;
+      n_init++;
+    }
+  }
+}
+
+
 
 // ------------------------------------------------
 

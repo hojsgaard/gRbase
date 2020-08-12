@@ -5,6 +5,7 @@
 \alias{cell2entry}
 \alias{entry2cell}
 \alias{next_cell}
+\alias{next_cell2}
 \alias{next_cell_slice}
 \alias{slice2entry}
 \alias{cell2entry_perm}
@@ -17,6 +18,8 @@ cell2entry(cell, dim)
 entry2cell(entry, dim)
 
 next_cell(cell, dim)
+
+next_cell2(cell, dim)
 
 next_cell_slice(cell, dim, slice_marg)
 
