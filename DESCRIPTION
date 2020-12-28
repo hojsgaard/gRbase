@@ -30,9 +30,10 @@ Depends:
     R (>= 3.6.0),
     methods
 Imports:
-    graph,
-    Rgraphviz,
+    BiocManager,
+    graph,	
     RBGL,
+    Rgraphviz,
     stats4,
     igraph,
     magrittr,
@@ -42,6 +43,5 @@ Suggests:
     testthat (>= 2.1.0),
     microbenchmark,
     knitr
-biocViews: 
 LinkingTo: Rcpp (>= 0.11.1), RcppEigen, RcppArmadillo
 RoxygenNote: 7.1.1

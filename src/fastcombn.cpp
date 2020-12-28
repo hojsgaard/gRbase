@@ -41,7 +41,7 @@ IntegerMatrix do_combn(int N, int K){
   
   do {
     rr = 0;
-    for (int i = 0, idx = 0; i < N; ++i) // [0..N-1] integers
+    for (int i = 0; i < N; ++i) // [0..N-1] integers
       {
 	if (bitmask[i]) {
 	  out(rr++, cc) = i + 1; // or i + 1

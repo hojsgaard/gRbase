@@ -292,9 +292,14 @@ vpar <- function(object, getv=TRUE, forceCheck=TRUE){
 vparMAT <- function(object, getv=TRUE, forceCheck=TRUE){
   if (forceCheck && !is.adjMAT(object))
     stop("Matrix is not adjacency matrix... \n")
-  if (forceCheck && isSymmetric(object))
-    stop("Graph is undirected; (v, pa(v)) does not exist...\n")
 
+  only_zeros <- sum(abs(object)) < 1e-12
+  
+  if (!only_zeros){
+      if (forceCheck && isSymmetric(object))
+          stop("Graph is undirected; (v, pa(v)) does not exist...\n")
+  }
+  
   vn <- rownames(object)
   out <- lapply(seq_along(vn),
                 function(j) vn[c(j, which(object[, j]!=0))])
@@ -309,9 +314,15 @@ vparMAT <- function(object, getv=TRUE, forceCheck=TRUE){
 #' @export
 ## #' @rdname graph-vpar
 vpar.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
-    if (forceCheck && graph::edgemode(object)=="undirected")
-        stop("Graph is undirected; (v,pa(v)) does not exist...\n")
 
+    ## ## FIXME: PERHAPS NOT A GOOD IDEA:
+    ## no_edges  <- all(sapply(graph::edges(object), length) == 0)
+
+    ##    if (!no_edges){
+        if (forceCheck && graph::edgemode(object)=="undirected")
+            stop("Graph is undirected; (v,pa(v)) does not exist...\n")
+    ##}
+    
     ch <- graph::edges(object) ## Nodes and their children
     vn <- names(ch)
     tf <- lapply(seq_along(ch),

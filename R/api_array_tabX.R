@@ -264,17 +264,20 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
     
     if (!is.named.array(tab))
         stop("'tab' must be a named array")
-    else if (any( tab < 0 ))
+    if (any(tab < 0))
         stop("'tab' must be non-negative")
-    else if (is.null(marg) && is.null(cond)){
-        if (normalize) tab / sum( tab ) else tab
-    } else if ( .is.named.list( cond ) ){
-        if ( !.is.simple.cond( cond ) )
+
+    if ((length(marg)==0) && (length(cond)==0)){
+        if (normalize) return(tab / sum(tab)) else return(tab)
+    }
+
+    if (.is.named.list( cond )){
+        if (!.is.simple.cond( cond ))
             stop("'cond' is not 'simple'; can not proceed\n")
         else {
             ##message("calling tabDist again")
-            tab <- tabSlice( tab, slice = cond, as.array = TRUE )
-            tabDist( tab, marg = marg, normalize = normalize )
+            tab <- tabSlice(tab, slice = cond, as.array = TRUE)
+            tabDist(tab, marg=marg, normalize=normalize)
         }
     } else {
         vset <- names(dimnames( tab ))
@@ -292,18 +295,18 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
             if (length(mset) == 0) stop("Invalid margin specification\n")
         }
 
-        mcset <- c( mset, cset )
-#        str(list(marg=marg, cond=cond, mset=mset, cset=cset, mcset=mcset))
+        mcset <- c(mset, cset)
+        ##str(list(marg=marg, cond=cond, mset=mset, cset=cset, mcset=mcset))
         
         if (!is.null(mcset)){
             tab <- tabMarg(tab, marg = mcset)
         }
         
-        if ( is.null( cset ) ){
+        if (length(cset) == 0){
             if (normalize) tab <- tab / sum(tab)            
         } else {
-            mtab <- tabMarg( tab, marg=cset)
-            tab <- tabDiv( tab, mtab )
+            mtab <- tabMarg(tab, marg=cset)
+            tab  <- tabDiv(tab, mtab)
         } 
         
         if (length(mcset) > 0)

@@ -9,14 +9,16 @@
 #'     as.formula cov.wt fitted formula ftable getCall logLik loglin
 #'     na.omit pchisq pf pnorm r2dtable terms update update.formula
 #' 
-#' @importFrom utils combn str
+#' @importFrom utils combn str install.packages
 #'
 #' @importMethodsFrom stats4 plot
 #' @exportMethod plot
 #' 
 ## To make available in vignette 
 #' @importFrom magrittr   "%>%"
-#' @export "%>%" 
+#' @export "%>%"
+#'
+#' @importFrom BiocManager install
 
 ## Miscellaneous
 ## -------------
@@ -33,7 +35,8 @@
 ## ----------------------------
 
 #' @importClassesFrom graph graphNEL
-#' @importFrom graph edges nodes
+#' @importFrom graph edges nodes edgeMatrix addEdge addNode removeEdge removeNode
+#' @export edges nodes edgeMatrix addEdge addNode removeEdge removeNode
 
 #' @importMethodsFrom Rgraphviz plot
 
