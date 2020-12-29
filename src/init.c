@@ -53,6 +53,8 @@ extern SEXP _gRbase_moralizeMAT(SEXP);
 extern SEXP _gRbase_next_cell2_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_slice_(SEXP, SEXP, SEXP);
+extern SEXP _gRbase_next_perm_(SEXP);
+extern SEXP _gRbase_oho(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_order2_(SEXP, SEXP);
 extern SEXP _gRbase_perm_cell_entries_(SEXP, SEXP);
 extern SEXP _gRbase_rip_internal(SEXP, SEXP, SEXP);
@@ -132,6 +134,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_next_cell2_",                  (DL_FUNC) &_gRbase_next_cell2_,                  2},
     {"_gRbase_next_cell_",                   (DL_FUNC) &_gRbase_next_cell_,                   2},
     {"_gRbase_next_cell_slice_",             (DL_FUNC) &_gRbase_next_cell_slice_,             3},
+    {"_gRbase_next_perm_",                   (DL_FUNC) &_gRbase_next_perm_,                   1},
+    {"_gRbase_oho",                          (DL_FUNC) &_gRbase_oho,                          3},
     {"_gRbase_order2_",                      (DL_FUNC) &_gRbase_order2_,                      2},
     {"_gRbase_perm_cell_entries_",           (DL_FUNC) &_gRbase_perm_cell_entries_,           2},
     {"_gRbase_rip_internal",                 (DL_FUNC) &_gRbase_rip_internal,                 3},

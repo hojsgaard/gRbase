@@ -2006,6 +2006,75 @@ RcppExport SEXP _gRbase_do_combn(SEXP NSEXP, SEXP KSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// next_perm_
+void next_perm_(IntegerVector& vv);
+static SEXP _gRbase_next_perm__try(SEXP vvSEXP) {
+BEGIN_RCPP
+    Rcpp::traits::input_parameter< IntegerVector& >::type vv(vvSEXP);
+    next_perm_(vv);
+    return R_NilValue;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_next_perm_(SEXP vvSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_next_perm__try(vvSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// oho
+NumericVector oho(NumericVector x, int begin, int end);
+static SEXP _gRbase_oho_try(SEXP xSEXP, SEXP beginSEXP, SEXP endSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type begin(beginSEXP);
+    Rcpp::traits::input_parameter< int >::type end(endSEXP);
+    rcpp_result_gen = Rcpp::wrap(oho(x, begin, end));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_oho(SEXP xSEXP, SEXP beginSEXP, SEXP endSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_oho_try(xSEXP, beginSEXP, endSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // solveSPD
 SEXP solveSPD(arma::mat X);
 RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {
@@ -2072,6 +2141,8 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("SEXP(*isin_)(List,SEXP,bool)");
         signatures.insert("int(*choose_)(int,int)");
         signatures.insert("IntegerMatrix(*do_combn)(int,int)");
+        signatures.insert("void(*next_perm_)(IntegerVector&)");
+        signatures.insert("NumericVector(*oho)(NumericVector,int,int)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -2128,6 +2199,8 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_isin_", (DL_FUNC)_gRbase_isin__try);
     R_RegisterCCallable("gRbase", "_gRbase_choose_", (DL_FUNC)_gRbase_choose__try);
     R_RegisterCCallable("gRbase", "_gRbase_do_combn", (DL_FUNC)_gRbase_do_combn_try);
+    R_RegisterCCallable("gRbase", "_gRbase_next_perm_", (DL_FUNC)_gRbase_next_perm__try);
+    R_RegisterCCallable("gRbase", "_gRbase_oho", (DL_FUNC)_gRbase_oho_try);
     R_RegisterCCallable("gRbase", "_gRbase_RcppExport_validate", (DL_FUNC)_gRbase_RcppExport_validate);
     return R_NilValue;
 }

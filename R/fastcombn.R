@@ -87,6 +87,9 @@ combn_prim <- function(x, m, simplify=TRUE){
     NSEL  <- as.integer(m)
     NSET  <- as.integer(choose(NCAND, NSEL))
 
+    ##str(list(NCAND=NCAND, NSEL=NSEL, NSET=NSET))
+
+    
     #res <- do_combn(NCAND, NSEL)
     res <- x[do_combn(NCAND, NSEL)]
 

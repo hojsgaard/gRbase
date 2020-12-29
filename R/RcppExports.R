@@ -326,6 +326,14 @@ do_combn <- function(N, K) {
     .Call('_gRbase_do_combn', PACKAGE = 'gRbase', N, K)
 }
 
+next_perm_ <- function(vv) {
+    invisible(.Call('_gRbase_next_perm_', PACKAGE = 'gRbase', vv))
+}
+
+oho <- function(x, begin, end) {
+    .Call('_gRbase_oho', PACKAGE = 'gRbase', x, begin, end)
+}
+
 solveSPD <- function(X) {
     .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }

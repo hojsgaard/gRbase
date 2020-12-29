@@ -1075,6 +1075,47 @@ namespace gRbase {
         return Rcpp::as<IntegerMatrix >(rcpp_result_gen);
     }
 
+    inline void next_perm_(IntegerVector& vv) {
+        typedef SEXP(*Ptr_next_perm_)(SEXP);
+        static Ptr_next_perm_ p_next_perm_ = NULL;
+        if (p_next_perm_ == NULL) {
+            validateSignature("void(*next_perm_)(IntegerVector&)");
+            p_next_perm_ = (Ptr_next_perm_)R_GetCCallable("gRbase", "_gRbase_next_perm_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_next_perm_(Shield<SEXP>(Rcpp::wrap(vv)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+    }
+
+    inline NumericVector oho(NumericVector x, int begin, int end) {
+        typedef SEXP(*Ptr_oho)(SEXP,SEXP,SEXP);
+        static Ptr_oho p_oho = NULL;
+        if (p_oho == NULL) {
+            validateSignature("NumericVector(*oho)(NumericVector,int,int)");
+            p_oho = (Ptr_oho)R_GetCCallable("gRbase", "_gRbase_oho");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_oho(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(begin)), Shield<SEXP>(Rcpp::wrap(end)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<NumericVector >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_gRbase_RCPPEXPORTS_H_GEN_

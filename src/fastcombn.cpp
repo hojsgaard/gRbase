@@ -53,6 +53,48 @@ IntegerMatrix do_combn(int N, int K){
 }
 
 
+//[[Rcpp::export]]
+void next_perm_(IntegerVector& vv){
+  int n=vv.length(), ii, jj, ss;
+
+  for (ii=n-1; ii>1; ii--){
+    if (vv[ii]==0 && vv[ii-1]==1) break;
+  }
+
+  if (ii <= n){
+    vv[ii-1] = 0;
+    vv[ii]   = 1;
+    if (ii < n){
+      ss = 0;
+      for (jj = ii; jj < n; jj++) ss += vv[jj];
+      if (ss > 0){
+	for (jj = ii;    jj < ii+ss; jj++) vv[jj] = 1;	
+	for (jj = ii+ss; jj < n;     jj++) vv[jj] = 0;
+      }
+    }
+  }
+}
+
+
+
+//[[Rcpp::export]]
+NumericVector oho (NumericVector x, int begin, int end){
+  //return x[Range(begin, end)];
+  //x[Range(begin, end)] = -1.2;
+  IntegerVector ss; 
+  x[(ss=seq(begin, end))] = -1.2;
+  double s=sum(x);
+  Rcout << s << std::endl;
+  return x;
+}
+
+
+
+
+
+
+
+
 // template <int RTYPE>
 // Matrix<RTYPE> doit(const Vector<RTYPE>& x, const int m){
 
