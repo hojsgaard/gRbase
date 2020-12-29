@@ -1784,6 +1784,40 @@ RcppExport SEXP _gRbase_all_pairs__(SEXP xSEXP, SEXP ySEXP, SEXP sortSEXP, SEXP 
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// get_length
+int get_length(SEXP x);
+static SEXP _gRbase_get_length_try(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_length(x));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gRbase_get_length(SEXP xSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gRbase_get_length_try(xSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // max_set_
 SEXP max_set_(const List L, bool index);
 static SEXP _gRbase_max_set__try(SEXP LSEXP, SEXP indexSEXP) {
@@ -2136,6 +2170,7 @@ static int _gRbase_RcppExport_validate(const char* sig) {
         signatures.insert("List(*allSubsets0_)(const IntegerVector&)");
         signatures.insert("SEXP(*allSubsets_)(SEXP&)");
         signatures.insert("SEXP(*all_pairs__)(CharacterVector,CharacterVector,bool,std::string)");
+        signatures.insert("int(*get_length)(SEXP)");
         signatures.insert("SEXP(*max_set_)(const List,bool)");
         signatures.insert("SEXP(*min_set_)(const List,bool)");
         signatures.insert("SEXP(*isin_)(List,SEXP,bool)");
@@ -2194,6 +2229,7 @@ RcppExport SEXP _gRbase_RcppExport_registerCCallable() {
     R_RegisterCCallable("gRbase", "_gRbase_allSubsets0_", (DL_FUNC)_gRbase_allSubsets0__try);
     R_RegisterCCallable("gRbase", "_gRbase_allSubsets_", (DL_FUNC)_gRbase_allSubsets__try);
     R_RegisterCCallable("gRbase", "_gRbase_all_pairs__", (DL_FUNC)_gRbase_all_pairs___try);
+    R_RegisterCCallable("gRbase", "_gRbase_get_length", (DL_FUNC)_gRbase_get_length_try);
     R_RegisterCCallable("gRbase", "_gRbase_max_set_", (DL_FUNC)_gRbase_max_set__try);
     R_RegisterCCallable("gRbase", "_gRbase_min_set_", (DL_FUNC)_gRbase_min_set__try);
     R_RegisterCCallable("gRbase", "_gRbase_isin_", (DL_FUNC)_gRbase_isin__try);

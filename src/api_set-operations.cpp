@@ -286,7 +286,15 @@ SEXP all_pairs__(CharacterVector x,
 
 
 
-inline int get_length(CharacterVector x){return x.length();}
+// inline int get_length(CharacterVector x){return x.length();}
+
+// //[[Rcpp::export]]
+int get_length(SEXP x){CharacterVector xc = as<CharacterVector>(x); return xc.length();}
+
+// int get_len(RObject x){return x.size();}
+
+//int get_len(SEXP x){return ::Rf_xlength(x);}
+
 
 //[[Rcpp::export]]
 SEXP max_set_(const List L, bool index=false){

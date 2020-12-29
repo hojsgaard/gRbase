@@ -290,6 +290,10 @@ all_pairs__ <- function(x, y = character(0), sort = FALSE, result = "matrix") {
     .Call('_gRbase_all_pairs__', PACKAGE = 'gRbase', x, y, sort, result)
 }
 
+get_length <- function(x) {
+    .Call('_gRbase_get_length', PACKAGE = 'gRbase', x)
+}
+
 max_set_ <- function(L, index = FALSE) {
     .Call('_gRbase_max_set_', PACKAGE = 'gRbase', L, index)
 }

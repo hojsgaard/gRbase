@@ -970,6 +970,27 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
+    inline int get_length(SEXP x) {
+        typedef SEXP(*Ptr_get_length)(SEXP);
+        static Ptr_get_length p_get_length = NULL;
+        if (p_get_length == NULL) {
+            validateSignature("int(*get_length)(SEXP)");
+            p_get_length = (Ptr_get_length)R_GetCCallable("gRbase", "_gRbase_get_length");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_get_length(Shield<SEXP>(Rcpp::wrap(x)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<int >(rcpp_result_gen);
+    }
+
     inline SEXP max_set_(const List L, bool index = false) {
         typedef SEXP(*Ptr_max_set_)(SEXP,SEXP);
         static Ptr_max_set_ p_max_set_ = NULL;
