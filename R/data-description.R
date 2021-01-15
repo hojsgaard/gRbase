@@ -140,6 +140,10 @@
 #'
 #' @details
 #'
+#' Notice that data are collected at a heart clinic, so data do not
+#' represent the population, but are conditional on patients having
+#' ended up at the clinic.
+#' 
 #' * cad1: Complete dataset, 236 cases.
 #'
 #' * cad2: Incomplete dataset, 67 cases. Information on (some of) the
