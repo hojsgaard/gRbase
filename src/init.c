@@ -34,7 +34,6 @@ extern SEXP _gRbase_dimnames_match_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_do_combn(SEXP, SEXP);
 extern SEXP _gRbase_entry2cell_(SEXP, SEXP);
 extern SEXP _gRbase_getCliquesDec__(SEXP, SEXP);
-extern SEXP _gRbase_get_length(SEXP);
 extern SEXP _gRbase_get_subset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_get_superset_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_is_dimnames_(SEXP);
@@ -116,7 +115,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_do_combn",                     (DL_FUNC) &_gRbase_do_combn,                     2},
     {"_gRbase_entry2cell_",                  (DL_FUNC) &_gRbase_entry2cell_,                  2},
     {"_gRbase_getCliquesDec__",              (DL_FUNC) &_gRbase_getCliquesDec__,              2},
-    {"_gRbase_get_length",                   (DL_FUNC) &_gRbase_get_length,                   1},
     {"_gRbase_get_subset_",                  (DL_FUNC) &_gRbase_get_subset_,                  3},
     {"_gRbase_get_superset_",                (DL_FUNC) &_gRbase_get_superset_,                3},
     {"_gRbase_is_dimnames_",                 (DL_FUNC) &_gRbase_is_dimnames_,                 1},
