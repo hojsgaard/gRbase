@@ -26,12 +26,12 @@ The value returned depends on the class of the first argument.
 }
 \description{
 \code{compile} and \code{propagate} are generic
-    functions which invoke particular methods which depend on the
-    class of the first argument
+functions which invoke particular methods which depend on the
+class of the first argument
 }
 \references{
 Højsgaard, Søren; Edwards, David; Lauritzen, Steffen (2012):
-    Graphical Models with R, Springer
+Graphical Models with R, Springer
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

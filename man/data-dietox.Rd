@@ -7,13 +7,13 @@
 \title{Growth curves of pigs in a 3x3 factorial experiment}
 \format{
 This data frame contains the following columns: Weight,
-    Feed, Time, Pig, Evit, Cu, Litter.
+Feed, Time, Pig, Evit, Cu, Litter.
 }
 \source{
 Lauridsen, C., Højsgaard, S., Sørensen, M.T. C. (1999)
-    Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on
-    Performance and Antioxidant and Oxidative Status of
-    Pigs. J. Anim. Sci.77:906-916
+Influence of Dietary Rapeseed Oli, Vitamin E, and Copper on
+Performance and Antioxidant and Oxidative Status of
+Pigs. J. Anim. Sci.77:906-916
 }
 \usage{
 data(dietox)

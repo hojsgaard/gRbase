@@ -31,8 +31,8 @@ normalized, see 'Details' below.}
 
 \item{smooth}{Should values be smoothed, see 'Details' below.}
 
-\item{data}{Data to be coerced to a `parray`; can be `data.frame`,
-`table`, `xtabs`, `matrix`.}
+\item{data}{Data to be coerced to a \code{parray}; can be \code{data.frame},
+\code{table}, \code{xtabs}, \code{matrix}.}
 
 \item{sep}{Desired separator in dim names; defaults to "".}
 }
@@ -41,7 +41,7 @@ A a named array.
 }
 \description{
 General representation of multidimensional arrays
-    (with named dimnames, also called named arrays.)
+(with named dimnames, also called named arrays.)
 }
 \details{
 A named array object represents a table defined by a set of

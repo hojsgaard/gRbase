@@ -33,12 +33,12 @@ A matrix.
 }
 \description{
 Simulate data (slice of) an array: Simulate n
-    observations from the array x conditional on the variables in
-    margin (a vector of indices) takes values given by margin.value
+observations from the array x conditional on the variables in
+margin (a vector of indices) takes values given by margin.value
 }
 \note{
 The current implementation is fragile in the sense that it is
-    not checked that the input argument \code{x} is an array.
+not checked that the input argument \code{x} is an array.
 }
 \examples{
 ## 2x2 array

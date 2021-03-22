@@ -7,9 +7,9 @@
 \title{Risk factors for coronary heart disease.}
 \format{
 A table with 6 discrete variables. A: smoking, B: strenous
-    mental work, D: strenuous physical work, E: systolic blood
-    pressure, F: ratio of lipoproteins, G: Family anamnesis of
-    coronary heart disease.
+mental work, D: strenuous physical work, E: systolic blood
+pressure, F: ratio of lipoproteins, G: Family anamnesis of
+coronary heart disease.
 }
 \usage{
 data(reinis)
@@ -21,8 +21,8 @@ car factory.
 }
 \references{
 Edwards and Havranek (1985): A fast procedure for model
-    search in multidimensional contingency tables. Biometrika, 72:
-    339-351.
+search in multidimensional contingency tables. Biometrika, 72:
+339-351.
 
 Reinis et al (1981): Prognostic significance of the risk profile in the
 prevention of coronary heart disease. Bratis. lek. Listy. 76: 137-150.

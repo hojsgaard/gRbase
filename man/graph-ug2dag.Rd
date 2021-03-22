@@ -12,6 +12,6 @@ graphNEL object.}
 }
 \description{
 An undirected graph G can be converted to a dag if G
-    is chordal. A dag D can be converted to an undirected graph if
-    D can be moralized without adding edges.
+is chordal. A dag D can be converted to an undirected graph if
+D can be moralized without adding edges.
 }

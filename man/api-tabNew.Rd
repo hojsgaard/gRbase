@@ -11,9 +11,11 @@ tabNew(names, levels, values, normalize = "none", smooth = 0)
 \item{names}{Names of variables defining table; a character vector
 or a right hand sided formula.}
 
-\item{levels}{1) a list with specification of the levels of the
+\item{levels}{\enumerate{
+\item a list with specification of the levels of the
 factors in \code{names} or 2) a vector with number of levels of
-the factors in \code{names}. See 'examples' below.}
+the factors in \code{names}. See 'examples' below.
+}}
 
 \item{values}{values to go into the parray}
 
@@ -30,15 +32,14 @@ Alternative ways of creating arrays
 }
 \details{
 If \code{normalize="first"} then for each configuration of
-    all other variables than the first, the probabilities are
-    normalized to sum to one.  Thus f(a,b,c) becomes a conditional
-    probability table of the form p(a|b,c).  If
-    \code{normalize="all"} then the sum over all entries of
-    f(a,b,c) is one.
-
-    If \code{smooth} is positive then
-    \code{smooth} is added to \code{values} before normalization
-    takes place.
+all other variables than the first, the probabilities are
+normalized to sum to one.  Thus f(a,b,c) becomes a conditional
+probability table of the form p(a|b,c).  If
+\code{normalize="all"} then the sum over all entries of
+f(a,b,c) is one.\preformatted{If \code{smooth} is positive then
+\code{smooth} is added to \code{values} before normalization
+takes place.
+}
 }
 \examples{
 

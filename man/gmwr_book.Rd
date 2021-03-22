@@ -14,5 +14,5 @@ as.adjMAT(object, result = "matrix")
 }
 \description{
 Functions that must be retained to make code from
-    gmwr-book work
+gmwr-book work
 }

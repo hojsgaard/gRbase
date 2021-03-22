@@ -68,10 +68,10 @@ TRUE).}
 }
 \description{
 Array operations; created to facilitate the gRain
-    package in 2007. Now largely replaceable by other (often
-    faster) functions implemented in Rcpp.
+package in 2007. Now largely replaceable by other (often
+faster) functions implemented in Rcpp.
 }
 \details{
-`tableOp0` is brute force implementation based on
-    dataframes. It is very slow, but useful for error checking.
+\code{tableOp0} is brute force implementation based on
+dataframes. It is very slow, but useful for error checking.
 }

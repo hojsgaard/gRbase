@@ -319,6 +319,27 @@ namespace gRbase {
         return Rcpp::as<SEXP >(rcpp_result_gen);
     }
 
+    inline numVec tab_marg2_(const numVec tab1, const intVec marg) {
+        typedef SEXP(*Ptr_tab_marg2_)(SEXP,SEXP);
+        static Ptr_tab_marg2_ p_tab_marg2_ = NULL;
+        if (p_tab_marg2_ == NULL) {
+            validateSignature("numVec(*tab_marg2_)(const numVec,const intVec)");
+            p_tab_marg2_ = (Ptr_tab_marg2_)R_GetCCallable("gRbase", "_gRbase_tab_marg2_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_tab_marg2_(Shield<SEXP>(Rcpp::wrap(tab1)), Shield<SEXP>(Rcpp::wrap(marg)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<numVec >(rcpp_result_gen);
+    }
+
     inline SEXP tab_marg_(const SEXP& tab, const SEXP& marg) {
         typedef SEXP(*Ptr_tab_marg_)(SEXP,SEXP);
         static Ptr_tab_marg_ p_tab_marg_ = NULL;
@@ -1093,27 +1114,6 @@ namespace gRbase {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-    }
-
-    inline NumericVector oho(NumericVector x, int begin, int end) {
-        typedef SEXP(*Ptr_oho)(SEXP,SEXP,SEXP);
-        static Ptr_oho p_oho = NULL;
-        if (p_oho == NULL) {
-            validateSignature("NumericVector(*oho)(NumericVector,int,int)");
-            p_oho = (Ptr_oho)R_GetCCallable("gRbase", "_gRbase_oho");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_oho(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(begin)), Shield<SEXP>(Rcpp::wrap(end)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<NumericVector >(rcpp_result_gen);
     }
 
 }

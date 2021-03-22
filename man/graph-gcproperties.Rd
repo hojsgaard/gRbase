@@ -14,38 +14,37 @@ isDecomposable(x)
 }
 \arguments{
 \item{x}{A generating class given as right hand sided formula or a
-list; see `examples` below.}
+list; see \code{examples} below.}
 }
 \value{
 TRUE or FALSE
 }
 \description{
 A set of generators define an undirected graph, here
-    called a dependence graph. Given a set of generators it is
-    checked 1) if the dependence dependence graph is in
-    1-1-correspondance with the genrators (such that the
-    corresponding model is graphical) and 2) if the dependence
-    graph is chordal (triangulated) (such that the corresponding
-    model is decomposable).
+called a dependence graph. Given a set of generators it is
+checked 1) if the dependence dependence graph is in
+1-1-correspondance with the genrators (such that the
+corresponding model is graphical) and 2) if the dependence
+graph is chordal (triangulated) (such that the corresponding
+model is decomposable).
 }
 \details{
 A set of sets of variables, say A_1, A_2, ... A_K is
-    called a generating class for a graph with vertices V and edges
-    E. If two variables a,b are in the same generator, say A_j,
-    then a and b are vertices in the graph and there is an
-    undirected edge between a and b.
+called a generating class for a graph with vertices V and edges
+E. If two variables a,b are in the same generator, say A_j,
+then a and b are vertices in the graph and there is an
+undirected edge between a and b.\preformatted{The graph induced by \code{g1 = ~a:b + a:c + b:c + c:d} has
+edges \code{ab, ac, bc, cd}. The
+cliques of this graph are \code{abc, cd}. Hence there is not a
+1-1-correspondance between the graph and the generators.
 
-    The graph induced by \code{g1 = ~a:b + a:c + b:c + c:d} has
-    edges \code{ab, ac, bc, cd}. The
-    cliques of this graph are \code{abc, cd}. Hence there is not a
-    1-1-correspondance between the graph and the generators.
+On the other hand, \code{g2 <- ~a:b:c + c:d} induces the same
+graph in this case there is a 1-1-correspondance.
 
-    On the other hand, \code{g2 <- ~a:b:c + c:d} induces the same
-    graph in this case there is a 1-1-correspondance.
-
-    The graph induced by \code{g3 <- ~a:b + b:c + c:d + d:a} is in
-    1-1-correspondance with its dependence graph, but the graph is
-    not chordal.
+The graph induced by \code{g3 <- ~a:b + b:c + c:d + d:a} is in
+1-1-correspondance with its dependence graph, but the graph is
+not chordal.
+}
 }
 \examples{
 

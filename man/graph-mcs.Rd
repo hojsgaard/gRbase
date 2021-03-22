@@ -43,29 +43,28 @@ discrete. See 'details' for more information.}
 }
 \value{
 A vector with a linear ordering (obtained by maximum
-    cardinality search) of the variables or character(0) if such an
-    ordering can not be created.
+cardinality search) of the variables or character(0) if such an
+ordering can not be created.
 }
 \description{
 Returns (if it exists) a perfect ordering of the
-    vertices in an undirected graph.
+vertices in an undirected graph.
 }
 \details{
 An undirected graph is decomposable iff there exists a
-    perfect ordering of the vertices. The maximum cardinality
-    search algorithm returns a perfect ordering of the vertices if
-    it exists and hence this algorithm provides a check for
-    decomposability. The \code{mcs()} functions finds such an
-    ordering if it exists.
-
-    The notion of strong decomposability is used in connection with
-    e.g. mixed interaction models where some vertices represent
-    discrete variables and some represent continuous
-    variables. Such graphs are said to be marked. The
-    \code{mcsmarked()} function will return a perfect ordering iff
-    the graph is strongly decomposable. As graphs do not know about
-    whether vertices represent discrete or continuous variables,
-    this information is supplied in the \code{discrete} argument.
+perfect ordering of the vertices. The maximum cardinality
+search algorithm returns a perfect ordering of the vertices if
+it exists and hence this algorithm provides a check for
+decomposability. The \code{mcs()} functions finds such an
+ordering if it exists.\preformatted{The notion of strong decomposability is used in connection with
+e.g. mixed interaction models where some vertices represent
+discrete variables and some represent continuous
+variables. Such graphs are said to be marked. The
+\code{mcsmarked()} function will return a perfect ordering iff
+the graph is strongly decomposable. As graphs do not know about
+whether vertices represent discrete or continuous variables,
+this information is supplied in the \code{discrete} argument.
+}
 }
 \note{
 The workhorse is the \code{mcsMAT} function.
@@ -90,7 +89,7 @@ mcs_marked(uG2, discrete=c("a","d"))
 }
 \seealso{
 \code{\link{moralize}}, \code{\link{junction_tree}},
-    \code{\link{rip}}, \code{\link{ug}}, \code{\link{dag}}
+\code{\link{rip}}, \code{\link{ug}}, \code{\link{dag}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

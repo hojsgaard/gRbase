@@ -112,6 +112,10 @@ tab_align_ <- function(tab1, tab2) {
     .Call('_gRbase_tab_align_', PACKAGE = 'gRbase', tab1, tab2)
 }
 
+tab_marg2_ <- function(tab1, marg) {
+    .Call('_gRbase_tab_marg2_', PACKAGE = 'gRbase', tab1, marg)
+}
+
 #' @rdname api-tabX_
 tab_marg_ <- function(tab, marg) {
     .Call('_gRbase_tab_marg_', PACKAGE = 'gRbase', tab, marg)
@@ -328,10 +332,6 @@ do_combn <- function(N, K) {
 
 next_perm_ <- function(vv) {
     invisible(.Call('_gRbase_next_perm_', PACKAGE = 'gRbase', vv))
-}
-
-oho <- function(x, begin, end) {
-    .Call('_gRbase_oho', PACKAGE = 'gRbase', x, begin, end)
 }
 
 solveSPD <- function(X) {

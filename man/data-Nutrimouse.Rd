@@ -9,16 +9,16 @@
 A data frame with 40 observations on 143 variables of which two are factors and 141 are numeric.
 
 \describe{
-  \item{\code{genotype}}{a factor with levels \code{wt}
-  \code{ppar}}
+\item{\code{genotype}}{a factor with levels \code{wt}
+\code{ppar}}
 \item{\code{diet}}{a factor with levels \code{coc}
-  \code{fish} \code{lin} \code{ref} \code{sun}}
+\code{fish} \code{lin} \code{ref} \code{sun}}
 }
 }
 \source{
 The data were provided by Pascal Martin from the Toxicology
-    and Pharmacology Laboratory, National Institute for Agronomic
-    Research, French.
+and Pharmacology Laboratory, National Institute for Agronomic
+Research, French.
 }
 \usage{
 data(Nutrimouse)
@@ -54,9 +54,9 @@ data(Nutrimouse)
 }
 \references{
 Martin, P. G. P., Guillou, H., Lasserre, F., D<e9>jean,
-    S., Lan, A., Pascussi, J.-M., San Cristobal, M., Legrand, P.,
-    Besse, P. and Pineau, T. (2007). Novel aspects of
-    PPARa-mediated regulation of lipid and xenobiotic metabolism
-    revealed through a multrigenomic study. Hepatology 54, 767-777.
+S., Lan, A., Pascussi, J.-M., San Cristobal, M., Legrand, P.,
+Besse, P. and Pineau, T. (2007). Novel aspects of
+PPARa-mediated regulation of lipid and xenobiotic metabolism
+revealed through a multrigenomic study. Hepatology 54, 767-777.
 }
 \keyword{datasets}

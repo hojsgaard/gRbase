@@ -27,9 +27,9 @@ an undesirable side-effect of gastric surgery. The table summarizes the
 results of a study comparing four different surgical operations on patients
 with duodenal ulcer, carried out in four centres, as described in Grizzle et
 al (1969). The four operations were: vagotomy and drainage, vagotomy and
-antrectomy (removal of 25\% of gastric tissue), vagotomy and hemigastrectomy
-(removal of 50\% of gastric tissue), and gastric restriction (removal of
-75\% of gastric tissue).
+antrectomy (removal of 25\\% of gastric tissue), vagotomy and hemigastrectomy
+(removal of 50\\% of gastric tissue), and gastric restriction (removal of
+75\\% of gastric tissue).
 }
 \examples{
 

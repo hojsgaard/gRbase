@@ -11,7 +11,7 @@
 \alias{jTree}
 \alias{junctionTree}
 \title{Create RIP ordering of the cliques of  an undirected graph;
-    create junction tree.}
+create junction tree.}
 \usage{
 rip(object, ...)
 
@@ -48,38 +48,38 @@ section 'details'.}
 }
 \value{
 \code{rip} returns a list (an object of class
-    \code{ripOrder}. A print method exists for such objects.)
+\code{ripOrder}. A print method exists for such objects.)
 }
 \description{
 A RIP (running intersection property) ordering of the
-    cliques is also called a perfect ordering. If the graph is not
-    chordal, then no such ordering exists.
+cliques is also called a perfect ordering. If the graph is not
+chordal, then no such ordering exists.
 }
 \details{
 The RIP ordering of the cliques of a decomposable
-    (i.e. chordal) graph is obtained by first ordering the
-    variables linearly with maximum cardinality search (by
-    \code{mcs}). The root argument is transfered to \code{mcs} as a
-    way of controlling which clique will be the first in the RIP
-    ordering.  The \code{junction_tree()} (and
-    \code{junction_tree()}) (for "junction tree") is just a wrapper
-    for a call of \code{triangulate()} followed by a call of
-    \code{rip()}.
+(i.e. chordal) graph is obtained by first ordering the
+variables linearly with maximum cardinality search (by
+\code{mcs}). The root argument is transfered to \code{mcs} as a
+way of controlling which clique will be the first in the RIP
+ordering.  The \code{junction_tree()} (and
+\code{junction_tree()}) (for "junction tree") is just a wrapper
+for a call of \code{triangulate()} followed by a call of
+\code{rip()}.
 }
 \note{
 The workhorse is the \code{ripMAT()} function. The
-    \code{nLevels} argument to the \code{rip} functions has no
-    meaning.
+\code{nLevels} argument to the \code{rip} functions has no
+meaning.
 }
 \section{Synonymous functions}{
 
 
 For backward compatibility with downstream packages we have the
 following synonymous functions:
-
-* jTree = junction_tree (Used in rags2ridges)
-
-* junctionTree = junction_tree
+\itemize{
+\item jTree = junction_tree (Used in rags2ridges)
+\item junctionTree = junction_tree
+}
 }
 
 \examples{
@@ -112,7 +112,7 @@ junction_tree(uG)
 }
 \seealso{
 \code{\link{mcs}}, \code{\link{triangulate}},
-    \code{\link{moralize}}, \code{\link{ug}}, \code{\link{dag}}
+\code{\link{moralize}}, \code{\link{ug}}, \code{\link{dag}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

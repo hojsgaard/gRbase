@@ -13,12 +13,12 @@ compareModels(object, object2, ...)
 }
 \value{
 The value returned depends on the class of the first
-    argument.
+argument.
 }
 \description{
 \code{compareModels} is a generic functions which
-    invoke particular methods which depend on the class of the
-    first argument
+invoke particular methods which depend on the class of the
+first argument
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

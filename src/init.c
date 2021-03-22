@@ -54,7 +54,6 @@ extern SEXP _gRbase_next_cell2_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_(SEXP, SEXP);
 extern SEXP _gRbase_next_cell_slice_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_next_perm_(SEXP);
-extern SEXP _gRbase_oho(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_order2_(SEXP, SEXP);
 extern SEXP _gRbase_perm_cell_entries_(SEXP, SEXP);
 extern SEXP _gRbase_rip_internal(SEXP, SEXP, SEXP);
@@ -73,6 +72,7 @@ extern SEXP _gRbase_tab_equal_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_tab_expand_(SEXP, SEXP, SEXP);
 extern SEXP _gRbase_tab_list_add_(SEXP);
 extern SEXP _gRbase_tab_list_mult_(SEXP);
+extern SEXP _gRbase_tab_marg2_(SEXP, SEXP);
 extern SEXP _gRbase_tab_marg_(SEXP, SEXP);
 extern SEXP _gRbase_tab_mult_(SEXP, SEXP);
 extern SEXP _gRbase_tab_op_(SEXP, SEXP, SEXP);
@@ -135,7 +135,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_next_cell_",                   (DL_FUNC) &_gRbase_next_cell_,                   2},
     {"_gRbase_next_cell_slice_",             (DL_FUNC) &_gRbase_next_cell_slice_,             3},
     {"_gRbase_next_perm_",                   (DL_FUNC) &_gRbase_next_perm_,                   1},
-    {"_gRbase_oho",                          (DL_FUNC) &_gRbase_oho,                          3},
     {"_gRbase_order2_",                      (DL_FUNC) &_gRbase_order2_,                      2},
     {"_gRbase_perm_cell_entries_",           (DL_FUNC) &_gRbase_perm_cell_entries_,           2},
     {"_gRbase_rip_internal",                 (DL_FUNC) &_gRbase_rip_internal,                 3},
@@ -154,6 +153,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gRbase_tab_expand_",                  (DL_FUNC) &_gRbase_tab_expand_,                  3},
     {"_gRbase_tab_list_add_",                (DL_FUNC) &_gRbase_tab_list_add_,                1},
     {"_gRbase_tab_list_mult_",               (DL_FUNC) &_gRbase_tab_list_mult_,               1},
+    {"_gRbase_tab_marg2_",                   (DL_FUNC) &_gRbase_tab_marg2_,                   2},
     {"_gRbase_tab_marg_",                    (DL_FUNC) &_gRbase_tab_marg_,                    2},
     {"_gRbase_tab_mult_",                    (DL_FUNC) &_gRbase_tab_mult_,                    2},
     {"_gRbase_tab_op_",                      (DL_FUNC) &_gRbase_tab_op_,                      3},

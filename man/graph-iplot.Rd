@@ -17,7 +17,7 @@ iplot(x, ...)
 }
 \description{
 Generic function for plotting graphs using the
-    'igraph' package and a plot method for graphNEL objects.
+'igraph' package and a plot method for graphNEL objects.
 }
 \examples{
 

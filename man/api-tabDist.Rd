@@ -25,8 +25,8 @@ A multidimensional array.
 }
 \description{
 Marginalize and condition in a multidimensional array
-    which is assumed to represent a discrete multivariate
-    distribution.
+which is assumed to represent a discrete multivariate
+distribution.
 }
 \examples{
 

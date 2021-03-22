@@ -23,11 +23,11 @@ the representation will be the same as the input object.}
 }
 \value{
 A moralized graph represented either as a \code{graphNEL}, a
-    dense \code{matrix} or a sparse \code{dgCMatrix}.
+dense \code{matrix} or a sparse \code{dgCMatrix}.
 }
 \description{
 Moralize a directed acyclic graph which means marrying
-    parents and dropping directions.
+parents and dropping directions.
 }
 \note{
 The workhorse is the \code{moralizeMAT} function.
@@ -51,7 +51,7 @@ moralize(G)
 }
 \seealso{
 \code{\link{mcs}}, \code{\link{junction_tree}}, \code{\link{rip}},
-    \code{\link{ug}}, \code{\link{dag}}
+\code{\link{ug}}, \code{\link{dag}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

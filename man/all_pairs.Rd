@@ -21,7 +21,7 @@ Create all possible pairs of two character vectors.
 }
 \details{
 NOTICE: If y is not NULL then x and y must be disjoint (no
-    checks are made); otherwise pairs of identical elements wil also be obtained.
+checks are made); otherwise pairs of identical elements wil also be obtained.
 }
 \examples{
 

@@ -71,21 +71,22 @@ numeric/character vector or a list of vectors).}
 }
 \description{
 Various utility functions for gRbase. Includes 'faster
-    versions' of certain standard R functions.
+versions' of certain standard R functions.
 }
 \details{
 \code{which.arr.ind}: Returns matrix n x 2 matrix with
-    indices of non-zero entries in matrix \code{X}. Notice
-    \code{which_matrix_index__} is cpp implementation.
+indices of non-zero entries in matrix \code{X}. Notice
+\code{which_matrix_index__} is cpp implementation.
 
 \code{colwiseProd}: multiplies a vector v and a matrix X
-    columnwise (as opposed to rowwise which is achieved by
-    \code{v * X}). Hence \code{colwiseProd} does the same as
-    \code{t(v * t(X))} - but it does so faster for numeric values.
+columnwise (as opposed to rowwise which is achieved by
+\code{v * X}). Hence \code{colwiseProd} does the same as
+\code{t(v * t(X))} - but it does so faster for numeric values.
 
-* lapplyV2I: same as but much faster than `lapply(setlist, function(elt) match(elt, item))`
-
-* lapplyI2V: same as but faster than `lapply(setlist, function(elt) item[elt])`
+\itemize{
+\item lapplyV2I: same as but much faster than \code{lapply(setlist, function(elt) match(elt, item))}
+\item lapplyI2V: same as but faster than \code{lapply(setlist, function(elt) item[elt])}
+}
 }
 \examples{
 ## colwiseProd

@@ -47,5 +47,5 @@ table, e.g. c(1, 2)}
 }
 \description{
 Corresponding R
-   functions without the trailing underscore exist.
+functions without the trailing underscore exist.
 }

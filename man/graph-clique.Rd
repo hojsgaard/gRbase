@@ -18,7 +18,7 @@ maxCliqueMAT(amat)
 }
 \arguments{
 \item{object}{An undirected graph represented either as a \code{graphNEL}
-object, an `igraph` object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}}
+object, an \code{igraph} object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}}
 
 \item{amat}{An adjacency matrix.}
 }
@@ -30,9 +30,9 @@ Return a list of (maximal) cliques of an undirected graph.
 }
 \details{
 In graph theory, a clique is often a complete subset of a
-    graph. A maximal clique is a clique which can not be
-    enlarged. In statistics (and that is the convention we follow
-    here) a clique is usually understood to be a maximal clique.
+graph. A maximal clique is a clique which can not be
+enlarged. In statistics (and that is the convention we follow
+here) a clique is usually understood to be a maximal clique.
 
 Finding the cliques of a general graph is an NP complete problem. Finding
 the cliques of triangualted graph is linear in the number of cliques.
@@ -45,10 +45,10 @@ The workhorse is the \code{max_cliqueMAT} function which calls the
 
 For backward compatibility with downstream packages we have the
 following synonymous functions:
-
-* getCliques = get_cliques
-
-* maxCliqueMAT = max_cliqueMAT
+\itemize{
+\item getCliques = get_cliques
+\item maxCliqueMAT = max_cliqueMAT
+}
 }
 
 \examples{
@@ -67,8 +67,8 @@ get_cliques(uG3)
 }
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},
-    \code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
-    \code{\link{moralize}}, \code{\link{moralizeMAT}}
+\code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
+\code{\link{moralize}}, \code{\link{moralizeMAT}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

@@ -89,7 +89,7 @@ the row and column names of the matrix.}
 }
 \description{
 Coercion of graphs represented as lists to various
-    graph formats.
+graph formats.
 }
 \examples{
 

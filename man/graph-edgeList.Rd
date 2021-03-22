@@ -17,8 +17,8 @@ nonEdgeList(object, matrix = FALSE)
 nonEdgeListMAT(adjmat, matrix = FALSE)
 }
 \arguments{
-\item{object}{A `graphNEL` object, an `igraph` object, a dense
-matrix or a sparse `dgCMatrix` (the two latter representing an
+\item{object}{A \code{graphNEL} object, an \code{igraph} object, a dense
+matrix or a sparse \code{dgCMatrix} (the two latter representing an
 adjacency matrix).}
 
 \item{matrix}{If TRUE the result is a matrix; otherwise the result
@@ -28,8 +28,8 @@ is a list.}
 }
 \description{
 Returns the edges of a graph (or edges not in a graph)
-    where the graph can be either a `graphNEL` object, an `igraph`
-    object or an adjacency matrix.
+where the graph can be either a \code{graphNEL} object, an \code{igraph}
+object or an adjacency matrix.
 }
 \examples{
 ## A graph with edges

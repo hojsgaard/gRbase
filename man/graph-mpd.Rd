@@ -29,14 +29,14 @@ adjacency matrix}
 }
 \value{
 A list with components "nodes", "cliques", "separators",
-    "parents", "children", "nLevels". The component "cliques"
-    defines the subgraphs.
+"parents", "children", "nLevels". The component "cliques"
+defines the subgraphs.
 }
 \description{
 Finding a junction tree representation of the MPD
-    (maximal prime subgraph decomposition) of an undirected graph
-    The maximal prime subgraph decomposition of a graph is the
-    smallest subgraphs into which the graph can be decomposed.
+(maximal prime subgraph decomposition) of an undirected graph
+The maximal prime subgraph decomposition of a graph is the
+smallest subgraphs into which the graph can be decomposed.
 }
 \examples{
 
@@ -53,18 +53,18 @@ x <- mpdMAT(g1m)
 }
 \references{
 Kristian G. Olesen and Anders L. Madsen (2002): Maximal Prime
-    Subgraph Decomposition of Bayesian Networks. IEEE TRANSACTIONS ON
-    SYSTEMS, MAN AND CYBERNETICS, PART B: CYBERNETICS, VOL. 32, NO. 1,
-    FEBRUARY 2002
+Subgraph Decomposition of Bayesian Networks. IEEE TRANSACTIONS ON
+SYSTEMS, MAN AND CYBERNETICS, PART B: CYBERNETICS, VOL. 32, NO. 1,
+FEBRUARY 2002
 }
 \seealso{
 \code{\link{mcs}}, \code{\link{mcsMAT}},
-    \code{\link{minimal_triang}}, \code{\link{minimal_triangMAT}},
-    \code{\link{rip}}, \code{\link{ripMAT}}, \code{\link{triangulate}},
-    \code{\link{triangulateMAT}}
+\code{\link{minimal_triang}}, \code{\link{minimal_triangMAT}},
+\code{\link{rip}}, \code{\link{ripMAT}}, \code{\link{triangulate}},
+\code{\link{triangulateMAT}}
 }
 \author{
 Clive Bowsher \email{C.Bowsher@statslab.cam.ac.uk} with
-    modifications by Søren Højsgaard, \email{sorenh@math.aau.dk}
+modifications by Søren Højsgaard, \email{sorenh@math.aau.dk}
 }
 \keyword{utilities}

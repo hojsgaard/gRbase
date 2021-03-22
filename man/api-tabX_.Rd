@@ -73,5 +73,5 @@ sided formula giving the desired permutation/margin.}
 }
 \description{
 Table operations implemented in c++. Corresponding R
-   functions without the trailing underscore exist.
+functions without the trailing underscore exist.
 }

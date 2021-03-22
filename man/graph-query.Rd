@@ -49,6 +49,6 @@ is.simplicial(set, object)
 }
 \description{
 Unified approach to query a graph about its properties
-    (based partly on functionality from gRbase and functionality
-    imported from RBGL).
+(based partly on functionality from gRbase and functionality
+imported from RBGL).
 }

@@ -30,28 +30,28 @@ otherwise.}
 }
 \value{
 If FALSE, an ordering is returned if it exists and
-    \code{character(0)} otherwise. If TRUE, the index of the
-    variables in an adjacency matrix is returned and \code{-1}
-    otherwise.
+\code{character(0)} otherwise. If TRUE, the index of the
+variables in an adjacency matrix is returned and \code{-1}
+otherwise.
 }
 \description{
 A topological ordering of a directed graph is a linear
-    ordering of its vertices such that, for every edge (u->v), u
-    comes before v in the ordering.  A topological ordering is
-    possible if and only if the graph has no directed cycles, that
-    is, if it is a directed acyclic graph (DAG). Any DAG has at
-    least one topological ordering. Can hence be used for checking
-    if a graph is a DAG.
+ordering of its vertices such that, for every edge (u->v), u
+comes before v in the ordering.  A topological ordering is
+possible if and only if the graph has no directed cycles, that
+is, if it is a directed acyclic graph (DAG). Any DAG has at
+least one topological ordering. Can hence be used for checking
+if a graph is a DAG.
 }
 \note{
 The workhorse is the \code{topo_sortMAT} function which takes
-    an adjacency matrix as input.
+an adjacency matrix as input.
 }
 \section{Synonymous functions}{
 
 
-The functions `topo_sort` / `topoSort` are synonymous with `topo_sortMAT` /
-`topoSortMAT`. One of the groups may be deprecated in the future.
+The functions \code{topo_sort} / \code{topoSort} are synonymous with \code{topo_sortMAT} /
+\code{topoSortMAT}. One of the groups may be deprecated in the future.
 }
 
 \examples{

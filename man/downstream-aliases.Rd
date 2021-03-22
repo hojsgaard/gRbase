@@ -7,5 +7,5 @@
 \title{Downstream aliases}
 \description{
 Downstream aliases for other graphical modelling
-    packages.  Will be deprecated in due course.
+packages.  Will be deprecated in due course.
 }

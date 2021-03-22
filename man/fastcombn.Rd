@@ -22,24 +22,24 @@ of length ‘m’).}
 \item{simplify}{logical indicating if the result should be
 simplified to a matrix; if FALSE, the function returns a list.}
 
-\item{...}{Further arguments passed on to `FUN`.}
+\item{...}{Further arguments passed on to \code{FUN}.}
 }
 \value{
 A matrix or a list.
 }
 \description{
 Generate all combinations of the elements of x taken m
-    at a time.  If x is a positive integer, returns all
-    combinations of the elements of seq(x) taken m at a time.
+at a time.  If x is a positive integer, returns all
+combinations of the elements of seq(x) taken m at a time.
 }
 \details{
-*  Factors `x` are accepted.
-
-* `combn_prim` is a simplified (but faster) version of the `combn`
-   function. Does nok take the `FUN` argument.
-
-* `fastcombn` is intended to be a faster version of the `combn`
-   function.
+\itemize{
+\item Factors \code{x} are accepted.
+\item \code{combn_prim} is a simplified (but faster) version of the \code{combn}
+function. Does nok take the \code{FUN} argument.
+\item \code{fastcombn} is intended to be a faster version of the \code{combn}
+function.
+}
 }
 \examples{
 

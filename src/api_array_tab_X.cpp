@@ -449,6 +449,62 @@ SEXP tab_align_(const SEXP& tab1, const SEXP& tab2){
 //
 // -------------------------------------------------------------------
 
+
+// [[Rcpp::export]]
+numVec tab_marg2_(const numVec tab1, const intVec marg){
+
+  List   dn1 = tab1.attr("dimnames");
+  chrVec vn1 = dn1.names();
+  intVec di1 = tab1.attr("dim");
+  intVec idx = seq(1, vn1.length());
+  intVec rest = setdiff(idx, marg);
+
+  // chrVec vn_new = do_concat_<chrVec>(rest, marg);
+  intVec vn_new(rest.size() + marg.size());
+  std::copy(marg.begin(), marg.end(), vn_new.begin());
+  std::copy(rest.begin(), rest.end(), vn_new.begin() + marg.size());
+  
+  intVec perm     = match(vn_new, idx);
+  numVec out      = do_aperm_vec<REALSXP>(tab1, di1, perm);
+
+  List marg_dim = dn1[marg-1];
+  List rest_dim = dn1[rest-1];
+  // Rf_PrintValue(wrap(marg_dim));
+
+
+  int mm = 1;
+  for (int i=0; i<marg_dim.length();i++) {
+    chrVec cc = marg_dim[i] ;
+    mm *= (cc).length();
+  }
+
+  int rr = 1;
+  for (int i=0; i<rest_dim.length();i++) {
+    chrVec cc = rest_dim[i] ;
+    rr *= (cc).length();
+  }
+
+  NumericMatrix ooo(mm, rr);
+  std::copy(out.begin(), out.end(), ooo.begin());
+  // Rf_PrintValue(wrap(ooo));
+
+  numVec ret = rowSums(ooo);
+  // Rf_PrintValue(wrap(ret));
+
+  ret.attr("dim")      = di1[ marg - 1 ];
+  ret.attr("dimnames") = dn1[ marg - 1 ];
+  return ret;
+}
+
+
+
+// v.resize(x.size() + y.size());
+//     std::copy(x.begin(), x.end(), v.begin());
+//     std::copy(y.begin(), y.end(), v.begin() + x.size());
+//     print(v);
+
+
+
 template <int RTYPE>
 Vector<RTYPE> do_margc_tab(const Vector<RTYPE>& tab1, const CharacterVector& margc){
 
@@ -537,6 +593,14 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
   default: Rf_error("Unsupported type");
   }
 }
+
+
+
+
+
+
+
+
 
 
 

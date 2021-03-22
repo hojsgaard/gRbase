@@ -30,8 +30,8 @@ the object is a DAG.}
 }
 \value{
 A list of vectors where each vector will have the form
-    \code{(v, pa1, pa2, ... paN)} where \code{pa1, pa2, ... paN}
-    are the parents of \code{v}.
+\code{(v, pa1, pa2, ... paN)} where \code{pa1, pa2, ... paN}
+are the parents of \code{v}.
 }
 \description{
 Get list of vertices and their parents for graph.

@@ -80,26 +80,23 @@ API for coercing graph representations.
 }
 \details{
 No checking is made. In the function the following names are used:
-
-* "ig": "igraph";
-
-* "gn": "graphNEL";
-
-* "sm": "dgCMatrix" (sparse matrix);
-
-* "dm": "matrix" (dense matrix)
+\itemize{
+\item "ig": "igraph";
+\item "gn": "graphNEL";
+\item "sm": "dgCMatrix" (sparse matrix);
+\item "dm": "matrix" (dense matrix)
+}
 }
 \section{Synonymous functions}{
 
 
 For backward compatibility with downstream packages we have the
 following synonymous functions:
-
-* graphNEL2adjMAT = g_gn2xm_ (Used in HydeNet)
-
-* graphNEL2M = g_gn2xm_ (Used in simPATHy)
-
-* M2graphNEL = g_xm2gn_ (Used in simPATHy)
+\itemize{
+\item graphNEL2adjMAT = g_gn2xm_ (Used in HydeNet)
+\item graphNEL2M = g_gn2xm_ (Used in simPATHy)
+\item M2graphNEL = g_xm2gn_ (Used in simPATHy)
+}
 }
 
 \seealso{

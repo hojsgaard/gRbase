@@ -19,9 +19,9 @@ A matrix with the same dimension as V.
 }
 \description{
 \code{cov2pcor} calculates the partial correlation
-    matrix from an (empirical) covariance matrix while
-    \code{conc2pcor} calculates the partial correlation matrix from
-    a concentration matrix (inverse covariance matrix).
+matrix from an (empirical) covariance matrix while
+\code{conc2pcor} calculates the partial correlation matrix from
+a concentration matrix (inverse covariance matrix).
 }
 \examples{
 

@@ -26,8 +26,8 @@ dimnames_match(a1, a2)
 }
 \description{
 Check if object is array (that it is a vector with a
-    dim attribute) and that the object has dimnames and that
-    dimnames are named.
+dim attribute) and that the object has dimnames and that
+dimnames are named.
 }
 \examples{
 is.named.array( HairEyeColor )

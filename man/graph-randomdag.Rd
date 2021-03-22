@@ -23,8 +23,8 @@ Generate a random directed acyclic graph (DAG)
 }
 \details{
 If the maximum number of parents for a node is, say 3 and
-    wgt=0.1, then the probability of the node ending up with
-    0,1,2,3 parents is proportional to 0.1^0, 0.1^1, 0.1^2, 0.1^3.
+wgt=0.1, then the probability of the node ending up with
+0,1,2,3 parents is proportional to 0.1^0, 0.1^1, 0.1^2, 0.1^3.
 }
 \examples{
 dg   <- random_dag(1:1000, maxpar=5, wgt=.9)

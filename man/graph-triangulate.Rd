@@ -67,11 +67,11 @@ triangulated before doing the triangulation; gives a speed up if \code{FALSE}}
 }
 \value{
 A triangulated graph represented either as a \code{graphNEL}, a
-    (dense) \code{matrix} or a (sparse) \code{dgCMatrix}.
+(dense) \code{matrix} or a (sparse) \code{dgCMatrix}.
 }
 \description{
 This function will triangulate an undirected graph by
-    adding fill-ins.
+adding fill-ins.
 }
 \details{
 There are two type of functions: \code{triang} and \code{triangulate}
@@ -91,10 +91,10 @@ at keeping the clique sizes small.
 }
 \note{
 Care should be taken when specifying \code{nLevels} for other
-    representations than adjacency matrices: Since the \code{triangulateMAT}
-    function is the workhorse, any other representation is transformed to an
-    adjacency matrix and the order of values in \code{nLevels} most come in
-    the order of the nodes in the adjacency matrix representation.
+representations than adjacency matrices: Since the \code{triangulateMAT}
+function is the workhorse, any other representation is transformed to an
+adjacency matrix and the order of values in \code{nLevels} most come in
+the order of the nodes in the adjacency matrix representation.
 
 Currently there is no check for that the graph is undirected.
 }
@@ -141,8 +141,8 @@ tuG2 <- triangulate(uG2)
 }
 \seealso{
 \code{\link{ug}}, \code{\link{dag}}, \code{\link{mcs}},
-    \code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
-    \code{\link{moralize}}, \code{\link{moralizeMAT}}
+\code{\link{mcsMAT}}, \code{\link{rip}}, \code{\link{ripMAT}},
+\code{\link{moralize}}, \code{\link{moralizeMAT}}
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}
