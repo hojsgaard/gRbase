@@ -63,7 +63,7 @@ s1 = tabSlice(x, slice=s); s1
 tabSlice2Entries(x, slice=s)
 tabSlice2Entries(x, slice=s, complement=TRUE)
 
-## ar_slice_mult
+## tabSliceMult 
 s2 = tabSliceMult(x, slice=s); s2
 
 sp = list(c(1,2), c(1,2), TRUE)

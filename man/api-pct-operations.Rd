@@ -7,11 +7,14 @@
 \alias{\%a*\%}
 \alias{\%a/\%}
 \alias{\%a/0\%}
-\alias{\%ap\%}
 \alias{\%a_\%}
 \alias{\%a==\%}
 \alias{\%a^\%}
-\alias{\%aa\%}
+\alias{\%aperm\%}
+\alias{\%aalign\%}
+\alias{\%aslice\%}
+\alias{\%aslice*\%}
+\alias{\%amarg\%}
 \title{Array algebra}
 \usage{
 a1 \%a+\% a2
@@ -24,27 +27,35 @@ a1 \%a/\% a2
 
 a1 \%a/0\% a2
 
-tab1 \%ap\% perm
-
 tab1 \%a_\% marg
 
 tab1 \%a==\% tab2
 
 tab1 \%a^\% extra
 
-tab1 \%aa\% tab2
+tab1 \%aperm\% perm
+
+tab1 \%aalign\% tab2
+
+tab1 \%aslice\% slice
+
+tab1 \%aslice*\% slice
+
+tab1 \%amarg\% marg
 }
 \arguments{
 \item{tab1, tab2}{Multidimensional arrays with named dimnames
 (we call them 'named arrays').}
 
-\item{perm}{A vector of indices or dimnames or a right hand sided
-formula giving the desired permutiation.}
-
 \item{marg}{A vector of indices or dimnames or a right hand sided
 formula giving the desired marginal.}
 
 \item{extra}{List defining the extra dimensions.}
+
+\item{perm}{A vector of indices or dimnames or a right hand sided
+formula giving the desired permutiation.}
+
+\item{slice}{A list of the form name=value.}
 
 \item{a, a1, a2}{Arrays (with named dimnames)}
 }

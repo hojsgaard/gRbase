@@ -46,25 +46,28 @@ NULL
 tabNew <- function(names, levels, values, normalize="none", smooth=0){
     normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]
-    if (is.numeric( levels )){
-        di <- levels
-        dn <- .make.dimnames(names, levels)
-    } else {
-        if (is.list(levels)){
-            vn <- names(levels)
-            if (!all(sapply(vn, nchar) > 0))
-                stop("not all elements in 'levels' are named\n")
-            idx <- match(names, vn)
-            if (any((b <- is.na(idx))))
-                stop(sprintf("Levels for variable(s) %s not found\n", toString(names[b])))
-            else {
-                levels  <- levels[idx] ## those used
-                dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
-                di <- unlist(lapply(dn, length), use.names=FALSE)
-            }
-        }
-        else stop("Can not create 'tab' object")
-    }
+
+    if (is.list(levels)){
+      vn <- names(levels)
+      if (!all(sapply(vn, nchar) > 0))
+        stop("not all elements in 'levels' are named\n")
+      idx <- match(names, vn)
+      if (any((b <- is.na(idx))))
+        stop(sprintf("Levels for variable(s) %s not found\n", toString(names[b])))
+      else {
+        levels  <- levels[idx] ## those used
+        dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+        di <- unlist(lapply(dn, length), use.names=FALSE)
+      }
+    } else if (is.numeric(levels)){
+      di <- levels
+      dn <- .make.dimnames(names, levels)
+    } else if (is.character(levels)){
+      dn <- rep(list(levels), length(names))
+      names(dn) <- names
+      di <- unlist(lapply(dn, length), use.names=FALSE)
+    } else stop("Can not create 'tab' object")
+
     
     if (missing(values))
         values <- 1

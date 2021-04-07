@@ -18,7 +18,7 @@ A data frame with 40 observations on 143 variables of which two are factors and 
 \source{
 The data were provided by Pascal Martin from the Toxicology
 and Pharmacology Laboratory, National Institute for Agronomic
-Research, French.
+Research, France.
 }
 \usage{
 data(Nutrimouse)
@@ -53,7 +53,7 @@ data(Nutrimouse)
 
 }
 \references{
-Martin, P. G. P., Guillou, H., Lasserre, F., D<e9>jean,
+Martin, P. G. P., Guillou, H., Lasserre, F., D'jean,
 S., Lan, A., Pascussi, J.-M., San Cristobal, M., Legrand, P.,
 Besse, P. and Pineau, T. (2007). Novel aspects of
 PPARa-mediated regulation of lipid and xenobiotic metabolism

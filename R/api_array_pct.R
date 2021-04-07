@@ -13,6 +13,7 @@
 #'     formula giving the desired permutiation.
 #' @param marg A vector of indices or dimnames or a right hand sided
 #'     formula giving the desired marginal.
+#' @param slice A list of the form name=value. 
 ## #' @param eps Criterion for checking equality of two arrays.
 #' @param extra List defining the extra dimensions.
 ## #' @param aux Either a list with names and dimnames or a named array
@@ -53,10 +54,6 @@
 
 #' @export
 #' @rdname api-pct-operations
-"%ap%" <- function(tab1, perm){tabPerm(tab1, perm)}
-
-#' @export
-#' @rdname api-pct-operations
 "%a_%" <- function(tab1, marg){tabMarg(tab1, marg)}
 
 #' @export
@@ -68,6 +65,21 @@
 "%a^%" <- function(tab1, extra){tabExpand(tab1, extra)}
 
 #' @export
-#' @rdname api-pct-operations                   
-"%aa%" <- function(tab1, tab2){tabAlign(tab1, tab2)}
+#' @rdname api-pct-operations
+"%aperm%" <- function(tab1, perm){tabPerm(tab1, perm)}
 
+#' @export
+#' @rdname api-pct-operations                   
+"%aalign%" <- function(tab1, tab2){tabAlign(tab1, tab2)}
+
+#' @export
+#' @rdname api-pct-operations                   
+"%aslice%" <- function(tab1, slice){tabSlice(tab1, slice)}
+
+#' @export
+#' @rdname api-pct-operations                   
+"%aslice*%" <- function(tab1, slice){tabSliceMult(tab1, slice)}
+
+#' @export
+#' @rdname api-pct-operations
+"%amarg%" <- function(tab1, marg){tabMarg(tab1, marg)}

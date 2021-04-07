@@ -433,16 +433,19 @@
 #'
 #' @name data-mildew
 #' @docType data
-#' @format The format is: 
-#'  table [1:2, 1:2, 1:2, 1:2, 1:2, 1:2] 0 0 0 0 3 0 1 0 0 1 ...
-#' - attr(*, "dimnames")=List of 6
-#'  ..$ la10: chr [1:2] "1" "2"
-#'  ..$ locc: chr [1:2] "1" "2"
-#'  ..$ mp58: chr [1:2] "1" "2"
-#'  ..$ c365: chr [1:2] "1" "2"
-#'  ..$ p53a: chr [1:2] "1" "2"
-#'  ..$ a367: chr [1:2] "1" "2"
-#' 
+#' @format A 6 dimensional array where each variable has levels "1" and "2".
+#' The variables are: `la10`, `locc`, `mp58`, `c365`, `p53a` and `a365`.
+## ' format i
+## '  table [1:2, 1:2, 1:2, 1:2, 1:2, 1:2] 0 0 0 0 3 0 1 0 0 1 ...
+## ' - attr(*, "dimnames")=List of 6
+## '  ..$ la10: chr [1:2] "1" "2"
+## '  ..$ locc: chr [1:2] "1" "2"
+## '  ..$ mp58: chr [1:2] "1" "2"
+## '  ..$ c365: chr [1:2] "1" "2"
+## '  ..$ p53a: chr [1:2] "1" "2"
+## '  ..$ a367: chr [1:2] "1" "2"
+## #' 
+#'
 #' @references Christiansen, S.K., Giese, H (1991) Genetic analysis of
 #'     obligate barley powdery mildew fungus based on RFLP and
 #'     virulence loci. Theor. Appl.  Genet. 79:705-712
@@ -713,8 +716,7 @@
 ## #'   numeric vector} 
 #' }
 #'
-#' 
-#' @references Martin, P. G. P., Guillou, H., Lasserre, F., D<e9>jean,
+#' @references Martin, P. G. P., Guillou, H., Lasserre, F., D'jean,
 #'     S., Lan, A., Pascussi, J.-M., San Cristobal, M., Legrand, P.,
 #'     Besse, P. and Pineau, T. (2007). Novel aspects of
 #'     PPARa-mediated regulation of lipid and xenobiotic metabolism
@@ -722,7 +724,7 @@
 #'
 #' @source The data were provided by Pascal Martin from the Toxicology
 #'     and Pharmacology Laboratory, National Institute for Agronomic
-#'     Research, French.
+#'     Research, France.
 #'
 #' @keywords datasets
 #' @usage data(Nutrimouse)
@@ -833,10 +835,10 @@
 #' }
 #' 
 #' @references See references at
-#'     \url{http://archive.ics.uci.edu/ml/datasets/Wine}
+#'   \url{https://archive.ics.uci.edu/ml/datasets/Wine}
 #'
 #' @source Frank, A. & Asuncion, A. (2010). UCI Machine Learning
-#'     Repository [http://archive.ics.uci.edu/ml]. Irvine, CA:
+#'     Repository \url{http://archive.ics.uci.edu/ml}. Irvine, CA:
 #'     University of California, School of Information and Computer
 #'     Science.
 #'

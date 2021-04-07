@@ -50,7 +50,6 @@ tabDiv0     <- tab_div0_
 #' @rdname api-tabX
 tabOp     <- tab_op_
 
-
 #' @export
 #' @rdname api-tabX
 tabEqual  <- tab_equal_
@@ -64,13 +63,6 @@ tabExpand <- function(tab, aux, type=0L){  ## FIXME Rethink this
     
     tab_expand_(tab, aux, type)
 }
-
-## if (!is.named.array(tab)) stop("'tab' not a named array")
-## if (!is.null(aux))
-##     if (!(is.numeric(aux) || is.character(aux) || inherits(aux, "formula")))
-##         stop("'aux' must be character/numeric vector or right hand sided formula")
-
-## aux <- .get_perm_or_marg(tab, aux)
 
 
 ## tabMult used by grain; 
@@ -353,7 +345,7 @@ tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
 #' tabSlice2Entries(x, slice=s)
 #' tabSlice2Entries(x, slice=s, complement=TRUE)
 #'
-#' ## ar_slice_mult
+#' ## tabSliceMult 
 #' s2 = tabSliceMult(x, slice=s); s2
 #'
 #' sp = list(c(1,2), c(1,2), TRUE)
@@ -364,24 +356,27 @@ NULL
 #' @export
 #' @rdname api_tabSlice
 tabSlice<- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FALSE){
-
-    if (!is.named.array(tab))
-        stop("'tab' is not a named array")
-    else if ( is.null( slice ) )
-        tab
-    else if (!( is.character( slice ) || is.numeric( slice ) || is.list( slice )))
-        stop("'slice' is not valid \n")
-    else if (is.null( margin ) || !( is.character( margin ) || is.numeric( margin )))
-        stop("'margin' is not valid \n")
-    else {
-        margin.idx <-
-            if ( is.character( margin ) )
-                match( margin, names( dimnames( tab ) ) )
-            else
-                margin
-        if ( any( is.na( margin.idx ) ) ) stop("invalid 'margin'")
-        tabSlice2( tab, slice, margin.idx, drop=drop, as.array=as.array)
+  
+  if (!is.named.array(tab))
+    stop("'tab' is not a named array")
+  else if ( is.null( slice ) )
+    tab
+  else if (!( is.character( slice ) || is.numeric( slice ) || is.list( slice )))
+    stop("'slice' is not valid \n")
+  else if (is.null( margin ) || !( is.character( margin ) || is.numeric( margin )))
+    stop("'margin' is not valid \n")
+  else {
+    dn <- names(dimnames(tab))
+    margin.idx <- if (is.character(margin)){
+      match(margin, dn)
+    } else margin
+    
+    if (any(idx <- is.na(margin.idx))){
+      cat("Error: Names not in domain : ", toString(margin[idx]), "\n")
+      stop("Invalid 'margin'")      
     }
+    tabSlice2(tab, slice, margin.idx, drop=drop, as.array=as.array)
+  }
 }
 
 #' @export
@@ -425,20 +420,13 @@ tabSliceMult <- function(tab, slice, val=1, comp=0){
 #' @export
 #' @rdname api_tabSlice
 tabSlice2Entries <- function(tab, slice, complement=FALSE){
-    tab[] <- 1:length(tab)
-    out <- tabSlice(tab, slice,  margin=names(slice))
-    if (complement)
-        c(tab)[-c(out)]
-    else
-        c(out)
+  tab[] <- 1:length(tab)
+  out <- tabSlice(tab, slice, margin=names(slice))
+  if (complement)
+    c(tab)[-c(out)]
+  else
+    c(out)
 }
-
-
-
-
-
-
-
 
 
 
@@ -553,4 +541,11 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
 
 
 
+
+## if (!is.named.array(tab)) stop("'tab' not a named array")
+## if (!is.null(aux))
+##     if (!(is.numeric(aux) || is.character(aux) || inherits(aux, "formula")))
+##         stop("'aux' must be character/numeric vector or right hand sided formula")
+
+## aux <- .get_perm_or_marg(tab, aux)
 
