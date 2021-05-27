@@ -249,10 +249,51 @@ tabNormalize <- function(tab, type="none"){
 #' 
 NULL
 
-
 #' @export
 #' @rdname api-tabDist
-tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
+tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
+
+    if (!is.list(cond))
+        .tabDist(tab, marg=marg, cond=cond, normalize=normalize)
+    else{
+        ## Are there formulae in cond?
+        idx <- sapply(cond, function(x) inherits(x, "formula"))
+        ## If yes, turn these into a vector
+        cond1 <- sapply(cond[idx], rhsf2list)
+        cond1 <- unlist(cond1)
+        cond1
+
+        ## Look at the rest 
+        cond2 <- cond[!idx]
+        cond2
+        ## Are there names in the rest?
+        if (is.null(names(cond2))){
+            ## No, so the rest is just a list (of characters, hopefully)
+            cond3 <- unlist(cond2)
+            cond2  <- NULL
+            condnv <- NULL ## nv means name=value
+        } else {
+            ## Yes, and take the elements with names and put into
+            ## condnv; put the rest into cond3
+            idx2  <- nchar(names(cond2)) == 0
+            cond3 <- unlist(cond2[idx2])
+            condnv <- cond2[!idx2]
+        }
+        
+        condset <- c(cond1, cond3)
+
+
+        if (!is.null(condnv))    
+            tab <- .tabDist(tab, marg=marg, cond=condnv, normalize=normalize)
+        if (!is.null(condset))
+            tab <- .tabDist(tab, marg=marg, cond=condset, normalize=normalize)
+        return(tab)
+    }
+}
+
+## ' @export
+## ' @rdname api-tabDist
+.tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
     
     if (!is.named.array(tab))
         stop("'tab' must be a named array")

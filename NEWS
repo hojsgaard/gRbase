@@ -1,4 +1,4 @@
-gRbase v1.8-6.8 (Release date: 2020-10-XX)
+gRbase v1.8.7 (Release date: 2021-10-XX)
 ==========================================
 
 Changes:
@@ -8,6 +8,8 @@ Changes:
   * Updated data descriptions
 
   * Various bugs fixed
+
+  * tabDist has been enhanced 
 
 
 
