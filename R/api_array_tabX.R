@@ -257,15 +257,16 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
         .tabDist(tab, marg=marg, cond=cond, normalize=normalize)
     else{
         ## Are there formulae in cond?
+        ## print(cond)
         idx <- sapply(cond, function(x) inherits(x, "formula"))
         ## If yes, turn these into a vector
         cond1 <- sapply(cond[idx], rhsf2list)
         cond1 <- unlist(cond1)
-        cond1
+        ## cond1
 
         ## Look at the rest 
         cond2 <- cond[!idx]
-        cond2
+        ## cond2
         ## Are there names in the rest?
         if (is.null(names(cond2))){
             ## No, so the rest is just a list (of characters, hopefully)
@@ -282,11 +283,14 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
         
         condset <- c(cond1, cond3)
 
+        ##str(list(marg=marg, condset=condset, condnv=condnv))
 
+        ## ALternative : use tabSlice
         if (!is.null(condnv))    
-            tab <- .tabDist(tab, marg=marg, cond=condnv, normalize=normalize)
-        if (!is.null(condset))
-            tab <- .tabDist(tab, marg=marg, cond=condset, normalize=normalize)
+            tab <- .tabDist(tab, cond=condnv, normalize=normalize)
+
+        ## if (!is.null(condset))
+        tab <- .tabDist(tab, marg=marg, cond=condset, normalize=normalize)
         return(tab)
     }
 }
@@ -294,6 +298,8 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
 ## ' @export
 ## ' @rdname api-tabDist
 .tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
+
+    ## str(list(marg=marg, cond=cond))
     
     if (!is.named.array(tab))
         stop("'tab' must be a named array")
