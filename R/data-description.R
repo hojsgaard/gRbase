@@ -367,10 +367,11 @@
 #' Lizard behaviour
 #' 
 #' In a study of lizard behaviour, characteristics of 409 lizards were
-#' recorded, namely species (S), perch diameter (D) and perch height (H). The
-#' focus of interest is in how the propensities of the lizards to choose perch
-#' height and diameter are related, and whether and how these depend on
-#' species.
+#' recorded, namely species (S), perch diameter (D) and perch height
+#' (H). Perch means preferred place to settle down (a branch on a
+#' tree).  The focus of interest is in how the propensities of the
+#' lizards to choose perch height and diameter are related, and
+#' whether and how these depend on species.
 #' 
 #' @name data-lizard
 #' @aliases lizard lizardRAW lizardAGG
