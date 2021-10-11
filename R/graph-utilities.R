@@ -273,6 +273,13 @@ vchi.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
     else
         out
 }
+
+#' @export
+## #' @rdname graph-vpar
+vchi.igraph <- function(object, getv=TRUE, forceCheck=TRUE){
+    vchi.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
+}
+
 #' @export
 ## #' @rdname graph-vpar
 vchi.Matrix <- vchiMAT
@@ -340,6 +347,12 @@ vpar.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
         lapply(out, function(x)x[-1])
     else
         out
+}
+
+#' @export
+## #' @rdname graph-vpar
+vpar.igraph <- function(object, getv=TRUE, forceCheck=TRUE){
+    vpar.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
 }
 
 #' @export
@@ -496,6 +509,47 @@ random_dag <- function(V, maxpar=3, wgt=0.1){
     dg
 }
 
+
+#' Create regression matrix matrix from DAG
+#
+#' A DAG can be represented as a triangular matrix of regression coefficients. 
+#'
+#' @param object A graph, either a graphNEL or an igraph object.
+#'
+#' @examples
+#' 
+#' g <- dag(~x2|x1 + x3|x1:x2 + x4|x3)
+#' gi <- as(g, "igraph")
+#' dag2chol(g)
+#' dag2chol(gi)
+#' 
+
+#' @export
+dag2chol <- function(object) {
+    stopifnot("Not graphNEL, igraph or adjacency matrix"=
+                  inherits(object, c("graphNEL", "igraph", "matrix", "Matrix")))
+    if (inherits(object, c("matrix", "Matrix")))
+        stopifnot("Not adjacency matrix"=is_adjMAT(object))
+    
+    to <- topoSort(object)
+    stopifnot("Graph is not a DAG"= length(to) != 0)
+    
+    vp <- vpar(object)[to]
+  
+    vn <- names(vp)
+    Lo <- diag(1, length(vn))
+    rownames(Lo) <- colnames(Lo) <- vn
+    
+    for (i in seq_along(vn)) {
+        pa <- vp[[i]][-1]
+        if (length(pa) > 0) {
+            vn[i]
+            idx <- match(pa, vn)
+            Lo[i, idx] <- paste0("-a", i, idx)
+        }
+    }
+    list(L=Lo, vn=vn)
+}
 
 
 

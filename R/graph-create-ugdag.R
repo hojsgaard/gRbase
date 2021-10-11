@@ -62,6 +62,12 @@ ug <- function(..., result="graphNEL"){
   ugList(list(...), result=result)
 }
 
+#' @export
+#' @rdname graph-create
+ugi <- function(...){
+  ugList(list(...), result="igraph")
+}
+
 .spam.result <- function(result){
     ##if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
     if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
@@ -93,6 +99,12 @@ ugList <- function(x, result="graphNEL"){
 #' @rdname graph-create
 dag <- function(..., result="graphNEL", forceCheck=FALSE){
   dagList(list(...), result=result, forceCheck=forceCheck)
+}
+
+#' @export
+#' @rdname graph-create
+dagi <- function(..., forceCheck=FALSE){
+  dagList(list(...), result="igraph", forceCheck=forceCheck)
 }
 
 #' @export

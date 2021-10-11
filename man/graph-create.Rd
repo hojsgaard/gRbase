@@ -3,16 +3,22 @@
 \name{graph-create}
 \alias{graph-create}
 \alias{ug}
+\alias{ugi}
 \alias{ugList}
 \alias{dag}
+\alias{dagi}
 \alias{dagList}
 \title{Create undirected and directed graphs}
 \usage{
 ug(..., result = "graphNEL")
 
+ugi(...)
+
 ugList(x, result = "graphNEL")
 
 dag(..., result = "graphNEL", forceCheck = FALSE)
+
+dagi(..., forceCheck = FALSE)
 
 dagList(x, result = "graphNEL", forceCheck = FALSE)
 }
