@@ -1,4 +1,4 @@
-gRbase v1.8.7 (Release date: 2021-10-XX)
+gRbase v1.8.7 (Release date: 2022-02-12)
 ==========================================
 
 Changes:
@@ -9,7 +9,9 @@ Changes:
 
   * Various bugs fixed
 
-  * tabDist has been enhanced 
+  * tabDist has been enhanced
+
+  * fixed RcppEigen issue raised by Dirk E
 
 
 

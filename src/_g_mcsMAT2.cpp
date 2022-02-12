@@ -250,13 +250,13 @@ SEXP mcsMAT0_ ( SEXP XX_, SEXP mcs0idx_){
   case INTSXP  : 
   case REALSXP : {
     NumericMatrix X(as<NumericMatrix>(XX_));
-    if (zz_.isNULL())  mcs0idx = seq(0, X.ncol()-1);
+    if (zz_.isNULL())  mcs0idx = Rcpp::seq(0, X.ncol()-1);
     else mcs0idx = mcs0idx_;
     return do_mcs_dense ( X, mcs0idx ); 
   }
   case S4SXP   : {                               
     MSpMat X(as<MSpMat>(XX_));
-    if (zz_.isNULL()) mcs0idx = seq(0, X.cols()-1);
+    if (zz_.isNULL()) mcs0idx = Rcpp::seq(0, X.cols()-1);
     else mcs0idx = mcs0idx_;
     return do_mcs_sparse( X, mcs0idx );
   } 
