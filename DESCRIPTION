@@ -22,7 +22,7 @@ Description: The 'gRbase' package provides graphical modelling features
     'Rgraphviz' and 'RBGL' are installed from 'bioconductor'; for
     installation instructions please refer to the web page given below.
 License: GPL (>= 2)
-URL: http://people.math.aau.dk/~sorenh/software/gR/
+URL: https://people.math.aau.dk/~sorenh/software/gR/
 ByteCompile: Yes
 Encoding: UTF-8
 VignetteBuilder: knitr
@@ -44,6 +44,6 @@ Suggests:
     microbenchmark,
     knitr
 LinkingTo: Rcpp (>= 0.11.1), RcppEigen, RcppArmadillo
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
-Additional_repositories: https://bioconductor.org/packages/3.10/bioc
+

@@ -88,7 +88,7 @@ SEXP internal_mcsMAT_sp ( SpMat X, SEXP OO_ ){
 	  max_pas = n_pas_nbr[ jj_.index() ];
 	}
       }
-      if ((n_pas_nbr[O[count]] == max_pas) & (act[O[count]] != 0)){
+      if ((n_pas_nbr[O[count]] == max_pas) && (act[O[count]] != 0)){
 	ii_mark = O[count];
       }
       

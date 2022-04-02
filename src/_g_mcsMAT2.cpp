@@ -132,7 +132,7 @@ IntegerVector do_mcs_sparse  (const MSpMat& X, const IntegerVector& mcs0idx_ ){
 	  max_pas = n_pas_nbr[ jj_.index() ];
 	}
       }
-      if ((n_pas_nbr[mcs0idx[count]] == max_pas) & (act[mcs0idx[count]] != 0)){
+      if ((n_pas_nbr[mcs0idx[count]] == max_pas) && (act[mcs0idx[count]] != 0)){
 	ii_mark = mcs0idx[count];
       }
 	  
@@ -207,7 +207,7 @@ SEXP do_mcs_dense  ( const NumericMatrix& X, const IntegerVector& mcs0idx ){
 	}
       }
 	  
-      if ((n_pas_nbr[mcs0idx[count]] == max_pas) & (act[mcs0idx[count]] != 0)){
+      if ((n_pas_nbr[mcs0idx[count]] == max_pas) && (act[mcs0idx[count]] != 0)){
 	ii_mark = mcs0idx[count];
       }
 	  

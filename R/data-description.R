@@ -81,7 +81,7 @@
 #' Physiological Principles of the Conditioning Process_, Allyn and
 #' Bacon, Inc., Boston.
 #' @source For more information see
-#'     http://lib.stat.cmu.edu/datasets/bodyfat
+#'     https://lib.stat.cmu.edu/datasets/bodyfat
 #' @keywords datasets
 #' @usage data(BodyFat)
 #' 
@@ -836,10 +836,10 @@
 #' }
 #' 
 #' @references See references at
-#'   \url{https://archive.ics.uci.edu/ml/datasets/Wine}
+#'   \url{https://archive.ics.uci.edu/ml/datasets/Wine/}
 #'
 #' @source Frank, A. & Asuncion, A. (2010). UCI Machine Learning
-#'     Repository \url{http://archive.ics.uci.edu/ml}. Irvine, CA:
+#'     Repository \url{https://archive.ics.uci.edu/ml/}. Irvine, CA:
 #'     University of California, School of Information and Computer
 #'     Science.
 #'

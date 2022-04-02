@@ -306,7 +306,7 @@ tableMargin <- function (tab, margin, keep.class = FALSE)
     vn <- names( dn )
 
     if (length(margin)) {
-        if( class(margin)=="formula" ){
+        if( inherits(margin, "formula")){
             margin <- unlist(rhsf2list( margin ), use.names=FALSE)
         }
         if (is.character(margin)) {

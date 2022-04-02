@@ -28,7 +28,7 @@ variables.
 }
 \source{
 For more information see
-http://lib.stat.cmu.edu/datasets/bodyfat
+https://lib.stat.cmu.edu/datasets/bodyfat
 }
 \usage{
 data(BodyFat)

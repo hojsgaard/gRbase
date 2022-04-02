@@ -27,7 +27,7 @@ A data frame with 178 observations on the following 14 variables.
 }
 \source{
 Frank, A. & Asuncion, A. (2010). UCI Machine Learning
-Repository \url{http://archive.ics.uci.edu/ml}. Irvine, CA:
+Repository \url{https://archive.ics.uci.edu/ml/}. Irvine, CA:
 University of California, School of Information and Computer
 Science.
 }
@@ -49,6 +49,6 @@ data(wine)
 }
 \references{
 See references at
-\url{https://archive.ics.uci.edu/ml/datasets/Wine}
+\url{https://archive.ics.uci.edu/ml/datasets/Wine/}
 }
 \keyword{datasets}

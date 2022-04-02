@@ -38,7 +38,7 @@ typedef Rcpp::CharacterVector chrVec;
 // FIXME: 3/1/2015: A hack because setequal is broken
 bool seteq_(CharacterVector x, CharacterVector y){
   return
-	(((CharacterVector) setdiff(x,y)).length()==0) &
+	(((CharacterVector) setdiff(x,y)).length()==0) &&
 	(((CharacterVector) setdiff(y,x)).length()==0) ;
 }
 
