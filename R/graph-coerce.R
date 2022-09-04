@@ -106,7 +106,6 @@ graph_as  <- function(object, outtype, intype=NULL){
     stop(".handle_graph_case not implemented for this outtype\n")
 }
 
-
 .handle_list_case <- function(object, outtype, intype){
     if (inherits(object, "formula"))
         object <- rhsf2list(object)
