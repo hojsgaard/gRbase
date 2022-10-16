@@ -33,7 +33,9 @@ A set of sets of variables, say A_1, A_2, ... A_K is
 called a generating class for a graph with vertices V and edges
 E. If two variables a,b are in the same generator, say A_j,
 then a and b are vertices in the graph and there is an
-undirected edge between a and b.\preformatted{The graph induced by \code{g1 = ~a:b + a:c + b:c + c:d} has
+undirected edge between a and b.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{The graph induced by \code{g1 = ~a:b + a:c + b:c + c:d} has
 edges \code{ab, ac, bc, cd}. The
 cliques of this graph are \code{abc, cd}. Hence there is not a
 1-1-correspondance between the graph and the generators.
@@ -44,7 +46,7 @@ graph in this case there is a 1-1-correspondance.
 The graph induced by \code{g3 <- ~a:b + b:c + c:d + d:a} is in
 1-1-correspondance with its dependence graph, but the graph is
 not chordal.
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 

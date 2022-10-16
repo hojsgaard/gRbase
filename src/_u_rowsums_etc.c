@@ -4,7 +4,7 @@
    colSumsPrim
    colwiseProd
 
-   Søren Højsgaard
+   SÃ¸ren HÃ¸jsgaard
 
 ** *************************************************************/
 

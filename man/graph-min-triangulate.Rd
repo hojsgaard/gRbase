@@ -52,11 +52,13 @@ For a given triangulation tobject it may be so that some
 of the fill-ins are superflous in the sense that they can be
 removed from tobject without breaking the property that tobject
 is triangulated. The graph obtained by doing so is a minimal
-triangulation.\preformatted{Notice: A related concept is the minimum
+triangulation.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Notice: A related concept is the minimum
 triangulation, which is the the graph with the smallest number
 of fill-ins. The minimum triangulation is unique. Finding the
 minimum triangulation is NP-hard.
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 

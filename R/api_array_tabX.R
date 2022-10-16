@@ -504,7 +504,7 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
     if (is.null( x )) x
     else if ( is.character( x ) ) x
     else if ( is.numeric( x ) ) x
-    else if ( class( x ) != "formula" )
+    else if ( !inherits( x, "formula" ))
         stop("'x' must be NULL, character vector or formula")
     else {
         if (length( x ) != 2) stop("Formula must be a right hand sided formula")

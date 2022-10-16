@@ -36,10 +36,12 @@ all other variables than the first, the probabilities are
 normalized to sum to one.  Thus f(a,b,c) becomes a conditional
 probability table of the form p(a|b,c).  If
 \code{normalize="all"} then the sum over all entries of
-f(a,b,c) is one.\preformatted{If \code{smooth} is positive then
+f(a,b,c) is one.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{If \code{smooth} is positive then
 \code{smooth} is added to \code{values} before normalization
 takes place.
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 

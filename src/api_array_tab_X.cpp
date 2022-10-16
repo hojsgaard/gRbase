@@ -2,7 +2,7 @@
 //
 // Rcpp functions for fast table operations.
 //
-// Author: Søren Højsgaard
+// Author: SÃ¸ren HÃ¸jsgaard
 //
 // ------------------------------------------------------------
 
@@ -52,7 +52,7 @@ bool seteq_(CharacterVector x, CharacterVector y){
 // Implementation of array permutation; very similar
 // to R's implementation of aperm()
 //
-// Author: Søren Højsgaard
+// Author: SÃ¸ren HÃ¸jsgaard
 // ------------------------------------------------------------
 
 bool is_valid_perm_(const IntegerVector& dim, const IntegerVector& permi){
@@ -175,7 +175,7 @@ SEXP tab_perm_(const SEXP& tab, const SEXP& perm){
 //
 // Expand and align tables
 //
-// Author: Søren Højsgaard
+// Author: SÃ¸ren HÃ¸jsgaard
 //
 // Details:
 //
@@ -445,7 +445,7 @@ SEXP tab_align_(const SEXP& tab1, const SEXP& tab2){
 //
 // Find marginal tables
 //
-// Author: Søren Højsgaard
+// Author: SÃ¸ren HÃ¸jsgaard
 //
 // -------------------------------------------------------------------
 
@@ -610,7 +610,7 @@ SEXP tab_marg_(const SEXP& tab, const SEXP& marg){
 // 
 // Ft. Lauderdale spring 2017,
 //
-// Author: Søren Højsgaard
+// Author: SÃ¸ren HÃ¸jsgaard
 //
 // ------------------------------------------------------------- 
 

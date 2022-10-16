@@ -56,7 +56,9 @@ perfect ordering of the vertices. The maximum cardinality
 search algorithm returns a perfect ordering of the vertices if
 it exists and hence this algorithm provides a check for
 decomposability. The \code{mcs()} functions finds such an
-ordering if it exists.\preformatted{The notion of strong decomposability is used in connection with
+ordering if it exists.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{The notion of strong decomposability is used in connection with
 e.g. mixed interaction models where some vertices represent
 discrete variables and some represent continuous
 variables. Such graphs are said to be marked. The
@@ -64,7 +66,7 @@ variables. Such graphs are said to be marked. The
 the graph is strongly decomposable. As graphs do not know about
 whether vertices represent discrete or continuous variables,
 this information is supplied in the \code{discrete} argument.
-}
+}\if{html}{\out{</div>}}
 }
 \note{
 The workhorse is the \code{mcsMAT} function.

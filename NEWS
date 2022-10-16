@@ -1,3 +1,13 @@
+gRbase v1.8.8 (Release date: 2022-10-16)
+==========================================
+
+Changes:
+
+  * Added biocViews: graph,RBGL,Rgraphviz to DESCRIPTION file. Seemes to fix Bioconductor dependency issue.
+
+  * Changed files to utf-8
+
+
 gRbase v1.8.7 (Release date: 2022-02-12)
 ==========================================
 
