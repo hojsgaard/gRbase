@@ -44,6 +44,8 @@ tab_list_mult_(lst)
 tab_list_add_(lst)
 }
 \arguments{
+\item{tab, tab1, tab2}{Tables (arrays)}
+
 \item{perm, marg}{A vector of indices or dimnames or a right hand
 sided formula giving the desired permutation/margin.}
 

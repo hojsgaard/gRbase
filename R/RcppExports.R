@@ -95,6 +95,7 @@ perm_cell_entries_ <- function(perm, dim) {
 #' @name api-tabX_
 #' @inheritParams api-tabX
 #' @param op The operation to be carried out; "+", "-", "*", "/".
+#' @param tab,tab1,tab2 Tables (arrays)
 NULL
 
 #' @rdname api-tabX_

@@ -13,6 +13,7 @@
 //' @name api-tabX_
 //' @inheritParams api-tabX
 //' @param op The operation to be carried out; "+", "-", "*", "/".
+//' @param tab,tab1,tab2 Tables (arrays)
 
 #include <RcppArmadillo.h>
 #include "R_like.h"    

@@ -14,7 +14,7 @@ extern SEXP R_rowSums(SEXP);
 extern SEXP _gRbase_M2dgCMatrix__(SEXP);
 extern SEXP _gRbase_M2matrix__(SEXP);
 extern SEXP _gRbase_MAT2ftM_(SEXP);
-extern SEXP _gRbase_RcppExport_registerCCallable();
+extern SEXP _gRbase_RcppExport_registerCCallable(void);
 extern SEXP _gRbase_adjList2dgCMatrix__(SEXP);
 extern SEXP _gRbase_adjList2ftList__(SEXP);
 extern SEXP _gRbase_adjList2ftM__(SEXP);
