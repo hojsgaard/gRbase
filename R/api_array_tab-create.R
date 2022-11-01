@@ -46,35 +46,55 @@ NULL
 #' @export
 #' @rdname api-tabNew             
 tabNew <- function(names, levels, values, normalize="none", smooth=0){
+    
     normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]
 
-    if (is.list(levels)){
-      vn <- names(levels)
-      if (!all(sapply(vn, nchar) > 0))
-        stop("not all elements in 'levels' are named\n")
-      idx <- match(names, vn)
-      if (any((b <- is.na(idx))))
-        stop(sprintf("Levels for variable(s) %s not found\n", toString(names[b])))
-      else {
-        levels  <- levels[idx] ## those used
-        dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+    if (is.list(levels))
+    {
+        if (length(levels) == 0){
+            stop("Can not create table\n")
+        }              
+        if (length(levels) == 1){
+            vn <- names(levels)
+            levels <- rep(levels, length(names))
+            names(levels) <- names
+            dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+            di <- unlist(lapply(dn, length), use.names=FALSE)            
+            
+        } else if (length(levels) > 0){
+            if (!is_named_list(levels)){
+                stop("not all elements in 'levels' are named\n")                    
+            }
+            vn <- names(levels)            
+            idx <- match(names, vn)
+            if (any((b <- is.na(idx)))){
+                stop(sprintf("Levels for variable(s): %s not found\n",
+                             toString(names[b])))           
+            }
+            levels  <- levels[idx] ## those used
+            dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+            di <- unlist(lapply(dn, length), use.names=FALSE)            
+        }
+        
+    } else if (is.numeric(levels))
+    {
+        di <- levels
+        dn <- make_dimnames(names, levels)
+    } else if (is.character(levels))
+    {
+        dn <- rep(list(levels), length(names))
+        names(dn) <- names
         di <- unlist(lapply(dn, length), use.names=FALSE)
-      }
-    } else if (is.numeric(levels)){
-      di <- levels
-      dn <- .make.dimnames(names, levels)
-    } else if (is.character(levels)){
-      dn <- rep(list(levels), length(names))
-      names(dn) <- names
-      di <- unlist(lapply(dn, length), use.names=FALSE)
-    } else stop("Can not create 'tab' object")
+    } else {
+        stop("Can not create 'tab' object")
+    }
 
-    
     if (missing(values))
         values <- 1
     if (smooth > 0)
         values <- values + smooth
+
     
     if (is.atomic(values) && !is.object(values)){
         out <- array(values, dim=di, dimnames=dn)
@@ -82,8 +102,27 @@ tabNew <- function(names, levels, values, normalize="none", smooth=0){
     tabNormalize(out, normalize)
 }
 
-## FIXME .make.dimnames findes også (cirka) i parray. Redundans
-.make.dimnames <- function(names, levels){
+
+        ## check that levels is a named list
+            ## vn <- names(levels)
+            ## if (is.null(vn)){
+                ## stop("'levels' is a list with no names\n")
+            ## } else {
+            ## }
+    
+
+is_named_list <- function(x){
+    if (!inherits(x, "list"))
+        return(FALSE)
+    vn <- names(x)
+    if (is.null(vn))
+        return(FALSE)
+    all(nchar(vn) > 0)
+}
+
+
+## FIXME make_dimnames findes også (cirka) i parray. Redundans
+make_dimnames <- function(names, levels){
     if ( !(is.atomic(names) && is.numeric(levels)) )
         stop("Can not create dimnames")
 
@@ -95,13 +134,31 @@ tabNew <- function(names, levels, values, normalize="none", smooth=0){
                       1:levels[i]
                   })
     
-    dn <- lapply(seq_along(levels),
-                 function(i){
-                     paste(names[i], dn[[i]], sep="")
-                 })
+    ## dn <- lapply(seq_along(levels),
+                 ## function(i){
+                     ## paste(names[i], dn[[i]], sep="")
+                 ## })
 
     names(dn) <- names
     dn
 }
 
 
+
+
+
+                
+        ## print(vn)
+        ## if (!all(sapply(vn, nchar) > 0)){
+            ## print(vn)
+            ## stop("not all elements in 'levels' are named\n")
+        ## }
+        ## idx <- match(names, vn)
+        ## if (any((b <- is.na(idx))))
+            ## stop(sprintf("Levels for variable(s): %s not found\n",
+                         ## toString(names[b])))
+        ## else {
+            ## levels  <- levels[idx] ## those used
+            ## dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+            ## di <- unlist(lapply(dn, length), use.names=FALSE)
+        ## }
