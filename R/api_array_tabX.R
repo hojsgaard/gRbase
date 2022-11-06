@@ -154,11 +154,15 @@ tabProd <- function(tab, ...){
 #' @export
 #' @rdname api-tabX                 
 tabNormalize <- function(tab, type="none"){
+    ## cat("tabNormalize\n"); print(tab)
     switch(type,
            "first"={
                if (length(dim(tab)) > 1){
-                   tab <- tabPerm(tabDiv(tab, tabMarg(tab, 2:length(dim(tab)))),
-                                  names(dimnames(tab)))
+                   ## tab <- tabPerm(tabDiv(tab, tabMarg(tab, 2:length(dim(tab)))),
+                                  ## names(dimnames(tab)))
+                   ## Perhaps faster than above?
+                   tab <- tab / rep(tabMarg(tab, 2:length(dim(tab))), each=dim(tab)[1])
+                   
                } else {
                    tab <- tab / sum(tab)
                }

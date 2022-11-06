@@ -8,8 +8,8 @@
 tabNew(names, levels, values, normalize = "none", smooth = 0)
 }
 \arguments{
-\item{names}{Names of variables defining table; a character vector
-or a right hand sided formula.}
+\item{names}{Names of variables defining table; either a character
+vector or a right hand sided formula.}
 
 \item{levels}{\enumerate{
 \item a list with specification of the levels of the
@@ -17,7 +17,7 @@ factors in \code{names} or 2) a vector with number of levels of
 the factors in \code{names}. See 'examples' below.
 }}
 
-\item{values}{values to go into the parray}
+\item{values}{values to go into the array.}
 
 \item{normalize}{Either "none", "first" or "all". Should result be
 normalized, see 'Details' below.}
@@ -31,28 +31,27 @@ An array.
 Alternative ways of creating arrays
 }
 \details{
-If \code{normalize="first"} then for each configuration of
-all other variables than the first, the probabilities are
-normalized to sum to one.  Thus f(a,b,c) becomes a conditional
-probability table of the form p(a|b,c).  If
-\code{normalize="all"} then the sum over all entries of
+\enumerate{
+\item If \code{normalize="first"} then for each configuration of all
+other variables than the first, the probabilities are
+normalized to sum to one.  Thus f(a, b, c) becomes a
+conditional probability table of the form p(a | b, c).
+\item If \code{normalize="all"} then the sum over all entries of
 f(a,b,c) is one.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{If \code{smooth} is positive then
-\code{smooth} is added to \code{values} before normalization
-takes place.
-}\if{html}{\out{</div>}}
+\item If \code{smooth} is positive then \code{smooth} is added to
+\code{values} BEFORE normalization takes place.
+}
 }
 \examples{
 
-universe <- list(gender=c('male','female'),
-                 answer=c('yes','no'),
-                 rain=c('yes','no'))
-t1 <- tabNew(c("gender","answer"), levels=universe, values=1:4)
+universe <- list(gender=c('male', 'female'),
+                 answer=c('yes', 'no'),
+                 rain=c('yes', 'no'))
+t1 <- tabNew(c("gender", "answer"), levels=universe, values=1:4)
 t1
 t2 <- tabNew(~gender:answer, levels=universe, values=1:4)
 t2
-t3 <- tabNew(~gender:answer, c(2,2), values=1:4)
+t3 <- tabNew(~gender:answer, c(2, 2), values=1:4)
 t3
 }
 \author{

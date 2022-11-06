@@ -10,3 +10,4 @@ vignettes/*.log
 vignettes/.Rhistory
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^README\.Rmd$

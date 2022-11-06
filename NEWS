@@ -1,3 +1,12 @@
+gRbase v1.8.9 (Release date: 2022-11-01)
+==========================================
+
+Changes:
+
+  * tabNew modified to a more consistent behaviour
+
+  * biocViews removed again; did not fix Bioconductor dependency issue.
+
 gRbase v1.8.8 (Release date: 2022-10-16)
 ==========================================
 

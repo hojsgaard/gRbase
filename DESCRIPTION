@@ -1,5 +1,5 @@
 Package: gRbase
-Version: 1.8.8
+Version: 1.8.9
 Title: A Package for Graphical Modelling in R
 Author: Søren Højsgaard <sorenh@math.aau.dk>
 Maintainer: Søren Højsgaard <sorenh@math.aau.dk>
@@ -19,7 +19,7 @@ Description: The 'gRbase' package provides graphical modelling features
     Dethlefsen and Højsgaard, (2005, <doi:10.18637/jss.v014.i17>).
     Please see 'citation("gRbase")' for citation details. 
     NOTICE  'gRbase' requires that the packages graph,
-    'Rgraphviz' and 'RBGL' are installed from 'bioconductor'; for
+    'Rgraphviz' and 'RBGL' are installed from 'bioconductor'. For
     installation instructions please refer to the web page given below.
 License: GPL (>= 2)
 URL: https://people.math.aau.dk/~sorenh/software/gR/
@@ -46,4 +46,3 @@ Suggests:
 LinkingTo: Rcpp (>= 0.11.1), RcppEigen, RcppArmadillo
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
-biocViews: graph,RBGL,Rgraphviz
