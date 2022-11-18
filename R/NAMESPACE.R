@@ -46,6 +46,6 @@
 #' @importFrom Matrix Matrix
 
 #' @export solveSPD MAT2ftM_ symMAT2ftM_
-
-.dumfunction_afterimportFrom <- function(){}
+NULL
+## .dumfunction_afterimportFrom <- function(){}
 
