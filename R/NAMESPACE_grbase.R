@@ -18,7 +18,7 @@
 #' @importFrom magrittr   "%>%"
 #' @export "%>%"
 #'
-#' @importFrom BiocManager install
+## ## ' @importFrom BiocManager install
 
 ## Miscellaneous
 ## -------------
@@ -26,19 +26,21 @@
 #'
 #' @import methods
 #'
-#' @importFrom igraph igraph.to.graphNEL igraph.from.graphNEL
+#' @importFrom igraph 
 #'     get.adjacency V "V<-" E "E<-" is.directed layout.lgl
-#'     layout.graphopt plot.igraph graph.adjacency is.dag
-
+#'     layout.graphopt plot.igraph graph.adjacency is.dag as_adjacency_matrix
+#'     make_graph make_empty_graph max_cliques is_igraph all_simple_paths subgraph is_chordal
+#'     components as_adj_list add_edges add_vertices
+#'
+#' 
 
 ## Bioconductor imports/exports
 ## ----------------------------
 
-#' @importClassesFrom graph graphNEL
-#' @importFrom graph edges nodes edgeMatrix addEdge addNode removeEdge removeNode
-#' @export edges nodes edgeMatrix addEdge addNode removeEdge removeNode
-
-#' @importMethodsFrom Rgraphviz plot
+## ' @importClassesFrom graph graphNEL
+## ' @importFrom graph edges nodes edgeMatrix addEdge addNode removeEdge removeNode
+## ' @export edges nodes edgeMatrix addEdge addNode removeEdge removeNode
+## ' @importMethodsFrom Rgraphviz plot
 
 #' @importFrom methods as new setOldClass
 #'
@@ -47,5 +49,4 @@
 
 #' @export solveSPD MAT2ftM_ symMAT2ftM_
 NULL
-## .dumfunction_afterimportFrom <- function(){}
 

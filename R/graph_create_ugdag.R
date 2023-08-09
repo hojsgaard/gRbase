@@ -30,15 +30,9 @@
 #' uG2 <- ug(c("a", "b", "c"), c("c", "d"))
 #' uG3 <- ug(c("a", "b"), c("a", "c"), c("b", "c"), c("c", "d"))
 #' 
-#' graph::edges(uG1)
-#' graph::nodes(uG1)
-#' 
 #' ## The following specifications of directed acyclig graphs are equivalent:
 #' daG1 <- dag(~ a:b:c + b:c + c:d)
 #' daG2 <- dag(c("a", "b", "c"), c("b", "c"), c("c", "d"))
-#' 
-#' graph::edges(daG1)
-#' graph::nodes(daG2)
 #' 
 #' ## dag() allows to specify directed graphs with cycles:
 #' daG4 <- dag(~ a:b + b:c + c:a) # A directed graph but with cycles
@@ -51,31 +45,31 @@
 #' topo_sort( daG4 )
 #' 
 #' ## Different representations
-#' uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
+## ' uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
 #' uG7 <- ug(~a:b:c + c:d, result="igraph")    # igraph
 #' uG8 <- ug(~a:b:c + c:d, result="matrix")    # dense matrix
 #' uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix
 
 #' @export
 #' @rdname graph-create
-ug <- function(..., result="graphNEL"){
+ug <- function(..., result="igraph") {  ## FIXME was graphNEL
   ugList(list(...), result=result)
 }
 
 #' @export
 #' @rdname graph-create
-ugi <- function(...){
+ugi <- function(...) {
   ugList(list(...), result="igraph")
 }
 
-.spam.result <- function(result){
+.spam.result <- function(result) {
     ##if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
     if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
 }
 
 #' @export
 #' @rdname graph-create
-ugList <- function(x, result="graphNEL"){
+ugList <- function(x, result="igraph") {  ## FIXME was graphNEL
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
     .spam.result(result)
     
@@ -83,7 +77,7 @@ ugList <- function(x, result="graphNEL"){
     vn  <- unique.default(unlist(x))
 
     switch(result,
-           "graphNEL" ={g_ugl2gn_(x, vn)},
+           ## "graphNEL" ={g_ugl2gn_(x, vn)},
            "igraph"   ={g_ugl2ig_(x, vn)},
            "matrix"   ={g_ugl2dm_(x, vn)},
            "Matrix"   =,
@@ -97,19 +91,19 @@ ugList <- function(x, result="graphNEL"){
 
 #' @export
 #' @rdname graph-create
-dag <- function(..., result="graphNEL", forceCheck=FALSE){
+dag <- function(..., result="igraph", forceCheck=FALSE){  ## FIXME was graphNEL
   dagList(list(...), result=result, forceCheck=forceCheck)
 }
 
 #' @export
 #' @rdname graph-create
-dagi <- function(..., forceCheck=FALSE){
+dagi <- function(..., forceCheck=FALSE) {
   dagList(list(...), result="igraph", forceCheck=forceCheck)
 }
 
 #' @export
 #' @rdname graph-create
-dagList <- function(x, result="graphNEL", forceCheck=FALSE){
+dagList <- function(x, result="igraph", forceCheck=FALSE) {  ## FIXME was graphNEL
     result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
     .spam.result(result)
     
@@ -117,14 +111,14 @@ dagList <- function(x, result="graphNEL", forceCheck=FALSE){
     vn  <- unique.default(unlist(x))
 
     out <- switch(result,
-                  "graphNEL"  = {g_dagl2gn_(x, vn)},
+                  ## "graphNEL"  = {g_dagl2gn_(x, vn)},
                   "igraph"    = {g_dagl2ig_(x, vn)},
                   "matrix"    = {g_dagl2dm_(x, vn)},
                   "Matrix"    = ,
                   "dgCMatrix" = {g_dagl2sm_(x, vn)})
 
-    if (forceCheck){
-        if( length(topo_sort(out)) == 0){
+    if (forceCheck) {
+        if( length(topo_sort(out)) == 0) {
             stop("In dag/dagList: Graph is not a DAG", call.=FALSE)
         }
     }

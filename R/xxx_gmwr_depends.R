@@ -14,10 +14,14 @@
 
 #'
 #' @param object An object to be coerced.
-#' @param result The format to be coerced to.
+## ' @param result The format to be coerced to.
 #' 
 NULL
 
 #' @export
 #' @rdname gmwr_book
-as.adjMAT       <- g_gn2xm_
+as.adjMAT       <- function(object) {
+    as(object, "matrix")
+}
+
+## as.adjMAT       <- g_gn2xm_

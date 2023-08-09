@@ -1,0 +1,87 @@
+\indexentry{vertices}{4}
+\indexentry{nodes}{4}
+\indexentry{edges}{4}
+\indexentry{\texttt  {ug()[gRbase]}}{4}
+\indexentry{\texttt  {dag()[gRbase]}}{4}
+\indexentry{adjacency matrix}{4}
+\indexentry{adjacent nodes}{4}
+\indexentry{simple graphs}{4}
+\indexentry{adjacency matrix}{4}
+\indexentry{\texttt  {ug()[gRbase]}}{4}
+\indexentry{\texttt  {myplot()}}{5}
+\indexentry{\texttt  {ug()[gRbase]}}{6}
+\indexentry{\texttt  {addEdge()[graph]}}{7}
+\indexentry{\texttt  {removeEdge()[graph]}}{7}
+\indexentry{\texttt  {nodes()[graph]}}{7}
+\indexentry{\texttt  {edges()[graph]}}{7}
+\indexentry{separation}{8}
+\indexentry{induced subgraph}{9}
+\indexentry{subgraph}{9}
+\indexentry{boundary}{9}
+\indexentry{neighbours}{9}
+\indexentry{closure}{9}
+\indexentry{directed graph}{10}
+\indexentry{directed edges}{10}
+\indexentry{directed acyclic graph}{10}
+\indexentry{DAG}{10}
+\indexentry{\texttt  {dag()[gRbase]}}{10}
+\indexentry{\texttt  {dag()[gRbase]}}{10}
+\indexentry{\texttt  {nodes()[graph]}}{10}
+\indexentry{\texttt  {edges()[graph]}}{10}
+\indexentry{\texttt  {edges()[graph]}}{11}
+\indexentry{\texttt  {edgeList()[gRbase]}}{11}
+\indexentry{\texttt  {vpar()[gRbase]}}{11}
+\indexentry{path}{12}
+\indexentry{parents}{12}
+\indexentry{children}{12}
+\indexentry{ancestors}{12}
+\indexentry{ancestral set}{12}
+\indexentry{ancestral graph}{12}
+\indexentry{moralization}{12}
+\indexentry{\texttt  {moralize()[gRbase]}}{12}
+\indexentry{mixed graphs}{13}
+\indexentry{directed path}{13}
+\indexentry{undirected path}{13}
+\indexentry{path}{13}
+\indexentry{cycle}{13}
+\indexentry{semi-directed path}{13}
+\indexentry{chain graphs}{14}
+\indexentry{chain graph components}{15}
+\indexentry{component DAG}{15}
+\indexentry{anterior set}{15}
+\indexentry{anterior graph}{15}
+\indexentry{moralization}{15}
+\indexentry{conditional independence}{15}
+\indexentry{factorizaton criterion}{16}
+\indexentry{global Markov property}{16}
+\indexentry{d-separation}{17}
+\indexentry{c-separation}{18}
+\indexentry{simplicial node}{18}
+\indexentry{connected components}{18}
+\indexentry{chordless cycles}{19}
+\indexentry{triangulated graphs}{19}
+\indexentry{chordal graphs}{19}
+\indexentry{decomposition}{19}
+\indexentry{perfect vertex ordering}{19}
+\indexentry{decomposable graphs}{19}
+\indexentry{perfect vertex ordering}{19}
+\indexentry{maximum cardinality search}{19}
+\indexentry{\texttt  {mcs()[gRbase]}}{19}
+\indexentry{\texttt  {mcs()[gRbase]}}{20}
+\indexentry{running intersection property}{20}
+\indexentry{RIP ordering}{20}
+\indexentry{separators}{20}
+\indexentry{\texttt  {rip()[gRbase]}}{21}
+\indexentry{fill--ins}{21}
+\indexentry{\texttt  {triangulate()[gRbase]}}{21}
+\indexentry{Markov blanket}{22}
+\indexentry{\texttt  {graph.formula()[igraph]}}{22}
+\indexentry{\texttt  {plot()[igraph]}}{23}
+\indexentry{\texttt  {myplot()[gRbase]}}{23}
+\indexentry{\texttt  {tkplot()[igraph]}}{25}
+\indexentry{\texttt  {plot()[igraph]}}{25}
+\indexentry{\texttt  {tkplot()[igraph]}}{25}
+\indexentry{\texttt  {tkplot.getcoords()[igraph]}}{25}
+\indexentry{adjacency matrix}{27}
+\indexentry{\texttt  {querygraph()[gRbase]}}{27}
+\indexentry{\texttt  {querygraph()[gRbase]}}{27}

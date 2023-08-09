@@ -10,7 +10,7 @@
 #'     least one topological ordering. Can hence be used for checking
 #'     if a graph is a DAG.
 #' 
-#' @name graph-toposort
+#' @name graph_topo_sort
 #' 
 ############################################################################
 #'
@@ -37,11 +37,10 @@
 #' @examples
 #' dagMAT  <- dag(~a:b:c + c:d:e, result="matrix")
 #' dagMATS <- as(dagMAT, "dgCMatrix")
-#' dagNEL  <- as(dagMAT, "graphNEL")
 #' 
 #' topo_sort(dagMAT)
 #' topo_sort(dagMATS)
-#' topo_sort(dagNEL)
+
 
 
 #' @export topo_sort
@@ -55,8 +54,8 @@ topo_sort.default <- function(object, index=FALSE){
 }
 
 #' @export
-#' @rdname graph-toposort
-topo_sortMAT <- function(amat, index=FALSE){
+#' @rdname graph_topo_sort
+topo_sortMAT <- function(amat, index=FALSE) {
     ans <- topo_sortMAT_(amat)
     if (index){
         if (ans[1] != -1) ans
@@ -76,11 +75,11 @@ topo_sortMAT <- function(amat, index=FALSE){
 
 
 #' @export
-#' @rdname graph-toposort
+#' @rdname graph_topo_sort
 topoSort <- topo_sort
 
 #' @export
-#' @rdname graph-toposort
+#' @rdname graph_topo_sort
 topoSortMAT <- topo_sortMAT
 
 

@@ -43,9 +43,8 @@ moralize <- function(object,...){
 
 #' @export
 #' @rdname graph-moralize
-moralize.default <- function(object, result=NULL, ...)
-{
-
+moralize.default <- function(object, result=NULL, ...) {
+    
     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
     if (!any(chk)) stop("Invalid class of 'object'\n")
@@ -55,12 +54,12 @@ moralize.default <- function(object, result=NULL, ...)
         result <- cls
     
     switch(cls,
-           "graphNEL" ={
-               m <- as(object, "matrix") ## FIXME check this graphNEL2M( object )
-               if (!is_dagMAT(m))
-                   stop("Graph must be directed")
-               m <- moralizeMAT(m)
-           },
+           ## "graphNEL" ={
+           ##     m <- as(object, "matrix") ## FIXME check this graphNEL2M( object )
+           ##     if (!is_dagMAT(m))
+           ##         stop("Graph must be directed")
+           ##     m <- moralizeMAT(m)
+           ## },
            "dgCMatrix"=,
            "matrix"   ={
                if (!is_dagMAT(object))

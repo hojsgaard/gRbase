@@ -6,7 +6,7 @@
 #'     2) a directed graph (DG), 3) an undirected graph (UG), 4) a
 #'     triangulated (chordal) undirected graph (TUG). 
 #'
-#' @name graph-is
+#' @name graph_is
 #' 
 ############################################################################
 #'
@@ -55,48 +55,45 @@
 #' @examples
 #' 
 #' ## DAGs
-#' dagNEL  <- dag(~ a:b:c + c:d:e, result="graphNEL")
+#' dag_  <- dag(~ a:b:c + c:d:e)
 #' 
 #' ## Undirected graphs
-#' ugNEL  <- ug(~a:b:c + c:d:e, result="graphNEL")
+#' ug_  <- ug(~a:b:c + c:d:e)
 #' 
 #' ## Is graph a DAG?
-#' is_dag(dagNEL)
-#' is_dag(ugNEL)
+#' is_dag(dag_)
+#' is_dag(ug_)
 #' 
 #' ## Is graph an undirected graph
-#' is_ug(dagNEL)
-#' is_ug(ugNEL)
+#' is_ug(dag_)
+#' is_ug(ug_)
 #'  
 #' ## Is graph a triangulated (i.e. chordal) undirected graph
-#' is_tug(dagNEL)
-#' is_tug(ugNEL)
+#' is_tug(dag_)
+#' is_tug(ug_)
 #' 
 #' ## Example where the graph is not triangulated
-#' ug2NEL  <- ug(~ a:b + b:c + c:d + d:a, result="graphNEL")
-#' is_tug(ug2NEL)
-#' 
-#' ## Bidirected graphs
-#' graph::edgemode(ugNEL)
-#' graph::edgemode(ugNEL) <- "directed"
-#' graph::edgemode(ugNEL)
-#' is_dag(ugNEL)
-#' is_ug(ugNEL)
+#' ug2_  <- ug(~ a:b + b:c + c:d + d:a)
+#' is_tug(ug2_)
 #' 
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_dag <- function(object){
     UseMethod("is_dag")
 }
 
-#' @export
-is_dag.graphNEL <- function(object){
-    is_dagMAT(as(object, "matrix"))
-}
+## #' @export
+## is_dag.graphNEL <- function(object){
+##     is_dagMAT(as(object, "matrix"))
+## }
 
 #' @export
-is_dag.igraph <- is_dag.graphNEL
+is_dag.igraph <- function(object){
+     ## is_dagMAT(as(object, "matrix"))
+    igraph::is_dag(object)
+}
+
 
 #' @export
 is_dag.default <- function( object ){
@@ -105,7 +102,7 @@ is_dag.default <- function( object ){
 }
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_dagMAT <- function(object){
     isdagMAT_(object)
 }
@@ -114,17 +111,21 @@ is_dagMAT <- function(object){
 ## ######################################
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_ug <- function(object){
     UseMethod("is_ug")
 }
 
+## #' @export
+## is_ug.graphNEL <- function(object){
+##     isugMAT_(as(object, "matrix"))
+## }
+
 #' @export
-is_ug.graphNEL <- function(object){
+is_ug.igraph <- function(object){
     isugMAT_(as(object, "matrix"))
 }
-#' @export
-is_ug.igraph <- is_ug.graphNEL
+
 
 #' @export
 is_ug.default <- function(object){
@@ -132,7 +133,7 @@ is_ug.default <- function(object){
     isugMAT_(object)
 }
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_ugMAT <- function(object){
     isugMAT_(object)
 }
@@ -140,20 +141,24 @@ is_ugMAT <- function(object){
 ## ######################################
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_tug <- function(object){
   UseMethod("is_tug")
 }
 
+## #' @export
+## is_tug.graphNEL <- function(object){
+##     z <- as(object, "matrix")
+##     if (!isugMAT_(z)) FALSE
+##     else length(ripMAT(z)) > 0
+## }
+
 #' @export
-is_tug.graphNEL <- function(object){
+is_tug.igraph <- function(object){
     z <- as(object, "matrix")
     if (!isugMAT_(z)) FALSE
     else length(ripMAT(z)) > 0
 }
-
-#' @export
-is_tug.igraph <- is_tug.graphNEL
 
 #' @export
 is_tug.default <- function(object){
@@ -163,7 +168,7 @@ is_tug.default <- function(object){
 }
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_tugMAT <- function(object){
     isugMAT_(object) && length(mcsMAT(object))>0
 }
@@ -171,18 +176,22 @@ is_tugMAT <- function(object){
 ## ######################################
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_dg <- function(object){
     UseMethod("is_dg")
 }
 
+## #' @export
+## is_dg.graphNEL <- function(object){
+##     is_dgMAT(as(object, "matrix"))
+## }
+
 #' @export
-is_dg.graphNEL <- function(object){
+is_dg.igraph <- function(object){
     is_dgMAT(as(object, "matrix"))
 }
 
-#' @export
-is_dg.igraph <- is_dg.graphNEL
+
 
 #' @export
 is_dg.default <- function(object){
@@ -194,7 +203,7 @@ is_dg.default <- function(object){
 }
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_dgMAT <- function(object){
     if (!is.adjMAT(object)) stop("Matrix is not adjacency matrix...\n")
     eps <- 1e-4
@@ -203,13 +212,13 @@ is_dgMAT <- function(object){
 
 
 #' @export
-#' @rdname graph-is
+#' @rdname graph_is
 is_adjMAT <- function(object){
     .check.is.matrix(object)
     isadjMAT_(object)
 }
 
-#' @rdname graph-is
+#' @rdname graph_is
 #' @section Synonymous functions:
 #'
 #' The functions

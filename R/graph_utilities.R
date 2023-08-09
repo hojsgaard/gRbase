@@ -54,12 +54,13 @@
 #' 
 
 #' @export
-edgeList <- function(object, matrix=FALSE)
-  UseMethod("edgeList")
+edgeList <- function(object, matrix=FALSE) {
+    UseMethod("edgeList")
+}
 
 #' @export
 ## #' @rdname graph-edgeList
-edgeList.default <- function(object, matrix=FALSE){
+edgeList.default <- function(object, matrix=FALSE) {
     if (inherits(object, c("graphNEL", "igraph")))
         return(edgeListMAT(as(object, "matrix"), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
@@ -69,7 +70,7 @@ edgeList.default <- function(object, matrix=FALSE){
 
 #' @export
 #' @rdname graph-edgeList
-edgeListMAT <- function(adjmat, matrix=FALSE){
+edgeListMAT <- function(adjmat, matrix=FALSE) {
     out <- if (issymMAT_(adjmat)) symMAT2ftM_(adjmat)
            else MAT2ftM_(adjmat)
 
@@ -87,13 +88,14 @@ edgeListMAT <- function(adjmat, matrix=FALSE){
 
 #' @export
 #' @rdname graph-edgeList
-nonEdgeList <- function(object, matrix=FALSE)
-  UseMethod("nonEdgeList")
+nonEdgeList <- function(object, matrix=FALSE) {
+    UseMethod("nonEdgeList")   
+}
 
 #' @export
 ## #' @rdname graph-edgeList
-nonEdgeList.default <- function(object, matrix=FALSE){
-    if (inherits(object, c("graphNEL", "graphNEL")))
+nonEdgeList.default <- function(object, matrix=FALSE) {
+    if (inherits(object, c("igraph", "graphNEL")))
         return(nonEdgeListMAT(as(object, "matrix"), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
         return(nonEdgeListMAT(object, matrix=matrix))
@@ -103,7 +105,7 @@ nonEdgeList.default <- function(object, matrix=FALSE){
 #' @export
 #' @rdname graph-edgeList
 nonEdgeListMAT <- function(adjmat, matrix=FALSE){
-    if (!issymMAT_( adjmat )) stop("'adjmat' must be symmetric")
+    if (!issymMAT_(adjmat)) stop("'adjmat' must be symmetric")
     if (inherits(adjmat, "dgCMatrix")){
         adjmat <- as( ((-1 * adjmat) + 1), "dgCMatrix")
     } else {
@@ -121,47 +123,38 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
 ## FIXME dag2ug is missing
 ## FIXME ug2dag: should allow for other graph representations
 
-#' @title Coerce between undirected and directed graphs when possible
-#'
-#' @description An undirected graph G can be converted to a dag if G
-#'     is chordal. A dag D can be converted to an undirected graph if
-#'     D can be moralized without adding edges.
-#'
-#' @title graph-ug2dag
-#'
-#' @param gn A graphNEL object or an object that can be converted to a
-#'     graphNEL object.
+## #' @title Coerce between undirected and directed graphs when possible
+## #'
+## #' @description An undirected graph G can be converted to a dag if G
+## #'     is chordal. A dag D can be converted to an undirected graph if
+## #'     D can be moralized without adding edges.
+## #'
+## #' @title graph-ug2dag
+## #'
+## #' @param gn A graphNEL object or an object that can be converted to a
+## #'     graphNEL object.
 
-#' @export
-#' @rdname graph-ug2dag
-ug2dag <- function(gn){
-    if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
-    if (graph::edgemode(gn) != "undirected") stop("Graph must have undirected edges")
+## #' @export
+## #' @rdname graph-ug2dag
+## ug2dag <- function(gn) { ## FIXME
+##     if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
+##     if (graph::edgemode(gn) != "undirected") stop("Graph must have undirected edges") ## FIXME
 
-    if (length( m <- mcs(gn) ) == 0) stop("Graph is not chordal")
+##     if (length( m <- mcs(gn) ) == 0) stop("Graph is not chordal")
 
-    adjList  <- graph::adj(gn, m)
-    vparList <- vector("list", length(m))
-    names(vparList) <- m
+##     adjList  <- graph::adj(gn, m) ## FIXME
+##     vparList <- vector("list", length(m))
+##     names(vparList) <- m
 
-    vparList[[1]] <- m[1]
-    if (length(m) > 1){
-        for (i in 2:length(m)){
-            vparList[[ i ]] <- c(m[ i ],
-                                intersectPrim(adjList[[ i ]], m[ 1:i ]))
-        }
-    }
-    dagList(vparList)
-}
-
-
-
-
-
-
-
-
-
+##     vparList[[1]] <- m[1]
+##     if (length(m) > 1) {
+##         for (i in 2:length(m)) {
+##             vparList[[ i ]] <- c(m[ i ],
+##                                 intersectPrim(adjList[[ i ]], m[ 1:i ]))
+##         }
+##     }
+##     dagList(vparList)
+## }
 
 
 
@@ -181,7 +174,7 @@ ug2dag <- function(gn){
 #'
 #' @description Get list of vertices and their parents for graph.
 #'
-#' @name graph-vpar
+#' @name graph_vpar
 #'
 #' @param object An object representing a graph. Valid objects are an
 #'     adjacency matrix or as a graphNEL.
@@ -198,46 +191,39 @@ ug2dag <- function(gn){
 #' @examples
 #' 
 #' ## DAGs
-#' dagMAT <- dag(~a:b:c + c:d:e, result="matrix")
-#' dagNEL <- dag(~a:b:c + c:d:e, result="graphNEL")
+#' dag_mat <- dag(~a:b:c + c:d:e, result="matrix")
+#' dag_ig <- dag(~a:b:c + c:d:e)
 
-#' vpar(dagMAT)
-#' vpar(dagNEL)
-#' vpar(dagMAT, getv=FALSE)
-#' vpar(dagNEL, getv=FALSE)
+#' vpar(dag_mat)
+#' vpar(dag_ig)
+#' vpar(dag_mat, getv=FALSE)
+#' vpar(dag_ig, getv=FALSE)
 
 #' ## Undirected graphs
-#' ugMAT <- ug(~a:b:c + c:d:e, result="matrix")
-#' ugNEL <- ug(~a:b:c + c:d:e, result="graphNEL")
+#' ug_mat <- ug(~a:b:c + c:d:e, result="matrix")
+#' ug_ig <- ug(~a:b:c + c:d:e)
 
 #' \dontrun{
 #' ## This will fail because the adjacency matrix is symmetric and the
 #' ## graphNEL has undirected edges
-#' vpar(ugMAT)
-#' vpar(ugNEL)
+#' vpar(ug_mat)
+#' vpar(ug_ig)
 #' }
 
-#' ## When forceCheck is FALSE, it will not be detected that the graphs are undirected.
-#' vpar(ugMAT, forceCheck=FALSE)
-#' vpar(ugNEL, forceCheck=FALSE)
+#' ## When forceCheck is FALSE, it will not be detected that the
+#' #g raphs are undirected.
+#' vpar(ug_mat, forceCheck=FALSE)
+#' vpar(ug_ig, forceCheck=FALSE)
 
-#' ## Bidirected graphs
-#' ## This is, for graphNELs, the same as working with bidirected edges:
-#' if (require(graph)){
-#' graph::edgemode(ugNEL)
-#' graph::edgemode(ugNEL) <- "directed"
-#' graph::edgemode(ugNEL)
-#' vpar(ugNEL,FALSE)
-#' }
 
 #' @export
-vchi <- function(object, getv=TRUE, forceCheck=TRUE){
+vchi <- function(object, getv=TRUE, forceCheck=TRUE) {
   UseMethod("vchi")
 }
 
 #' @export
-#' @rdname graph-vpar
-vchiMAT <- function(object, getv=TRUE, forceCheck=TRUE){
+#' @rdname graph_vpar
+vchiMAT <- function(object, getv=TRUE, forceCheck=TRUE) {
   if (forceCheck && !is.adjMAT(object))
     stop("Matrix is not adjacency matrix... \n")
   if (forceCheck && isSymmetric(object))
@@ -255,48 +241,29 @@ vchiMAT <- function(object, getv=TRUE, forceCheck=TRUE){
 }
 
 #' @export
-## #' @rdname graph-vpar
-vchi.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
-    if (forceCheck && graph::edgemode(object)=="undirected")
-        stop("Graph is undirected; (v,pa(v)) does not exist...\n")
-
-    ch <- graph::edges(object) ## Nodes and their children
-    vn <- names(ch)
-
-
-    out <- lapply(seq_along(ch), function(i) c(vn[i], ch[[i]]))
-    names(out) <- vn
-    out
-
-    if (!getv) # Don't want v, just pa(v)
-        lapply(out, function(x)x[-1])
-    else
-        out
+## #' @rdname graph_vpar
+vchi.igraph <- function(object, getv=TRUE, forceCheck=TRUE) {
+    ## vchi.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
+    vchiMAT(as(object, "matrix"), getv=getv, forceCheck=forceCheck)
 }
 
 #' @export
-## #' @rdname graph-vpar
-vchi.igraph <- function(object, getv=TRUE, forceCheck=TRUE){
-    vchi.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
-}
-
-#' @export
-## #' @rdname graph-vpar
+## #' @rdname graph_vpar
 vchi.Matrix <- vchiMAT
 
 #' @export
-## #' @rdname graph-vpar
+## #' @rdname graph_vpar
 vchi.matrix <- vchiMAT
 
 #' @export
-#' @rdname graph-vpar
+#' @rdname graph_vpar
 vpar <- function(object, getv=TRUE, forceCheck=TRUE){
   UseMethod("vpar")
 }
 
 #' @export
-#' @rdname graph-vpar
-vparMAT <- function(object, getv=TRUE, forceCheck=TRUE){
+#' @rdname graph_vpar
+vparMAT <- function(object, getv=TRUE, forceCheck=TRUE) {
   if (forceCheck && !is.adjMAT(object))
     stop("Matrix is not adjacency matrix... \n")
 
@@ -319,48 +286,18 @@ vparMAT <- function(object, getv=TRUE, forceCheck=TRUE){
 }
 
 #' @export
-## #' @rdname graph-vpar
-vpar.graphNEL <- function(object, getv=TRUE, forceCheck=TRUE){
-
-    ## ## FIXME: PERHAPS NOT A GOOD IDEA:
-    ## no_edges  <- all(sapply(graph::edges(object), length) == 0)
-
-    ##    if (!no_edges){
-        if (forceCheck && graph::edgemode(object)=="undirected")
-            stop("Graph is undirected; (v,pa(v)) does not exist...\n")
-    ##}
-    
-    ch <- graph::edges(object) ## Nodes and their children
-    vn <- names(ch)
-    tf <- lapply(seq_along(ch),
-                 function(i)
-                     all_pairs( ch[[i]], vn[i],
-                                  sort=FALSE, result="matrix"))
-
-    tf <- do.call(rbind, tf) # matrix in to-from form
-    out <- lapply(seq_along(ch),
-                  function(i)
-                      c(vn[i], tf[tf[, 1] == vn[i], 2]))
-    names(out) <- vn
-
-    if (!getv) # Don't want v, just pa(v)
-        lapply(out, function(x)x[-1])
-    else
-        out
-}
-
-#' @export
-## #' @rdname graph-vpar
+## #' @rdname graph_vpar
 vpar.igraph <- function(object, getv=TRUE, forceCheck=TRUE){
-    vpar.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
+    ## vpar.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
+    vpar(as_adjacency_matrix(object), getv=getv, forceCheck=forceCheck)
 }
 
 #' @export
-## #' @rdname graph-vpar
+## #' @rdname graph_vpar
 vpar.Matrix <- vparMAT
 
 #' @export
-## #' @rdname graph-vpar
+## #' @rdname graph_vpar
 vpar.matrix <- vparMAT
 
 
@@ -413,32 +350,39 @@ get_cliques <- function(object){
     UseMethod("get_cliques")
 }
 
+## #' @export 
+## get_cliques.graphNEL <- function(object){
+##     max_cliqueMAT(as(object, "matrix"))[[1]]
+## }
+
 #' @export 
-get_cliques.graphNEL <- function(object){
-    max_cliqueMAT(as(object, "matrix"))[[1]]
+get_cliques.igraph <- function(object) {
+    ## max_cliqueMAT(as(object, "matrix"))[[1]]
+    out <- max_cliques(object)
+    out <- lapply(out, attr, "names")    
+    return(out)
 }
 
 #' @export 
-get_cliques.igraph <- function(object){
-    max_cliqueMAT(as(object, "matrix"))[[1]]
-}
-
-#' @export 
-get_cliques.default <- function(object){
-    max_cliqueMAT(object)[[1]]
+get_cliques.default <- function(object) {
+    if (inherits(object, c("matrix", "dgCMatrix"))){
+        out <- get_cliques(as(object, "igraph"))
+        return(out)
+    } else {
+        stop("'object' must be a matrix\n")
+    }
 }
 
 ## FIXME: Should check that it is undirected.
 #' @export 
 #' @rdname graph-clique
-max_cliqueMAT <- function(amat){
-    .check.is.matrix(amat)
-    vn <- dimnames(amat)[[2L]]
-    em <- t.default(MAT2ftM_(amat))
-    RBGL::maxClique(nodes=vn, edgeMat=em)
+max_cliqueMAT <- function(amat) {
+    get_cliques(as(amat, "igraph"))
 }
 
-#' @rdname graph-clique
+
+
+#' @name graph-clique
 #' @section Synonymous functions:
 #'
 #' For backward compatibility with downstream packages we have the
@@ -449,13 +393,26 @@ max_cliqueMAT <- function(amat){
 #' * maxCliqueMAT = max_cliqueMAT 
 
 #' @export
-getCliques    <- get_cliques
+#' @rdname graph-clique
+getCliques <- function(object) {
+    out <- get_cliques(object)
+    out
+}   
 
 #' @rdname graph-clique
 #' @aliases maxCliqueMAT
+#' @export
+maxCliqueMAT  <- function(amat) {
+    maxClique(as(amat, "igraph"))
+}
 
 #' @export
-maxCliqueMAT  <- max_cliqueMAT
+#' @rdname graph-clique
+maxClique <- function(object) {
+    out <- get_cliques(object)
+    list(maxCliques=out)
+}   
+
 
 
 
@@ -491,7 +448,7 @@ maxCliqueMAT  <- max_cliqueMAT
 #' table(sapply(vpar(dg),length))
 #' 
 #' @export random_dag
-random_dag <- function(V, maxpar=3, wgt=0.1){
+random_dag <- function(V, maxpar=3, wgt=0.1) {
     V <- as.character(V)
     vparList <- vector("list", length(V))
     names(vparList) <- V
@@ -517,12 +474,8 @@ random_dag <- function(V, maxpar=3, wgt=0.1){
 #' @param object A graph, either a graphNEL or an igraph object.
 #'
 #' @examples
-#' 
 #' g <- dag(~x2|x1 + x3|x1:x2 + x4|x3)
-#' gi <- as(g, "igraph")
 #' dag2chol(g)
-#' dag2chol(gi)
-#' 
 
 #' @export
 dag2chol <- function(object) {
@@ -532,6 +485,8 @@ dag2chol <- function(object) {
         stopifnot("Not adjacency matrix"=is_adjMAT(object))
     
     to <- topoSort(object)
+    print(object)
+    print(to)
     stopifnot("Graph is not a DAG"= length(to) != 0)
     
     vp <- vpar(object)[to]
@@ -591,7 +546,6 @@ dag2chol <- function(object) {
             list.save <- lapply(list.save, function(g) setdiffPrim(S, g))}
     list.save
 }
-
 
 
 

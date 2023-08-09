@@ -42,24 +42,12 @@ coerceGraph <- function(object, class){
 ## ####################################################################
 
 setOldClass("igraph")
-
-## ### From ->->-> To  ###
-setAs("graphNEL", "igraph",    function(from) g_gn2ig_(from))
-setAs("graphNEL", "matrix",    function(from) g_gn2dm_(from))
-setAs("graphNEL", "dgCMatrix", function(from) g_gn2sm_(from))
-setAs("graphNEL", "Matrix",    function(from) g_gn2sm_(from))
-
-setAs("igraph",   "graphNEL",  function(from) g_ig2gn_(from))
 setAs("igraph",   "matrix",    function(from) g_ig2dm_(from))
 setAs("igraph",   "dgCMatrix", function(from) g_ig2sm_(from))
 
 setAs("matrix",    "igraph",   function(from) g_dm2ig_(from))
 setAs("dgCMatrix", "igraph",   function(from) g_sm2ig_(from))
 
-## matrix -> graphNEL : is in graph package (I guess)
-## matrix -> dgCMatrix: is in Matrix package. Should be used
-## Matrix -> graphNEL : in the graph package (I guess)
-## Matrix -> matrix : in the Matrix package
 
 
 #' @export
@@ -147,52 +135,4 @@ graph_as  <- function(object, outtype, intype=NULL){
 
 
 
-
-
-
-## ############################################################
-##
-## ##### .as_fun #####
-##
-## ############################################################
-
-## .as_fun <- function(object, class){
-##     UseMethod(".as_fun")
-## }
-
-## ## #' @rdname graph-coerce-user
-## .as_fun.graphNEL <- function(object, class){
-##     switch(class,
-##            "graphNEL"  = {object},
-##            "matrix"    = {gn2dm_(object)},
-##            "dgCMatrix" = {gn2sm_(object)},
-##            "igraph"    = {gn2ig_(object)})          
-## }
-
-## ## #' @rdname graph-coerce-user
-## .as_fun.matrix  <- function(object, class){
-##     switch(class,
-##            "graphNEL"  = {dm2gn_(object)},
-##            "matrix"    = {object},
-##            "dgCMatrix" = {dm2sm_(object)},
-##            "igraph"    = {dm2ig_(object)})          
-## }
-
-## ## #' @rdname graph-coerce-user
-## .as_fun.dgCMatrix  <- function(object, class){
-##     switch(class,
-##            "graphNEL"  = {sm2gn_(object)},
-##            "matrix"    = {sm2dm_(object)},
-##            "dgCMatrix" = {object},
-##            "igraph"    = {sm2ig_(object)})          
-## }
-
-## ## #' @rdname graph-coerce-user
-## .as_fun.igraph  <- function(object, class){
-##     switch(class,
-##            "graphNEL"  = {ig2gn_(object)},
-##            "matrix"    = {ig2dm_(object)},
-##            "dgCMatrix" = {ig2sm_(object)},
-##            "igraph"    = {object})          
-## }
 

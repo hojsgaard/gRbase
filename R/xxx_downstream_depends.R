@@ -29,7 +29,7 @@ NULL
 
 
 #' @export
-ell <- function(Sigma, S, n){
+ell <- function(Sigma, S, n) {
     shdet <- function(Sigma){
         prod(eigen(Sigma)[[1]])
     }
@@ -39,7 +39,7 @@ ell <- function(Sigma, S, n){
 }
 
 #' @export
-ellK <- function (K, S, n){
+ellK <- function (K, S, n) {
     value <- (n/2) * (log(det(K)) - sum(rowSums(K * S)))
     value
 }
