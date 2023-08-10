@@ -123,40 +123,45 @@ nonEdgeListMAT <- function(adjmat, matrix=FALSE){
 ## FIXME dag2ug is missing
 ## FIXME ug2dag: should allow for other graph representations
 
-## #' @title Coerce between undirected and directed graphs when possible
-## #'
-## #' @description An undirected graph G can be converted to a dag if G
-## #'     is chordal. A dag D can be converted to an undirected graph if
-## #'     D can be moralized without adding edges.
-## #'
-## #' @title graph-ug2dag
-## #'
-## #' @param gn A graphNEL object or an object that can be converted to a
-## #'     graphNEL object.
+#' @title Coerce between undirected and directed graphs when possible
+#'
+#' @description An undirected graph G can be converted to a dag if G
+#'     is chordal.
+#' 
+#' @title graph-ug2dag
+#'
+#' @param object An igraph object.
 
-## #' @export
-## #' @rdname graph-ug2dag
-## ug2dag <- function(gn) { ## FIXME
-##     if (!inherits(gn, "graphNEL")) stop("'gn' not a graphNEL object...")        
-##     if (graph::edgemode(gn) != "undirected") stop("Graph must have undirected edges") ## FIXME
+#' @export
+#' @rdname graph-ug2dag
+ug2dag <- function(object) { ## FIXME
+    
+    stopifnot_igraph(object)
+    if (igraph::is_dag(object))
+        return(object)
+    m <- mcs(object)
+    
+    if (length(m) == 0) stop("Graph is not chordal")
+    
+    adj_lst <- lapply(m,
+                      function(m_) {
+                          gRbase::adj(object, m_)
+                      })
+    
+    vpar_lst <- vector("list", length(m))
+    names(vpar_lst) <- m
+    
+    vpar_lst[[1]] <- m[1]
+    if (length(m) > 1) {
+        for (i in 2:length(m)) {
+            a <- intersect(adj_lst[[ i ]], m[ 1:i ])
+            vpar_lst[[ i ]] <- c(m[ i ], a)
+        }
+    }
+    dg <- dagList(vpar_lst)
 
-##     if (length( m <- mcs(gn) ) == 0) stop("Graph is not chordal")
-
-##     adjList  <- graph::adj(gn, m) ## FIXME
-##     vparList <- vector("list", length(m))
-##     names(vparList) <- m
-
-##     vparList[[1]] <- m[1]
-##     if (length(m) > 1) {
-##         for (i in 2:length(m)) {
-##             vparList[[ i ]] <- c(m[ i ],
-##                                 intersectPrim(adjList[[ i ]], m[ 1:i ]))
-##         }
-##     }
-##     dagList(vparList)
-## }
-
-
+    return(dg)
+}
 
 
 
@@ -450,8 +455,8 @@ maxClique <- function(object) {
 #' @export random_dag
 random_dag <- function(V, maxpar=3, wgt=0.1) {
     V <- as.character(V)
-    vparList <- vector("list", length(V))
-    names(vparList) <- V
+    vpar_lst <- vector("list", length(V))
+    names(vpar_lst) <- V
     for (ii in 1:length(V)){
         rest <- V[-(1:ii)]
         zz <- 0:(min(maxpar, length(rest)))
@@ -460,9 +465,9 @@ random_dag <- function(V, maxpar=3, wgt=0.1) {
             zz <- 0
         pp <- wgt^zz
         npar <- sample(zz, 1, prob=pp)
-        vparList[[ii]] <- c(V[ii], sample(rest, npar, replace=FALSE))
+        vpar_lst[[ii]] <- c(V[ii], sample(rest, npar, replace=FALSE))
     }
-    dg <- dagList(vparList)
+    dg <- dagList(vpar_lst)
     dg
 }
 
