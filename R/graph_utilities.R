@@ -74,10 +74,12 @@ edgeListMAT <- function(adjmat, matrix=FALSE) {
     out <- if (issymMAT_(adjmat)) symMAT2ftM_(adjmat)
            else MAT2ftM_(adjmat)
 
-    ## cat("edgeListMAT\n")
-    ## print(adjmat)
-    
+    cat("edgeListMAT\n")
+    print(adjmat)
+
+    print(out)
     di  <- dim(out)
+    print(di)
     out <- colnames(adjmat)[out]
     dim(out) <- di
 
@@ -521,7 +523,7 @@ dag2chol <- function(object) {
 ##
 ## SHD version of DED's dual rep; based on faster set operations
 ##
-#' @export
+
 .dual.rep <- function(glist, S, minimal=TRUE) {
     ## S is total varset - often but by no means always given by unique(unlist(g.list))
     list.save <- list()

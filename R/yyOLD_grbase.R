@@ -47,55 +47,6 @@ addEdge.gModel <-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## dropVertex <- function(object, name) UseMethod("dropVertex")
-## dropVertex.gModel <-
-##   function(object,name) {
-##             ## edit hllm formula
-##             form <- formula(object)
-##             listform <- readf(form[2])
-
-##             ## delete 'name' from generators
-##             new.form <- lapply(listform,setdiff,name)
-##             form <- paste("~",showf(new.form))
-##             formula(object) <- as.formula(form)
-
-##             if (inherits(object,"gRfit"))
-##               object <- fit(object)
-
-##             return(object)
-##           }
-
-
-## addVertex <- function(object, name) UseMethod("addVertex")
-## addVertex.gModel <-
-##           function(object,name) {
-##             ## edit formula
-##             form <- formula(object)
-##             listform <- readf(form[2])
-##             listform[[length(listform)+1]] <- name
-##             form <- paste("~",showf(listform))
-##             formula(object) <- as.formula(form)
-##             if (inherits(object,"gRfit"))
-##               object <- fit(object)
-
-##             return(object)
-##             }
-
-
-
 ggm <- function(formula=~.^1, gmData, marginal){
   value <- processFormula(formula,gmData, marginal,"Continuous")
   value$gmData <- gmData
@@ -103,7 +54,9 @@ ggm <- function(formula=~.^1, gmData, marginal){
   return(value)
 }
 
-fit.ggm <- function(object, ...){
+
+#' @export
+fit.ggm <- function(object, ...) {
   Ydf  <- observations(object$gmData)
   nobs <- nrow(Ydf)
   gc <- object$numformula
@@ -117,7 +70,7 @@ fit.ggm <- function(object, ...){
   fit$iterations <- ipsFit$iterations
   value<-object
   value$fit <- fit
-  class(value) <- c("gRfit", "ggm",class(object))
+  class(value) <- c("gRfit", "ggm", class(object))
   return(value)
 }
 
@@ -727,6 +680,7 @@ hllm <- function(formula = ~.^1,  gmData, marginal){
 ##   return(value)
 }
 
+#' @export
 fit.hllm <- function(object,engine="loglm",...){
   stop("function 'fit.hllm' from gRbase is defunct. Please use the gRim package for hierarchical log-linear models.")
 ##   rawdata <- observations(object$gmData)
@@ -749,6 +703,7 @@ fit.hllm <- function(object,engine="loglm",...){
 ##   return(value)
 }
 
+#' @export
 stepwise.hllm <-    function (object, ...)  {
   stop("function 'stepwise.hllm' from gRbase is defunct. Please use the gRim package for hierarchical log-linear models.")
 ##   if (!exists("rawdata",envir=.GlobalEnv)&
@@ -851,4 +806,53 @@ update.gModel <- function(object, addedge=NULL, dropedge=NULL, ...){
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## dropVertex <- function(object, name) UseMethod("dropVertex")
+## dropVertex.gModel <-
+##   function(object,name) {
+##             ## edit hllm formula
+##             form <- formula(object)
+##             listform <- readf(form[2])
+
+##             ## delete 'name' from generators
+##             new.form <- lapply(listform,setdiff,name)
+##             form <- paste("~",showf(new.form))
+##             formula(object) <- as.formula(form)
+
+##             if (inherits(object,"gRfit"))
+##               object <- fit(object)
+
+##             return(object)
+##           }
+
+
+## addVertex <- function(object, name) UseMethod("addVertex")
+## addVertex.gModel <-
+##           function(object,name) {
+##             ## edit formula
+##             form <- formula(object)
+##             listform <- readf(form[2])
+##             listform[[length(listform)+1]] <- name
+##             form <- paste("~",showf(listform))
+##             formula(object) <- as.formula(form)
+##             if (inherits(object,"gRfit"))
+##               object <- fit(object)
+
+##             return(object)
+##             }
+
 

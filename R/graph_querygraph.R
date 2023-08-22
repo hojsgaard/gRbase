@@ -398,7 +398,12 @@ is.decomposition <- function(set, set2, set3, object) {
 nodes <- function(object) {
     stopifnot_igraph(object)
     out <- V(object)
-    attr(out, "names")
+    vv <- attr(out, "names")
+    if (is.null(vv)) {
+        as.character(out)
+    } else {
+        vv
+    }
 }
 
 #' @export
@@ -410,31 +415,16 @@ edges <- function(object) {
     else
         mode <- "all"
     adjl <- as_adj_list(object, mode=mode)
-    out <- lapply(adjl, function(d) {
-        attr(d, "names")
+    
+    out <- lapply(adjl, function(d) {        
+        vv <- attr(d, "names")
+        if (is.null(vv))
+            vv <- as.character(d)
+        vv
     })
+    names(out) <- nodes(object)
     return(out)
 }
-
-
-
-
-
-
-## edges <- function(object) {
-##     stopifnot_igraph(object)
-##     v <- nodes(object)
-
-##     ed <- lapply(v, function(s) {
-##         attr(igraph::neighbors(object, s, mode="all"), "names")
-##     })
-
-##     names(ed) <- v
-##     ed
-## }
-
-
-
 
 #' @export
 #' @rdname graph_query

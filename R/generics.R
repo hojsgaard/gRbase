@@ -46,7 +46,8 @@ propagate <- function (object, ...)
 
 #' @export
 #' @rdname grbase_generics
-stepwise <- function(object,...){
+stepwise <- function(object,...)
+{
     UseMethod("stepwise")
 }
 
