@@ -74,12 +74,12 @@ edgeListMAT <- function(adjmat, matrix=FALSE) {
     out <- if (issymMAT_(adjmat)) symMAT2ftM_(adjmat)
            else MAT2ftM_(adjmat)
 
-    cat("edgeListMAT\n")
-    print(adjmat)
+    ## cat("edgeListMAT\n")
+    ## print(adjmat)
 
-    print(out)
+    ## print(out)
     di  <- dim(out)
-    print(di)
+    ## print(di)
     out <- colnames(adjmat)[out]
     dim(out) <- di
 

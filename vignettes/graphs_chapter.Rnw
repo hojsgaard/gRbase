@@ -47,23 +47,21 @@ ps.options(family="serif")
 
 \begin{quote}
 
-\em
-This document provides an up-to-date version of Chapter 1 in the
-book Graphical Models with R (2012); hereafter abbreviated GMwR, see \cite{hojsgaard:etal:12}.
+  \em As of major version 2 of \texttt{gRbase}, that is versions
+ 2.x.y, \texttt{gRbase} no longer depends on the packages \verb|graph|, \verb|Rgraphviz|, and \verb|RBGL| packages.  Graph functionality in these packages now relies either on the \verb|igraph| package or on graph algorithms implemented in \verb|gRbase|. This document reflects these changes.
 
- Core packages used in GMwR include \verb|gRbase|, \verb|gRain| and
- \verb|gRim|. Starting with \verb|gRbase| major version 2, graph functionality in these packages now relies either on the \verb|igraph| package or on graph algorithms implemented in  \verb|gRbase|. This document reflects these changes.
+ As a consequence, this document provides an up-to-date version of
+ Chapter 1 in the book Graphical Models with R (2012); hereafter abbreviated GMwR, see \cite{hojsgaard:etal:12}.
 
-That is, these packages no longer make use of the \verb|graph|, \verb|Rgraphviz|, and \verb|RBGL| packages.  
-
- This document also reflects that since GMwR was published in 2012,
- some packages that are mentioned in GMwR are no longer on CRAN. This includes the packages \verb|lcd| and \verb|sna|.
+ This document also reflects that since GMwR was published in 2012, some packages that are mentioned in GMwR are no longer on CRAN. This includes the packages \verb|lcd| and \verb|sna|.
 
  In this document it has been emphasized if a function has been
  imported from \texttt{igraph} or if it is native function from
- \texttt{gRbase}  \texttt{'::'}.
- 
+ \texttt{gRbase} by writing  \texttt{'igraph::this\_function()'} and \texttt{'gRbase::this\_function()'}
 
+ One notable feature that is not available in this version of
+ \texttt{gRbase} are functions related to maximal prime subgraph
+ decomposition. They may be reimplented at a later stage.
  
 \end{quote}
 
@@ -160,6 +158,8 @@ plot(ug0)
 @ %def 
 
 
+
+
 The default size of vertices and their labels is quite small. This is
 easily changed by setting certain attributes on the graph, see
 Sect.~\ref{sec:graph:igraph} for examples. However, to avoid changing
@@ -252,6 +252,8 @@ igraph::max_cliques(ug0) |>
     lapply(function(x) attr(x, "names"))  |> str()
 @
 
+
+
 A \emph{path} (of length $n$) between $\alpha$ and $\beta$ in an
 undirected graph is a set of vertices
 $\alpha=\alpha_0,\alpha_1,\dots,\alpha_n=\beta$ where
@@ -291,6 +293,7 @@ ug12 <- igraph::subgraph(ug0, c("b", "c", "d", "e"))
 par(mfrow=c(1,2), mar=c(0,0,0,0))
 myplot(ug1); myplot(ug12)
 @ 
+
 
 
 
@@ -369,6 +372,8 @@ vpardag0 <- gRbase::vpar(dag0)
 vpardag0 |> str()
 vpardag0$c
 @ %def
+
+
 
 \index{path} \index{parents} \index{children} \index{ancestors} \index{ancestral set} \index{ancestral graph}
 
@@ -492,6 +497,7 @@ corresponding components in $\calG$, is a DAG, the so-called
 \emph{component DAG} of $\calG$, written $\calG_{C}$.
 
 
+
 % The \comics{is.chaingraph()}{lcd} function in the \lcd\ package
 % determines whether a mixed graph is a chain graph.  It takes an
 % adjacency matrix as input.  For example, the above graph is indeed a
@@ -534,6 +540,8 @@ components are joined and directions are then removed.
 % <<echo=F, eval=F>>=
 % detach(package:lcd)
 % @
+
+
 
 \section{Conditional Independence and Graphs}
 \label{sec:graph:CI} \index{conditional independence}
@@ -633,6 +641,7 @@ ways, but one characterisation is as follows: $A$ and $B$ are
 $d$-separated by a set $C$ if and only if they are separated in the
 graph formed by moralizing the anterior graph of $A \cup B \cup C$.
 
+
 So we can easily define a function to test this:
 
 <<eval=T>>=
@@ -701,6 +710,7 @@ C$.
 % \noindent
 % implies that $e \not \negthinspace \negthinspace \negthinspace \cip g \cd k$ for the chain graph \code{cG1} 
 % we considered previously.
+
 
 \section{More About Graphs}
 \subsection{Special Properties}
@@ -772,6 +782,7 @@ the \emph{maximum cardinality search} (or mcs) algorithm. The
 otherwise it will return \code{NULL}.
 
 
+
 <<>>=
 myplot(ug0)
 @ 
@@ -828,6 +839,7 @@ gRbase::is.triangulated(ug2)
 igraph::is_chordal(ug2)  |> str()
 myplot(ug2)
 @
+
 
 
  
@@ -922,6 +934,7 @@ myplot(ug32, layout=lay)
 % decomposition. The subgraphs of \verb-G1- defined by the cliques listed
 % in \verb-G1.rip- are the smallest subgraphs into which \verb'G1' can
 % be decomposed.
+
 
 
 
@@ -1064,7 +1077,7 @@ forth. We show how to modify this shortly.
 As mentioned previously we have created a custom function
 \comics{myplot()}{gRbase} which creates somewhat more readable plots:
 
-<<, eval=F>>=
+<<eval=F>>=
 myplot(ug4, layout=layout.graphopt)
 @ %def 
 
@@ -1103,16 +1116,20 @@ V(ug5)[!discrete]$color <- "red"
 plot(ug5)
 @
 
+
 A useful interactive drawing facility is provided with the
 \comics{tkplot()}{igraph} function. This causes a pop-up window to appear in which
 the graph can be manually edited. One use of this is to edit the
 layout of the graph: the new coordinates can be extracted and re-used
 by the \comics{plot()}{igraph} function. For example
 
-<<eval=F>>=
+\begin{verbatim}
 > tkplot(ug4)
 2
-@ 
+\end{verbatim}
+
+
+
 
 \includegraphics{figman/tkplot}
 
@@ -1143,6 +1160,7 @@ ug4$layout <- layout.fruchterman.reingold
 
 repeated invocations of \code{plot(ug4)} will use different layouts. In contrast, after
 
+
 <<>>=
 ug4$layout <- layout.fruchterman.reingold(ug4)
 @
@@ -1151,7 +1169,7 @@ the layout will be fixed. The following code fragment illustrates how
 two graphs with the same vertex set may be plotted using the same
 layout.
 
-<<samelay, , include=T, eval=T>>=
+<<samelay, include=T, eval=T>>=
 ug5 <- gRbase::ug(~A*B*C + B*C*D + D*E)
 ug6 <- gRbase::ug(~A*B + B*C + C*D + D*E) 
 lay.fr <- layout.fruchterman.reingold(ug5)
@@ -1174,7 +1192,6 @@ plot(ug5); plot(ug6)
 
 % \includegraphics*[width=3in, height=3in]{fig/GRAPH-samelay2}
 
-
 An overview of attributes used in plotting can be obtained by typing
 \code{?igraph.plotting}. A final example illustrates how more complex
 graphs can be displayed:
@@ -1195,6 +1212,7 @@ E(iG)$curved <- c(T, F, F, F, F, F)
 iG$layout    <- layout.graphopt(iG)
 myplot(iG)
 @%def
+
 
 % \subsection{3-D graphs}
 
@@ -1238,6 +1256,7 @@ myplot(iG)
 % gR <- new("graphNEL", nodes=V, edgeL=edL)
 % plot(gR)
 % @ %def 
+
 
 
 
@@ -1289,17 +1308,13 @@ args(querygraph)
 
 For example, we obtain:
 
+
 <<eval=T>>=
 ug_ <- gRbase::ug(~a:b + b:c:d + e)
 gRbase::separates("a", "d", c("b", "c"), ug_)                   
 gRbase::querygraph(ug_, "separates", "a", "d", c("b", "c"))
 gRbase::qgraph(ug_, "separates", "a", "d", c("b", "c")) 
 @ %def 
-
-
-
-
-
 
 
 

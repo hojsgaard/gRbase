@@ -1,9 +1,9 @@
 citHeader("To cite gRbase in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "A Common Platform for Graphical Models in {R}: The {gRbase} Package",
-  author       = personList(as.person("Claus Dethlefsen"),
-                   as.person("S{\\o}ren H{\\o}jsgaard")),
+  author       = c("Claus Dethlefsen", 
+                   "S{\\o}ren H{\\o}jsgaard"),
   journal      = "Journal of Statistical Software",
   year         = "2005",
   volume       = "14",

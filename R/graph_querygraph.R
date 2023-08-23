@@ -295,7 +295,13 @@ closure <- function(set, object){
 adj <- function(object, set) {
     stopifnot_igraph(object)
     if (is_dag(object))  return(NULL)    
-    attr(igraph::neighbors(object, set), "names")
+
+    out <- lapply(set, function(s) {
+        attr(igraph::neighbors(object, s), "names")    
+    }
+    )
+    names(out) <- set
+    out
 }
 
 
