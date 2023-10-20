@@ -19,7 +19,8 @@
 \alias{simplicialNodes}
 \alias{is.complete}
 \alias{is.decomposition}
-\alias{nodes}
+\alias{nodes_}
+\alias{nodes,igraph-method}
 \alias{edges}
 \alias{edges_}
 \alias{addEdge}
@@ -60,7 +61,9 @@ is.complete(object, set = NULL)
 
 is.decomposition(set, set2, set3, object)
 
-nodes(object)
+nodes_(object)
+
+\S4method{nodes}{igraph}(object, ...)
 
 edges(object)
 

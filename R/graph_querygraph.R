@@ -401,7 +401,7 @@ is.decomposition <- function(set, set2, set3, object) {
 
 #' @export
 #' @rdname graph_query
-nodes <- function(object) {
+nodes_ <- function(object) {
     stopifnot_igraph(object)
     out <- V(object)
     vv <- attr(out, "names")
@@ -411,6 +411,20 @@ nodes <- function(object) {
         vv
     }
 }
+
+
+setGeneric("nodes", function(object, ...) standardGeneric("nodes"))
+
+#' @export
+#' @rdname graph_query
+setMethod("nodes",
+          signature(object = "igraph"),
+          function (object, ...) 
+          {
+              nodes_(object)
+          }
+          )
+
 
 #' @export
 #' @rdname graph_query

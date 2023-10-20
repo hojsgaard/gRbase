@@ -46,10 +46,14 @@ NULL
 #' @export
 #' @rdname api-tabNew             
 tabNew <- function(names, levels, values, normalize="none", smooth=0){
+
+    ## print("tabNew")
     
     normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]
 
+    ## str(list(levels=levels))
+    ## print("KKKKKKKKKKKKKKKKKKKKK\n")
     if (is.list(levels))
     {
         if (length(levels) == 0){
@@ -76,12 +80,14 @@ tabNew <- function(names, levels, values, normalize="none", smooth=0){
             dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
             di <- unlist(lapply(dn, length), use.names=FALSE)            
         }
-        
-    } else if (is.numeric(levels))
+
+    }
+    else if (is.numeric(levels))
     {
         di <- levels
         dn <- make_dimnames(names, levels)
-    } else if (is.character(levels))
+    }
+    else if (is.character(levels))
     {
         dn <- rep(list(levels), length(names))
         names(dn) <- names
@@ -95,6 +101,9 @@ tabNew <- function(names, levels, values, normalize="none", smooth=0){
     if (smooth > 0)
         values <- values + smooth
 
+    ## print("LLLLLLLLLLLLLLLL\n")
+    ## vvv <<- list(value=values, dim=di, dimnames=dn)
+    ## str(vvv)
     
     if (is.atomic(values) && !is.object(values)){
         out <- array(values, dim=di, dimnames=dn)
