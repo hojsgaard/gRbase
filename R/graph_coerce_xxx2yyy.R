@@ -71,6 +71,9 @@ g_dm2sm_ <- function(object) {
 #' @rdname graph-coerce-api
 g_dm2ig_ <- function(object){
     mode <- if (isSymmetric(object)) "undirected" else "directed"
+    if (is.null(rownames(object))){
+        rownames(object) <- colnames(object) <- 1:ncol(object)
+    }
     gg <- igraph::graph.adjacency(object, mode=mode)    
     igraph::V(gg)$label <- igraph::V(gg)$name <- colnames(object)
     gg
