@@ -413,9 +413,13 @@ nodes_ <- function(object) {
 }
 
 
+#' @export
+#' @param ... additional arguments
+#' @rdname graph_query
 setGeneric("nodes", function(object, ...) standardGeneric("nodes"))
 
 #' @export
+#' @param ... additional arguments
 #' @rdname graph_query
 setMethod("nodes",
           signature(object = "igraph"),

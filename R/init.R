@@ -2,17 +2,17 @@
 ## set up hooks, S4 classes and initialize global variables.
 .onLoad = function(lib, pkg) {
 
-    cat("onLoad\n")
+    ## cat("onLoad\n")
 
-    setGeneric("nodes", function(object, ...) standardGeneric("nodes"))
+    ## setGeneric("nodes", function(object, ...) standardGeneric("nodes"))
 
-    setMethod("nodes",
-              signature(object = "igraph"),
-              function (object, ...) 
-              {
-                  nodes_(object)
-              }
-              )
+    ## setMethod("nodes",
+    ##           signature(object = "igraph"),
+    ##           function (object, ...) 
+    ##           {
+    ##               nodes_(object)
+    ##           }
+    ##           )
     
 }
 
