@@ -12,7 +12,7 @@
 ##
 ## #######################################################################
 
-#' @param object A `graphNEL` object, an `igraph` object, a dense
+#' @param object An `igraph` object, a dense
 #'     matrix or a sparse `dgCMatrix` (the two latter representing an
 #'     adjacency matrix).
 #' @param adjmat An adjacency matrix. 
@@ -61,7 +61,7 @@ edgeList <- function(object, matrix=FALSE) {
 #' @export
 ## #' @rdname graph-edgeList
 edgeList.default <- function(object, matrix=FALSE) {
-    if (inherits(object, c("graphNEL", "igraph")))
+    if (inherits(object, c("igraph")))
         return(edgeListMAT(as(object, "matrix"), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
         return(edgeListMAT(object, matrix=matrix))
@@ -97,7 +97,7 @@ nonEdgeList <- function(object, matrix=FALSE) {
 #' @export
 ## #' @rdname graph-edgeList
 nonEdgeList.default <- function(object, matrix=FALSE) {
-    if (inherits(object, c("igraph", "graphNEL")))
+    if (inherits(object, c("igraph")))
         return(nonEdgeListMAT(as(object, "matrix"), matrix=matrix))
     if (inherits(object, c("dgCMatrix", "matrix")))
         return(nonEdgeListMAT(object, matrix=matrix))
@@ -173,7 +173,7 @@ ug2dag <- function(object) { ## FIXME
 
 ## ##########################################################
 ##
-## vpar implemented for graphNEL, matrix and dgCMatrix
+## vpar implemented for igraph, matrix and dgCMatrix
 ##
 ## ##########################################################
 
@@ -184,7 +184,7 @@ ug2dag <- function(object) { ## FIXME
 #' @name graph_vpar
 #'
 #' @param object An object representing a graph. Valid objects are an
-#'     adjacency matrix or as a graphNEL.
+#'     adjacency matrix or an igraph.
 #' @param getv The result is by default a list of vectors of the form
 #'     \code{(v, pa1, pa2, ... paN)} where \code{pa1, pa2, ... paN}
 #'     are the parents of \code{v}. If \code{getv} is \code{FALSE}
@@ -212,7 +212,7 @@ ug2dag <- function(object) { ## FIXME
 
 #' \dontrun{
 #' ## This will fail because the adjacency matrix is symmetric and the
-#' ## graphNEL has undirected edges
+#' ## graph has undirected edges
 #' vpar(ug_mat)
 #' vpar(ug_ig)
 #' }
@@ -250,7 +250,6 @@ vchiMAT <- function(object, getv=TRUE, forceCheck=TRUE) {
 #' @export
 ## #' @rdname graph_vpar
 vchi.igraph <- function(object, getv=TRUE, forceCheck=TRUE) {
-    ## vchi.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
     vchiMAT(as(object, "matrix"), getv=getv, forceCheck=forceCheck)
 }
 
@@ -295,7 +294,6 @@ vparMAT <- function(object, getv=TRUE, forceCheck=TRUE) {
 #' @export
 ## #' @rdname graph_vpar
 vpar.igraph <- function(object, getv=TRUE, forceCheck=TRUE){
-    ## vpar.graphNEL(as(object, "graphNEL"), getv=getv, forceCheck=forceCheck)
     vpar(as_adjacency_matrix(object), getv=getv, forceCheck=forceCheck)
 }
 
@@ -327,8 +325,8 @@ vpar.matrix <- vparMAT
 #' The workhorse is the \code{max_cliqueMAT} function which calls the
 #' \code{maxClique} function in the \code{RBGL} package.
 #' 
-#' @param object An undirected graph represented either as a \code{graphNEL}
-#'     object, an `igraph` object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}
+#' @param object An undirected graph represented either as an `igraph`
+#'     object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}
 #' @param amat An adjacency matrix.
 #' @return A list.
 #' 
@@ -338,8 +336,7 @@ vpar.matrix <- vparMAT
 #'     \code{\link{moralize}}, \code{\link{moralizeMAT}}
 #' @keywords utilities
 #' @examples
-#' ## graphNEL
-#' uG0 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a) # a graphNEL object
+#' uG0 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 #' get_cliques(uG0)
 #'
 #' uG1 <- as(uG0, "igraph")
@@ -357,10 +354,6 @@ get_cliques <- function(object){
     UseMethod("get_cliques")
 }
 
-## #' @export 
-## get_cliques.graphNEL <- function(object){
-##     max_cliqueMAT(as(object, "matrix"))[[1]]
-## }
 
 #' @export 
 get_cliques.igraph <- function(object) {
@@ -440,7 +433,7 @@ maxClique <- function(object) {
 #' @param wgt A parameter controlling how likely it is for a node to
 #'     have a certain number of parents; see 'Details'.
 #' 
-#' @return A graphNEL object.
+#' @return An igraph object.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' @keywords utilities
 #'
@@ -478,40 +471,87 @@ random_dag <- function(V, maxpar=3, wgt=0.1) {
 #
 #' A DAG can be represented as a triangular matrix of regression coefficients. 
 #'
-#' @param object A graph, either a graphNEL or an igraph object.
-#'
+#' @param object A graph, either an igraph object or an adjacency matrix.
+#' @param out Format of the output, can be 1, 2, 3 or 4.
 #' @examples
 #' g <- dag(~x2|x1 + x3|x1:x2 + x4|x3)
-#' dag2chol(g)
-
+#' dag2chol(g, out=1)
+#' dag2chol(g, out=2)
+#' dag2chol(g, out=3)
+#' dag2chol(g, out=4)
+#' 
 #' @export
-dag2chol <- function(object) {
-    stopifnot("Not graphNEL, igraph or adjacency matrix"=
-                  inherits(object, c("graphNEL", "igraph", "matrix", "Matrix")))
+dag2chol <- function(object, out=1) {
+    stopifnot("Not igraph or adjacency matrix"=
+                  inherits(object, c("igraph", "matrix", "Matrix")))
     if (inherits(object, c("matrix", "Matrix")))
         stopifnot("Not adjacency matrix"=is_adjMAT(object))
     
     to <- topoSort(object)
-    print(object)
-    print(to)
     stopifnot("Graph is not a DAG"= length(to) != 0)
+
+    mm <- as(object, "matrix")
+    nr <- nrow(mm)
+    to <- topoSort(object)
+    nms <- rownames(mm)
+    idx <- match(to, nms)
+    mm <- mm[idx,idx]
     
-    vp <- vpar(object)[to]
-  
-    vn <- names(vp)
-    Lo <- diag(1, length(vn))
-    rownames(Lo) <- colnames(Lo) <- vn
+    nn1 <- outer(nms, nms, paste0)
+    nn2 <- outer(1:nr, 1:nr, paste0)
     
-    for (i in seq_along(vn)) {
-        pa <- vp[[i]][-1]
-        if (length(pa) > 0) {
-            vn[i]
-            idx <- match(pa, vn)
-            Lo[i, idx] <- paste0("-a", i, idx)
-        }
-    }
-    list(L=Lo, vn=vn)
+    LL <- -t(mm)
+
+    switch(out,
+           "1"= {
+               LL[LL != 0] <- nn1[LL != 0]
+           },
+           "2"={
+               LL[LL != 0] <- paste0("-b", nn2[LL != 0],"")               
+           },
+           "3"={
+               LL[LL != 0] <- paste0("-b_{", nn2[LL != 0],"}")
+           },
+           "4"={
+               LL[LL != 0] <- paste0("-b_{", nn1[LL != 0],"}")
+           })
+    
+    diag(LL) <- 1
+
+    list(L = LL, vn = nms)
+    
 }
+
+
+
+## #' @export
+## dag2chol <- function(object) {
+##     stopifnot("Not igraph or adjacency matrix"=
+##                   inherits(object, c("igraph", "matrix", "Matrix")))
+##     if (inherits(object, c("matrix", "Matrix")))
+##         stopifnot("Not adjacency matrix"=is_adjMAT(object))
+    
+##     to <- topoSort(object)
+##     ## print(object)
+##     ## print(to)
+##     stopifnot("Graph is not a DAG"= length(to) != 0)
+    
+##     vp <- vpar(object)[to]
+  
+##     vn <- names(vp)
+##     Lo <- diag(1, length(vn))
+##     rownames(Lo) <- colnames(Lo) <- vn
+    
+##     for (i in seq_along(vn)) {
+##         pa <- vp[[i]][-1]
+##         if (length(pa) > 0) {
+##             vn[i]
+##             idx <- match(pa, vn)
+##             Lo[i, idx] <- paste0("-a", i, idx)
+##         }
+##     }
+##     list(L=Lo, vn=vn)
+## }
 
 
 
