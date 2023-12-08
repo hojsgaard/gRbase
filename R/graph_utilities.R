@@ -467,21 +467,26 @@ random_dag <- function(V, maxpar=3, wgt=0.1) {
 }
 
 
-#' Create regression matrix matrix from DAG
+#' @title Coerce dag to edge matrix
 #
-#' A DAG can be represented as a triangular matrix of regression coefficients. 
-#'
+#' @description A DAG can be represented as a triangular matrix of regression coefficients. 
+#' @name edge_matrix
+#' 
 #' @param object A graph, either an igraph object or an adjacency matrix.
+#' @param edge_matrix Lower triangular matrix representing a dag
 #' @param out Format of the output, can be 1, 2, 3 or 4.
 #' @examples
 #' g <- dag(~x2|x1 + x3|x1:x2 + x4|x3)
-#' dag2chol(g, out=1)
-#' dag2chol(g, out=2)
-#' dag2chol(g, out=3)
-#' dag2chol(g, out=4)
-#' 
+#' dag2edge_matrix(g, out=1)
+#' dag2edge_matrix(g, out=2)
+#' dag2edge_matrix(g, out=3)
+#' dag2edge_matrix(g, out=4)
+#' d2 <- dag(~c|a:b+d:c)
+#' dag2edge_matrix(d2)
+#'
+#' @rdname edge_matrix
 #' @export
-dag2chol <- function(object, out=1) {
+dag2edge_matrix <- function(object, out=1) {
     stopifnot("Not igraph or adjacency matrix"=
                   inherits(object, c("igraph", "matrix", "Matrix")))
     if (inherits(object, c("matrix", "Matrix")))
@@ -496,31 +501,50 @@ dag2chol <- function(object, out=1) {
     nms <- rownames(mm)
     idx <- match(to, nms)
     mm <- mm[idx,idx]
+    nms <- nms[idx]
     
     nn1 <- outer(nms, nms, paste0)
     nn2 <- outer(1:nr, 1:nr, paste0)
     
     LL <- -t(mm)
-
+    rownames(LL) <- colnames(LL) <- nms
     switch(out,
            "1"= {
                LL[LL != 0] <- nn1[LL != 0]
            },
            "2"={
+               LL[LL != 0] <- paste0("-b_", nn1[LL != 0],"")
+           },           
+           "3"={
                LL[LL != 0] <- paste0("-b", nn2[LL != 0],"")               
            },
-           "3"={
-               LL[LL != 0] <- paste0("-b_{", nn2[LL != 0],"}")
-           },
            "4"={
-               LL[LL != 0] <- paste0("-b_{", nn1[LL != 0],"}")
-           })
+               LL[LL != 0] <- paste0("-b_", nn2[LL != 0],"")
+           }           
+           )
     
     diag(LL) <- 1
-
-    list(L = LL, vn = nms)
-    
+    LL
+    ## list(L = LL, vn = nms)
+   
 }
+#' @rdname edge_matrix
+#' @export
+edge_matrix2dag <- function(edge_matrix){
+    d <- edge_matrix 
+    d[d!="0"] <- 1
+    diag(d) <- 0
+    mode(d) <- "numeric"
+    d <- t(d)
+    igraph::graph_from_adjacency_matrix(d)
+}
+
+
+
+
+
+
+
 
 
 
