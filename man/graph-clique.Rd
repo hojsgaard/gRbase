@@ -20,8 +20,8 @@ maxCliqueMAT(amat)
 maxClique(object)
 }
 \arguments{
-\item{object}{An undirected graph represented either as a \code{graphNEL}
-object, an \code{igraph} object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}}
+\item{object}{An undirected graph represented either as an \code{igraph}
+object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}}
 
 \item{amat}{An adjacency matrix.}
 }
@@ -55,8 +55,7 @@ following synonymous functions:
 }
 
 \examples{
-## graphNEL
-uG0 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a) # a graphNEL object
+uG0 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 get_cliques(uG0)
 
 uG1 <- as(uG0, "igraph")

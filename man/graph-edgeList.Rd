@@ -17,7 +17,7 @@ nonEdgeList(object, matrix = FALSE)
 nonEdgeListMAT(adjmat, matrix = FALSE)
 }
 \arguments{
-\item{object}{A \code{graphNEL} object, an \code{igraph} object, a dense
+\item{object}{An \code{igraph} object, a dense
 matrix or a sparse \code{dgCMatrix} (the two latter representing an
 adjacency matrix).}
 

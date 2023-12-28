@@ -16,7 +16,7 @@ random_dag(V, maxpar = 3, wgt = 0.1)
 have a certain number of parents; see 'Details'.}
 }
 \value{
-A graphNEL object.
+An igraph object.
 }
 \description{
 Generate a random directed acyclic graph (DAG)

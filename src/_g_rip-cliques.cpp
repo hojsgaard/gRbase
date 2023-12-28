@@ -48,11 +48,6 @@ bool is_subset_of_ (CharacterVector v1, CharacterVector v2){
 }
 
 
-
-
-
-
-
 //[[Rcpp::export]]
 List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   int ncq = cqlist.size();
@@ -85,21 +80,17 @@ List rip_internal(IntegerVector mcs0idx, CharacterVector vn, List cqlist){
   for (int k=0; k<cq.size(); ++k) host[idx[k] - 1] = 1;
 
   for (int i=1; i<ncq; ++i){
-    //Rprintf("i=%d, past=", i);               //print(past);
-    CharacterVector cq = cqlist2(i);           //Rprintf("i=%d, cq:",i); print(cq);
+    CharacterVector cq = cqlist2(i);         
     // update host
     IntegerVector idx = match(cq, vn);
     for (int k=0; k<cq.size(); ++k) host[idx[k] - 1] = i + 1;
 
-    CharacterVector isect = intersect( past, cq ); //Rprintf("isect:"); print(isect);
+    CharacterVector isect = intersect( past, cq ); 
     separators(i) = isect;
-    // if (isect.size()==0){
-    //   Rprintf("empty isect\n");
-    // }
     if (isect.size()>0){
       for (int j=i-1; j>=0; --j){
-	CharacterVector cq2 = cqlist2( j );      //Rprintf("j=%d, cq2:", j); print( cq2 );
-	if (is_subset_of_( isect, cq2 ) ){       //Rprintf(" cq2 is a parent\n");
+	CharacterVector cq2 = cqlist2( j );     
+	if (is_subset_of_( isect, cq2 ) ){      
 	  pavec[i] = j+1 ;
 	  chvec[j] = i+1 ;
 	  break;

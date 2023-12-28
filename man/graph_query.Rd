@@ -20,6 +20,7 @@
 \alias{is.complete}
 \alias{is.decomposition}
 \alias{nodes_}
+\alias{nodes}
 \alias{nodes,igraph-method}
 \alias{edges}
 \alias{edges_}
@@ -63,6 +64,8 @@ is.decomposition(set, set2, set3, object)
 
 nodes_(object)
 
+nodes(object, ...)
+
 \S4method{nodes}{igraph}(object, ...)
 
 edges(object)
@@ -79,6 +82,8 @@ removeEdge(v1, v2, object)
 \item{op}{The operation or query.}
 
 \item{set, set2, set3}{Sets of nodes in graph.}
+
+\item{...}{additional arguments}
 
 \item{v1, v2}{Vertex names}
 }

@@ -18,7 +18,7 @@ vparMAT(object, getv = TRUE, forceCheck = TRUE)
 }
 \arguments{
 \item{object}{An object representing a graph. Valid objects are an
-adjacency matrix or as a graphNEL.}
+adjacency matrix or an igraph.}
 
 \item{getv}{The result is by default a list of vectors of the form
 \code{(v, pa1, pa2, ... paN)} where \code{pa1, pa2, ... paN}
@@ -50,7 +50,7 @@ ug_mat <- ug(~a:b:c + c:d:e, result="matrix")
 ug_ig <- ug(~a:b:c + c:d:e)
 \dontrun{
 ## This will fail because the adjacency matrix is symmetric and the
-## graphNEL has undirected edges
+## graph has undirected edges
 vpar(ug_mat)
 vpar(ug_ig)
 }
