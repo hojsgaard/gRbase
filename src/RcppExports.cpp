@@ -2079,6 +2079,18 @@ RcppExport SEXP _gRbase_next_perm_(SEXP vvSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// filter_maximal_vectors_
+SEXP filter_maximal_vectors_(List setlist, bool index);
+RcppExport SEXP _gRbase_filter_maximal_vectors_(SEXP setlistSEXP, SEXP indexSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type setlist(setlistSEXP);
+    Rcpp::traits::input_parameter< bool >::type index(indexSEXP);
+    rcpp_result_gen = Rcpp::wrap(filter_maximal_vectors_(setlist, index));
+    return rcpp_result_gen;
+END_RCPP
+}
 // solveSPD
 SEXP solveSPD(arma::mat X);
 RcppExport SEXP _gRbase_solveSPD(SEXP XSEXP) {

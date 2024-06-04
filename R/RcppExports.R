@@ -335,6 +335,10 @@ next_perm_ <- function(vv) {
     invisible(.Call('_gRbase_next_perm_', PACKAGE = 'gRbase', vv))
 }
 
+filter_maximal_vectors_ <- function(setlist, index = FALSE) {
+    .Call('_gRbase_filter_maximal_vectors_', PACKAGE = 'gRbase', setlist, index)
+}
+
 solveSPD <- function(X) {
     .Call('_gRbase_solveSPD', PACKAGE = 'gRbase', X)
 }

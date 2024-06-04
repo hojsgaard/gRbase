@@ -6,6 +6,7 @@
 \alias{minimal_sets}
 \alias{remove_redundant}
 \alias{is_inset}
+\alias{filter_maximal_vectors}
 \alias{get_subset}
 \alias{get_superset}
 \alias{is_subsetof}
@@ -20,6 +21,8 @@ minimal_sets(setlist, index = FALSE)
 remove_redundant(setlist, maximal = TRUE, index = FALSE)
 
 is_inset(x, setlist, index = FALSE)
+
+filter_maximal_vectors(setlist, index = FALSE)
 
 get_subset(x, setlist, all = FALSE)
 

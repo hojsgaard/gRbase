@@ -105,8 +105,9 @@ is_inset <- function(x, setlist, index=FALSE){
 }
 
 
-
-
+#' @export
+#' @rdname set-operations
+filter_maximal_vectors <- filter_maximal_vectors_
 
 #' @export
 #' @rdname set-operations

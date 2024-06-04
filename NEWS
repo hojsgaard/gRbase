@@ -1,9 +1,11 @@
-gRbase v2.0.2 (Release date: )
+gRbase v2.0.2 (Release date: 2024-06-04)
 ==========================================
 
 Changes:
 
 * dag2chol expanded with several output types.
+* prostate dataset from spls package added
+* original code from gRbase removed
 
 gRbase v2.0.1 (Release date: 2023-11-29)
 ==========================================

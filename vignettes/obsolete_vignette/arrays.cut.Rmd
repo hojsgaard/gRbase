@@ -1,0 +1,696 @@
+<!-- \end{document} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- %%% -->
+<!-- %%% -->
+<!-- %%% CUTOUT BELOW HERE -->
+<!-- %%% -->
+<!-- %%% -->
+
+
+<!-- % Given $A\subset \Delta$ and a cell $i_A \in I_A$. This cell defines a -->
+<!-- % slice of the original array, namely the cells -->
+<!-- % $I(i_A)=\{j\in I|j_A = i_A\}$. -->
+<!-- % We often want to find the entries in -->
+<!-- % $x$ for the cells $I(i_A)$. This is provided by -->
+<!-- % \code{slice2entry()}. For example, we may want the entries for -->
+<!-- % the cells $(*,1,2,*)$ or $(2,2,*,*)$: -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % r1<-slice2entry(slicecell=c(1,2), sliceset=c(2,3), dim2222); r1 -->
+<!-- % @ -->
+
+<!-- % To verify that we indeed get the right cells: -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % do.call(rbind, lapply(r1, entry2cell, dim2222)) -->
+<!-- % @ -->
+
+
+
+<!-- % \subsection{\code{permuteCellEntries()}} -->
+
+<!-- % %% SOMETHING WRONG WITH THE CODE; BUT WE DONT REALLY NEED IT -->
+
+<!-- % For e.g.\ a $2\times 3 \times 2$ array, the entries $1,2,3, \dots, 12$ -->
+<!-- % correspond to the cells -->
+<!-- % $(1,1,1)$, -->
+<!-- % $(2,1,1)$, $(1,2,1)$, $(2,2,1)$,$(1,3,1)$, $\dots, (2,3,2)$.  -->
+
+<!-- % Suppose dimensions are permuted as $(1,2,3) \rightarrow (2,3,1)$. Then -->
+<!-- % the entries become: -->
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % p <- permuteCellEntries(perm=c(2,1,3), dim=c( 2, 3, 2 )) -->
+<!-- % p -->
+<!-- % @  -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % hec[ p ] -->
+<!-- % @  -->
+
+
+
+
+<!-- % In a $2\times 3$ table, entries $1,\dots,6$ correspond to combinations -->
+<!-- % $(1,1),(2,1),(1,2),(2,2),(1,3),(2,3)$. If we permute the table to a $3 -->
+<!-- % \times 2$ table the entries become as follows: -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % p<-permuteCellEntries(perm=c(2,1), dim=c(2,3)); p -->
+<!-- % @ -->
+
+<!-- % So for example, -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % (A <- array(11:16, dim=c(2,3))) -->
+<!-- % Ap <- A[p] -->
+<!-- % dim(Ap) <- c(3,2) -->
+<!-- % Ap -->
+<!-- % @ -->
+
+<!-- % This corresponds to -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % aperm(A, c(2,1)) -->
+<!-- % @ -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % ff <- factGrid(dim2222) -->
+<!-- % head(ff, 4) -->
+<!-- % tail(ff, 4) -->
+<!-- % @ -->
+
+<!-- % This is the same as (but faster) -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % aa <- expand.grid(list(1:2,1:2,1:2,1:2)) -->
+<!-- % head(aa, 4) -->
+<!-- % @ -->
+
+<!-- % There is a slice version as well: -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % factGrid(dim2222, slicecell=c(1,2), sliceset=c(2,3)) -->
+<!-- % @ -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % if (require(microbenchmark)){ -->
+<!-- %     microbenchmark(as.data.frame(factGrid(c( 2, 3, 2 ))), -->
+<!-- %                    expand.grid(list(1:2, 1:3, 1:2))) -->
+<!-- % } -->
+<!-- % @  -->
+
+
+
+
+
+
+<!-- % As an example we take the following: -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % dim2222 <- c(2,2,2,2) -->
+<!-- % dim2323 <- c(2,3,2,3) -->
+<!-- % @ -->
+
+<!-- % Given $A\subset \Delta$ and a cell $i_A \in I_A$ consider the cells -->
+<!-- % $I(i_A)=\{j\in I|j_A = i_A\}$. For example, the cells satisfying that -->
+<!-- % dimension $2$ is at level $1$. Given such a cell, say $(2,1,1,2)$ we -->
+<!-- % often want to find the next cell also satisfying this constraint -->
+<!-- % (again following the convention that the first factor varies fastest), -->
+<!-- % that is $(1,1,2,2)$. This is provided by \code{next_cell_slice()}. -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % next_cell_slice(c(2,1,1,2),  sliceset=2, dim2323) -->
+<!-- % next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323) -->
+<!-- % @ -->
+
+
+
+<!-- % Given a cell, say $i=(1,1,2,1)$ we often want to find the next cell in -->
+<!-- % the table following the convention that the first factor varies -->
+<!-- % fastest, that is $(2,1,2,1)$. This is provided by -->
+<!-- % \code{next_cell()}. -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % next_cell(c(1,1,2,1), dim2222) -->
+<!-- % next_cell(c(2,2,2,1), dim2222) -->
+<!-- % @ -->
+
+
+<!-- % Given $A\subset \Delta$ and a cell $i_A \in I_A$ consider the cells -->
+<!-- % $I(i_A)=\{j\in I|j_A = i_A\}$. For example, the cells satisfying that -->
+<!-- % dimension $2$ is at level $1$. Given such a cell, say $(2,1,1,2)$ we -->
+<!-- % often want to find the next cell also satisfying this constraint -->
+<!-- % (again following the convention that the first factor varies fastest), -->
+<!-- % that is $(1,1,2,2)$. This is provided by \code{next_cell_slice()}. -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % next_cell_slice(c(2,1,1,2),  sliceset=2, dim2323) -->
+<!-- % next_cell_slice(c(1,3,2,1),  sliceset=c(2,3), dim2323) -->
+<!-- % @ -->
+
+
+
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % cell2entry(c(1,1,1,1), dim2222) -->
+<!-- % entry2cell(1, dim2222) -->
+<!-- % cell2entry(c(2,1,2,1), dim2222) -->
+<!-- % entry2cell(6, dim2222) -->
+<!-- % @ -->
+
+
+
+
+
+<!-- % @ -->
+<!-- % ```{r eval=F,echo=F} -->
+<!-- % cell2entry2(c(2,1,2,1), dim) -->
+<!-- % cell2entryR(c(2,1,2,1), dim) -->
+<!-- % @ -->
+
+
+<!-- %% @ -->
+<!-- %% ```{r } -->
+<!-- %% ## because lizard is a vector we can do -->
+<!-- %% lizard[1:2] -->
+<!-- %% is.array( lizard[1:2] ) -->
+<!-- %% ## because lizard is an array we can do -->
+<!-- %% lizard[,1,1] -->
+<!-- %% is.array( lizard[,1,] ) -->
+<!-- %% @ -->
+
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % data(lizard, package="gRbase") -->
+<!-- % dimnames(lizard) -->
+<!-- % @ -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % lizard[, 1, ] -->
+<!-- % is.array( lizard[, 1, ] ) -->
+<!-- % do.call("[", c(list(lizard), list(TRUE, 1, TRUE))) # programmatically -->
+<!-- % tabSlice(lizard, slice=c(1), margin=c(2))          # using gRbase -->
+<!-- % @  -->
+
+<!-- % If the result is a $1$--dimensional array, then dimensions are dropped -->
+<!-- % by default unless one puts \code{drop=FALSE} in the appropriate places: -->
+<!-- % @  -->
+<!-- % ```{r results=hide} -->
+<!-- % lizard[, 1, 2] -->
+<!-- % is.array( lizard[, 1, 2] ) -->
+<!-- % lizard[, 1, 2, drop=FALSE] -->
+<!-- % is.array( lizard[, 1, 2, drop=FALSE] ) -->
+<!-- % do.call("[", c(list(lizard), list(TRUE, 1, 2), drop=FALSE)) -->
+<!-- % tabSlice(lizard, slice=c(1, 2), margin=c(2, 3), drop=FALSE) -->
+<!-- % @  -->
+
+
+
+<!-- % ### Slice of a table -->
+<!-- % {#sec:slice-table} -->
+
+<!-- % A slice of a table is obtained with \code{tabSlice}: -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % tabSlice(lizard, slice=list(species="anoli")) -->
+<!-- % tabSlice(lizard, slice=list(species="anoli", diam="<=4")) ## Dims are preserved... -->
+<!-- % @ -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % tabSlice(lizard, slice=list(species=c("anoli","dist"))) # FIXME: This fails. -->
+<!-- % lizard[,,1:2] -->
+<!-- % @  -->
+
+
+<!-- % ## Operations on tables -->
+<!-- % {#sec:operations-tables} -->
+
+
+<!-- % Consider again the \verb'lizard' data In the following we shall denote -->
+<!-- % the dimnames (or variables) by $D$, $H$ and $S$ and we let $(d,h,s)$ -->
+<!-- % denote a configuration of these variables. The contingency table above -->
+<!-- % shall be denoted by $T_{DHS}$ and we shall refer to the -->
+<!-- % $(d,h,s)$-entry as $T_{DHS}(d,h,s)$.  -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % T.DHS <- lizard -->
+<!-- % @ -->
+
+<!-- % ### Collapsing arrays onto marginals -->
+<!-- % {#sec:marginal-tables} -->
+
+<!-- % The $DS$--marginal table $T_{DS}$ is defined to be the table with -->
+<!-- % values -->
+<!-- % \begin{displaymath} -->
+<!-- %   T_{DS}(d,s) = \sum_h T_{DHS}(d,h,s) -->
+<!-- % \end{displaymath} -->
+
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % T.DS <- tabMarg(lizard, ~diam+species); T.DS -->
+<!-- % ## Alternative forms -->
+<!-- % T.DS <- tabMarg(lizard, c("diam","species")) -->
+<!-- % T.DS <- tabMarg(lizard, c(1,3)) -->
+<!-- % @ -->
+
+<!-- % @ -->
+<!-- % ```{r echo=F,results=hide} -->
+<!-- % T.DS <- tableMargin(lizard, ~diam+species); T.DS -->
+<!-- % T.HS <- tableMargin(lizard, ~height+species); T.HS -->
+<!-- % @ -->
+
+
+<!-- % @  -->
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % a1 <- 1:12 -->
+<!-- % dim(a1) <- c( 2, 3, 2 ) -->
+<!-- % dimnames(a1) <- list(a=c("a1","a2"), b=c("b1","b2","b3"), c=c("c1","c2")) -->
+<!-- % a1 |> flat -->
+<!-- % a2 <- array(1:12, dim=c( 2, 3, 2 ),  -->
+<!-- %             dimnames=list(a=c("a1","a2"), b=c("b1","b2","b3"), c=c("c1","c2"))) -->
+<!-- % a2 |> flat -->
+
+<!-- % dim.names <- list(a=c("a1","a2"), b=c("b1","b2","b3"), c=c("c1","c2"), d=c("d1","d2")) -->
+<!-- % tab(~a:b:c, dim.names, data=1:12) |> flat -->
+<!-- % ## tab(c("a","b","c"), dim.names, data=1:12) ## same thing -->
+<!-- % tab(~a:b:c, c( 2, 3, 2 ), data=1:12) |> flatle(row.vars=1) -->
+<!-- % @  -->
+
+
+<!-- %% An alternative is to use  -->
+<!-- %% \code{parray()} from \grbase. For example -->
+<!-- %% @ -->
+<!-- %% ```{r } -->
+<!-- %% yn <- c("y","n") -->
+<!-- %% T.AB <- array(c(5,95,1,99), dim=c(2,2), dimnames=list("A"=yn, "B"=yn)) -->
+<!-- %% T.AB <- parray(c("A","B"), levels=list(yn, yn), values=c(5,95,1,99)) -->
+<!-- %% @ -->
+
+<!-- %% Using \code{parray()}, arrays can be normalized in two ways: -->
+<!-- %% Normalization can be over the first variable for *each* -->
+<!-- %% configuration of all other variables or over all configurations. For -->
+<!-- %% example: -->
+
+<!-- %% @ -->
+<!-- %% ```{r print=T} -->
+<!-- %% T.AB <- parray(c("A","B"), levels=list(yn, yn), values=c(5,95,1,99), -->
+<!-- %%                normalize="first") -->
+<!-- %% T.AB <- parray(c("A","B"), levels=list(yn, yn), values=c(5,95,1,99), -->
+<!-- %%                normalize="all") -->
+<!-- %% @ -->
+
+<!-- % Using \code{tab()}, arrays can be normalized in two ways: -->
+<!-- % Normalization can be over the first variable for *each* -->
+<!-- % configuration of all other variables or over all configurations. For -->
+<!-- % example: -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % yn <- c("y","n") -->
+<!-- % lev <- list("a"=yn, "b"=yn) -->
+<!-- % tab(~a:b, levels=lev, data=c(5,95,1,99), normalize="first") -->
+<!-- % tab(~a:b, levels=lev, data=c(5,95,1,99), normalize="all") -->
+<!-- % @  -->
+
+
+
+
+
+<!-- % ### Operations on two tables: $+$, $-$, $*$, $/$ -->
+<!-- % {#sec:oper-two-tabl} -->
+
+<!-- % The product of two tables, e.g. $T_{DS}$ and $T_{HS}$ is defined to be -->
+<!-- % the table $\tilde T_{DHS}$ with entries -->
+<!-- % \begin{displaymath} -->
+<!-- %   \tilde T_{DHS}(d,h,s)= T_{DS}(d,s) T_{HS}(h,s) -->
+<!-- % \end{displaymath} -->
+
+<!-- % In \R: -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % t.ds <- tabMarg(lizard, ~diam:species) -->
+<!-- % t.hs <- tabMarg(lizard, ~height:species) -->
+<!-- % tabMult(t.ds, t.hs) |> flat -->
+<!-- % @ -->
+
+<!-- % %% T.HS <- tabMarg(lizard, ~height+species) -->
+<!-- % %% T.DHS.mult = tabMult( T.DS, T.HS ) -->
+<!-- % %% T.DHS.mult |> flat -->
+
+
+<!-- % %% @ -->
+<!-- % %% ```{r echo=F,results=hide} -->
+<!-- % %% microbenchmark::microbenchmark( -->
+<!-- % %%     tabMult__( T.DS, T.HS ), arrayOp( T.DS, T.HS ) ) -->
+<!-- % %% @ -->
+
+
+<!-- % The quotient, sum and difference is defined similarly: -->
+<!-- % %% @ -->
+<!-- % %% ```{r } -->
+<!-- % %% T.DHS.div  = tabDiv( T.DS, T.HS ) -->
+<!-- % %% T.DHS.add  = tabAdd( T.DS, T.HS ) -->
+<!-- % %% T.DHS.subt = tabSubt( T.DS, T.HS ) -->
+<!-- % %% @ -->
+
+
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % tabDiv(t.ds, t.hs) |> flat -->
+<!-- % tabAdd(t.ds, t.hs) |> flat -->
+<!-- % tabSubt(t.ds, t.hs) |> flat -->
+<!-- % @  -->
+
+
+<!-- %% @ -->
+<!-- %% ```{r } -->
+<!-- %% flatle( tablePerm(T.DHS, c("species","height","diam")) ) -->
+<!-- %% @ -->
+
+
+<!-- % ### Expanding arrays to new dimensions -->
+<!-- % {#sec:expanding-arrays-new} -->
+
+<!-- % The ``opposite'' operation is to extend an array. For example, we can -->
+<!-- % extend $T_{DS}$ to have a third dimension, e.g.\ \code{height}. That is -->
+<!-- % \begin{displaymath} -->
+<!-- %   T_{DHS}(d,h,s) = T_{DS}(d,s) -->
+<!-- % \end{displaymath} -->
+<!-- % so $T_{DHS}(d,h,s)$ is constant as a function of $h$.  -->
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % tabExtend <- arrayExtendDomain  ## FIXME -->
+<!-- % tabExtend(t.ds, list(height=c(">4.75", "<=4.75"))) |> flat -->
+<!-- % @  -->
+
+
+
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % tabExpand(t.ds, t.hs) |> flat -->
+<!-- % @  -->
+
+
+
+
+<!-- % Consider this way of ``blowing up'' an array with extra dimensions. -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % T.HSD2 <- tabExpand(T.DS, T.HS); T.HSD2 -->
+<!-- % names(dimnames(T.HSD2)) -->
+<!-- % @ -->
+
+<!-- % Here \verb'T.HSD2' is a $3$--way table with the same variable names as -->
+<!-- % the union of the variable names in \verb'T.DS' and \verb'T.HS'. Those -->
+<!-- % variables in those variables in \verb'T.HS' vary fastest. Lastly, if -->
+<!-- % we regards \verb'T.HSD2' as a function of $(h,s,d)$ we see that -->
+<!-- % \verb'T.HSD2' is constant as a function of $s$. -->
+
+
+<!-- % ### Cross classified data - contingency tables -->
+
+<!-- % Arrays appear for example in connection with cross classified data: -->
+<!-- % Consider the \code{lizard} data in \grbase: -->
+<!-- % @ -->
+<!-- % ```{r } -->
+<!-- % data( lizard, package="gRbase" ) -->
+<!-- % lizard -->
+<!-- % @ -->
+
+<!-- % Data is a contingency table; a cross classified table of counts. In -->
+<!-- % \R\ lingo, data is a \code{table} object, but it is also an array because -->
+<!-- % it has a \code{dim} attribute: -->
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % class( lizard ) -->
+<!-- % is.array( lizard ) -->
+<!-- % dim( lizard ) -->
+<!-- % @  -->
+
+<!-- % Alternative views of data are: -->
+<!-- % @  -->
+<!-- % ```{r } -->
+<!-- % flatle(lizard, row.vars=1) -->
+<!-- % flat <- function(x) flatle(x, row.vars=1) -->
+<!-- % lizard |> flat # because gRbase imports the pipe |> from magrittr -->
+<!-- % @  -->
+
+
+<!-- %% @ -->
+<!-- %% ```{r } -->
+<!-- %% x0 <- x1 <- x2 <- x3 <- 1:8 -->
+<!-- %% c(is.atomic(x0), is.vector(x0), is.matrix(x0), is.array(x0)) -->
+
+<!-- %% ## 1-dimensional array -->
+<!-- %% dim(x1) <- 8 -->
+<!-- %% x1 -->
+<!-- %% c(is.atomic(x1), is.vector(x1), is.matrix(x1), is.array(x1)) -->
+
+<!-- %% ## 2-dimensional array (matrix) -->
+<!-- %% dim(x2) <- c(2,4) -->
+<!-- %% x2 -->
+<!-- %% c(is.atomic(x2), is.vector(x2), is.matrix(x2), is.array(x2)) -->
+
+<!-- %% ## 3-dimensional array -->
+<!-- %% dim(x3) <- c(2,2,2)  -->
+<!-- %% x3 -->
+<!-- %% c(is.atomic(x0), is.vector(x0), is.matrix(x0), is.array(x0)) -->
+<!-- %% @ -->
+
+<!-- %% Notice that arrays do not need a \code{dimnames} attribute. However, -->
+<!-- %% for some of the operations described in the following, \code{dimnames} -->
+<!-- %% are essential. One may set dimnames with -->
+<!-- %% @  -->
+<!-- %% ```{r } -->
+<!-- %% dimnames(x3) <- list(a=c("a1","a2"), b=c("y","n"), c=c(1,2)) -->
+<!-- %% @  -->
+
+
+
+<!-- %% Hence the defining characterstic of an array is that it is a vector -->
+<!-- %% with a dim attribute. For example -->
+<!-- %% @ -->
+<!-- %% ```{r } -->
+<!-- %% ## 1-dimensional array -->
+<!-- %% x1 <- 1:8 -->
+<!-- %% dim(x1) <- 8 -->
+<!-- %% x1 -->
+<!-- %% c(is.array(x1), is.matrix(x1)) -->
+
+<!-- %% ## 2-dimensional array (matrix) -->
+<!-- %% x2 <- 1:8 -->
+<!-- %% dim(x2) <- c(2,4) -->
+<!-- %% x2 -->
+<!-- %% c(is.array(x2), is.matrix(x2)) -->
+
+<!-- %% ## 3-dimensional array -->
+<!-- %% x3 <- 1:8 -->
+<!-- %% dim(x3) <- c(2,2,2) -->
+<!-- %% x3 -->
+<!-- %% c(is.array(x3), is.matrix(x3)) -->
+<!-- %% @ -->
+
+
+
+<!-- %% -->
+<!-- %%Arrays appear for example in connection with cross classified -->
+<!-- %%data. For example -->
+<!-- %%```{r } -->
+<!-- %%HairEyeColor -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %%Data is a contingency table; a cross classified table of counts. In -->
+<!-- %%\R\ lingo, data is a \code{table} object, but it is also an array because -->
+<!-- %%it has a \code{dim} attribute: -->
+<!-- %%```{r } -->
+<!-- %%class( HairEyeColor ) -->
+<!-- %%is.array( HairEyeColor ) -->
+<!-- %%dim( HairEyeColor ) -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %%The array also has a -->
+<!-- %%\code{dimnames} attribute and the list of \verb'dimnames' has names: -->
+<!-- %%```{r } -->
+<!-- %%dimnames( HairEyeColor ) -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %% -->
+<!-- %%Notice from the output above that the first variable (\code{Hair}) -->
+<!-- %%varies fastest. The \verb'dimnames' attributes are important for many of the functions from -->
+<!-- %%\grbase\ described in the following sections. -->
+<!-- %% -->
+<!-- %%### Named arrays -->
+<!-- %%{#sec:named-arrays} -->
+<!-- %% -->
+<!-- %%An array with named dimnames is in this package called a *named array*; this can be checked with -->
+<!-- %%\rr{is.named.array()} -->
+<!-- %%```{r } -->
+<!-- %%is.named.array( HairEyeColor ) -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %% -->
+<!-- %% -->
+<!-- %%To limit output we shall only consider two hair colours and three eye colours. -->
+<!-- %%```{r } -->
+<!-- %%hec <- do.call("[", c(list(HairEyeColor), list(1:2, 1:3, TRUE), drop=FALSE)) -->
+<!-- %%hec <- HairEyeColor[1:2, 1:3, ] -->
+<!-- %%hec -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %%A more compact view of data can be achieved with \code{ftable()}. -->
+<!-- %%Since \grbase\ imports the pipe operator \verb'|>' from -->
+<!-- %%the \pkg{magrittr} package we will in this note do: -->
+<!-- %%```{r } -->
+<!-- %%flat <- function(x) {ftable(x, row.vars=1)} -->
+<!-- %%hec |> flat -->
+<!-- %%@  -->
+<!-- %% -->
+
+<!-- %% Arrays can be defined in different ways using standard \R\ code: -->
+<!-- %% ```{r } -->
+<!-- %% z1 <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29) -->
+<!-- %% di <- c(2, 3, 2) -->
+<!-- %% dn <- list(Hair = c("Black", "Brown"),  -->
+<!-- %%            Eye = c("Brown", "Blue", "Hazel"),  -->
+<!-- %%            Sex = c("Male", "Female")) -->
+<!-- %% dim(z1) <- di -->
+<!-- %% dimnames(z1) <- dn -->
+<!-- %% z2 <- array(c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29), -->
+<!-- %%             dim=di, dimnames=dn) -->
+<!-- %% @  -->
+<!-- %% where the \code{dimnames} part in both cases is optional.  -->
+
+
+
+
+<!-- %\VignetteEngine{knitr::knitr}  -->
+<!-- %\VignetteIndexEntry{arrays: Array operations in gRbase} -->
+<!-- %\VignettePackage{gRbase} -->
+
+<!-- \documentclass[10pt]{article} -->
+<!-- %\usepackage[T1]{fontenc} -->
+<!-- \code{}%\usepackage[latin1]{inputenc} -->
+<!-- %\usepackage{inputenx} -->
+<!-- \usepackage{boxedminipage,color,a4wide,url} -->
+<!-- \usepackage[T1]{fontenc} -->
+
+
+<!-- \def\code#1{\texttt{#1}} -->
+<!-- \def\R{\texttt{R}} -->
+<!-- \def\pkg#1{\texttt{#1}} -->
+
+<!-- \def\grain{\texttt{gRain}} -->
+<!-- \def\grbase{\texttt{gRbase}} -->
+<!-- \def\ptab{\code{ptab}} -->
+<!-- \def\rr#1{\code{#1}[{\scriptsize gRbase}]} -->
+
+<!-- \usepackage{fancyvrb} -->
+
+<!-- \newlength{\fancyvrbtopsep} -->
+<!-- \newlength{\fancyvrbpartopsep} -->
+<!-- \makeatletter -->
+<!-- \FV@AddToHook{\FV@ListParameterHook}{\topsep=\fancyvrbtopsep\partopsep=\fancyvrbpartopsep} -->
+<!-- \makeatother -->
+
+<!-- \setlength{\fancyvrbtopsep}{0pt} -->
+<!-- \setlength{\fancyvrbpartopsep}{0pt} -->
+
+
+<!-- \usepackage{etoolbox}  -->
+<!-- \makeatletter  -->
+<!-- \preto{\@verbatim}{\topsep=-10pt \partopsep=-10pt }  -->
+<!-- \makeatother -->
+
+<!-- \title{Array operations in the \grbase\ package} -->
+<!-- \author{S{\o}ren H{\o}jsgaard} -->
+<!-- \date{\pkg{gRbase} version `r prettyVersion` as of `r prettyDate`} -->
+
+
+<!-- \begin{document} -->
+<!-- %%\SweaveOpts{concordance=TRUE} -->
+
+<!-- %%\SweaveInput{Rmarkup.STY} -->
+
+<!-- \definecolor{darkred}{rgb}{.7,0,0} -->
+<!-- \definecolor{midnightblue}{rgb}{0.098,0.098,0.439} -->
+<!-- %%  -->
+<!-- %% \DefineVerbatimEnvironment{Sinput}{Verbatim}{ -->
+<!-- %%   fontfamily=tt, -->
+<!-- %%   %%fontseries=b, -->
+<!-- %%   %% xleftmargin=2em, -->
+<!-- %%   formatcom={\color{midnightblue}} -->
+<!-- %% } -->
+<!-- %% \DefineVerbatimEnvironment{Soutput}{Verbatim}{ -->
+<!-- %%   fontfamily=tt, -->
+<!-- %%   %%fontseries=b, -->
+<!-- %%   %% xleftmargin=2em, -->
+<!-- %%   formatcom={\color{darkred}} -->
+<!-- %% } -->
+<!-- %% \DefineVerbatimEnvironment{Scode}{Verbatim}{ -->
+<!-- %%   fontfamily=tt, -->
+<!-- %%   %%fontseries=b, -->
+<!-- %%   %% xleftmargin=2em, -->
+<!-- %%   formatcom={\color{blue}} -->
+<!-- %% } -->
+<!-- %%  -->
+<!-- %%\fvset{listparameters={\setlength{\topsep}{-2pt}}} -->
+<!-- %%\renewenvironment{Schunk}{\linespread{.95}}{} -->
+
+<!-- \maketitle -->
+
+<!-- \parindent0pt\parskip5pt -->
+
+<!-- \tableofcontents -->
+
+<!-- %% ```{r } -->
+<!-- %% apropos("^tab[A-Z]", ignore.case=FALSE) -->
+<!-- %% @ -->
+
+<!-- %% ```{r } -->
+<!-- %% apropos("^table[A-Z]", ignore.case=FALSE) -->
+<!-- %% @ -->
+
+<!-- %% ```{r } -->
+<!-- %% apropos("^ar_", ignore.case=FALSE) -->
+<!-- %% @ -->
+

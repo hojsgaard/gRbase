@@ -14,9 +14,6 @@
 #' @importMethodsFrom stats4 plot
 #' @exportMethod plot
 #' 
-## To make available in vignette 
-#' @importFrom magrittr   "%>%"
-#' @export "%>%"
 #'
 ## ## ' @importFrom BiocManager install
 

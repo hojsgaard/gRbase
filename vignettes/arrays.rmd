@@ -1,0 +1,686 @@
+---
+title: "Array operations with the gRbase package"
+author: "Søren Højsgaard"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{arrays: Array operations in gRbase}
+  %\VignettePackage{gRbase}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```{r include=FALSE}
+library(knitr)
+opts_chunk$set(
+tidy=FALSE,
+size="small"
+)
+```
+
+
+```{r echo=FALSE}
+#require( gRbase )
+prettyVersion <- packageDescription("gRbase")$Version
+prettyDate <- format(Sys.Date())
+```
+
+
+
+```{r echo=F}
+library(gRbase)
+options("width"=100, "digits"=4)
+options(useFancyQuotes="UTF-8")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  chk = "markup"
+)
+chk = "markup"
+options("digits"=3)
+```
+
+
+# Introduction
+
+This note describes some operations on arrays in R. These operations
+have been implemented to facilitate implementation of graphical models
+and Bayesian networks in R.
+
+## Arrays/tables in R 
+(\#sec:arrays)
+
+
+
+The documentation of R states the following about arrays:
+
+\begin{quote}
+  \em An array in R can have one, two or more dimensions. It is simply
+  a vector which is stored with additional attributes giving the
+  dimensions (attribute "dim") and optionally names for those
+  dimensions (attribute "dimnames").  A two-dimensional array is the
+  same thing as a matrix.  One-dimensional arrays often look like
+  vectors, but may be handled differently by some functions.
+\end{quote}
+
+
+## Cross classified data - contingency tables
+(\#sec:new)
+
+Arrays appear for example in connection with cross classified data. The array
+\code{hec} below is an excerpt of the \code{HairEyeColor} array in R:
+
+```{r  } 
+hec <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29) 
+dim(hec) <- c(2, 3, 2)
+dimnames(hec) <- list(Hair = c("Black", "Brown"), 
+                      Eye = c("Brown", "Blue", "Hazel"), 
+                      Sex = c("Male", "Female"))
+hec
+```
+
+Above, \code{hec} is an array because it has a \code{dim} attribute. Moreover,
+\code{hec} also has a \code{dimnames} attribute naming the levels of each
+dimension. Notice that each dimension is given a name.
+
+Printing arrays can take up a lot of space.  Alternative views on an
+array can be obtained with \code{ftable()} or by converting the array
+to a dataframe with \code{as.data.frame.table()}. We shall do so in the following.
+
+```{r }
+##flat <- function(x) {ftable(x, row.vars=1)}
+flat <- function(x, n=4) {as.data.frame.table(x) |> head(n)}
+hec |> flat()
+```
+
+An array with named dimensions is in this package called a *named array*.
+The functionality described below relies heavily on arrays having named dimensions.
+A check for an object being a named array is provided by
+\rr{is.named.array()}
+```{r }
+is.named.array(hec)
+``` 
+
+
+## Defining arrays
+
+
+Another way is to use \rr{tabNew()} from \grbase. This function is flexible wrt the input; for example:
+```{r }
+dn <- list(Hair=c("Black", "Brown"), Eye=~Brown:Blue:Hazel, Sex=~Male:Female)
+counts <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
+z3 <- tabNew(~Hair:Eye:Sex, levels=dn, value=counts) 
+z4 <- tabNew(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
+``` 
+
+Notice that the levels list (\code{dn} above) when used in \rr{tabNew()} 
+is allowed to contain superfluous elements. Default
+\code{dimnames} are generated with
+```{r }
+z5 <- tabNew(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
+dimnames(z5) |> str()
+``` 
+
+
+Using \rr{tabNew}, arrays can be normalized to sum to one in two ways:
+1) Normalization can be over the first variable for *each*
+configuration of all other variables and 2) over all configurations. For
+example:
+```{r }
+z6 <- tabNew(~Hair:Eye:Sex, levels=c(2, 3, 2), values=counts, normalize="first")
+z6 |> flat()
+``` 
+
+
+# Operations on arrays
+{#sec:operations-arrays}
+
+In the following we shall denote the dimnames 
+(or variables) of the array \code{hec} by $H$, $E$ and $S$ and we let $(h,e,s)$
+denote a configuration of these variables. The contingency table above
+shall be denoted by $T_{HES}$ and we shall refer to the
+$(h,e,s)$-entry of $T_{HES}$ as $T_{HES}(h,e,s)$. 
+
+## Normalizing an array
+{#sec:numarlizing-an-array}
+
+Normalize an array with  \rr{tabNormalize()}
+Entries of an array can be normalized to sum to one in two ways:
+1) Normalization can be over the first variable for *each*
+configuration of all other variables and 2) over all configurations. For
+example:
+```{r }
+tabNormalize(z5, "first") |> flat()
+``` 
+
+
+## Subsetting an array -- slicing
+{#sec:subsetting-an-array}
+
+We can subset arrays (this will also be called ``slicing'') in
+different ways. Notice that the result is not necessarily an
+array. Slicing can be done using standard R code or using \rr{tabSlice}.
+The virtue of \rr{tabSlice} comes from the flexibility when
+specifying the slice:
+
+
+The following leads from the original $2\times 3 \times 2$
+array to a $2 \times 2$
+array by cutting away the \code{Sex=Male} and \code{Eye=Brown} slice of the array:
+
+```{r results=chk}
+tabSlice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"))
+## Notice: levels can be written as numerics
+## tabSlice(hec, slice=list(Eye=2:3, Sex="Female"))
+``` 
+
+We may also regard the result above as a $2 \times 2 \times 1$ array:
+```{r }
+tabSlice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"), drop=FALSE)
+``` 
+
+If slicing leads to a one dimensional array, the output will by
+default not be an array but a vector (without a dim attribute). However, 
+the result can be forced to be a 1-dimensional array:
+
+```{r results=chk}
+## A vector:
+t1 <- tabSlice(hec, slice=list(Hair=1, Sex="Female")); t1
+## A 1-dimensional array:
+t2 <- tabSlice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); t2 
+## A higher dimensional array (in which some dimensions only have one level)
+t3 <- tabSlice(hec, slice=list(Hair=1, Sex="Female"), drop=FALSE); t3
+``` 
+
+The difference between the last two forms can be clarified:
+```{r }
+t2 |> flat()
+t3 |> flat()
+``` 
+
+
+
+## Collapsing  and inflating arrays
+{#sec:collapsing-arrays}
+
+Collapsing: The $HE$--marginal array $T_{HE}$ of $T_{HES}$ is  the array with
+values
+\begin{displaymath}
+  T_{HE}(h,e) = \sum_s T_{HES}(h,e,s)
+\end{displaymath}
+Inflating: The ``opposite'' operation is to extend an array. For example, we can
+extend $T_{HE}$ to have a third dimension, e.g.\ \code{Sex}. That is
+\begin{displaymath}
+  \tilde T_{SHE}(s,h,e) = T_{HE}(h,e)
+\end{displaymath}
+so $\tilde T_{SHE}(s,h,e)$ is constant as a function of $s$. 
+
+With \grbase\ we can collapse arrays with\footnote{FIXME: Should allow for abbreviations in
+  formula and character vector specifications.}:
+```{r }
+he <- tabMarg(hec, c("Hair", "Eye"))
+he
+```
+
+```{r results=chk}
+## Alternatives
+tabMarg(hec, ~Hair:Eye)
+tabMarg(hec, c(1, 2))
+hec %a_% ~Hair:Eye
+```
+
+Notice that collapsing is a projection in the sense that applying the
+operation again does not change anything:
+```{r }
+he1 <- tabMarg(hec, c("Hair", "Eye"))
+he2 <- tabMarg(he1, c("Hair", "Eye"))
+tabEqual(he1, he2)
+``` 
+
+Expand an array by adding additional dimensions with \rr{tabExpand()}:
+```{r }
+extra.dim <- list(Sex=c("Male", "Female"))
+tabExpand(he, extra.dim) 
+``` 
+
+```{r results=chk}
+## Alternatives
+he %a^% extra.dim
+```
+
+Notice that expanding and collapsing brings us back to where we started:
+```{r }
+(he %a^% extra.dim) %a_% c("Hair", "Eye")
+``` 
+
+
+## Permuting an array
+{#sec:permuting-an-array}
+
+A reorganization of the table can be made with \rr{tabPerm} (similar
+to \code{aperm()}), but \rr{tabPerm} allows for a formula and for variable abbreviation:
+```{r }
+tabPerm(hec, ~Eye:Sex:Hair) |> flat()
+``` 
+
+Alternative forms (the first two also works for \code{aperm}):
+```{r results=chk}
+tabPerm(hec, c("Eye", "Sex", "Hair"))
+tabPerm(hec, c(2, 3, 1)) 
+tabPerm(hec, ~Ey:Se:Ha) 
+tabPerm(hec, c("Ey", "Se", "Ha"))
+``` 
+
+
+
+
+## Equality
+{#sec:equality}
+
+Two arrays are defined to be identical 1) if they have the same dimnames
+and 2) if, possibly after a permutation, all values are identical (up to
+a small numerical difference):
+
+```{r }
+hec2 <- tabPerm(hec, 3:1)
+tabEqual(hec, hec2)
+``` 
+
+```{r results=chk} 
+## Alternative
+hec %a==% hec2
+```
+
+## Aligning
+{#sec:aligning}
+
+We can align one array according to the ordering of another:
+```{r results=chk} 
+hec2 <- tabPerm(hec, 3:1)
+tabAlign(hec2, hec)
+```
+
+```{r result=chk}
+## Alternative:
+tabAlign(hec2, dimnames(hec))
+``` 
+
+
+
+%## Operations on two or more arrays
+%{#sec:oper-two-arrays}
+
+## Multiplication, addition etc:  $+$, $-$, $*$, $/$
+{#sec:mult-addt-etc}
+
+The product of two arrays $T_{HE}$ and $T_{HS}$ is defined to be the array
+$\tilde T_{HES}$ with entries
+\begin{displaymath}
+  \tilde T_{HES}(h,e,s)= T_{HE}(h,e) + T_{HS}(h,s)
+\end{displaymath}
+
+The sum, difference and quotient is defined similarly: This is done
+with \rr{tabProd()}, \rr{tabAdd()}, \rr{tabDiff()} and \rr{tabDiv()}:
+
+```{r }
+hs <- tabMarg(hec, ~Hair:Eye)
+tabMult(he, hs)
+``` 
+
+Available operations:
+```{r results=chk}
+tabAdd(he, hs) 
+tabSubt(he, hs)
+tabMult(he, hs)
+tabDiv(he, hs) 
+tabDiv0(he, hs) ## Convention 0/0 = 0
+``` 
+
+Shortcuts:
+```{r results=chk} 
+## Alternative
+he %a+% hs
+he %a-% hs
+he %a*% hs
+he %a/% hs
+he %a/0% hs ## Convention 0/0 = 0
+```
+
+Multiplication and addition of (a list of) multiple arrays is
+accomplished with \rr{tabProd()} and \rr{tabSum()} (much like
+\rr{prod()} and \rr{sum()}):
+```{r }
+es <- tabMarg(hec, ~Eye:Sex)
+tabSum(he, hs, es)  
+## tabSum(list(he, hs, es))
+``` 
+
+
+%% Lists of arrays are processed with
+%% ```{r results=chk} 
+%% tabListAdd(list(he, hs, es))
+%% tabListMult(list(he, hs, es))
+%% @
+
+## An array as a probability density
+{#sec:an-array-as}
+
+If an array consists of non--negative numbers then it may be regarded as an
+(unnormalized) discrete multivariate density. With this view, the following
+examples should be self explanatory:
+```{r  } 
+tabDist(hec, marg=~Hair:Eye)
+tabDist(hec, cond=~Sex) 
+tabDist(hec, marg=~Hair, cond=~Sex) 
+```
+
+## Miscellaneous
+{#sec:miscellaneous-1}
+
+Multiply values in a slice by some number and all other values by
+another number:
+```{r  } 
+tabSliceMult(es, list(Sex="Female"), val=10, comp=0)
+```
+
+
+
+
+
+
+<!-- %%  -->
+<!-- %%For example, the following provides the fitted cell counts under a -->
+<!-- %%specific log--linear model: -->
+<!-- %%```{r } -->
+<!-- %%hec3 <- ar_div( ar_mult( he, es ), tabMarg( hec, "Eye" ) ) -->
+<!-- %%hec3 |> flat -->
+<!-- %%@  -->
+<!-- %%Comparing these with the observed data is tricky because of the ordering: -->
+<!-- %%```{r } -->
+<!-- %%hec |> flat -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %%The function \rr{ar\_align()} will align the first array to have the same -->
+<!-- %%variable order as the second array which makes a visual comparison -->
+<!-- %%easier:\footnote{FIXME: aralign should be modified so that the second -->
+<!-- %%  argument can also be a list of dimnames}  -->
+<!-- %%```{r } -->
+<!-- %%tabAlign(hec3, hec)  |> flat -->
+<!-- %%ar_perm(hec3, names(dimnames(hec)))  |> flat -->
+<!-- %%@  -->
+<!-- %% -->
+<!-- %%```{r  }  -->
+<!-- %%microbenchmark::microbenchmark( -->
+<!-- %%                    tabAlign(hec3, hec), -->
+<!-- %%                    ar_perm(hec3, names(dimnames(hec))) -->
+<!-- %%                    ) -->
+<!-- %%@ -->
+<!-- %% -->
+
+
+# Examples
+{#sec:examples}
+
+
+## A Bayesian network
+{#sec:comp-with-arrays}
+
+A classical example of a Bayesian network is the ``sprinkler
+example'', see e.g.\
+(http://en.wikipedia.org/wiki/Bayesian_network):
+\begin{quote}
+  \em
+  Suppose that there are two events which could cause grass to be wet:
+  either the sprinkler is on or it is raining. Also, suppose that the
+  rain has a direct effect on the use of the sprinkler (namely that
+  when it rains, the sprinkler is usually not turned on). Then the
+  situation can be modeled with a Bayesian network.
+\end{quote}
+
+We specify conditional probabilities $p(r)$, $p(s|r)$ and $p(w|s,r)$
+as follows
+(notice that the vertical conditioning bar ($|$) is replaced by the
+horizontal underscore:
+
+```{r }
+yn <- c("y","n")
+lev <- list(rain=yn, sprinkler=yn, wet=yn)
+r <- tabNew(~rain, levels=lev, values=c(.2, .8))
+s_r <- tabNew(~sprinkler:rain, levels = lev, values = c(.01, .99, .4, .6))
+w_sr <- tabNew( ~wet:sprinkler:rain, levels=lev, 
+             values=c(.99, .01, .8, .2, .9, .1, 0, 1))
+r 
+s_r  |> flat()
+w_sr |> flat()
+``` 
+
+The joint distribution $p(r,s,w)=p(r)p(s|r)p(w|s,r)$ can be obtained
+with \rr{tabProd()}:
+ways:
+```{r }
+joint <- tabProd(r, s_r, w_sr); joint |> flat()
+```
+
+What is the probability that it rains given that the grass is wet? We
+find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$. Can be done in various ways: with \rr{tabDist()}
+```{r }
+tabDist(joint, marg=~rain, cond=~wet)
+```
+
+```{r results='hide'}
+## Alternative:
+rw <- tabMarg(joint, ~rain + wet)
+tabDiv(rw, tabMarg(rw, ~wet))
+## or
+rw %a/% (rw %a_% ~wet)
+``` 
+
+```{r }
+## Alternative:
+x <- tabSliceMult(rw, slice=list(wet="y")); x
+tabDist(x, marg=~rain)
+```
+
+##  Iterative Proportional Scaling (IPS)
+{#sec:ips}
+
+We consider the $3$--way \code{lizard} data from \grbase:
+```{r }
+data(lizard, package="gRbase")
+lizard |> flat()
+```
+
+Consider the two factor log--linear model for the \verb'lizard'
+data. Under the model the expected counts have the form
+\begin{displaymath}
+  \log m(d,h,s)= a_1(d,h)+a_2(d,s)+a_3(h,s)
+\end{displaymath}
+If we let $n(d,h,s)$ denote the observed counts, the likelihood
+equations are: Find $m(d,h,s)$ such that
+\begin{displaymath}
+  m(d,h)=n(d,h), \quad
+  m(d,s)=n(d,s), \quad
+  m(h,s)=n(h,s)
+\end{displaymath}
+where $m(d,h)=\sum_s m(d,h.s)$ etc. 
+The updates are as follows: For the first term we have
+
+\begin{displaymath}
+  m(d,h,s) \leftarrow m(d,h,s) \frac{n(d,h)}{m(d,h)}
+%  , \mbox{ where }
+%  m(d,h) = \sum_s m(d,h,s)
+\end{displaymath}
+After iterating the updates will not change and we will have equality:
+$  m(d,h,s) = m(d,h,s) \frac{n(d,h)}{m(d,h)}$ and summing over $s$
+shows that the equation $m(d,h)=n(d,h)$ is satisfied. 
+
+A rudimentary implementation of iterative proportional scaling for
+log--linear models is straight forward:
+```{r }
+myips <- function(indata, glist){
+    fit   <- indata
+    fit[] <-  1
+    ## List of sufficient marginal tables
+    md    <- lapply(glist, function(g) tabMarg(indata, g))
+
+    for (i in 1:4){
+        for (j in seq_along(glist)){
+            mf  <- tabMarg(fit, glist[[j]])
+            # adj <- tabDiv( md[[ j ]], mf)
+            # fit <- tabMult( fit, adj )
+            ## or
+            adj <- md[[ j ]] %a/% mf
+            fit <- fit %a*% adj
+        }
+    }
+    pearson <- sum((fit - indata)^2 / fit)
+    list(pearson=pearson, fit=fit)
+}
+
+glist <- list(c("species", "diam"),c("species", "height"),c("diam", "height"))
+
+fm1 <- myips(lizard, glist)
+fm1$pearson
+fm1$fit |> flat()
+
+fm2 <- loglin(lizard, glist, fit=T)
+fm2$pearson
+fm2$fit |> flat()
+```
+
+
+# Some low level functions
+{#sec:some-low-level}
+
+For e.g.\ a $2\times 3 \times 2$ array, the entries are such that the first
+variable varies fastest so the ordering of the cells are $(1,1,1)$,
+$(2,1,1)$, $(1,2,1)$, $(2,2,1)$,$(1,3,1)$ and so on. To find the value
+of such a cell, say,
+$(j,k,l)$ in the array (which is really just a vector), the cell is
+mapped into an entry of a vector. 
+
+For example, cell $(2,3,1)$
+(\verb|Hair=Brown|, \verb|Eye=Hazel|, \verb|Sex=Male|) must be mapped to
+entry $4$ in
+```{r }
+hec
+c(hec)
+``` 
+
+For illustration we do:
+```{r }
+cell2name <- function(cell, dimnames){
+    unlist(lapply(1:length(cell), function(m) dimnames[[m]][cell[m]]))
+}
+cell2name(c(2,3,1), dimnames(hec))
+``` 
+
+
+
+\subsection{\code{cell2entry()}, \code{entry2cell()} and \code{next\_cell()} }
+
+
+The map from a cell to the corresponding
+entry is provided by \rr{cell2entry()}. The reverse operation, going
+from an entry to a cell (which is much less needed) is provided by
+\rr {entry2cell()}.
+
+```{r }
+cell2entry(c(2,3,1), dim=c(2, 3, 2))
+entry2cell(6, dim=c(2, 3, 2))
+``` 
+
+
+Given a cell, say $i=(2,3,1)$ in a $2\times 3\times 2$ array we often want to find the next cell in
+the table following the convention that the first factor varies
+fastest, that is $(1,1,2)$. This is provided by
+\rr{next\_cell()}.
+```{r }
+next_cell(c(2,3,1), dim=c(2, 3, 2))
+```
+
+
+\subsection{\code{next\_cell\_slice()} and \code{slice2entry()}}
+%{#sec:x}
+
+Given that we look at cells for which for which the index in dimension $2$ is at level $3$ (that is
+\verb|Eye=Hazel|), i.e.\ cells of the form $(j,3,l)$. Given such a
+cell, what is then the next cell that also satisfies this
+constraint. This is provided by
+\rr{next\_cell\_slice()}.\footnote{FIXME: sliceset should be called margin.}
+```{r }
+next_cell_slice(c(1,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
+next_cell_slice(c(2,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
+``` 
+
+
+Given that in dimension $2$ we look at level $3$. We want to find
+entries for the cells of the form $(j,3,l)$.\footnote{FIXME:slicecell and
+  sliceset should be renamed}
+```{r }
+slice2entry(slice_cell=3, slice_marg=2, dim=c( 2, 3, 2 ))
+```
+
+To verify that we indeed get the right cells:
+
+```{r }
+r <- slice2entry(slice_cell=3, slice_marg=2, dim=c( 2, 3, 2 ))
+lapply(lapply(r, entry2cell, c( 2, 3, 2 )),
+       cell2name, dimnames(hec))
+```
+
+\subsection{\code{fact\_grid()} -- Factorial grid}
+{#sec:factgrid}
+
+Using the operations above we can obtain the combinations of the
+factors as a matrix:
+
+```{r }
+head( fact_grid( c(2, 3, 2) ), 6 )
+``` 
+
+A similar dataframe can also be obtained with the standard R
+function \code{expand.grid} (but \code{factGrid} is faster)
+```{r }
+head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
+``` 
+
+
+
+\appendix
+
+# More about slicing
+{#sec:more-about-slicing}
+
+Slicing using standard R code can be done as follows:
+
+```{r }
+hec[, 2:3, ]  |> flat()  ## A 2 x 2 x 2 array
+hec[1, , 1]             ## A vector
+hec[1, , 1, drop=FALSE] ## A 1 x 3 x 1 array
+``` 
+
+Programmatically we can do the above as
+```{r results=chk}
+do.call("[", c(list(hec), list(TRUE, 2:3, TRUE)))  |> flat()
+do.call("[", c(list(hec), list(1, TRUE, 1))) 
+do.call("[", c(list(hec), list(1, TRUE, 1), drop=FALSE)) 
+``` 
+
+\grbase\ provides two alterntives for each of these three cases above:
+```{r results=chk}
+tabSlicePrim(hec, slice=list(TRUE, 2:3, TRUE))  |> flat()
+tabSlice(hec, slice=list(c(2, 3)), margin=2) |> flat()
+
+tabSlicePrim(hec, slice=list(1, TRUE, 1))  
+tabSlice(hec, slice=list(1, 1), margin=c(1, 3)) 
+
+tabSlicePrim(hec, slice=list(1, TRUE, 1), drop=FALSE)  
+tabSlice(hec, slice=list(1, 1), margin=c(1, 3), drop=FALSE) 
+``` 
+
