@@ -390,39 +390,6 @@ tabSliceMult(es, list(Sex="Female"), val=10, comp=0)
 
 
 
-
-
-
-<!-- %%  -->
-<!-- %%For example, the following provides the fitted cell counts under a -->
-<!-- %%specific log--linear model: -->
-<!-- %%```{r } -->
-<!-- %%hec3 <- ar_div( ar_mult( he, es ), tabMarg( hec, "Eye" ) ) -->
-<!-- %%hec3 |> flat -->
-<!-- %%@  -->
-<!-- %%Comparing these with the observed data is tricky because of the ordering: -->
-<!-- %%```{r } -->
-<!-- %%hec |> flat -->
-<!-- %%@  -->
-<!-- %% -->
-<!-- %%The function \rr{ar\_align()} will align the first array to have the same -->
-<!-- %%variable order as the second array which makes a visual comparison -->
-<!-- %%easier:\footnote{FIXME: aralign should be modified so that the second -->
-<!-- %%  argument can also be a list of dimnames}  -->
-<!-- %%```{r } -->
-<!-- %%tabAlign(hec3, hec)  |> flat -->
-<!-- %%ar_perm(hec3, names(dimnames(hec)))  |> flat -->
-<!-- %%@  -->
-<!-- %% -->
-<!-- %%```{r  }  -->
-<!-- %%microbenchmark::microbenchmark( -->
-<!-- %%                    tabAlign(hec3, hec), -->
-<!-- %%                    ar_perm(hec3, names(dimnames(hec))) -->
-<!-- %%                    ) -->
-<!-- %%@ -->
-<!-- %% -->
-
-
 # Examples
 {#sec:examples}
 
@@ -432,7 +399,7 @@ tabSliceMult(es, list(Sex="Female"), val=10, comp=0)
 
 A classical example of a Bayesian network is the ``sprinkler
 example'', see e.g.\
-(http://en.wikipedia.org/wiki/Bayesian_network):
+(https://en.wikipedia.org/wiki/Bayesian_network):
 \begin{quote}
   \em
   Suppose that there are two events which could cause grass to be wet:
