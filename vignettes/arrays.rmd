@@ -53,27 +53,22 @@ have been implemented to facilitate implementation of graphical models
 and Bayesian networks in R.
 
 ## Arrays/tables in R 
-(\#sec:arrays)
-
-
 
 The documentation of R states the following about arrays:
+ _An array in R can have one, two or more dimensions. It is simply
+ a vector which is stored with additional attributes giving the
+ dimensions (attribute "dim") and optionally names for those
+ dimensions (attribute "dimnames").  A two-dimensional array is the
+ same thing as a matrix.  One-dimensional arrays often look like
+ vectors, but may be handled differently by some functions._
 
-\begin{quote}
-  \em An array in R can have one, two or more dimensions. It is simply
-  a vector which is stored with additional attributes giving the
-  dimensions (attribute "dim") and optionally names for those
-  dimensions (attribute "dimnames").  A two-dimensional array is the
-  same thing as a matrix.  One-dimensional arrays often look like
-  vectors, but may be handled differently by some functions.
-\end{quote}
 
 
 ## Cross classified data - contingency tables
-(\#sec:new)
+
 
 Arrays appear for example in connection with cross classified data. The array
-\code{hec} below is an excerpt of the \code{HairEyeColor} array in R:
+hec  below is an excerpt of the HairEyeColor  array in R:
 
 ```{r  } 
 hec <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29) 
@@ -84,13 +79,14 @@ dimnames(hec) <- list(Hair = c("Black", "Brown"),
 hec
 ```
 
-Above, \code{hec} is an array because it has a \code{dim} attribute. Moreover,
-\code{hec} also has a \code{dimnames} attribute naming the levels of each
+
+Above, hec is an array because it has a dim attribute. Moreover,
+\code{hec} also has a dimnames  attribute naming the levels of each
 dimension. Notice that each dimension is given a name.
 
 Printing arrays can take up a lot of space.  Alternative views on an
-array can be obtained with \code{ftable()} or by converting the array
-to a dataframe with \code{as.data.frame.table()}. We shall do so in the following.
+array can be obtained with ftable()  or by converting the array
+to a dataframe with as.data.frame.table(). We shall do so in the following.
 
 ```{r }
 ##flat <- function(x) {ftable(x, row.vars=1)}
@@ -101,7 +97,7 @@ hec |> flat()
 An array with named dimensions is in this package called a *named array*.
 The functionality described below relies heavily on arrays having named dimensions.
 A check for an object being a named array is provided by
-\rr{is.named.array()}
+is.named.array()
 ```{r }
 is.named.array(hec)
 ``` 
@@ -110,7 +106,7 @@ is.named.array(hec)
 ## Defining arrays
 
 
-Another way is to use \rr{tabNew()} from \grbase. This function is flexible wrt the input; for example:
+Another way is to use tabNew() from gRbase. This function is flexible wrt the input; for example:
 ```{r }
 dn <- list(Hair=c("Black", "Brown"), Eye=~Brown:Blue:Hazel, Sex=~Male:Female)
 counts <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
@@ -118,16 +114,15 @@ z3 <- tabNew(~Hair:Eye:Sex, levels=dn, value=counts)
 z4 <- tabNew(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
 ``` 
 
-Notice that the levels list (\code{dn} above) when used in \rr{tabNew()} 
-is allowed to contain superfluous elements. Default
-\code{dimnames} are generated with
+ Default
+dimnames are generated with
 ```{r }
 z5 <- tabNew(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
 dimnames(z5) |> str()
 ``` 
 
 
-Using \rr{tabNew}, arrays can be normalized to sum to one in two ways:
+Using tabNew, arrays can be normalized to sum to one in two ways:
 1) Normalization can be over the first variable for *each*
 configuration of all other variables and 2) over all configurations. For
 example:
@@ -138,7 +133,6 @@ z6 |> flat()
 
 
 # Operations on arrays
-{#sec:operations-arrays}
 
 In the following we shall denote the dimnames 
 (or variables) of the array \code{hec} by $H$, $E$ and $S$ and we let $(h,e,s)$
@@ -147,7 +141,6 @@ shall be denoted by $T_{HES}$ and we shall refer to the
 $(h,e,s)$-entry of $T_{HES}$ as $T_{HES}(h,e,s)$. 
 
 ## Normalizing an array
-{#sec:numarlizing-an-array}
 
 Normalize an array with  \rr{tabNormalize()}
 Entries of an array can be normalized to sum to one in two ways:
@@ -160,18 +153,17 @@ tabNormalize(z5, "first") |> flat()
 
 
 ## Subsetting an array -- slicing
-{#sec:subsetting-an-array}
 
 We can subset arrays (this will also be called ``slicing'') in
 different ways. Notice that the result is not necessarily an
 array. Slicing can be done using standard R code or using \rr{tabSlice}.
-The virtue of \rr{tabSlice} comes from the flexibility when
+The virtue of tabSlice() comes from the flexibility when
 specifying the slice:
 
 
 The following leads from the original $2\times 3 \times 2$
 array to a $2 \times 2$
-array by cutting away the \code{Sex=Male} and \code{Eye=Brown} slice of the array:
+array by cutting away the Sex=Male and Eye=Brown slice of the array:
 
 ```{r results=chk}
 tabSlice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"))
@@ -205,8 +197,8 @@ t3 |> flat()
 
 
 
-## Collapsing  and inflating arrays
-{#sec:collapsing-arrays}
+## Collapsing and inflating arrays - tabMarg() and tabExpand()
+
 
 Collapsing: The $HE$--marginal array $T_{HE}$ of $T_{HES}$ is  the array with
 values
@@ -220,8 +212,7 @@ extend $T_{HE}$ to have a third dimension, e.g.\ \code{Sex}. That is
 \end{displaymath}
 so $\tilde T_{SHE}(s,h,e)$ is constant as a function of $s$. 
 
-With \grbase\ we can collapse arrays with\footnote{FIXME: Should allow for abbreviations in
-  formula and character vector specifications.}:
+With gRbase  we can collapse arrays with:
 ```{r }
 he <- tabMarg(hec, c("Hair", "Eye"))
 he
@@ -235,14 +226,14 @@ hec %a_% ~Hair:Eye
 ```
 
 Notice that collapsing is a projection in the sense that applying the
-operation again does not change anything:
+operation again does not change anything (except possibly changing the order of variables):
 ```{r }
 he1 <- tabMarg(hec, c("Hair", "Eye"))
-he2 <- tabMarg(he1, c("Hair", "Eye"))
+he2 <- tabMarg(he1, c("Eye", "Hair"))
 tabEqual(he1, he2)
 ``` 
 
-Expand an array by adding additional dimensions with \rr{tabExpand()}:
+Expand an array by adding additional dimensions with tabExpand():
 ```{r }
 extra.dim <- list(Sex=c("Male", "Female"))
 tabExpand(he, extra.dim) 
@@ -259,11 +250,10 @@ Notice that expanding and collapsing brings us back to where we started:
 ``` 
 
 
-## Permuting an array
-{#sec:permuting-an-array}
+## Permuting an array -- tabPerm()
 
-A reorganization of the table can be made with \rr{tabPerm} (similar
-to \code{aperm()}), but \rr{tabPerm} allows for a formula and for variable abbreviation:
+A reorganization of the table can be made with tabPerm() (similar
+to aperm()), but tabPerm() allows for a formula and for variable abbreviation:
 ```{r }
 tabPerm(hec, ~Eye:Sex:Hair) |> flat()
 ``` 
@@ -279,8 +269,7 @@ tabPerm(hec, c("Ey", "Se", "Ha"))
 
 
 
-## Equality
-{#sec:equality}
+## Equality - tabEqual()
 
 Two arrays are defined to be identical 1) if they have the same dimnames
 and 2) if, possibly after a permutation, all values are identical (up to
@@ -296,8 +285,7 @@ tabEqual(hec, hec2)
 hec %a==% hec2
 ```
 
-## Aligning
-{#sec:aligning}
+## Aligning - tabAlign()
 
 We can align one array according to the ordering of another:
 ```{r results=chk} 
@@ -312,20 +300,16 @@ tabAlign(hec2, dimnames(hec))
 
 
 
-%## Operations on two or more arrays
-%{#sec:oper-two-arrays}
-
 ## Multiplication, addition etc:  $+$, $-$, $*$, $/$
-{#sec:mult-addt-etc}
 
 The product of two arrays $T_{HE}$ and $T_{HS}$ is defined to be the array
 $\tilde T_{HES}$ with entries
-\begin{displaymath}
+$$
   \tilde T_{HES}(h,e,s)= T_{HE}(h,e) + T_{HS}(h,s)
-\end{displaymath}
+$$
 
 The sum, difference and quotient is defined similarly: This is done
-with \rr{tabProd()}, \rr{tabAdd()}, \rr{tabDiff()} and \rr{tabDiv()}:
+with tabProd(), tabAdd(), tabDiff() and tabDiv():
 
 ```{r }
 hs <- tabMarg(hec, ~Hair:Eye)
@@ -352,8 +336,9 @@ he %a/0% hs ## Convention 0/0 = 0
 ```
 
 Multiplication and addition of (a list of) multiple arrays is
-accomplished with \rr{tabProd()} and \rr{tabSum()} (much like
-\rr{prod()} and \rr{sum()}):
+accomplished with tabProd() and tabSum() 
+(much like
+prod() and sum()):
 ```{r }
 es <- tabMarg(hec, ~Eye:Sex)
 tabSum(he, hs, es)  
@@ -361,26 +346,25 @@ tabSum(he, hs, es)
 ``` 
 
 
-%% Lists of arrays are processed with
-%% ```{r results=chk} 
-%% tabListAdd(list(he, hs, es))
-%% tabListMult(list(he, hs, es))
-%% @
+Lists of arrays are processed with
+```{r results=chk} 
+tabListAdd(list(he, hs, es))
+tabListMult(list(he, hs, es))
+```
 
-## An array as a probability density
-{#sec:an-array-as}
+## An array as a probability density - tabDist()
 
 If an array consists of non--negative numbers then it may be regarded as an
 (unnormalized) discrete multivariate density. With this view, the following
 examples should be self explanatory:
+
 ```{r  } 
 tabDist(hec, marg=~Hair:Eye)
 tabDist(hec, cond=~Sex) 
 tabDist(hec, marg=~Hair, cond=~Sex) 
 ```
 
-## Miscellaneous
-{#sec:miscellaneous-1}
+## Miscellaneous - tabSliceMult()
 
 Multiply values in a slice by some number and all other values by
 another number:
@@ -391,11 +375,9 @@ tabSliceMult(es, list(Sex="Female"), val=10, comp=0)
 
 
 # Examples
-{#sec:examples}
 
 
 ## A Bayesian network
-{#sec:comp-with-arrays}
 
 A classical example of a Bayesian network is the ``sprinkler
 example'', see e.g.\
@@ -411,7 +393,7 @@ example'', see e.g.\
 
 We specify conditional probabilities $p(r)$, $p(s|r)$ and $p(w|s,r)$
 as follows
-(notice that the vertical conditioning bar ($|$) is replaced by the
+(notice that the vertical conditioning bar ($|$) is indicated by the
 horizontal underscore:
 
 ```{r }
@@ -427,14 +409,14 @@ w_sr |> flat()
 ``` 
 
 The joint distribution $p(r,s,w)=p(r)p(s|r)p(w|s,r)$ can be obtained
-with \rr{tabProd()}:
-ways:
+with tabProd():
+
 ```{r }
 joint <- tabProd(r, s_r, w_sr); joint |> flat()
 ```
 
 What is the probability that it rains given that the grass is wet? We
-find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$. Can be done in various ways: with \rr{tabDist()}
+find $p(r,w)=\sum_s p(r,s,w)$ and then $p(r|w)=p(r,w)/p(w)$. Can be done in various ways: with tabDist():
 ```{r }
 tabDist(joint, marg=~rain, cond=~wet)
 ```
@@ -454,7 +436,6 @@ tabDist(x, marg=~rain)
 ```
 
 ##  Iterative Proportional Scaling (IPS)
-{#sec:ips}
 
 We consider the $3$--way \code{lizard} data from \grbase:
 ```{r }
@@ -464,24 +445,25 @@ lizard |> flat()
 
 Consider the two factor log--linear model for the \verb'lizard'
 data. Under the model the expected counts have the form
-\begin{displaymath}
+$$
   \log m(d,h,s)= a_1(d,h)+a_2(d,s)+a_3(h,s)
-\end{displaymath}
+$$
 If we let $n(d,h,s)$ denote the observed counts, the likelihood
 equations are: Find $m(d,h,s)$ such that
-\begin{displaymath}
+\begin{aligned}
   m(d,h)=n(d,h), \quad
   m(d,s)=n(d,s), \quad
   m(h,s)=n(h,s)
-\end{displaymath}
+\end{aligned}
 where $m(d,h)=\sum_s m(d,h.s)$ etc. 
 The updates are as follows: For the first term we have
 
-\begin{displaymath}
-  m(d,h,s) \leftarrow m(d,h,s) \frac{n(d,h)}{m(d,h)}
+$$
+m(d,h,s) \leftarrow m(d,h,s) \frac{n(d,h)}{m(d,h)}
 %  , \mbox{ where }
 %  m(d,h) = \sum_s m(d,h,s)
-\end{displaymath}
+$$
+
 After iterating the updates will not change and we will have equality:
 $  m(d,h,s) = m(d,h,s) \frac{n(d,h)}{m(d,h)}$ and summing over $s$
 shows that the equation $m(d,h)=n(d,h)$ is satisfied. 
@@ -494,9 +476,10 @@ myips <- function(indata, glist){
     fit[] <-  1
     ## List of sufficient marginal tables
     md    <- lapply(glist, function(g) tabMarg(indata, g))
-
-    for (i in 1:4){
-        for (j in seq_along(glist)){
+    n_iter <- 4
+    n_generators <- length(glist)
+    for (i in 1:n_iter){
+        for (j in 1:n_generators){
             mf  <- tabMarg(fit, glist[[j]])
             # adj <- tabDiv( md[[ j ]], mf)
             # fit <- tabMult( fit, adj )
@@ -522,17 +505,16 @@ fm2$fit |> flat()
 
 
 # Some low level functions
-{#sec:some-low-level}
 
 For e.g.\ a $2\times 3 \times 2$ array, the entries are such that the first
 variable varies fastest so the ordering of the cells are $(1,1,1)$,
-$(2,1,1)$, $(1,2,1)$, $(2,2,1)$,$(1,3,1)$ and so on. To find the value
+$(2,1,1)$, $(1,2,1)$, $(2,2,1)$, $(1,3,1)$ and so on. To find the value
 of such a cell, say,
 $(j,k,l)$ in the array (which is really just a vector), the cell is
 mapped into an entry of a vector. 
 
 For example, cell $(2,3,1)$
-(\verb|Hair=Brown|, \verb|Eye=Hazel|, \verb|Sex=Male|) must be mapped to
+(Hair=Brown, Eye=Hazel, Sex=Male) must be mapped to
 entry $4$ in
 ```{r }
 hec
@@ -542,8 +524,10 @@ c(hec)
 For illustration we do:
 ```{r }
 cell2name <- function(cell, dimnames){
-    unlist(lapply(1:length(cell), function(m) dimnames[[m]][cell[m]]))
-}
+    unlist(lapply(1:length(cell),
+                  function(m){
+                      dimnames[[m]][cell[m]]
+                  }))}
 cell2name(c(2,3,1), dimnames(hec))
 ``` 
 
@@ -552,6 +536,7 @@ cell2name(c(2,3,1), dimnames(hec))
 \subsection{\code{cell2entry()}, \code{entry2cell()} and \code{next\_cell()} }
 
 
+## cell2entry and entry2cell
 The map from a cell to the corresponding
 entry is provided by \rr{cell2entry()}. The reverse operation, going
 from an entry to a cell (which is much less needed) is provided by
@@ -562,24 +547,25 @@ cell2entry(c(2,3,1), dim=c(2, 3, 2))
 entry2cell(6, dim=c(2, 3, 2))
 ``` 
 
+## next_cell()
 
 Given a cell, say $i=(2,3,1)$ in a $2\times 3\times 2$ array we often want to find the next cell in
 the table following the convention that the first factor varies
 fastest, that is $(1,1,2)$. This is provided by
-\rr{next\_cell()}.
+next\_cell().
 ```{r }
 next_cell(c(2,3,1), dim=c(2, 3, 2))
 ```
 
-
-\subsection{\code{next\_cell\_slice()} and \code{slice2entry()}}
-%{#sec:x}
+## next_cell_slice() and slice2entry()
 
 Given that we look at cells for which for which the index in dimension $2$ is at level $3$ (that is
-\verb|Eye=Hazel|), i.e.\ cells of the form $(j,3,l)$. Given such a
+Eye=Hazel), i.e.\ cells of the form $(j,3,l)$. Given such a
 cell, what is then the next cell that also satisfies this
 constraint. This is provided by
-\rr{next\_cell\_slice()}.\footnote{FIXME: sliceset should be called margin.}
+next\_cell\_slice(). 
+<!-- \footnote{FIXME: sliceset should be called margin.} -->
+
 ```{r }
 next_cell_slice(c(1,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
 next_cell_slice(c(2,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
@@ -601,8 +587,7 @@ lapply(lapply(r, entry2cell, c( 2, 3, 2 )),
        cell2name, dimnames(hec))
 ```
 
-\subsection{\code{fact\_grid()} -- Factorial grid}
-{#sec:factgrid}
+## fact_grid() - factorial grid
 
 Using the operations above we can obtain the combinations of the
 factors as a matrix:
@@ -617,12 +602,9 @@ function \code{expand.grid} (but \code{factGrid} is faster)
 head( expand.grid(list(1:2, 1:3, 1:2)), 6 )
 ``` 
 
-
-
 \appendix
 
 # More about slicing
-{#sec:more-about-slicing}
 
 Slicing using standard R code can be done as follows:
 
