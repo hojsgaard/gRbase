@@ -12,3 +12,5 @@ vignettes/.Rhistory
 ^cran-comments\.md$
 ^README\.Rmd$
 nobioc
+^.*\.Rproj$
+^\.Rproj\.user$
