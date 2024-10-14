@@ -1,0 +1,22 @@
+reference:
+- title: Functions in gRbase
+  desc: > 
+    Functions in gRain to be used in the future.
+  contents:
+  - lacks_concepts(c("dataset"))
+- title: Old names
+  desc: >    
+    These functions are kept in the package for backward compatibility. They may be deprecated in the future. 
+  contents:
+  - has_concept("old_names")
+- title: Datasets 
+  desc: >    
+    These functions are kept in the package for backward compatibility. They may be deprecated in the future. 
+  contents:
+  - has_concept("dataset")
+
+
+## - title: Complete reference
+##   desc: ~
+##   contents:
+##   - matches(".*")

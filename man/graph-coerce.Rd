@@ -38,6 +38,5 @@ as(g1, "dgCMatrix")
 ## getCliques(g1)         ## Works
 
 l1 <- list(c("a" ,"b"), c("b", "c"))
-graph_as(l1, "graphNEL", "ugList")
 
 }

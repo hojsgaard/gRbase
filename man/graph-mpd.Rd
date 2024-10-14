@@ -14,11 +14,10 @@ mpd(object, tobject = minimal_triang(object), details = 0)
 mpdMAT(amat, tamat = minimal_triangMAT(amat), details = 0)
 }
 \arguments{
-\item{object}{An undirected graph; a graphNEL object, an igraph or
+\item{object}{An undirected graph; an igraph or
 an adjacency matrix.}
 
-\item{tobject}{Any minimal triangulation of object; a graphNEL
-object, an igraph or an adjacency matrix.}
+\item{tobject}{Any minimal triangulation of object; an igraph or an adjacency matrix.}
 
 \item{details}{The amount of details to be printed.}
 
@@ -40,14 +39,13 @@ smallest subgraphs into which the graph can be decomposed.
 }
 \examples{
 
-## Maximal prime subgraph decomposition - a graphNEL object
+## Maximal prime subgraph decomposition 
 g1 <- ug(~ a:b + b:c + c:d + d:e + e:f + a:f + b:e)
 if (interactive()) plot(g1)
 x <- mpd(g1)
 
 ## Maximal prime subgraph decomposition - an adjacency matrix
 g1m <- ug(~ a:b + b:c + c:d + d:e + e:f + a:f + b:e, result="matrix")
-if (interactive()) plot(as(g1m, "graphNEL"))
 x <- mpdMAT(g1m)
 
 }

@@ -26,4 +26,5 @@ The \code{dietox} data frame has 861 rows and 7 columns.
 data(dietox)
 
 }
+\concept{dataset}
 \keyword{datasets}

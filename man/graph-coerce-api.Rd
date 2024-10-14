@@ -47,7 +47,6 @@ API for coercing graph representations.
 No checking is made. In the function the following names are used:
 \itemize{
 \item "ig": "igraph";
-\item "gn": "graphNEL";
 \item "sm": "dgCMatrix" (sparse matrix);
 \item "dm": "matrix" (dense matrix)
 }

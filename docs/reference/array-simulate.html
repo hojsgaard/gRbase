@@ -5,7 +5,7 @@ margin (a vector of indices) takes values given by margin.value"><!-- mathjax --
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -30,7 +30,7 @@ margin (a vector of indices) takes values given by margin.value"><!-- mathjax --
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -44,13 +44,13 @@ margin (a vector of indices) takes values given by margin.value"><!-- mathjax --
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate data from array.</h1>
-    
+
     <div class="hidden name"><code>array-simulate.Rd</code></div>
     </div>
 
@@ -63,44 +63,44 @@ margin (a vector of indices) takes values given by margin.value</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simulateArray</span><span class="op">(</span><span class="va">x</span>, nsim <span class="op">=</span> <span class="fl">1</span>, <span class="va">margin</span>, <span class="va">value.margin</span>, seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for table</span></span>
+<span><span class="co"># S3 method for class 'table'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">margin</span>, <span class="va">value.margin</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for xtabs</span></span>
+<span><span class="co"># S3 method for class 'xtabs'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">margin</span>, <span class="va">value.margin</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for array</span></span>
+<span><span class="co"># S3 method for class 'array'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">margin</span>, <span class="va">value.margin</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>x, object</dt>
+
+
+<dl><dt id="arg-x-object">x, object<a class="anchor" aria-label="anchor" href="#arg-x-object"></a></dt>
 <dd><p>An array.</p></dd>
 
 
-<dt>nsim</dt>
+<dt id="arg-nsim">nsim<a class="anchor" aria-label="anchor" href="#arg-nsim"></a></dt>
 <dd><p>Number of cases to simulate.</p></dd>
 
 
-<dt>margin, value.margin</dt>
+<dt id="arg-margin-value-margin">margin, value.margin<a class="anchor" aria-label="anchor" href="#arg-margin-value-margin"></a></dt>
 <dd><p>Specification of slice of array to
 simulate from.</p></dd>
 
 
-<dt>seed</dt>
+<dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed to be used for random number generation.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments, currently not used.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A matrix.</p>
+    <p>A matrix.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -117,20 +117,22 @@ not checked that the input argument <code>x</code> is an array.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## 2x2 array</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="api-parray.html">parray</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, values<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="api-tabNew.html">tabNew</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, values<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simulate from entire array</span></span></span>
 <span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">simulateArray</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a     1   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1 100 326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2 206 368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  95 297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2 198 410</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simulate from slice defined by that dimension 1 is fixed at level 2</span></span></span>
-<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span><span class="fu">simulateArray</span><span class="op">(</span><span class="va">x</span>, <span class="fl">6000</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span><span class="fu">simulateArray</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1000</span>, margin<span class="op">=</span><span class="fl">1</span>, value.margin<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1    2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1998 4002 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 340 660 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## 2 x 2 x 2 array</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="api-parray.html">parray</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, values<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span></span>
@@ -141,15 +143,15 @@ not checked that the input argument <code>x</code> is an array.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a      1    2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1 1034 3042</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2 1912 3959</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  998 3008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2 1940 4065</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , c = 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a      1    2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1 4877 6940</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2 6043 8193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 5044 7015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2 5919 8011</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simulate from slice defined by that dimension 3 is fixed at level 1</span></span></span>
@@ -157,9 +159,8 @@ not checked that the input argument <code>x</code> is an array.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a      1    2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1 1039 3004</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2 1926 4031</span>
-<span class="r-in"><span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  949 2994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2 1956 4101</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -175,15 +176,15 @@ not checked that the input argument <code>x</code> is an array.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

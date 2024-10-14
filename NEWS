@@ -1,3 +1,12 @@
+gRbase v2.0.3 (Release date: 2024-10-14)
+==========================================
+
+Changes:
+
+* All references to graphNEL objects, the graph package etc should be
+  removed now. Everything related to graphs evolves around igraphs and
+  adjacency matrices.
+
 gRbase v2.0.2 (Release date: 2024-06-04)
 ==========================================
 

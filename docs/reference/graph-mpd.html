@@ -6,7 +6,7 @@ smallest subgraphs into which the graph can be decomposed."><!-- mathjax --><scr
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -31,7 +31,7 @@ smallest subgraphs into which the graph can be decomposed."><!-- mathjax --><scr
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -45,13 +45,13 @@ smallest subgraphs into which the graph can be decomposed."><!-- mathjax --><scr
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Maximal prime subgraph decomposition</h1>
-    
+
     <div class="hidden name"><code>graph-mpd.Rd</code></div>
     </div>
 
@@ -65,7 +65,7 @@ smallest subgraphs into which the graph can be decomposed.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mpd</span><span class="op">(</span><span class="va">object</span>, tobject <span class="op">=</span> <span class="fu"><a href="graph-min-triangulate.html">minimal_triang</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>, details <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for default</span></span>
+<span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">mpd</span><span class="op">(</span><span class="va">object</span>, tobject <span class="op">=</span> <span class="fu"><a href="graph-triangulate.html">triangulate</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>, details <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">mpdMAT</span><span class="op">(</span><span class="va">amat</span>, tamat <span class="op">=</span> <span class="fu"><a href="graph-min-triangulate.html">minimal_triangMAT</a></span><span class="op">(</span><span class="va">amat</span><span class="op">)</span>, details <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
@@ -73,34 +73,34 @@ smallest subgraphs into which the graph can be decomposed.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
+
+
+<dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>An undirected graph; a graphNEL object, an igraph or
 an adjacency matrix.</p></dd>
 
 
-<dt>tobject</dt>
+<dt id="arg-tobject">tobject<a class="anchor" aria-label="anchor" href="#arg-tobject"></a></dt>
 <dd><p>Any minimal triangulation of object; a graphNEL
 object, an igraph or an adjacency matrix.</p></dd>
 
 
-<dt>details</dt>
+<dt id="arg-details">details<a class="anchor" aria-label="anchor" href="#arg-details"></a></dt>
 <dd><p>The amount of details to be printed.</p></dd>
 
 
-<dt>amat</dt>
+<dt id="arg-amat">amat<a class="anchor" aria-label="anchor" href="#arg-amat"></a></dt>
 <dd><p>An undirected graph; a symmetric adjacency matrix</p></dd>
 
 
-<dt>tamat</dt>
+<dt id="arg-tamat">tamat<a class="anchor" aria-label="anchor" href="#arg-tamat"></a></dt>
 <dd><p>Any minimal triangulation of object; a symmetric
 adjacency matrix</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list with components "nodes", "cliques", "separators",
+    <p>A list with components "nodes", "cliques", "separators",
 "parents", "children", "nLevels". The component "cliques"
 defines the subgraphs.</p>
     </div>
@@ -151,15 +151,15 @@ modifications by Søren Højsgaard, <a href="mailto:sorenh@math.aau.dk">sorenh@m
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

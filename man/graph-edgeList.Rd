@@ -28,7 +28,7 @@ is a list.}
 }
 \description{
 Returns the edges of a graph (or edges not in a graph)
-where the graph can be either a \code{graphNEL} object, an \code{igraph}
+where the graph can be either an \code{igraph}
 object or an adjacency matrix.
 }
 \examples{

@@ -27,4 +27,5 @@ search in multidimensional contingency tables. Biometrika, 72:
 Reinis et al (1981): Prognostic significance of the risk profile in the
 prevention of coronary heart disease. Bratis. lek. Listy. 76: 137-150.
 }
+\concept{dataset}
 \keyword{datasets}

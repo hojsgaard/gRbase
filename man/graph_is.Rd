@@ -39,7 +39,7 @@ is_adjMAT(object)
 is.adjMAT(object)
 }
 \arguments{
-\item{object}{A graph represented as a \code{graphNEL} (graph package),
+\item{object}{A graph represented as
 an \code{igraph} (igraph package), an adjacency matrix or a sparse
 adjacency matrix (a \code{dgCMatrix} from the Matrix package).}
 }
@@ -55,13 +55,9 @@ graph means that there is an edge from i to j. If also (j,i) is
 non-zero there is also an edge from j to i. In this case we may
 think of a bidirected edge between i and j or we may think of the
 edge as being undirected.  We do not distinguish between undirected
-and bidirected edges in the gRbase package.  On the other hand,
-graphNEL objects from the graph package makes such a distinction
-(the function \code{edgemode()} will tell if edges are "directed"
-or "undirected" in a graphNEL object).
+and bidirected edges in the gRbase package.
 \item The function \code{is_ug()} checks if the adjacency matrix is
-symmetric (If applied to a graphNEL, the adjacency matrix is
-created and checked for symmetry.)
+symmetric.
 \item The function \code{is_tug()} checks if the graph is undirected and
 triangulated (also called chordal) by checking if the adjacency matrix is
 symmetric and the vertices can be given a perfect ordering using maximum

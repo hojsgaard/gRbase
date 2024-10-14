@@ -23,8 +23,7 @@ mcs_marked(object, discrete = NULL, index = FALSE)
 mcs_markedMAT(amat, vn = colnames(amat), discrete = NULL, index = FALSE)
 }
 \arguments{
-\item{object}{An undirected graph represented either as a
-\code{graphNEL} object, an \code{igraph}, a (dense)
+\item{object}{An undirected graph represented either as an \code{igraph}, a (dense)
 \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
 \item{root}{A vector of variables. The first variable in the

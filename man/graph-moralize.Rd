@@ -12,8 +12,7 @@ moralize(object, ...)
 \method{moralize}{default}(object, result = NULL, ...)
 }
 \arguments{
-\item{object}{A directed acyclic graph represented either as a
-\code{graphNEL} object, an \code{igraph}, a (dense)
+\item{object}{A directed acyclic graph represented either as  an \code{igraph}, a (dense)
 \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
 \item{\dots}{Additional arguments, currently not used}
@@ -22,7 +21,7 @@ moralize(object, ...)
 the representation will be the same as the input object.}
 }
 \value{
-A moralized graph represented either as a \code{graphNEL}, a
+A moralized graph represented either as an \code{igraph}, a
 dense \code{matrix} or a sparse \code{dgCMatrix}.
 }
 \description{

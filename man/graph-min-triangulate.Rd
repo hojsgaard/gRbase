@@ -16,14 +16,14 @@ minimal_triang(
 minimal_triangMAT(amat, tamat = triangulateMAT(amat), details = 0)
 }
 \arguments{
-\item{object}{An undirected graph represented either as a \code{graphNEL}
+\item{object}{An undirected graph represented either as a \code{igraph}
 object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
 \item{tobject}{Any triangulation of \code{object}; must be of the same
 representation.}
 
 \item{result}{The type (representation) of the result. Possible values are
-\code{"graphNEL"}, \code{"matrix"}, \code{"dgCMatrix"}. Default is the
+\code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}. Default is the
 same as the type of \code{object}.}
 
 \item{details}{The amount of details to be printed.}
@@ -35,7 +35,7 @@ adjacency matrix.}
 matrix.}
 }
 \value{
-\code{minimal_triang()} returns a graphNEL object while
+\code{minimal_triang()} returns an igraph object while
 \code{minimal_triangMAT()} returns an adjacency matrix.
 }
 \description{

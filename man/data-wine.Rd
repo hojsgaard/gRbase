@@ -51,4 +51,5 @@ data(wine)
 See references at
 \url{https://archive.ics.uci.edu/ml/datasets/Wine/}
 }
+\concept{dataset}
 \keyword{datasets}

@@ -44,12 +44,14 @@ not checked that the input argument \code{x} is an array.
 ## 2x2 array
 x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
 
+x <- tabNew(c("a", "b"), levels=c(2, 2), values=1:4)
+
 ## Simulate from entire array
 s <- simulateArray(x, 1000)
 xtabs(~., as.data.frame(s))
 
 ## Simulate from slice defined by that dimension 1 is fixed at level 2
-s <-simulateArray(x, 6000, 1, 2)
+s <-simulateArray(x, 1000, margin=1, value.margin=2)
 xtabs(~., as.data.frame(s))
 
 ## 2 x 2 x 2 array
@@ -61,7 +63,6 @@ xtabs(~., as.data.frame(s))
 ## Simulate from slice defined by that dimension 3 is fixed at level 1
 s <-simulateArray(x, 10000, 3, 1)
 xtabs(~., as.data.frame(s))
-
 
 }
 \author{

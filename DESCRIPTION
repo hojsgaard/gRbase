@@ -1,5 +1,5 @@
 Package: gRbase
-Version: 2.0.2
+Version: 2.0.3
 Title: A Package for Graphical Modelling in R
 Author: Søren Højsgaard <sorenh@math.aau.dk>
 Maintainer: Søren Højsgaard <sorenh@math.aau.dk>
@@ -38,5 +38,5 @@ Suggests:
     markdown,
     knitr
 LinkingTo: Rcpp (>= 0.11.1), RcppEigen, RcppArmadillo
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)

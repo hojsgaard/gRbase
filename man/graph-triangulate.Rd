@@ -41,8 +41,8 @@ triang_eloMAT_(amat, order)
 triang_eloMAT(amat, order = NULL)
 }
 \arguments{
-\item{object}{An undirected graph represented either as a \code{graphNEL}
-object, an \code{igraph}, a (dense) \code{matrix}, a (sparse)
+\item{object}{An undirected graph represented either as
+an \code{igraph}, a (dense) \code{matrix}, a (sparse)
 \code{dgCMatrix}.}
 
 \item{...}{Additional arguments, currently not used.}
@@ -52,7 +52,7 @@ discrete. Used in determining the triangulation using a
 "minimum clique weight heuristic". See section 'details'.}
 
 \item{result}{The type (representation) of the result. Possible values are
-\code{"graphNEL"}, \code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}.
+\code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}.
 Default is the same as the type of \code{object}.}
 
 \item{check}{If \code{TRUE} (the default) it is checked whether the graph is
@@ -66,7 +66,7 @@ triangulated before doing the triangulation; gives a speed up if \code{FALSE}}
 \code{dgCMatrix}.}
 }
 \value{
-A triangulated graph represented either as a \code{graphNEL}, a
+A triangulated graph represented either as a
 (dense) \code{matrix} or a (sparse) \code{dgCMatrix}.
 }
 \description{
@@ -100,7 +100,6 @@ Currently there is no check for that the graph is undirected.
 }
 \examples{
 
-## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
 uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
@@ -126,7 +125,6 @@ tuG1 <- triang_mcwh(uG1, nLevels=c(2, 3, 2, 6, 4, 9))
 tuG1 <- triang(uG1, control=list(method="elo", order=c("a", "e", "f")))
 tuG1 <- triang_elo(uG1, order=c("a", "e", "f"))
 
-## graphNEL
 uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 tuG1 <- triangulate(uG1)
 

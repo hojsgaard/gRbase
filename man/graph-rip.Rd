@@ -28,8 +28,7 @@ junction_treeMAT(amat, nLevels = rep(2, ncol(amat)), ...)
 jTree(object, ...)
 }
 \arguments{
-\item{object}{An undirected graph represented either as a
-\code{graphNEL} object, an \code{igraph}, a (dense)
+\item{object}{An undirected graph represented either as an \code{igraph}, a (dense)
 \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
 \item{...}{Additional arguments; currently not used}
@@ -84,7 +83,6 @@ following synonymous functions:
 
 \examples{
 
-## graphNEL
 uG <- ug(~me:ve + me:al + ve:al + al:an + al:st + an:st)
 mcs(uG)
 rip(uG)

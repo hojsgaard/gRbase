@@ -26,7 +26,7 @@ dagList(x, result = "igraph", forceCheck = FALSE)
 \item{\dots}{A generating class for a graph, see examples below}
 
 \item{result}{The format of the graph. The possible choices are
-"graphNEL" (for a \code{graphNEL} object), "igraph" (for an \code{igraph}
+"igraph" (for an \code{igraph}
 object), "matrix" (for an adjacency matrix), "dgCMatrix" (for a
 sparse matrix).}
 
@@ -39,12 +39,12 @@ using the \code{dag()} function.}
 }
 \value{
 Functions \code{ug()}, and \code{dag()} can return a
-\code{graphNEL} object, an \code{igraph} object, a sparse or a dense
+an \code{igraph} object, a sparse or a dense
 adjacency matrix.
 }
 \description{
 These functions are wrappers for creation of graphs as
-implemented by graphNEL objects in the \code{graph} package.
+primarily igraph objects but also as adjacency matrices
 }
 \examples{
 

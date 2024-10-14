@@ -17,9 +17,8 @@ topoSort(object, index = FALSE)
 topoSortMAT(amat, index = FALSE)
 }
 \arguments{
-\item{object}{An graph represented either as a \code{graphNEL}
-object, an \code{igraph}, a (dense) \code{matrix}, a (sparse)
-\code{dgCMatrix}.}
+\item{object}{An graph represented either as an \code{igraph}, a
+(dense) \code{matrix}, a (sparse) \code{dgCMatrix}.}
 
 \item{index}{If FALSE, an ordering is returned if it exists and
 \code{character(0)} otherwise. If TRUE, the index of the
