@@ -2,7 +2,7 @@
 #'
 #' @title Create undirected and directed graphs 
 #' @description These functions are wrappers for creation of graphs as
-#'     implemented by graphNEL objects in the \code{graph} package.
+#'     primarily igraph objects but also as adjacency matrices
 #' @name graph-create
 #' 
 ############################################################################ 
@@ -14,11 +14,11 @@
 #' @param x A list or individual components from which a graph can be
 #'     created.
 #' @param result The format of the graph. The possible choices are
-#'     "graphNEL" (for a `graphNEL` object), "igraph" (for an `igraph`
+#'      "igraph" (for an `igraph`
 #'     object), "matrix" (for an adjacency matrix), "dgCMatrix" (for a
 #'     sparse matrix).
 #' @return Functions \code{ug()}, and \code{dag()} can return a
-#'     \code{graphNEL} object, an `igraph` object, a sparse or a dense
+#'     an `igraph` object, a sparse or a dense
 #'     adjacency matrix.
 #'     
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
@@ -45,14 +45,13 @@
 #' topo_sort( daG4 )
 #' 
 #' ## Different representations
-## ' uG6 <- ug(~a:b:c + c:d, result="graphNEL")  # default
 #' uG7 <- ug(~a:b:c + c:d, result="igraph")    # igraph
 #' uG8 <- ug(~a:b:c + c:d, result="matrix")    # dense matrix
 #' uG9 <- ug(~a:b:c + c:d, result="dgCMatrix") # sparse matrix
 
 #' @export
 #' @rdname graph-create
-ug <- function(..., result="igraph") {  ## FIXME was graphNEL
+ug <- function(..., result="igraph") { 
   ugList(list(...), result=result)
 }
 
@@ -62,22 +61,17 @@ ugi <- function(...) {
   ugList(list(...), result="igraph")
 }
 
-.spam.result <- function(result) {
-    ##if (identical(result, "Matrix")) stop('"Matrix" is deprecated; use "dgCMatrix" instead\n')
-    if (identical(result, "NEL")) stop('"NEL" is deprecated; use "graphNEL" instead\n')
-}
 
 #' @export
 #' @rdname graph-create
-ugList <- function(x, result="igraph") {  ## FIXME was graphNEL
-    result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
-    .spam.result(result)
+ugList <- function(x, result="igraph") {
+    result <- match.arg(result, c("matrix", "dgCMatrix", "igraph", "Matrix"))
+    ## .spam.result(result)
     
     x   <- unlist(lapply(x, function(g) rhsf2list(g)), recursive=FALSE)
     vn  <- unique.default(unlist(x))
 
     switch(result,
-           ## "graphNEL" ={g_ugl2gn_(x, vn)},
            "igraph"   ={g_ugl2ig_(x, vn)},
            "matrix"   ={g_ugl2dm_(x, vn)},
            "Matrix"   =,
@@ -91,7 +85,7 @@ ugList <- function(x, result="igraph") {  ## FIXME was graphNEL
 
 #' @export
 #' @rdname graph-create
-dag <- function(..., result="igraph", forceCheck=FALSE){  ## FIXME was graphNEL
+dag <- function(..., result="igraph", forceCheck=FALSE) {  
   dagList(list(...), result=result, forceCheck=forceCheck)
 }
 
@@ -103,15 +97,13 @@ dagi <- function(..., forceCheck=FALSE) {
 
 #' @export
 #' @rdname graph-create
-dagList <- function(x, result="igraph", forceCheck=FALSE) {  ## FIXME was graphNEL
-    result <- match.arg(result, c("graphNEL", "matrix", "dgCMatrix", "igraph", "Matrix", "NEL"))
-    .spam.result(result)
+dagList <- function(x, result="igraph", forceCheck=FALSE) {
+    result <- match.arg(result, c("matrix", "dgCMatrix", "igraph", "Matrix"))
     
     x   <- unlist(lapply(x, function(g) rhsf2list(g)), recursive=FALSE)
     vn  <- unique.default(unlist(x))
 
     out <- switch(result,
-                  ## "graphNEL"  = {g_dagl2gn_(x, vn)},
                   "igraph"    = {g_dagl2ig_(x, vn)},
                   "matrix"    = {g_dagl2dm_(x, vn)},
                   "Matrix"    = ,

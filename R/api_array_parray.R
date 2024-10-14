@@ -92,7 +92,7 @@ parray <- function(varNames, levels, values=1, normalize="none", smooth=0){
            ##cat("first\n")
            if (length(nlev)>1){
              tmp   <- matrix(ans, ncol=dim(ans)[1], byrow=TRUE)
-             ans[] <- t.default(tmp/rowSumsPrim(tmp))
+             ans[] <- t.default(tmp/rowSums(tmp))
            } else {
              ans <- ans / sum(ans)
            }},

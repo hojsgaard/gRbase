@@ -8,7 +8,7 @@
 ## Author: Clive Bowsher
 
 ## Inputs:
-## uG: graphNEL representation of the undirected graph
+## uG: igraph representation of the undirected graph
 
 ## Output: returns a junction tree representation of the MPD of uG
 ##         using the Recursive Thinning and Aggregate Cliques
@@ -37,10 +37,9 @@
 ## #####################################################################
 #' @aliases mpd mpd.default mpdMAT
 #'
-#' @param object An undirected graph; a graphNEL object, an igraph or
+#' @param object An undirected graph; an igraph or
 #'     an adjacency matrix.
-#' @param tobject Any minimal triangulation of object; a graphNEL
-#'     object, an igraph or an adjacency matrix.
+#' @param tobject Any minimal triangulation of object; an igraph or an adjacency matrix.
 #' @param amat An undirected graph; a symmetric adjacency matrix
 #' @param tamat Any minimal triangulation of object; a symmetric
 #'     adjacency matrix
@@ -65,14 +64,13 @@
 #' @keywords utilities
 #' @examples
 #' 
-#' ## Maximal prime subgraph decomposition - a graphNEL object
+#' ## Maximal prime subgraph decomposition 
 #' g1 <- ug(~ a:b + b:c + c:d + d:e + e:f + a:f + b:e)
 #' if (interactive()) plot(g1)
 #' x <- mpd(g1)
 #' 
 #' ## Maximal prime subgraph decomposition - an adjacency matrix
 #' g1m <- ug(~ a:b + b:c + c:d + d:e + e:f + a:f + b:e, result="matrix")
-#' if (interactive()) plot(as(g1m, "graphNEL"))
 #' x <- mpdMAT(g1m)
 #' 
 #' @export mpd
@@ -84,7 +82,7 @@ mpd <- function(object, tobject=minimal_triang(object), details=0) {
 #' @rdname graph-mpd
 mpd.default <- function(object, tobject=triangulate(object), details=0){
 
-    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    graph_class <- c("igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
     if (!any(chk)) stop("Invalid class of 'object'\n")
 
@@ -171,16 +169,3 @@ mpdMAT <- function(amat, tamat=minimal_triangMAT(amat), details=0){
 
 
 
-
-## mpd.default <- function(object, tobject=triangulate(object), details=0){
-##     cls <- match.arg(class( object ),
-##                      c("graphNEL","matrix","dgCMatrix"))
-##     switch(cls,
-##            "graphNEL" ={.mpd(object, TuG=tobject, details=details) },
-##            "dgCMatrix"=,
-##            "matrix"   ={ #FIXME: minimalTriang: Not sure if this is correct...
-##                object2 <- as(object,  "graphNEL")
-##                tobject2<- as(tobject, "graphNEL")
-##                .mpd(object2, TuG=tobject2, details=details)
-##            })
-## }

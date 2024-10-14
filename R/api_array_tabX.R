@@ -9,9 +9,7 @@
 #' @param tab,tab1,tab2,... Arrays with named dimnames (we call them
 #'     'named arrays').
 #' @param type One of "none", "first" and "all".
-#' 
 #' @param lst List of arrays.
-#'
 #' @param perm,marg A vector of indices or dimnames or a right hand
 #'     sided formula giving the desired permutation/margin.
 #' @param eps Criterion for checking equality of two arrays.
@@ -56,7 +54,7 @@ tabEqual  <- tab_equal_
 
 #' @export
 #' @rdname api-tabX
-tabExpand <- function(tab, aux, type=0L){  ## FIXME Rethink this
+tabExpand <- function(tab, aux, type=0L) {  ## FIXME Rethink this
 
     if (is.list(aux))
         aux <- lapply(aux, rhsf2vec)
@@ -89,7 +87,7 @@ tabListAdd  <- tab_list_add_
 
 #' @export
 #' @rdname api-tabX
-tabPerm <- function(tab, perm){
+tabPerm <- function(tab, perm) {
     if (!is.named.array(tab)) stop("'tab' not a named array")
     if (!(is.numeric(perm) || is.character(perm) || inherits(perm, "formula")))
         stop("'perm' must be character/numeric vector or right hand sided formula")
@@ -101,7 +99,7 @@ tabPerm <- function(tab, perm){
 
 #' @export
 #' @rdname api-tabX
-tabMarg <- function(tab, marg=NULL){
+tabMarg <- function(tab, marg=NULL) {
     if (!is.named.array(tab)) stop("'tab' not a named array")
     if (!is.null(marg))
         if (!(is.numeric(marg) || is.character(marg) || inherits(marg, "formula")))
@@ -113,10 +111,9 @@ tabMarg <- function(tab, marg=NULL){
 }
 
 
-
 #' @export
 #' @rdname api-tabX
-tabSum <- function(tab, ...){
+tabSum <- function(tab, ...) {
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
     tabListAdd(listify_dots(args))
@@ -124,36 +121,15 @@ tabSum <- function(tab, ...){
 
 #' @export
 #' @rdname api-tabX
-tabProd <- function(tab, ...){
+tabProd <- function(tab, ...) {
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
     tabListMult(listify_dots(args))
 }
 
-
-## #' @export
-## #' @rdname api-tabX
-## tabSum <- function(...){
-##     args <- list(...)
-##     ##message("args:"); print(args); message("-------")
-##     if (length(args) == 0) 0
-##     else if (length(args) == 1 && is.array(args[[1]])) args[[1]]
-##     else tabListAdd( args )
-## }
-
-## #' @export
-## #' @rdname api-tabX
-## tabProd <- function(...){
-##     args <- list(...)
-##     ##message("args:"); print(args); message("-------")
-##     if (length(args) == 0) 1
-##     else if (length(args) == 1 && is.array(args[[1]])) args[[1]]
-##     else tabListMult( args )
-## }
-
 #' @export
 #' @rdname api-tabX                 
-tabNormalize <- function(tab, type="none"){
+tabNormalize <- function(tab, type="none") {
     ## cat("tabNormalize\n"); print(tab)
     switch(type,
            "first"={
@@ -172,10 +148,6 @@ tabNormalize <- function(tab, type="none"){
            )
     tab
 }
-
-
-
-
 
 
 ## FIXME: Document tabDist 
@@ -406,7 +378,7 @@ NULL
 
 #' @export
 #' @rdname api_tabSlice
-tabSlice<- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FALSE){
+tabSlice<- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FALSE) {
   
   if (!is.named.array(tab))
     stop("'tab' is not a named array")
@@ -432,7 +404,7 @@ tabSlice<- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FA
 
 #' @export
 #' @rdname api_tabSlice
-tabSlice2 <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE){
+tabSlice2 <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE) {
 
     z <- as.list(rep(TRUE,  length(dim(tab))))
     z[ margin.idx ] <- slice
@@ -450,13 +422,13 @@ tabSlice2 <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE){
 
 #' @export
 #' @rdname api_tabSlice
-tabSlicePrim <- function(tab, slice, drop=TRUE){
+tabSlicePrim <- function(tab, slice, drop=TRUE) {
     do.call("[", c(list(tab), slice, drop=drop))        
 }
 
 #' @export
 #' @rdname api_tabSlice
-tabSliceMult <- function(tab, slice, val=1, comp=0){
+tabSliceMult <- function(tab, slice, val=1, comp=0) {
     if ( !is.null(val) ){
         idx <- tabSlice2Entries(tab, slice)
         tab[idx] <- tab[idx] * val
@@ -470,7 +442,7 @@ tabSliceMult <- function(tab, slice, val=1, comp=0){
 
 #' @export
 #' @rdname api_tabSlice
-tabSlice2Entries <- function(tab, slice, complement=FALSE){
+tabSlice2Entries <- function(tab, slice, complement=FALSE) {
   tab[] <- 1:length(tab)
   out <- tabSlice(tab, slice, margin=names(slice))
   if (complement)
@@ -489,7 +461,7 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
 ##
 ## ########################################################
 
-.is.simple.cond <- function( cond ){
+.is.simple.cond <- function( cond ) {
     z <- unlist(lapply(cond, is.logical), use.names=FALSE)
     has.logical <- any( z )
     u <- unlist(lapply(cond, length), use.names=FALSE)
@@ -500,11 +472,11 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
     else FALSE 
 }
 
-.is.named.list <- function(x){
+.is.named.list <- function(x) {
     is.list( x ) && !is.null( names( x ) )
 }
 
-.spec2char <- function(x){
+.spec2char <- function(x) {
     if (is.null( x )) x
     else if ( is.character( x ) ) x
     else if ( is.numeric( x ) ) x
@@ -517,7 +489,7 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
     x            
 }
 
-.get_perm_or_marg <- function(tab, perm){
+.get_perm_or_marg <- function(tab, perm) {
     if (inherits(perm, "formula")){  ## A right hand sided formula
         perm <- all.vars(perm[[2]])
     }
@@ -529,9 +501,6 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE){
     }
     perm
 }
-
-
-
 
 ## #' ###################################################################
 ## #'

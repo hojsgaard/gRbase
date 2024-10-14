@@ -1,3 +1,90 @@
+#' Coronary artery disease data
+#' 
+#' A cross classified table with observational data from a Danish
+#' heart clinic.  The response variable is CAD (coronary artery
+#' disease, some times called heart attack).
+#' @concept dataset
+#' @details
+#'
+#' Notice that data are collected at a heart clinic, so data do not
+#' represent the population, but are conditional on patients having
+#' ended up at the clinic.
+#' 
+#' * cad1: Complete dataset, 236 cases.
+#'
+#' * cad2: Incomplete dataset, 67 cases. Information on (some of) the
+#'     variables 'Hyperchol', 'Smoker' and 'Inherit' is missing.
+#' 
+#' @name data_cad
+#' @aliases cad1 cad2
+#' @docType data
+#' @format A data frame with 236 observations on the following 14 variables.
+#'
+#' \describe{
+#'   \item{\code{Sex}}{Sex; a factor with levels \code{Female} \code{Male}}
+#'
+#'   \item{\code{AngPec}}{Angina pectoris (chest pain attacks); a
+#'   factor with levels \code{Atypical} \code{None} \code{Typical}}
+#'
+#'   \item{\code{AMI}}{Acute myocardic infarct; a factor with
+#'   levels \code{Definite} \code{NotCertain}}
+#'
+#'   \item{\code{QWave}}{A reading from an electrocardiogram; a
+#'   factor with levels \code{No} \code{Yes}; Yes means pathological and is a sign of previous myocardial infarction. }
+#'
+#'   \item{\code{QWavecode}}{a factor with levels \code{Nonusable}
+#'   \code{Usable}. An assesment of whether QWave is reliable.}
+#'
+#'   \item{\code{STcode}}{a factor with levels
+#'   \code{Nonusable} \code{Usable}. An assesment of whether STchange is reliable.}
+#'
+#'   \item{\code{STchange}}{A reading from an electrocardiogram; a factor
+#'   with levels \code{No} \code{Yes}. An STchange indicates a blockage of the coronary artery.}
+#'
+#'   \item{\code{SuffHeartF}}{Sufficient heart frequency; a factor with levels \code{No}, \code{Yes}}
+#' 
+#'   \item{\code{Hypertrophi}}{a factor with levels \code{No}, \code{Yes}. Hypertrophy refers to an
+#'   increased size of the heart muscle due to exercise. }
+#'
+#'   \item{\code{Hyperchol}}{a factor with levels \code{No} \code{Yes}. Hypercholesterolemia, also called high cholesterol,
+#'    is the presence of high levels of cholesterol in the blood.}
+#'
+#'   \item{\code{Smoker}}{Is the patient a smoker; a factor with levels \code{No}, \code{Yes}.}
+#'
+#'   \item{\code{Inherit}}{Hereditary predispositions for CAD; a factor with levels  \code{No}, \code{Yes}.}
+#'
+#'   \item{\code{Heartfail}}{Previous heart failures; a factor with  levels \code{No} \code{Yes}}
+#'
+#'   \item{\code{CAD}}{Coronary Artery Disease; a factor with levels
+#'    \code{No} \code{Yes}}.  CAD refers to a reduction of blood flow
+#'    to the heart muscle (commonly known as a heart attack). The
+#'    diagnosis made from biopsies.
+#'
+#' }
+#'
+#' 
+#' @references Hansen, J. F. (1980). The clinical diagnoisis of ichaeme heart disease du to
+#' coronary artery disease. Danish Medical Bulletin
+#'
+#' Højsgaard, Søren and Thiesson, Bo (1995). BIFROST - Block
+#' recursive models Induced From Relevant knowledge, Observations and
+#' Statistical Techniques. Computational Statistics and Data Analysis, vol. 19,
+#' p. 155-175
+#' 
+#' 
+#'
+#' @keywords datasets
+#' @usage data(cad1)
+#' 
+#' @examples
+#' 
+#' data(cad1)
+#' ## maybe str(cad1) ; plot(cad1) ...
+#' 
+"cad1"
+"cad2"
+
+
 #' Crown dieback in ash trees
 #' 
 #' This dataset comes from a study of symptoms of crown dieback, cankers and
@@ -6,7 +93,7 @@
 #' categorical variables, 6 of which are binary and two are trichotomous with
 #' values representing increasing severity of symptoms, and one continuous
 #' variable, tree diameter at breast height (DBH).
-#' 
+#' @concept dataset
 #' @name data-ashtrees
 #' @docType data
 #' @format A data frame with 454 observations on the following 9 variables.
@@ -40,7 +127,7 @@
 #' 
 #' Estimates of the percentage of body fat determined by underwater weighing
 #' and various body circumference measurements for 252 men.
-#'  
+#' @concept dataset  
 #' @name data-BodyFat
 #' @docType data
 #' @usage data(BodyFat)
@@ -105,7 +192,7 @@
 #' 
 #' The factor \code{code} defines whether there was a mutation in the p53
 #' sequence (code=case) or not (code=control).
-#' 
+#' @concept dataset
 #' @name data-breastcancer
 #'
 #' @docType data
@@ -137,7 +224,7 @@
 #' 
 #' Measurement of lean meat percentage of 344 pig carcasses together with
 #' auxillary information collected at three Danish slaughter houses
-#' 
+#' @concept dataset
 #' @name data-carcass
 #' 
 #' @aliases carcass carcassall
@@ -181,7 +268,7 @@
 #' 
 #' Simulated data from the Chest Clinic example (also known as the Asia
 #' example) from Lauritzen and Spiegelhalter, 1988 (see reference below).
-#' 
+#' @concept dataset
 #' @name data-chestSim
 #'
 #' @aliases chestSim500 chestSim1000 chestSim10000
@@ -226,7 +313,7 @@
 #' Growth curves of pigs in a 3x3 factorial experiment
 #' 
 #' The \code{dietox} data frame has 861 rows and 7 columns.
-#' 
+#' @concept dataset 
 #' @name data-dietox
 #' 
 #' @format This data frame contains the following columns: Weight,
@@ -260,7 +347,7 @@
 #' antrectomy (removal of 25\% of gastric tissue), vagotomy and hemigastrectomy
 #' (removal of 50\% of gastric tissue), and gastric restriction (removal of
 #' 75\% of gastric tissue).
-#' 
+#' @concept dataset
 #' @name data-dumping
 #' @docType data
 #' @format A 3x4x4 table of counts cross-classified by Symptom
@@ -286,7 +373,7 @@
 #' tree).  The focus of interest is in how the propensities of the
 #' lizards to choose perch height and diameter are related, and
 #' whether and how these depend on species.
-#' 
+#' @concept dataset
 #' @name data-lizard
 #' @aliases lizard lizardRAW lizardAGG
 #' @docType data
@@ -321,6 +408,7 @@
 #' The \code{mathmark} data frame has 88 rows and 5 columns.
 #'
 #' @name data-mathmark
+#' @concept dataset
 #' 
 #' @aliases mathmark math
 #' @format This data frame contains the following columns: mechanics, vectors,
@@ -345,7 +433,7 @@
 #' fungus. For each offspring 6 binary characteristics, each corresponding to a
 #' single locus, were recorded. The object of the analysis is to determine the
 #' order of the loci along the chromosome.
-#'
+#' @concept dataset
 #' @name data-mildew
 #' @docType data
 #' @format A 6 dimensional array where each variable has levels "1" and "2".
@@ -385,7 +473,7 @@
 #' 
 #' \code{fat} + \code{protein} + \code{lactose} almost add up to \code{dm} (dry
 #' matter)
-#' 
+#' @concept dataset
 #' @name data-milkcomp
 #' @aliases milkcomp milkcomp1
 #' @docType data
@@ -440,7 +528,8 @@
 #' There are 141 response variables: (i) the log-expression levels of 120 genes
 #' measured in liver cells, and (ii) the concentrations (in percentages) of 21
 #' hepatic fatty acids measured by gas chromatography.
-#' 
+#'
+#' @concept dataset
 #' @name data-Nutrimouse
 #' @docType data
 #' @format A data frame with 40 observations on 143 variables of which two are factors and 141 are numeric.
@@ -655,7 +744,7 @@
 #' Personality traits
 #'
 #' The `peronality` dataframe has 240 rows and 32 columns
-#'
+#' @concept dataset
 #' @name data-personality
 #'
 #' @format This dataframe has recordings on the following 32
@@ -680,7 +769,7 @@
 #' An artificial dataset. 24 rats (12 female, 12 male) have been randomized to
 #' use one of three drugs (products for loosing weight). The weightloss for
 #' each rat is noted after one and two weeks.
-#'
+#' @concept dataset
 #' @name data-rats
 #' 
 #' @format A dataframe with 4 variables. Sex: "M" (male), "F" (female). Drug:
@@ -702,7 +791,7 @@
 #' Data collected at the beginning of a 15 year follow-up study of probable
 #' risk factors for coronary thrombosis. Data are from all men employed in a
 #' car factory.
-#' 
+#' @concept dataset
 #' @name data-reinis
 #' 
 #' @format A table with 6 discrete variables. A: smoking, B: strenous
@@ -727,7 +816,7 @@
 #' 
 #' Data comes from the UCI Machine Learning Repository. The grape variety
 #' \code{Cult} is the class identifier.  
-#' 
+#' @concept dataset
 #' @name data-wine
 #' @docType data
 #' @format A data frame with 178 observations on the following 14 variables.

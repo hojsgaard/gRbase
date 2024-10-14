@@ -5,13 +5,12 @@
 #' @name graph-moralize
 #######################################################################
 #' @aliases moralize moralize.default moralizeMAT
-#' @param object A directed acyclic graph represented either as a
-#'     \code{graphNEL} object, an \code{igraph}, a (dense)
+#' @param object A directed acyclic graph represented either as  an \code{igraph}, a (dense)
 #'     \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param result The representation of the moralized graph.  When NULL
 #'     the representation will be the same as the input object.
 #' @param \dots Additional arguments, currently not used
-#' @return A moralized graph represented either as a \code{graphNEL}, a
+#' @return A moralized graph represented either as an \code{igraph}, a
 #'     dense \code{matrix} or a sparse \code{dgCMatrix}.
 #' @note The workhorse is the \code{moralizeMAT} function.
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
@@ -45,7 +44,7 @@ moralize <- function(object,...){
 #' @rdname graph-moralize
 moralize.default <- function(object, result=NULL, ...) {
     
-    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    graph_class <- c("igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
     if (!any(chk)) stop("Invalid class of 'object'\n")
     cls <- graph_class[which(chk > 0)]
@@ -54,12 +53,6 @@ moralize.default <- function(object, result=NULL, ...) {
         result <- cls
     
     switch(cls,
-           ## "graphNEL" ={
-           ##     m <- as(object, "matrix") ## FIXME check this graphNEL2M( object )
-           ##     if (!is_dagMAT(m))
-           ##         stop("Graph must be directed")
-           ##     m <- moralizeMAT(m)
-           ## },
            "dgCMatrix"=,
            "matrix"   ={
                if (!is_dagMAT(object))

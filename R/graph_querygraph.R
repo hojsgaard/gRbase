@@ -2,9 +2,9 @@
 ####
 #### querygraph provides unified interface to graph operations.
 ####
-#### Works on graphNEL objects, igraph objects, and adjacency matrices
+#### Works on igraph objects, and adjacency matrices
 ####
-#### Notice: when a graph is returned it is always a graphNEL object
+#### Notice: when a graph is returned it is always an igraph object
 ####
 #######################################################################
 
@@ -79,22 +79,6 @@ querygraph <-function(object, op, set=NULL, set2=NULL, set3=NULL) {
            )
 }
 
-
-    ## From RBGL / graph packages
-    ## graph.RBGL <-
-    ##   c("maxClique",
-    ##     "connectedComp",
-    ##     "separates",
-    ##     "is.triangulated",
-    ##     "adj", ## FIXME ? nei 
-    ##     "subgraph",
-    ##     "nodes",
-    ##     "edges")
-    ## From gRbase
-    
-    ## op <- match.arg(op, choices=c(graph.RBGL, gRbase))
-    ## object <- coerceGraph(object, "graphNEL") ## FIXME
-    ##object <- coerceGraph(object, "igraph")
 
 #' @export
 #' @rdname graph_query
@@ -277,13 +261,10 @@ separates <- function(set, set2, set3, object) {
     all(sapply(lapply(seps, intersect, bb), length) > 0)    
 }
 
-
-
-## graphNEL based
 #' @export
 #' @rdname graph_query
 closure <- function(set, object){ 
-  unique.default(c(set, unlist(adj(object, set)))) ## FIXME 
+  unique.default(c(set, unlist(adj(object, set)))) ## FIXME graphNEL based???
 }
 
 
@@ -336,7 +317,7 @@ is.simplicial <- function(set, object) {
 simplicialNodes <- function(object) {
     stopifnot_igraph(object)
     vn <- nodes(object) ## FIXME
-    ## b     <- unlistPrim(lapply(nodes, function(s) is.simplicial(s, object)))
+
     
     aa <- lapply(vn, function(s) {
         is.simplicial(s, object)
@@ -390,7 +371,7 @@ is.decomposition <- function(set, set2, set3, object) {
     stopifnot_igraph(object)
     if (is_dag(object)) return(NULL)
 
-    vn <- uniquePrim(c(set, set2, set3))
+    vn <- unique(c(set, set2, set3))
     if (setequal(vn, nodes(object))) { ## FIXME
         separates(set, set2, set3, object) & is.complete(object, set3) 
     } else {

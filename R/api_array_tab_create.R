@@ -45,15 +45,13 @@ NULL
 
 #' @export
 #' @rdname api-tabNew             
-tabNew <- function(names, levels, values, normalize="none", smooth=0){
+tabNew <- function(names, levels, values, normalize="none", smooth=0) {
 
     ## print("tabNew")
     
     normalize <- match.arg(normalize, choices=c("none", "first", "all"))
     names <- rhsFormula2list(names)[[1]]
 
-    ## str(list(levels=levels))
-    ## print("KKKKKKKKKKKKKKKKKKKKK\n")
     if (is.list(levels))
     {
         if (length(levels) == 0){
@@ -100,27 +98,15 @@ tabNew <- function(names, levels, values, normalize="none", smooth=0){
         values <- 1
     if (smooth > 0)
         values <- values + smooth
-
-    ## print("LLLLLLLLLLLLLLLL\n")
-    ## vvv <<- list(value=values, dim=di, dimnames=dn)
-    ## str(vvv)
     
     if (is.atomic(values) && !is.object(values)){
         out <- array(values, dim=di, dimnames=dn)
     }
     tabNormalize(out, normalize)
 }
-
-
-        ## check that levels is a named list
-            ## vn <- names(levels)
-            ## if (is.null(vn)){
-                ## stop("'levels' is a list with no names\n")
-            ## } else {
-            ## }
     
 
-is_named_list <- function(x){
+is_named_list <- function(x) {
     if (!inherits(x, "list"))
         return(FALSE)
     vn <- names(x)
@@ -143,11 +129,6 @@ make_dimnames <- function(names, levels){
                       1:levels[i]
                   })
     
-    ## dn <- lapply(seq_along(levels),
-                 ## function(i){
-                     ## paste(names[i], dn[[i]], sep="")
-                 ## })
-
     names(dn) <- names
     dn
 }

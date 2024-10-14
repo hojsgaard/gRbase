@@ -47,9 +47,6 @@
 #' @export
 #' @rdname graph_coerce_list
 g_ugl2ig_ <- function(zz, vn=NULL) {
-    ## gg <- igraph::igraph.from.graphNEL(g_ugl2gn_(zz, vn))
-    ## igraph::V(gg)$label <- igraph::V(gg)$name
-    ## gg
     gg <- ug_list2igraph(zz)
     gg
 }
@@ -72,7 +69,6 @@ g_ugl2sm_ <- function(zz, vn=NULL){
 #' @rdname graph_coerce_list
 g_ugl2XX_ <- function(zz, outtype, vn=NULL) {
     switch(outtype,
-           ## "graphNEL"   ={g_ugl2gn_(zz, vn)},
            "igraph"     ={g_ugl2ig_(zz, vn)},
            "matrix"     ={g_ugl2dm_(zz, vn)},
            "dgCMatrix"  =,
@@ -86,31 +82,11 @@ g_ugl2XX_ <- function(zz, outtype, vn=NULL) {
 ##
 ## ##########################################################
 
-## #' @export
-## #' @rdname graph_coerce_list
-## g_dagl2gn_ <- function(glist, vn=NULL){
-##     if (is.null(vn)) vn <- unique.default(unlist(glist))
-##     zzz <- lapply(glist, function(xx) names2pairs(xx[1],xx[-1],
-##                                                   sort=FALSE, result="matrix"))
-##     ftM <- do.call(rbind, zzz)
-##     if (nrow(ftM) > 0){
-##         tfL <- unique(rowmat2list__(ftM))
-##         ftM <- do.call(rbind, tfL)[,2:1,drop=FALSE]
-##         graph::ftM2graphNEL(ftM, V=as.character(vn), edgemode="directed")
-##     } else {
-##         new("graphNEL", nodes=as.character(vn), edgemode="directed")
-##     }
-## }
-
 #' @export
 #' @rdname graph_coerce_list
 g_dagl2ig_ <- function(zz, vn=NULL){    
-    ## gg <- igraph::igraph.from.graphNEL(g_dagl2gn_(zz, vn))
-    ## igraph::V(gg)$label <- igraph::V(gg)$name
-    ## gg
     gg <- dag_list2igraph(zz)
-    gg
-    
+    gg    
 }
 
 #' @export
@@ -131,7 +107,6 @@ g_dagl2sm_ <- function(zz, vn=NULL) {
 #' @rdname graph_coerce_list
 g_dagl2XX_ <- function(zz, outtype, vn=NULL) {
     switch(outtype,
-           ## "graphNEL"   ={g_dagl2gn_(zz, vn)},
            "igraph"     ={g_dagl2ig_(zz, vn)},
            "matrix"     ={g_dagl2dm_(zz, vn)},
            "dgCMatrix"  =,
@@ -165,7 +140,6 @@ g_adl2sm_ <- function(zz) adjList2dgCMatrix__(zz)
 #' @rdname graph_coerce_list
 g_adl2XX_ <- function(zz, outtype) {
     switch(outtype,
-           ## "graphNEL"   ={g_adl2gn_(zz)},
            "igraph"     ={g_adl2ig_(zz)},
            "matrix"     ={g_adl2dm_(zz)},
            "dgCMatrix"  =,

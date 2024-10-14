@@ -323,7 +323,7 @@ tableMargin <- function (tab, margin, keep.class = FALSE)
         nr <- prod( di[marg.idx] )
         nc <- prod( di[rest.idx] )
 
-        z <- rowSumsPrim(
+        z <- rowSums(
             matrix(
                 aperm.default(tab, c(rest.idx, marg.idx), TRUE),
                 nrow=nr, ncol=nc, byrow=TRUE))

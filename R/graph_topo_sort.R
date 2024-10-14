@@ -14,10 +14,9 @@
 #' 
 ############################################################################
 #'
-#' @param object An graph represented either as a \code{graphNEL}
-#'     object, an \code{igraph}, a (dense) \code{matrix}, a (sparse)
-#'     \code{dgCMatrix}.
-#' @param amat Adjacency matrix. 
+#' @param object An graph represented either as an \code{igraph}, a
+#'     (dense) \code{matrix}, a (sparse) \code{dgCMatrix}.
+#' @param amat Adjacency matrix.
 #' @param index If FALSE, an ordering is returned if it exists and
 #'     \code{character(0)} otherwise. If TRUE, the index of the
 #'     variables in an adjacency matrix is returned and \code{-1}

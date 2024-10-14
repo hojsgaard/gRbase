@@ -25,13 +25,15 @@
 #' @examples 
 #' ## 2x2 array
 #' x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
+#'
+#' x <- tabNew(c("a", "b"), levels=c(2, 2), values=1:4)
 #' 
 #' ## Simulate from entire array
 #' s <- simulateArray(x, 1000)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## Simulate from slice defined by that dimension 1 is fixed at level 2
-#' s <-simulateArray(x, 6000, 1, 2)
+#' s <-simulateArray(x, 1000, margin=1, value.margin=2)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## 2 x 2 x 2 array
@@ -44,9 +46,8 @@
 #' s <-simulateArray(x, 10000, 3, 1)
 #' xtabs(~., as.data.frame(s))
 #' 
-#' 
 #' @export simulateArray
-simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL){
+simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL) {
     if(missing(margin)) {
         rhs       <- NULL
         lhs.dim   <- dim(x)
@@ -78,7 +79,7 @@ simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL){
 
 #' @export
 #' @rdname array-simulate
-simulate.table <- function(object, nsim=1, seed=NULL, margin, value.margin, ...){
+simulate.table <- function(object, nsim=1, seed=NULL, margin, value.margin, ...) {
     simulateArray(object, nsim=nsim, margin=margin, value.margin=value.margin, seed=seed)
 }
 

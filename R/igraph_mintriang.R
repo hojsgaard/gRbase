@@ -10,7 +10,7 @@
 ## Author: Clive Bowsher
 
 ## Inputs:
-## uG: graphNEL representation of the undirected graph
+## uG: igraph representation of the undirected graph
 
 ## Output: returns a minimal triangulation TuG of the undirected graph
 ## uG; the mcwh method is used to obtain the initial
@@ -51,19 +51,19 @@
 #'     of fill-ins. The minimum triangulation is unique. Finding the
 #'     minimum triangulation is NP-hard.
 #' 
-#' @param object An undirected graph represented either as a \code{graphNEL}
+#' @param object An undirected graph represented either as a \code{igraph}
 #'     object, a (dense) \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param tobject Any triangulation of \code{object}; must be of the same
 #'     representation.
 #' @param result The type (representation) of the result. Possible values are
-#'     \code{"graphNEL"}, \code{"matrix"}, \code{"dgCMatrix"}. Default is the
+#'     \code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}. Default is the
 #'     same as the type of \code{object}.
 #' @param amat The undirected graph which is to be triangulated; a symmetric
 #'     adjacency matrix.
 #' @param tamat Any triangulation of \code{object}; a symmetric adjacency
 #'     matrix.
 #' @param details The amount of details to be printed.
-#' @return \code{minimal_triang()} returns a graphNEL object while
+#' @return \code{minimal_triang()} returns an igraph object while
 #'     \code{minimal_triangMAT()} returns an adjacency matrix.
 #' @author Clive Bowsher <C.Bowsher@@statslab.cam.ac.uk> with modifications by
 #'     Søren Højsgaard, \email{sorenh@@math.aau.dk}
@@ -99,7 +99,6 @@ minimal_triang <- function(object, tobject=triangulate(object), result=NULL, det
 ## #' @rdname graph-min-triangulate
 minimal_triang.default <- function(object, tobject=triangulate(object), result=NULL, details=0) {
 
-    ## graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
     graph_class <- c("igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
     if (!any(chk)) stop("Invalid class of 'object'\n")
@@ -108,8 +107,6 @@ minimal_triang.default <- function(object, tobject=triangulate(object), result=N
     if (is.null(result))
         result <- cls
     
-    ## tt<-.minimal_triang(as(object, "graphNEL"),
-                        ## TuG=as(tobject, "graphNEL"), details=details)
     tt<-.minimal_triang(as(object, "igraph"),
                         TuG=as(tobject, "igraph"), details=details)
 
@@ -120,8 +117,6 @@ minimal_triang.default <- function(object, tobject=triangulate(object), result=N
 #' @export
 #' @rdname graph-min-triangulate
 minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0) {
-    ## as.adjMAT(.minimal_triang(as(amat, "graphNEL"), TuG=as(tamat, "graphNEL"),
-                              ## details=details))
     as.adjMAT(.minimal_triang(as(amat, "igraph"), TuG=as(tamat, "igraph"),
                               details=details))
 }
@@ -150,7 +145,6 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0) {
         cat(sprintf("Number of edges added in triangulation step: %i \n", length(Tn)))
     
     Rn <- Tn
-    ## exclT <- new("graphNEL", nodes = graph::nodes(uG), edgeL = vector("list", length = 0))
     exclT <- ug(as.list(nodes(uG)))
     
     repeat {
@@ -210,53 +204,3 @@ minimal_triangMAT <- function(amat, tamat=triangulateMAT(amat), details=0) {
 
 
                 
-                ## TuG   <- graph::removeEdge(Rn[[i]][1], Rn[[i]][2], TuG)	# directly updates TuG
-                ## exclT <- graph::addEdge(Rn[[i]][1], Rn[[i]][2], exclT)	# keep track of excluded edges as a graph
-
-        ## cat("difference in edges:\n"); print(TT)
-        ## TT <- as(TT,"graphNEL")
-
-
-        ## if (!(RBGL::is.triangulated(TuG))){
-
-
-            ## ## Soren modification
-            ## uGmat  <- as(uG, "matrix") ## Needed?; think uG is never changed 
-            ## di     <- dimnames(uGmat)  ## Needed?; think uG is never changed
-            
-
-
-            ## cat("MMMMMMMMMMMMMMMMMMMMMM\n")
-            ## NOTE: TuG already updated at line 43
-            ## exclT <- new("graphNEL", nodes = graph::nodes(uG), edgeL = vector("list", length = 0))
-
-
-
-
-
-
-
-
-
-            ## neX <- graph::adj(TuG,Rn[[i]][1])
-            ## neY <- graph::adj(TuG,Rn[[i]][2])
-
-
-
-
-
-
-
-   ## cls <- match.arg(class( object ),
-    ##                  c("graphNEL","matrix","dgCMatrix"))
-    ## if (is.null(result))
-    ##     result <- cls
-    
-    ## switch(cls,
-    ##        "graphNEL" ={tt<-.minimal_triang(object, TuG=tobject, details=details) },
-    ##        "dgCMatrix"=,
-    ##        "matrix"   ={ #FIXME: minimal_triang: Not sure if this is correct...
-    ##            object2 <- as(object,  "graphNEL")
-    ##            tobject2<- as(tobject, "graphNEL")
-    ##            tt<-.minimal_triang(object2, TuG=tobject2, details=details)
-    ##        })

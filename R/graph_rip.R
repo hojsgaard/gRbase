@@ -26,8 +26,7 @@
 #'     for a call of \code{triangulate()} followed by a call of
 #'     \code{rip()}.
 #'
-#' @param object An undirected graph represented either as a
-#'     \code{graphNEL} object, an \code{igraph}, a (dense)
+#' @param object An undirected graph represented either as an \code{igraph}, a (dense)
 #'     \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param root A vector of variables. The first variable in the
 #'     perfect ordering will be the first variable on 'root'. The
@@ -52,7 +51,6 @@
 #' @keywords utilities
 #' @examples
 #' 
-#' ## graphNEL
 #' uG <- ug(~me:ve + me:al + ve:al + al:an + al:st + an:st)
 #' mcs(uG)
 #' rip(uG)
@@ -88,7 +86,7 @@ rip <- function(object, ...){
 #' @rdname graph-rip
 rip.default <- function(object, root=NULL, nLevels=NULL, ...){
 
-    if (!inherits(object, c("graphNEL", "igraph", "matrix", "dgCMatrix")))
+    if (!inherits(object, c("igraph", "matrix", "dgCMatrix")))
         stop("Object of correct type\n")
 
     if (!is_ug(object))
@@ -131,7 +129,7 @@ ripMAT <- function(amat, root=NULL, nLevels=rep(2, ncol(amat))) {
       ## Use: cq.mcs.idx
       for (ii in 2:ncq){
           paset  <- unlist(cq.mcs.idx[ 1:(ii-1L) ])
-          isect  <- intersectPrim( cq.mcs.idx[[ii]], paset )
+          isect  <- intersect( cq.mcs.idx[[ii]], paset )
           sp.idx[[ii]] <- isect
           if (length(isect)){
               for (kk in (ii - 1):1) {
@@ -218,23 +216,6 @@ plot.ripOrder <- function(x, ...){
 }
 
 
-## .rip2ug <- function(rp_){
-##     if (length(rp_$cliques) > 1){
-##         ft <-cbind(rp_$parents, 1:length(rp_$parents))
-##         ft <- ft[ft[, 1] != 0, , drop=FALSE]
-##         V <- seq_along(rp_$parents)
-##         if (nrow(ft) == 0){
-##             jt <- new("graphNEL", nodes = as.character(V), edgemode = "undirected") ## FIXME
-##         } else {
-##             jt <- graph::ftM2graphNEL(ft, V=as.character(V), edgemode="undirected") ## FIXME
-##         }
-##     } else {
-##         jt <- new("graphNEL", nodes = "1", edgemode = "undirected") ## FIXME
-##     }
-##     jt
-## }
-
-
 .rip2ug <- function(rp) {
     ft <- cbind(rp$parents, 1:length(rp$parents)) ## n x 2
     ft <- ft[ft[, 1] != 0, , drop=FALSE]
@@ -255,22 +236,6 @@ plot.ripOrder <- function(x, ...){
 
 
 
-## .rip2dag <- function (rip) {
-##   if (length(rip$cliques) > 1) {
-##     ft <- cbind(rip$parents, 1:length(rip$parents))
-##     ft <- ft[ft[, 1] != 0, , drop = FALSE]
-##     V  <- seq_along(rip$parents)
-##     if (nrow(ft) == 0) {
-##       jt <- new("graphNEL", nodes = as.character(V), edgemode = "directed") ## FIXME
-##     } else {
-##       jt <- graph::ftM2graphNEL(ft, V = as.character(V), edgemode = "directed") ## FIXME
-##     }
-##   } else {
-##     jt <- new("graphNEL", nodes = "1", edgemode = "directed") ## FIXME
-##   }
-##   return(jt)
-## }
-
 
 
 #' @export
@@ -283,7 +248,7 @@ junction_tree <- function(object, ...){
 #' @rdname graph-rip
 junction_tree.default <-  function(object, nLevels = NULL, ...){
 
-    if (!inherits(object, c("graphNEL", "igraph", "matrix", "dgCMatrix")))
+    if (!inherits(object, c("igraph", "matrix", "dgCMatrix")))
         stop("Object of correct type\n")
 
     junction_treeMAT(as(object, "matrix"), nLevels=nLevels, ...)

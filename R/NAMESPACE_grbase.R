@@ -34,10 +34,6 @@
 ## Bioconductor imports/exports
 ## ----------------------------
 
-## ' @importClassesFrom graph graphNEL
-## ' @importFrom graph edges nodes edgeMatrix addEdge addNode removeEdge removeNode
-## ' @export edges nodes edgeMatrix addEdge addNode removeEdge removeNode
-## ' @importMethodsFrom Rgraphviz plot
 
 #' @importFrom methods as new setOldClass
 #'

@@ -28,14 +28,14 @@
 #' 
 #' @aliases triangulate triangulate.default triangulateMAT
 #' 
-#' @param object An undirected graph represented either as a \code{graphNEL}
-#'     object, an \code{igraph}, a (dense) \code{matrix}, a (sparse)
+#' @param object An undirected graph represented either as
+#' an \code{igraph}, a (dense) \code{matrix}, a (sparse)
 #'     \code{dgCMatrix}.
 #' @param nLevels The number of levels of the variables (nodes) when these are
 #'     discrete. Used in determining the triangulation using a
 #'     "minimum clique weight heuristic". See section 'details'.
 #' @param result The type (representation) of the result. Possible values are
-#'     \code{"graphNEL"}, \code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}.
+#'     \code{"igraph"}, \code{"matrix"}, \code{"dgCMatrix"}.
 #'     Default is the same as the type of \code{object}.
 #' @param check If \code{TRUE} (the default) it is checked whether the graph is
 #'     triangulated before doing the triangulation; gives a speed up if \code{FALSE}
@@ -44,7 +44,7 @@
 #' @param ... Additional arguments, currently not used.
 #' @param amat Adjacency matrix; a (dense) \code{matrix}, or a (sparse)
 #'     \code{dgCMatrix}.
-#' @return A triangulated graph represented either as a \code{graphNEL}, a
+#' @return A triangulated graph represented either as a
 #'     (dense) \code{matrix} or a (sparse) \code{dgCMatrix}.
 #' @note Care should be taken when specifying \code{nLevels} for other
 #'     representations than adjacency matrices: Since the \code{triangulateMAT}
@@ -60,7 +60,6 @@
 #' @keywords utilities
 #' @examples
 #' 
-#' ## graphNEL
 #' uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 #' uG2 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="matrix")
 #' uG3 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a, result="dgCMatrix")
@@ -86,7 +85,6 @@
 #' tuG1 <- triang(uG1, control=list(method="elo", order=c("a", "e", "f")))
 #' tuG1 <- triang_elo(uG1, order=c("a", "e", "f"))
 #' 
-#' ## graphNEL
 #' uG1 <- ug(~a:b + b:c + c:d + d:e + e:f + f:a)
 #' tuG1 <- triangulate(uG1)
 #' 
@@ -173,7 +171,7 @@ triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...)
 .generic_triangulation <- function(object, order=NULL, result=NULL, check=TRUE, ...,
                                    TRIANG_FUN){
 
-    graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
+    graph_class <- c("igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
     if (!any(chk)) stop("Invalid class of 'object'\n")
 
@@ -255,57 +253,6 @@ triang_eloMAT <- function(amat, order=NULL){
 }
 
 
-
-
-
-
-
-## triangulate.default <- function(object, nLevels=NULL, result=NULL, check=TRUE, ...)
-## {
-##     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
-##     chk <- inherits(object, graph_class, which=TRUE)
-
-##     if (!any(chk)) stop("Invalid class of 'object'\n")
-    
-##     if (is.null(result))
-##         result <- graph_class[which(chk > 0)]
-    
-##     mm <- coerceGraph(object, "matrix")
-##     if (!is.UGMAT(mm)) stop("Graph must be undirected\n")
-    
-##     if (!check)
-##         mm <- triangulateMAT(mm, nLevels=nLevels)
-##     else {
-##         if (length(mcsMAT(mm)) == 0)
-##             mm <- triangulateMAT(mm, nLevels=nLevels)
-##     }
-    
-##     coerceGraph(mm, result)    
-## }
-
-
-## triang_elo.default <- function(object, order=NULL, result=NULL, check=TRUE, ...){
-
-##     graph_class <- c("graphNEL", "igraph", "matrix", "dgCMatrix")
-##     chk <- inherits(object, graph_class, which=TRUE)
-
-##     if (!any(chk)) stop("Invalid class of 'object'\n")
-    
-##     if (is.null(result))
-##         result <- graph_class[which(chk > 0)]
-    
-##     mm <- coerceGraph(object, "matrix")
-##     if (!is.UGMAT(mm)) stop("Graph must be undirected\n")
-    
-##     if (!check)
-##         mm <- triang_eloMAT(mm, order=order)
-##     else {
-##         if (length(mcsMAT(mm)) == 0)
-##             mm <- triang_eloMAT(mm, order=order)
-##     }
-    
-##     coerceGraph(mm, result)        
-## }
 
 
 

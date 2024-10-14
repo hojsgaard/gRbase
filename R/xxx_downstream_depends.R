@@ -13,20 +13,6 @@
 #' 
 NULL
 
-## graphNEL2M M2graphNEL graphNEL2adjMAT
-## tabAdd__ tabDiv__ tabDiv0__ tabMarg__ tabMult__ tabSubt__
-## #' removeRedundant 
-## #' combnPrim
-## #' mcsmarked mcsmarkedMAT 
-## #' nextCell glist2adjMAT
-
-## #' 
-## #' @aliases
-## #'
-## #' is_subsetof_ get_superset_ get_subset_ subsetof
-## #'
-## #' tabMult__ tabDiv0__ tabMarg__
-
 
 #' @export
 ell <- function(Sigma, S, n) {
@@ -89,8 +75,6 @@ ellK <- function (K, S, n) {
 ## #' @export
 ## ar_slice_mult <- tabSliceMult
 
-## #' @export
-## ar_new <- tabNew
 
 
 
@@ -130,8 +114,6 @@ ellK <- function (K, S, n) {
 
 
 
-## #' @export
-## tab <- tabNew
 
 
 

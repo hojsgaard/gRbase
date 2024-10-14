@@ -24,8 +24,7 @@
 #' 
 ## #' @aliases mcs mcs.default mcsMAT mcs_marked mcsmarked.default
 ## #'     mcs_markedMAT
-#' @param object An undirected graph represented either as a
-#'     \code{graphNEL} object, an \code{igraph}, a (dense)
+#' @param object An undirected graph represented either as an \code{igraph}, a (dense)
 #'     \code{matrix}, a (sparse) \code{dgCMatrix}.
 #' @param root A vector of variables. The first variable in the
 #'     perfect ordering will be the first variable on 'root'. The
@@ -74,7 +73,7 @@ mcs <- function(object, root=NULL, index=FALSE){
 #' @export
 #' @rdname graph-mcs
 mcs.default <- function(object, root=NULL, index=FALSE){
-    if (!inherits(object, c("graphNEL", "matrix", "dgCMatrix", "igraph")))
+    if (!inherits(object, c("matrix", "dgCMatrix", "igraph")))
         stop("object of wrong class\n")
 
     mm <- coerceGraph(object, "matrix")
@@ -90,7 +89,7 @@ mcsMAT <- function (amat, vn = colnames(amat), root = NULL, index = FALSE)
 {
     vn.old <- vn
     if (!is.null(root)){
-        vn    <- c(root, setdiffPrim(vn, root))
+        vn    <- c(root, setdiff(vn, root))
         root2 <- match(vn, vn.old) - 1
     } else {
         root2 <- 0:(ncol(amat) - 1)

@@ -100,13 +100,13 @@ perm_cell_entries <- perm_cell_entries_
 #' @rdname api-cell                              
 fact_grid <- function(dim, slice_cell=NULL, slice_marg=NULL){
   if (is.null(slice_cell)){
-    .factgrid1Prim(dim)
+    .factgrid1(dim)
   } else {
-    .factgrid2Prim(dim, slice_cell, slice_marg)
+    .factgrid2(dim, slice_cell, slice_marg)
   }
 }
 
-.factgrid1Prim <- function( dim ){
+.factgrid1 <- function( dim ){
 
   nr <- prod(dim)
   nc <- length(dim)
@@ -124,7 +124,7 @@ fact_grid <- function(dim, slice_cell=NULL, slice_marg=NULL){
   mm
 }
 
-.factgrid2Prim <- function(dim , slice_cell, slice_marg){
+.factgrid2 <- function(dim , slice_cell, slice_marg){
 
   nr <- prod(dim[-slice_marg])
   nc <- length(dim)

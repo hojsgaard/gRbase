@@ -14,8 +14,6 @@
 #' 
 #' * "ig": "igraph";
 #' 
-#' * "gn": "graphNEL";
-#' 
 #' * "sm": "dgCMatrix" (sparse matrix);
 #' 
 #' * "dm": "matrix" (dense matrix)
@@ -26,40 +24,8 @@
 #' 
 
 ## ########################################################
-## ##### graphNEL to something #####
-## ########################################################
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_gn2dm_ <- function(object) {
-##     .check.is.graphNEL(object)
-##     as(igraph::as_adjacency_matrix(as(object, "igraph")), "matrix")
-
-## }
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_gn2sm_ <- function(object) {
-##     .check.is.graphNEL(object)
-##     igraph::as_adjacency_matrix(as(object, "igraph"))
-## }
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_gn2ig_ <- function(object){
-##     .check.is.graphNEL(object)
-##     igraph::igraph.from.graphNEL(object)
-## }
-
-## ########################################################
 ## ##### dense matrix to something #####
 ## ########################################################
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_dm2gn_ <- function(object) {
-##     as(object, "graphNEL")
-## }
 
 #' @export
 #' @rdname graph-coerce-api
@@ -83,12 +49,6 @@ g_dm2ig_ <- function(object){
 ## sparse matrix to something
 ## ########################################################
 
-## #' @export
-## #' @rdname graph-coerce-api
-## g_sm2gn_ <- function(object) {
-##     as(object, "graphNEL")
-## }
-
 #' @export
 #' @rdname graph-coerce-api
 g_sm2dm_ <- function(object) {
@@ -99,19 +59,10 @@ g_sm2dm_ <- function(object) {
 #' @rdname graph-coerce-api
 g_sm2ig_ <- g_dm2ig_
 
-## #' @rdname graph-coerce-api
-## xm2ig <- dm2ig_
-
 
 ## ########################################################
 ## igraph to something
 ## ########################################################
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_ig2gn_ <- function(object) {
-##     igraph::igraph.to.graphNEL(object)
-## }
 
 #' @export
 #' @rdname graph-coerce-api
@@ -128,13 +79,6 @@ g_ig2sm_ <- function(object) {
 ## ###############################################
 ## matrix/dgCMatrix to something
 ## ###############################################
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_xm2gn_ <- function( object ){ ## M | graphNEL
-##     .check.is.matrix( object )
-##     as(object , "graphNEL")
-## }
 
 #' @export
 #' @rdname graph-coerce-api
@@ -166,51 +110,4 @@ g_xm2xm_ <- function(object, result="matrix"){
            "dgCMatrix"={g_xm2sm_(object)})
 }
 
-## ###############################################
-## graphNEL to something
-## ###############################################
 
-## #' @export
-## #' @rdname graph-coerce-api
-## g_gn2xm_ <- function(object, result="matrix"){
-##     switch(result,
-##            "matrix"={g_gn2dm_(object)},
-##            "Matrix"=,
-##            "dgCMatrix"={g_gn2sm_(object)})
-## }
-
-## #' @export
-## #' @rdname graph-coerce-api
-## g_gn2ftM_ <- function(object){
-##     adjList2ftM__(graph::edges(object))
-## }
-
-## #' @export
-## #' @rdname graph-coerce-api 
-## g_gn2tfM_ <- function(object){
-##     adjList2tfM__(graph::edges(object))
-## }
-
-
-#' @rdname graph-coerce-api
-#' @section Synonymous functions:
-#'
-#' For backward compatibility with downstream packages we have the
-#' following synonymous functions:
-#'
-#' * graphNEL2adjMAT = g_gn2xm_ (Used in HydeNet)
-#' 
-#' * graphNEL2M = g_gn2xm_ (Used in simPATHy)
-#' 
-#' * M2graphNEL = g_xm2gn_ (Used in simPATHy)
-#'
-#' @aliases M2graphNEL graphNEL2M graphNEL2adjMAT
-
-## #' @export
-## graphNEL2adjMAT <- g_gn2xm_
-
-## #' @export
-## graphNEL2M <- g_gn2xm_
-
-## #' @export
-## M2graphNEL <- g_xm2gn_

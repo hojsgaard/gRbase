@@ -24,12 +24,10 @@
 #' ## getCliques(g1)         ## Works
 #' 
 #' l1 <- list(c("a" ,"b"), c("b", "c"))
-#' graph_as(l1, "graphNEL", "ugList")
 #' 
 #' @export
 #' @rdname graph-coerce
 coerceGraph <- function(object, class){
-    ##.as_fun(object, class)
     as(object, class)
 }
 
@@ -37,7 +35,7 @@ coerceGraph <- function(object, class){
 
 ## ####################################################################
 ##
-## as( ): Coercion between graphNEL, igraph, matrix, dgCMatrix.
+## as( ): Coercion between igraph, matrix, dgCMatrix.
 ##
 ## ####################################################################
 
@@ -67,7 +65,7 @@ graph_as  <- function(object, outtype, intype=NULL){
     if (inherits(object, c("matrix", "Matrix")))
         return(.handle_matrix_case(object, outtype))
 
-    if (inherits(object, c("igraph", "graphNEL")))
+    if (inherits(object, c("igraph")))
         return(.handle_graph_case(object, outtype))
 }
 
@@ -116,7 +114,7 @@ graph_as  <- function(object, outtype, intype=NULL){
 }
 
 .graph_type <- function(){
-    c("matrix", "dgCMatrix", "graphNEL", "igraph")
+    c("matrix", "dgCMatrix", "igraph")
 }
 
 .list_format <- function(){

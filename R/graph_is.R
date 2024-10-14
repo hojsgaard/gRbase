@@ -10,7 +10,7 @@
 #' 
 ############################################################################
 #'
-#' @param object A graph represented as a `graphNEL` (graph package),
+#' @param object A graph represented as 
 #'     an `igraph` (igraph package), an adjacency matrix or a sparse
 #'     adjacency matrix (a `dgCMatrix` from the Matrix package).
 #'
@@ -21,14 +21,10 @@
 #' non-zero there is also an edge from j to i. In this case we may
 #' think of a bidirected edge between i and j or we may think of the
 #' edge as being undirected.  We do not distinguish between undirected
-#' and bidirected edges in the gRbase package.  On the other hand,
-#' graphNEL objects from the graph package makes such a distinction
-#' (the function \code{edgemode()} will tell if edges are "directed"
-#' or "undirected" in a graphNEL object).
+#' and bidirected edges in the gRbase package.  
 #' 
 #' * The function \code{is_ug()} checks if the adjacency matrix is
-#' symmetric (If applied to a graphNEL, the adjacency matrix is
-#' created and checked for symmetry.)
+#' symmetric.
 #' 
 #' * The function \code{is_tug()} checks if the graph is undirected and
 #' triangulated (also called chordal) by checking if the adjacency matrix is
@@ -83,14 +79,8 @@ is_dag <- function(object){
     UseMethod("is_dag")
 }
 
-## #' @export
-## is_dag.graphNEL <- function(object){
-##     is_dagMAT(as(object, "matrix"))
-## }
-
 #' @export
 is_dag.igraph <- function(object){
-     ## is_dagMAT(as(object, "matrix"))
     igraph::is_dag(object)
 }
 
@@ -116,11 +106,6 @@ is_ug <- function(object){
     UseMethod("is_ug")
 }
 
-## #' @export
-## is_ug.graphNEL <- function(object){
-##     isugMAT_(as(object, "matrix"))
-## }
-
 #' @export
 is_ug.igraph <- function(object){
     isugMAT_(as(object, "matrix"))
@@ -145,13 +130,6 @@ is_ugMAT <- function(object){
 is_tug <- function(object){
   UseMethod("is_tug")
 }
-
-## #' @export
-## is_tug.graphNEL <- function(object){
-##     z <- as(object, "matrix")
-##     if (!isugMAT_(z)) FALSE
-##     else length(ripMAT(z)) > 0
-## }
 
 #' @export
 is_tug.igraph <- function(object){
@@ -180,11 +158,6 @@ is_tugMAT <- function(object){
 is_dg <- function(object){
     UseMethod("is_dg")
 }
-
-## #' @export
-## is_dg.graphNEL <- function(object){
-##     is_dgMAT(as(object, "matrix"))
-## }
 
 #' @export
 is_dg.igraph <- function(object){

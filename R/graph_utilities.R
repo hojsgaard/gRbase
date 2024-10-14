@@ -3,7 +3,7 @@
 #' @title Find edges in a graph and edges not in a graph.
 #'
 #' @description Returns the edges of a graph (or edges not in a graph)
-#'     where the graph can be either a `graphNEL` object, an `igraph`
+#'     where the graph can be either an `igraph`
 #'     object or an adjacency matrix.
 #'
 #' @name graph-edgeList
@@ -598,7 +598,7 @@ edge_matrix2dag <- function(edge_matrix){
         for (v in 1:length(glist)) {
             m1 <- list.save
             if (minimal)
-                m2 <- as.list( setdiffPrim(S, glist[[v]]) )
+                m2 <- as.list( setdiff(S, glist[[v]]) )
             else
                 m2 <- as.list( glist[[v]] )
 
@@ -614,7 +614,7 @@ edge_matrix2dag <- function(edge_matrix){
             }
         }
         if (!minimal)
-            list.save <- lapply(list.save, function(g) setdiffPrim(S, g))}
+            list.save <- lapply(list.save, function(g) setdiff(S, g))}
     list.save
 }
 
