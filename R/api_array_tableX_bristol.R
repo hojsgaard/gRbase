@@ -20,7 +20,7 @@
 
 #' @export
 #' @rdname api-array-07
-tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE){
+tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE) {
   # Like aperm() but perm can be dimnames
   if (missing( perm )){
     perm <- integer(0)
@@ -41,13 +41,13 @@ tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE){
 
 #' @export
 #' @rdname api-array-07
-tableMult <- function(tab1, tab2){
+tableMult <- function(tab1, tab2) {
   tableOp(tab1, tab2, op="*")
 }
 
 #' @export
 #' @rdname api-array-07
-tableDiv <- function(tab1, tab2){
+tableDiv <- function(tab1, tab2) {
   tableOp(tab1, tab2, op="/")
 }
 
@@ -55,7 +55,7 @@ tableDiv <- function(tab1, tab2){
 #' @export
 #' @rdname api-array-07
 #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
-tableOp <- function(tab1, tab2, op="*"){
+tableOp <- function(tab1, tab2, op="*") {
 
     if (!is.array(tab1)) {stop("'tab1' is not an array")}
     if (!is.array(tab2)) {stop("'tab2' is not an array")}
@@ -119,7 +119,7 @@ tableOp <- function(tab1, tab2, op="*"){
 #' @export
 #' @rdname api-array-07
 #' @param restore Not so clear anymore.
-tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
+tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE) {
 
     if (!is.array(tab1)) {stop("'tab1' is not an array")}
     if (!is.array(tab2)) {stop("'tab2' is not an array")}
@@ -156,8 +156,8 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 #' @rdname api-array-07
 tableOp0 <- function(tab1, tab2, op=`*`){
 
-    if (!is.named.array(tab1)) {stop("'tab1' is not an array")}
-    if (!is.named.array(tab2)) {stop("'tab2' is not an array")}
+    if (!is_named_array(tab1)) {stop("'tab1' is not an array")}
+    if (!is_named_array(tab2)) {stop("'tab2' is not an array")}
     
     vn1 <- names(dimnames(tab1))
     vn2 <- names(dimnames(tab2))
@@ -174,43 +174,6 @@ tableOp0 <- function(tab1, tab2, op=`*`){
     out <- xtabs(Freq ~ ., data=jj)
     out
 }
-
-
-
-
-
-
-
-## #' @export
-## #' @rdname api-array-07
-## #' @param restore Not so clear anymore.
-## tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
-
-##     if (!is.array(tab1)) {stop("'tab1' is not an array")}
-##     if (!is.array(tab2)) {stop("'tab2' is not an array")}
-
-##     vn1  <- names(dimnames(tab1))
-##     vn2  <- names(dimnames(tab2))
-
-##     ## indices of vn2 in vn1:
-##     vn2.idx   <- match(vn2, vn1)
-##     ## Create perumation indices; first variables in vn2; then vn1\vn2
-##     perm <- c(vn2.idx, (1:length(vn1))[-vn2.idx])
-    
-##     pot1 <-
-##         if (restore) {
-##             zz    <- op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
-##             newvn <- c(vn2, vn1[-vn2.idx])
-##             perm2 <- match(vn1, newvn)
-##             aperm.default(zz, perm2, TRUE)
-##         } else {
-##             op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
-##         }
-##     if (identical(op, `/`))
-##         pot1[!is.finite(pot1)] <- 0
-##     pot1
-## }
-
 
 
 
@@ -436,6 +399,43 @@ tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){
 
 ## .tableOp2 <- 
 
+
+
+
+
+
+
+
+
+## #' @export
+## #' @rdname api-array-07
+## #' @param restore Not so clear anymore.
+## tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
+
+##     if (!is.array(tab1)) {stop("'tab1' is not an array")}
+##     if (!is.array(tab2)) {stop("'tab2' is not an array")}
+
+##     vn1  <- names(dimnames(tab1))
+##     vn2  <- names(dimnames(tab2))
+
+##     ## indices of vn2 in vn1:
+##     vn2.idx   <- match(vn2, vn1)
+##     ## Create perumation indices; first variables in vn2; then vn1\vn2
+##     perm <- c(vn2.idx, (1:length(vn1))[-vn2.idx])
+    
+##     pot1 <-
+##         if (restore) {
+##             zz    <- op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
+##             newvn <- c(vn2, vn1[-vn2.idx])
+##             perm2 <- match(vn1, newvn)
+##             aperm.default(zz, perm2, TRUE)
+##         } else {
+##             op(aperm.default(tab1, perm, TRUE), as.numeric(tab2))
+##         }
+##     if (identical(op, `/`))
+##         pot1[!is.finite(pot1)] <- 0
+##     pot1
+## }
 
 
 

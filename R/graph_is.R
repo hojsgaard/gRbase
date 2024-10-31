@@ -87,7 +87,7 @@ is_dag.igraph <- function(object){
 
 #' @export
 is_dag.default <- function( object ){
-    .check.is.matrix(object)
+    check_is_matrix(object)
     isdagMAT_(object)
 }
 
@@ -114,7 +114,7 @@ is_ug.igraph <- function(object){
 
 #' @export
 is_ug.default <- function(object){
-    .check.is.matrix(object)
+    check_is_matrix(object)
     isugMAT_(object)
 }
 #' @export
@@ -140,7 +140,7 @@ is_tug.igraph <- function(object){
 
 #' @export
 is_tug.default <- function(object){
-    .check.is.matrix(object)
+    check_is_matrix(object)
     if (isugMAT_(object)) length(mcsMAT(object)) > 0
     else FALSE
 }
@@ -168,7 +168,7 @@ is_dg.igraph <- function(object){
 
 #' @export
 is_dg.default <- function(object){
-    .check.is.matrix(object)
+    check_is_matrix(object)
     eps <- 1e-4
     if (isadjMAT_(object))
         max(abs(sum(object * t(object)))) <= eps 
@@ -187,7 +187,7 @@ is_dgMAT <- function(object){
 #' @export
 #' @rdname graph_is
 is_adjMAT <- function(object){
-    .check.is.matrix(object)
+    check_is_matrix(object)
     isadjMAT_(object)
 }
 

@@ -24,9 +24,7 @@
 #' @keywords utilities
 #' @examples 
 #' ## 2x2 array
-#' x <- parray(c("a", "b"), levels=c(2, 2), values=1:4)
-#'
-#' x <- tabNew(c("a", "b"), levels=c(2, 2), values=1:4)
+#' x <- tab_new(c("a", "b"), levels=c(2, 2), values=1:4)
 #' 
 #' ## Simulate from entire array
 #' s <- simulateArray(x, 1000)
@@ -37,7 +35,7 @@
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## 2 x 2 x 2 array
-#' x <- parray(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
+#' x <- tab_new(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
 #' ## Simulate from entire array
 #' s <-simulateArray(x, 36000)
 #' xtabs(~., as.data.frame(s))

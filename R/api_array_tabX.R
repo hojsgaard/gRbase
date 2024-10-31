@@ -1,3 +1,128 @@
+
+
+##################################################################
+#' @title Create multidimensional arrays
+#' @description Alternative ways of creating arrays
+#' @name api_tab_new
+#' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
+##################################################################
+#'
+#' @details
+#'
+#' 1. If \code{normalize="first"} then for each configuration of all
+#'     other variables than the first, the probabilities are
+#'     normalized to sum to one.  Thus f(a, b, c) becomes a
+#'     conditional probability table of the form p(a | b, c).
+#'
+#' 1. If \code{normalize="all"} then the sum over all entries of
+#'     f(a,b,c) is one.
+#' 
+#' 1.  If \code{smooth} is positive then \code{smooth} is added to
+#'     \code{values} BEFORE normalization takes place.
+#' 
+#' @param names Names of variables defining table; either a character
+#'     vector or a right hand sided formula.
+#' @param levels 1) a list with specification of the levels of the
+#'     factors in \code{names} or 2) a vector with number of levels of
+#'     the factors in \code{names}. See 'examples' below.
+#' @param values values to go into the array.
+#' @param normalize Either "none", "first" or "all". Should result be
+#'     normalized, see 'Details' below.
+#' @param smooth Should values be smoothed, see 'Details' below.
+#' @return An array.
+#' @keywords utilities
+#' @examples
+#' 
+#' universe <- list(gender=c('male', 'female'),
+#'                  answer=c('yes', 'no'),
+#'                  rain=c('yes', 'no'))
+#' t1 <- tab_new(c("gender", "answer"), levels=universe, values=1:4)
+#' t1
+#' t2 <- tab_new(~gender:answer, levels=universe, values=1:4)
+#' t2
+#' t3 <- tab_new(~gender:answer, c(2, 2), values=1:4)
+#' t3
+NULL
+
+#' @export
+#' @rdname api_tab_new             
+tab_new <- function(names, levels, values, normalize="none", smooth=0) {
+
+    make_dimnames <- function(names, levels){
+        if ( !(is.atomic(names) && is.numeric(levels)) )
+            stop("Can not create dimnames")
+        
+        if (length(names) != length(levels))
+            stop("'names' and 'levels' must have the same length")
+        
+        dn <- lapply(seq_along(levels),
+                  function(i){ 1:levels[i] })
+        
+        names(dn) <- names
+        return(dn)
+    }
+    
+    if (missing(values))
+        values <- 1
+    if (smooth > 0)
+        values <- values + smooth
+
+    normalize <- match.arg(normalize, choices=c("none", "first", "all"))
+    nms <- rhsFormula2list(names)[[1]]
+
+    if (is.list(levels))
+    {
+        if (length(levels) == 0) {
+            stop("Can not create table\n")
+        }              
+        if (length(levels) == 1) {
+            vn <- names(levels)
+            levels <- rep(levels, length(nms))
+            names(levels) <- nms
+            dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+            di <- unlist(lapply(dn, length), use.names=FALSE)            
+        }
+        else if (length(levels) > 0) {
+            if (!is_named_list(levels)) {
+                stop("not all elements in 'levels' are named\n")                    
+            }
+            vn <- names(levels)            
+            idx <- match(nms, vn)
+            if (any((b <- is.na(idx)))) {
+                stop(sprintf("Levels for variable(s): %s not found\n",
+                             toString(nms[b])))           
+            }
+            levels  <- levels[idx] ## those used
+            dn <- lapply(levels, function(d) rhsf2list(d)[[1]])
+            di <- unlist(lapply(dn, length), use.names=FALSE)            
+        }
+
+    }
+    else if (is.numeric(levels))
+    {
+        di <- levels
+        dn <- make_dimnames(nms, levels)
+    }
+    else if (is.character(levels))
+    {
+        dn <- rep(list(levels), length(nms))
+        names(dn) <- nms
+        di <- unlist(lapply(dn, length), use.names=FALSE)
+    } else {
+        stop("Can not create 'tab' object")
+    }
+
+    
+    if (is.atomic(values) && !is.object(values)) {
+        out <- array(values, dim=di, dimnames=dn)
+    }
+    tab_normalize(out, normalize)
+}
+
+
+
+
+
 ## ####################################################################
 #'
 #' @title Interface - operations on multidimensional arrays.
@@ -19,10 +144,7 @@
 #'     are computed. If 2 then 0 slices are inserted.
 #' @param op The algebraic operation to be carried out.
 #'
-## #' @aliases 
-## #'     tab_align_
-## #' tab_expand_ tab_marg_ tab_perm_
-#' 
+NULL
 
 ## ------------------------
 ## Aliases for cpp functions
@@ -30,38 +152,32 @@
 
 #' @export
 #' @rdname api-tabX
-tabAdd      <- tab_add_
+tab_add      <- tab_add_
+
 
 #' @export
 #' @rdname api-tabX
-tabAlign  <- tab_align_
+tab_align  <- tab_align_
 
 #' @export
 #' @rdname api-tabX
-tabDiv      <- tab_div_
+tab_div      <- tab_div_
+
+
 
 #' @export
 #' @rdname api-tabX
-tabDiv0     <- tab_div0_
+tab_div0     <- tab_div0_
+
+
 
 #' @export
 #' @rdname api-tabX
-tabOp     <- tab_op_
+tab_op     <- tab_op_
 
 #' @export
 #' @rdname api-tabX
-tabEqual  <- tab_equal_
-
-#' @export
-#' @rdname api-tabX
-tabExpand <- function(tab, aux, type=0L) {  ## FIXME Rethink this
-
-    if (is.list(aux))
-        aux <- lapply(aux, rhsf2vec)
-    
-    tab_expand_(tab, aux, type)
-}
-
+tab_equal  <- tab_equal_
 
 ## tabMult used by grain; 
 #' @export
@@ -70,15 +186,20 @@ tabMult     <- tab_mult_
 
 #' @export
 #' @rdname api-tabX
-tabSubt     <- tab_subt_
+tab_mult     <- tab_mult_
 
 #' @export
 #' @rdname api-tabX
-tabListMult <- tab_list_mult_
+tab_subt     <- tab_subt_
 
 #' @export
 #' @rdname api-tabX
-tabListAdd  <- tab_list_add_
+tab_list_mult <- tab_list_mult_
+
+#' @export
+#' @rdname api-tabX
+tab_list_add  <- tab_list_add_
+
 
 
 ## -------------------------
@@ -87,58 +208,64 @@ tabListAdd  <- tab_list_add_
 
 #' @export
 #' @rdname api-tabX
-tabPerm <- function(tab, perm) {
-    if (!is.named.array(tab)) stop("'tab' not a named array")
-    if (!(is.numeric(perm) || is.character(perm) || inherits(perm, "formula")))
-        stop("'perm' must be character/numeric vector or right hand sided formula")
+tab_expand <- function(tab, aux, type=0L) {  ## FIXME Rethink this
+
+    if (is.list(aux))
+        aux <- lapply(aux, rhsf2vec)
     
-    perm <- .get_perm_or_marg(tab, perm)
-    ##cat("perm : ", toString(perm), "\n")
+    tab_expand_(tab, aux, type)
+}
+
+#' @export
+#' @rdname api-tabX
+tab_perm <- function(tab, perm) {
+    stopifnot_named_array(tab)
+    
+    perm <- set_spec_to_char(tab, perm)
     tab_perm_(tab, perm)
 }
 
+
 #' @export
 #' @rdname api-tabX
-tabMarg <- function(tab, marg=NULL) {
-    if (!is.named.array(tab)) stop("'tab' not a named array")
-    if (!is.null(marg))
-        if (!(is.numeric(marg) || is.character(marg) || inherits(marg, "formula")))
-            stop("'marg' must be character/numeric vector or right hand sided formula")
+tab_marg <- function(tab, marg=NULL) {
+    stopifnot_named_array(tab)
 
-    marg <- .get_perm_or_marg(tab, marg)
-    ##cat("perm : ", toString(perm), "\n")
+    marg <- set_spec_to_char(tab, marg)
     tab_marg_(tab, marg)
 }
 
+#' @export
+#' @rdname api-tabX
+tabMarg <- tab_marg
 
 #' @export
 #' @rdname api-tabX
-tabSum <- function(tab, ...) {
+tab_sum <- function(tab, ...) {
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
-    tabListAdd(listify_dots(args))
+    tab_list_add(listify_dots(args))
 }
 
 #' @export
 #' @rdname api-tabX
-tabProd <- function(tab, ...) {
+tab_prod <- function(tab, ...) {
     if (missing(tab)) return(0)
     args <- c(list(tab), list(...))
-    tabListMult(listify_dots(args))
+    tab_list_mult(listify_dots(args))
 }
+
+
 
 #' @export
 #' @rdname api-tabX                 
-tabNormalize <- function(tab, type="none") {
-    ## cat("tabNormalize\n"); print(tab)
+tab_normalize <- function(tab, type="none") {
+    ## cat("tab_normalize\n"); print(tab)
     switch(type,
            "first"={
                if (length(dim(tab)) > 1){
-                   ## tab <- tabPerm(tabDiv(tab, tabMarg(tab, 2:length(dim(tab)))),
-                                  ## names(dimnames(tab)))
-                   ## Perhaps faster than above?
-                   tab <- tab / rep(tabMarg(tab, 2:length(dim(tab))), each=dim(tab)[1])
-                   
+                   denom <- rep(tab_marg(tab, 2:length(dim(tab))), each=dim(tab)[1])                   
+                   tab <- tab / denom
                } else {
                    tab <- tab / sum(tab)
                }
@@ -150,12 +277,7 @@ tabNormalize <- function(tab, type="none") {
 }
 
 
-## FIXME: Document tabDist 
-## marg and cond: Disjoint sets, possibly NULL. Given either as
-## character vectors or integer vectors or rhs-formulae.
-## Returns p( marg | cond ).
-## There is one other option for cond: A named list with a simple conditioning set.
-## In this case, the array is sent to a arSlice.
+
 
 ## ####################################################################
 ##
@@ -163,11 +285,11 @@ tabNormalize <- function(tab, type="none") {
 #' @description Marginalize and condition in a multidimensional array
 #'     which is assumed to represent a discrete multivariate
 #'     distribution.
-#' @name api-tabDist
+#' @name api_tab_dist
 ##
 ########################################################################
 #'
-#' @aliases tabDist 
+#' @aliases tab_dist_worker 
 #' 
 #' @param tab Multidimensional array with dimnames.
 #' @param marg A specification of the desired margin; a character vector, a
@@ -184,54 +306,54 @@ tabNormalize <- function(tab, type="none") {
 #' 
 #' hec <- HairEyeColor
 #' 
-#' is.named.array( hec )
+#' is_named_array( hec )
 #' ## We need dimnames, and names on the dimnames
 #' 
 #' ## Marginalize:
-#' tabDist(hec, marg= ~Hair + Eye)
-#' tabDist(hec, marg= ~Hair:Eye)
-#' tabDist(hec, marg= c("Hair", "Eye"))
-#' tabDist(hec, marg= 1:2)
+#'tabDist(hec, marg= ~Hair + Eye)
+#'tabDist(hec, marg= ~Hair:Eye)
+#'tabDist(hec, marg= c("Hair", "Eye"))
+#'tabDist(hec, marg= 1:2)
 #' 
-#' tabDist(hec, marg= ~Hair + Eye, normalize=FALSE)
+#'tabDist(hec, marg= ~Hair + Eye, normalize=FALSE)
 #' 
 #' ## Condition
-#' tabDist(hec, cond= ~Sex + Hair)
-#' tabDist(hec, cond= ~Sex:Hair)
-#' tabDist(hec, cond= c("Sex", "Hair"))
-#' tabDist(hec, cond= c(3,1))
+#'tabDist(hec, cond= ~Sex + Hair)
+#'tabDist(hec, cond= ~Sex:Hair)
+#'tabDist(hec, cond= c("Sex", "Hair"))
+#'tabDist(hec, cond= c(3,1))
 #' 
-#' tabDist(hec, cond= list(Hair="Black"))
-#' tabDist(hec, cond= list(Hair=1))
+#'tabDist(hec, cond= list(Hair="Black"))
+#'tabDist(hec, cond= list(Hair=1))
 #' 
 #' \dontrun{
 #' ## This will fail
-#' tabDist(hec, cond= list(Hair=c("Black", "Brown")))
-#' tabDist(hec, cond= list(Hair=1:2))
+#'tabDist(hec, cond= list(Hair=c("Black", "Brown")))
+#'tabDist(hec, cond= list(Hair=1:2))
 #' }
 #' ## But this will do the trick
-#' a <- tabSlice(hec, slice=list(Hair=c("Black", "Brown")))
-#' tabDist(a, cond=~Hair)
+#' a <- tab_slice(hec, slice=list(Hair=c("Black", "Brown")))
+#'tabDist(a, cond=~Hair)
 #' 
 #' ## Combined
-#' tabDist(hec, marg=~Hair+Eye, cond=~Sex)
-#' tabDist(hec, marg=~Hair+Eye, cond="Sex")
+#'tabDist(hec, marg=~Hair+Eye, cond=~Sex)
+#'tabDist(hec, marg=~Hair+Eye, cond="Sex")
 #' 
-#' tabDist(hec, marg=~Hair+Eye, cond=list(Sex="Male"))
-#' tabDist(hec, marg=~Hair+Eye, cond=list(Sex="Male"), normalize=FALSE)
+#'tabDist(hec, marg=~Hair+Eye, cond=list(Sex="Male"))
+#'tabDist(hec, marg=~Hair+Eye, cond=list(Sex="Male"), normalize=FALSE)
 #' 
-#' tabDist(hec, cond=list(Sex="Male"))
-#' tabDist(hec, cond=list(Sex="Male"), normalize=FALSE)
+#'tabDist(hec, cond=list(Sex="Male"))
+#'tabDist(hec, cond=list(Sex="Male"), normalize=FALSE)
 #' 
 NULL
 
 #' @export
-#' @rdname api-tabDist
+#' @rdname api_tab_dist
 tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
 
     if (!is.list(cond))
-        .tabDist(tab, marg=marg, cond=cond, normalize=normalize)
-    else{
+        tab_dist_worker(tab, marg=marg, cond=cond, normalize=normalize)
+    else {
         ## Are there formulae in cond?
         ## print(cond)
         idx <- sapply(cond, function(x) inherits(x, "formula"))
@@ -260,25 +382,31 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
         condset <- c(cond1, cond3)
 
         ##str(list(marg=marg, condset=condset, condnv=condnv))
-
-        ## ALternative : use tabSlice
         if (!is.null(condnv))    
-            tab <- .tabDist(tab, cond=condnv, normalize=normalize)
+            tab <- tab_dist_worker(tab, cond=condnv, normalize=normalize)
 
-        ## if (!is.null(condset))
-        tab <- .tabDist(tab, marg=marg, cond=condset, normalize=normalize)
+        tab <- tab_dist_worker(tab, marg=marg, cond=condset, normalize=normalize)
         return(tab)
     }
 }
 
 ## ' @export
-## ' @rdname api-tabDist
-.tabDist <- function(tab, marg=NULL, cond=NULL, normalize=TRUE){
+## ' @rdname api_tab_dist
+tab_dist_worker <- function(tab, marg=NULL, cond=NULL, normalize=TRUE) {
+
+    .is.simple.cond <- function( cond ) {  ## What is this
+        z <- unlist(lapply(cond, is.logical), use.names=FALSE)
+        has.logical <- any( z )
+        u <- unlist(lapply(cond, length), use.names=FALSE)
+        is.short <- all( u == 1 )
+        if ( !has.logical && is.short ) TRUE
+        else if (!all( unlist( cond[ z ] ) ) )
+            stop("'cond' is not simple but contains FALSE values; not allowed")
+        else FALSE 
+    }
 
     ## str(list(marg=marg, cond=cond))
-    
-    if (!is.named.array(tab))
-        stop("'tab' must be a named array")
+    stopifnot_named_array(tab)
     if (any(tab < 0))
         stop("'tab' must be non-negative")
 
@@ -290,9 +418,8 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
         if (!.is.simple.cond( cond ))
             stop("'cond' is not 'simple'; can not proceed\n")
         else {
-            ##message("calling tabDist again")
-            tab <- tabSlice(tab, slice = cond, as.array = TRUE)
-            tabDist(tab, marg=marg, normalize=normalize)
+            tab <- tab_slice(tab, slice = cond, as.array = TRUE)
+            tab_dist_worker(tab, marg=marg, normalize=normalize)
         }
     } else {
         vset <- names(dimnames( tab ))
@@ -314,18 +441,18 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
         ##str(list(marg=marg, cond=cond, mset=mset, cset=cset, mcset=mcset))
         
         if (!is.null(mcset)){
-            tab <- tabMarg(tab, marg = mcset)
+            tab <- tab_marg(tab, marg = mcset)
         }
         
         if (length(cset) == 0){
             if (normalize) tab <- tab / sum(tab)            
         } else {
-            mtab <- tabMarg(tab, marg=cset)
-            tab  <- tabDiv(tab, mtab)
+            mtab <- tab_marg(tab, marg=cset)
+            tab  <- tab_div(tab, mtab)
         } 
         
         if (length(mcset) > 0)
-            if (!is.null(mcset)) tabPerm(tab, mcset) else tab
+            if (!is.null(mcset)) tab_perm(tab, mcset) else tab
     }
 }
 
@@ -337,7 +464,7 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
 #'
 #' @title Array slices
 #' @description Functions for extracting slices of arrays
-#' @name api_tabSlice
+#' @name api_tab_slice
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 #' 
 ## ########################################################################
@@ -345,7 +472,7 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
 #' @param tab An array with named dimnames.
 #' @param slice A list defining the slice.
 #' @param margin Names of variables in slice.
-#' @param margin.idx Indec of variables in slice.
+## #' @param margin.idx Indec of variables in slice.
 #' @param drop If TRUE then dimensions with only one level will be
 #'     dropped from the output.
 #' @param as.array If the resulting array is one-dimensional the
@@ -363,54 +490,52 @@ tabDist <- function (tab, marg = NULL, cond = NULL, normalize = TRUE) {
 #' x = HairEyeColor
 #' s = list(Hair=c("Black", "Brown"), Eye=c("Brown", "Blue"))
 #'
-#' s1 = tabSlice(x, slice=s); s1
+#' s1 = tab_slice(x, slice=s); s1
 #'
-#' tabSlice2Entries(x, slice=s)
-#' tabSlice2Entries(x, slice=s, complement=TRUE)
+#' tab_slice_to_entries(x, slice=s)
+#' tab_slice_to_entries(x, slice=s, complement=TRUE)
 #'
-#' ## tabSliceMult 
-#' s2 = tabSliceMult(x, slice=s); s2
+#' ## tab_slice_mult 
+#' s2 = tab_slice_mult(x, slice=s); s2
 #'
 #' sp = list(c(1,2), c(1,2), TRUE)
-#' tabSlicePrim(x, slice=sp)
-#' tabSlice(x, slice=s)
+#' tab_slice_prim(x, slice=sp)
+#' tab_slice(x, slice=s)
 NULL
 
 #' @export
-#' @rdname api_tabSlice
-tabSlice<- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FALSE) {
-  
-  if (!is.named.array(tab))
-    stop("'tab' is not a named array")
-  else if ( is.null( slice ) )
-    tab
-  else if (!( is.character( slice ) || is.numeric( slice ) || is.list( slice )))
-    stop("'slice' is not valid \n")
-  else if (is.null( margin ) || !( is.character( margin ) || is.numeric( margin )))
-    stop("'margin' is not valid \n")
-  else {
-    dn <- names(dimnames(tab))
-    margin.idx <- if (is.character(margin)){
-      match(margin, dn)
-    } else margin
-    
-    if (any(idx <- is.na(margin.idx))){
-      cat("Error: Names not in domain : ", toString(margin[idx]), "\n")
-      stop("Invalid 'margin'")      
+#' @rdname api_tab_slice
+tab_slice <- function(tab, slice=NULL, margin=names(slice), drop=TRUE, as.array=FALSE) {
+
+    stopifnot_named_array(tab)
+
+    if ( is.null( slice ) )
+        return(tab)
+    else if (!( is.character( slice ) || is.numeric( slice ) || is.list( slice )))
+        stop("'slice' is not valid \n")
+    else if (is.null( margin ) || !( is.character( margin ) || is.numeric( margin )))
+        stop("'margin' is not valid \n")
+    else {
+        dn <- names(dimnames(tab))
+        margin.idx <- if (is.character(margin)){
+                          match(margin, dn)
+                      } else margin
+        
+        if (any(idx <- is.na(margin.idx))){
+            cat("Error: Names not in domain : ", toString(margin[idx]), "\n")
+            stop("Invalid 'margin'")      
+        }
+        tab_slice_worker(tab, slice, margin.idx, drop=drop, as.array=as.array)
     }
-    tabSlice2(tab, slice, margin.idx, drop=drop, as.array=as.array)
-  }
 }
 
-#' @export
-#' @rdname api_tabSlice
-tabSlice2 <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE) {
+tab_slice_worker <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE) {
 
     z <- as.list(rep(TRUE,  length(dim(tab))))
     z[ margin.idx ] <- slice
     out <- do.call("[", c(list(tab), z, drop=drop))
     
-    if (as.array && is.null( dim( out ) ) ){
+    if (as.array && is.null(dim( out ))) {
         dn <- list(names(out))
         k  <- which(unlist(lapply(z, is.logical))) # idx of variables still in array
         names(dn) <- names( dimnames( tab ) )[ k ]
@@ -420,37 +545,90 @@ tabSlice2 <- function(tab, slice, margin.idx, drop=TRUE, as.array=FALSE) {
     }
 }
 
+
 #' @export
-#' @rdname api_tabSlice
-tabSlicePrim <- function(tab, slice, drop=TRUE) {
+#' @rdname api_tab_slice
+tab_slice_prim <- function(tab, slice, drop=TRUE) {
     do.call("[", c(list(tab), slice, drop=drop))        
 }
 
 #' @export
-#' @rdname api_tabSlice
-tabSliceMult <- function(tab, slice, val=1, comp=0) {
+#' @rdname api_tab_slice
+tab_slice_mult <- function(tab, slice, val=1, comp=0) {
     if ( !is.null(val) ){
-        idx <- tabSlice2Entries(tab, slice)
+        idx <- tab_slice_to_entries(tab, slice)
         tab[idx] <- tab[idx] * val
     }
     if ( !is.null(comp) ){
-        idx <- tabSlice2Entries(tab, slice, complement=TRUE)
+        idx <- tab_slice_to_entries(tab, slice, complement=TRUE)
         tab[idx] <- tab[idx] * comp
     }
     tab
 }
 
+
 #' @export
-#' @rdname api_tabSlice
-tabSlice2Entries <- function(tab, slice, complement=FALSE) {
+#' @rdname api_tab_slice
+tab_slice_to_entries <- function(tab, slice, complement=FALSE) {
   tab[] <- 1:length(tab)
-  out <- tabSlice(tab, slice, margin=names(slice))
+  out <- tab_slice(tab, slice, margin=names(slice))
   if (complement)
     c(tab)[-c(out)]
   else
     c(out)
 }
 
+
+
+### COMPATIBILITY with gRain and gRim
+
+
+## FIXME used in gRain
+#' @export
+#' @rdname api_tab_new             
+tabNew <- tab_new
+
+## FIXME grain
+#' @export
+#' @rdname api_tab_slice
+tabSliceMult <- tab_slice_mult
+
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabDiv      <- tab_div_
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabDiv0     <- tab_div0_
+
+## FIXME gRain
+#' @export
+#' @rdname api_tab_slice
+tabSlice <- tab_slice
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabPerm <- tab_perm
+
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabProd <- tab_prod
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX                 
+tabNormalize <- tab_normalize
+
+
+#' @export
+#' @rdname api-tabX
+tabListMult <- tab_list_mult_
 
 
 
@@ -461,20 +639,8 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE) {
 ##
 ## ########################################################
 
-.is.simple.cond <- function( cond ) {
-    z <- unlist(lapply(cond, is.logical), use.names=FALSE)
-    has.logical <- any( z )
-    u <- unlist(lapply(cond, length), use.names=FALSE)
-    is.short <- all( u == 1 )
-    if ( !has.logical && is.short ) TRUE
-    else if (!all( unlist( cond[ z ] ) ) )
-        stop("'cond' is not simple but contains FALSE values; not allowed")
-    else FALSE 
-}
 
-.is.named.list <- function(x) {
-    is.list( x ) && !is.null( names( x ) )
-}
+## FIXME: gør disse to funktioner mon ikke næsten det samme?
 
 .spec2char <- function(x) {
     if (is.null( x )) x
@@ -489,83 +655,106 @@ tabSlice2Entries <- function(tab, slice, complement=FALSE) {
     x            
 }
 
-.get_perm_or_marg <- function(tab, perm) {
-    if (inherits(perm, "formula")){  ## A right hand sided formula
-        perm <- all.vars(perm[[2]])
+set_spec_to_char <- function(tab, set_spec) {
+
+    if (!(is.numeric(set_spec) || is.character(set_spec) || inherits(set_spec, "formula")))
+        stop("'set_spec' must be character/numeric vector or right hand sided formula")
+
+    if (inherits(set_spec, "formula")){  ## A right hand sided formula
+        set_spec <- all.vars(set_spec[[2]])
     }
     
-    if (is.character(perm)){ ## Allow for name abbreviation
+    if (is.character(set_spec)){ ## Allow for name abbreviation
         vn <- names(dimnames( tab ))
-        p <- pmatch(perm, vn)
-        perm <- vn[p]
+        p <- pmatch(set_spec, vn)
+        set_spec <- vn[p]
     }
-    perm
+    set_spec
 }
 
-## #' ###################################################################
-## #'
-## #' @title Convert dataframe to contingency table
-## #' @description: Much like xtabs but with more flexibility
-## #' @name df2xtabs
-## #'
-## ##  ###################################################################
-## #' 
-## #' @param indata A dataframe.
-## #' @param names Names of variables defining table; a character vector
-## #'     or a right hand sided formula.
-## #' @param normalize Either "none", "first" or "all". Should result be
-## #'     normalized, see 'Details' below.
-## #' @param smooth Should values be smoothed, see 'Details' below.
-## #' 
-## #' @examples
-## #' ## Extract arrays from dataframe (much like xtabs() but with more flexibility)
-## #' data(cad1) 
-## #' df2xtabs(cad1, ~Sex:AngPec:AMI)
-## #' df2xtabs(cad1, c("Sex", "AngPec", "AMI"))
-## #' df2xtabs(cad1, c(1, 2, 3))
 
-## df2xtabs <- function(indata, names=NULL, normalize="none", smooth=0){
+########################################################
+#' @title Array algebra
+#' @description Addition, subtraction etc. of arrays
+#' @name api_ops_pct
+#' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
+########################################################
+#' 
+#' @param a,a1,a2 Arrays (with named dimnames)
+## #' @param lst List of arrays.
+#' @param tab1,tab2 Multidimensional arrays with named dimnames
+#'     (we call them 'named arrays').
+#' @param perm A vector of indices or dimnames or a right hand sided
+#'     formula giving the desired permutiation.
+#' @param marg A vector of indices or dimnames or a right hand sided
+#'     formula giving the desired marginal.
+#' @param slice A list of the form name=value. 
+## #' @param eps Criterion for checking equality of two arrays.
+#' @param extra List defining the extra dimensions.
+## #' @param aux Either a list with names and dimnames or a named array
+## #'     from which such a list can be extracted.
+#' @aliases %a+% %a-% %a*% %a/% %a/0%
+#'
+#' @examples
+#' hec <- HairEyeColor
+#' a1 <- tab_marg(hec, c("Hair", "Eye"))
+#' a2 <- tab_marg(hec, c("Hair", "Sex"))
+#' a3 <- tab_marg(hec, c("Eye", "Sex"))
+#'
+#' ## Binary operations
+#' a1 %a+% a2
+#' a1 %a-% a2
+#' a1 %a*% a2
+#' a1 %a/% a2
 
-##     if ( !( is.data.frame(indata) ) )
-##         stop("'indata' must a dataframe\n")
-    
-##     if (!is.null( names )) {
-##         if (is.numeric( names )){
-##             if (min(names) < 1 || max(names) > ncol(indata)){
-##                 stop("columns out of range \n")
-##             }
-##         } else {
-##             if (class(names) %in% c("formula", "character")){
-##                 names <- rhsf2list(names)[[1]]
-##             } else {
-##                 stop("don't know what to do\n")
-##             }
-##         }
-##     } 
-    
-##     out <- if (is.null(names)) xtabs(~., data=indata)
-##            else xtabs(~., data=indata[, names, drop=FALSE])
-    
-##     ## FIXME : There is no check on what smooth is
-##     if (smooth > 0)
-##         out <- out + smooth
-    
-##     if (normalize != "none")
-##         tabNormalize( out, normalize )
-##     else out
-## }
+#' @export
+#' @rdname api_ops_pct
+"%a+%" <- function(a1, a2){tab_add(a1,a2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a-%" <- function(a1, a2){tab_subt(a1,a2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a*%" <- function(a1, a2){tab_mult(a1,a2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a/%" <- function(a1, a2){tab_div(a1,a2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a/0%" <- function(a1, a2){tab_div0(a1,a2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a_%" <- function(tab1, marg){tab_marg(tab1, marg)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a==%" <- function(tab1, tab2){tab_equal(tab1, tab2)}
 
+#' @export
+#' @rdname api_ops_pct
+"%a^%" <- function(tab1, extra){tab_expand(tab1, extra)}
 
-## if (!is.named.array(tab)) stop("'tab' not a named array")
-## if (!is.null(aux))
-##     if (!(is.numeric(aux) || is.character(aux) || inherits(aux, "formula")))
-##         stop("'aux' must be character/numeric vector or right hand sided formula")
+#' @export
+#' @rdname api_ops_pct
+"%aperm%" <- function(tab1, perm){tab_perm(tab1, perm)}
 
-## aux <- .get_perm_or_marg(tab, aux)
+#' @export
+#' @rdname api_ops_pct                   
+"%aalign%" <- function(tab1, tab2){tab_align(tab1, tab2)}
 
+#' @export
+#' @rdname api_ops_pct                   
+"%aslice%" <- function(tab1, slice){tab_slice(tab1, slice)}
+
+#' @export
+#' @rdname api_ops_pct                   
+"%aslice*%" <- function(tab1, slice){tab_slice_mult(tab1, slice)}
+
+#' @export
+#' @rdname api_ops_pct
+"%amarg%" <- function(tab1, marg){tab_marg(tab1, marg)}

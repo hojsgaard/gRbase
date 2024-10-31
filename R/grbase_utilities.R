@@ -1,17 +1,36 @@
 
-.check.is.matrix <- function(x){
+check_is_matrix <- function(x){
     if (!inherits(x, c("matrix", "dgCMatrix")))
         stop("Input must be a matrix or a dgCMatrix\n")
 }
 
 
-.check.is.igraph <- function(x){
+check_is_igraph <- function(x){
     if (!inherits(x, "igraph"))
         stop("'x' not an igraph object...")    
 }
 
-.is_list_of_atomic <- function(z){
+is_list_of_atomic <- function(z){
     is.list(z) && all(sapply(z, is.atomic))            
+}
+
+
+is_named_list <- function(x) {
+    if (!inherits(x, "list"))
+        return(FALSE)
+    vn <- names(x)
+    if (is.null(vn))
+        return(FALSE)
+    all(nchar(vn) > 0)
+}
+
+.is.named.list <- function(x) {
+    is.list( x ) && !is.null( names( x ) )
+}
+
+
+stopifnot_named_array <- function(tab){
+    if (!is_named_array(tab)) stop("'tab' not a named array")
 }
 
 

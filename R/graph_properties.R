@@ -84,7 +84,7 @@ isGraphical.default <- function( x ){
         x <- formula(delete.response(terms(x)))
         x <- rhsf2list(x)
     } else {
-        if (!.is_list_of_atomic(x))
+        if (!is_list_of_atomic(x))
             stop("'x' must be a list of atomic vectors")
         if (length(x) == 0)
             stop("'x' must have positive length")
@@ -122,7 +122,7 @@ isDecomposable.default <- function( x ){
         x <- formula(delete.response(terms(x)))
         x <- rhsf2list(x)
     } else {
-        if (!.is_list_of_atomic(x))
+        if (!is_list_of_atomic(x))
             stop("'x' must be a list of atomic vectors")
         if (length(x) == 0)
             stop("'x' must have positive length")

@@ -83,21 +83,21 @@ g_ig2sm_ <- function(object) {
 #' @export
 #' @rdname graph-coerce-api
 g_xm2ig_ <- function( object ){ ## M | igraph
-    .check.is.matrix( object )
+    check_is_matrix( object )
     as(object , "igraph")
 }
 
 #' @export
 #' @rdname graph-coerce-api
 g_xm2dm_ <- function( object ){  ## M
-    .check.is.matrix( object )
+    check_is_matrix( object )
     M2matrix__(object)
 }
 
 #' @export
 #' @rdname graph-coerce-api
 g_xm2sm_ <- function( object ){ ## M
-    .check.is.matrix( object )
+    check_is_matrix( object )
     M2dgCMatrix__(object)
 }
 

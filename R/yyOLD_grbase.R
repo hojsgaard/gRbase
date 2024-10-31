@@ -202,13 +202,9 @@ nLevels.default <- function(x) dim(x)
 
 
 ## nLevels.array      <- function(x) dim(x)
-## nLevels.parray     <- function(x) dim(x)
 
 ##varNames.array     <- function(x) names(attr(x,"dimnames"))
 ##valueLabels.array  <- function(x) attr(x,"dimnames")
-
-##varNames.parray    <- function(x) names(attr(x,"dimnames"))
-##valueLabels.parray <- function(x) attr(x,"dimnames")
 
 ##
 ## END of French update

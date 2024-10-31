@@ -156,7 +156,7 @@ g_adl2XX_ <- function(zz, outtype) {
 #' @export
 #' @rdname graph_coerce_list
 g_M2adl_ <- function( amat ){
-    .check.is.matrix( amat )
+    check_is_matrix( amat )
     if (!isadjMAT_( amat ))  stop("' amat ' not an adjacency matrix\n")
     vn <- colnames( amat )
     r  <- rowmat2list__( amat )
@@ -170,14 +170,14 @@ g_M2adl_ <- function( amat ){
 #' @rdname graph_coerce_list
 g_M2ugl_ <- function( amat ){
     ## FIXME: M2ugList: Need a check for undirectedness
-    .check.is.matrix( amat )
+    check_is_matrix( amat )
     max_cliqueMAT( amat )[[1]]
 }
 
 #' @export
 #' @rdname graph_coerce_list
 g_M2dagl_ <- function( amat ){
-    .check.is.matrix( amat )
+    check_is_matrix( amat )
     vn <- colnames( amat )
     c  <- colmat2list( amat )
     i  <- lapply(c, function(z) which(z != 0))
