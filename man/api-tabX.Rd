@@ -2,60 +2,86 @@
 % Please edit documentation in R/api_array_tabX.R
 \name{api-tabX}
 \alias{api-tabX}
-\alias{tabAdd}
-\alias{tabAlign}
+\alias{tab_add}
+\alias{tab_align}
+\alias{tab_div}
+\alias{tab_div0}
+\alias{tab_op}
+\alias{tab_equal}
+\alias{tabMult}
+\alias{tab_mult}
+\alias{tab_subt}
+\alias{tab_list_mult}
+\alias{tab_list_add}
+\alias{tab_expand}
+\alias{tab_perm}
+\alias{tab_marg}
+\alias{tabMarg}
+\alias{tab_sum}
+\alias{tab_prod}
+\alias{tab_normalize}
 \alias{tabDiv}
 \alias{tabDiv0}
-\alias{tabOp}
-\alias{tabEqual}
-\alias{tabExpand}
-\alias{tabMult}
-\alias{tabSubt}
-\alias{tabListMult}
-\alias{tabListAdd}
 \alias{tabPerm}
-\alias{tabMarg}
-\alias{tabSum}
 \alias{tabProd}
 \alias{tabNormalize}
+\alias{tabListMult}
 \title{Interface - operations on multidimensional arrays.}
 \usage{
-tabAdd(tab1, tab2)
+tab_add(tab1, tab2)
 
-tabAlign(tab1, tab2)
+tab_align(tab1, tab2)
+
+tab_div(tab1, tab2)
+
+tab_div0(tab1, tab2)
+
+tab_op(tab1, tab2, op = "*")
+
+tab_equal(tab1, tab2, eps = 1e-12)
+
+tabMult(tab1, tab2)
+
+tab_mult(tab1, tab2)
+
+tab_subt(tab1, tab2)
+
+tab_list_mult(lst)
+
+tab_list_add(lst)
+
+tab_expand(tab, aux, type = 0L)
+
+tab_perm(tab, perm)
+
+tab_marg(tab, marg = NULL)
+
+tabMarg(tab, marg = NULL)
+
+tab_sum(tab, ...)
+
+tab_prod(tab, ...)
+
+tab_normalize(tab, type = "none")
 
 tabDiv(tab1, tab2)
 
 tabDiv0(tab1, tab2)
 
-tabOp(tab1, tab2, op = "*")
-
-tabEqual(tab1, tab2, eps = 1e-12)
-
-tabExpand(tab, aux, type = 0L)
-
-tabMult(tab1, tab2)
-
-tabSubt(tab1, tab2)
-
-tabListMult(lst)
-
-tabListAdd(lst)
-
 tabPerm(tab, perm)
-
-tabMarg(tab, marg = NULL)
-
-tabSum(tab, ...)
 
 tabProd(tab, ...)
 
 tabNormalize(tab, type = "none")
+
+tabListMult(lst)
 }
 \arguments{
 \item{op}{The algebraic operation to be carried out.}
 
 \item{eps}{Criterion for checking equality of two arrays.}
+
+\item{lst}{List of arrays.}
 
 \item{tab, tab1, tab2, ...}{Arrays with named dimnames (we call them
 'named arrays').}
@@ -65,8 +91,6 @@ from which such a list can be extracted.}
 
 \item{type}{If 0 then entries are duplicated. If 3 then averages
 are computed. If 2 then 0 slices are inserted.}
-
-\item{lst}{List of arrays.}
 
 \item{perm, marg}{A vector of indices or dimnames or a right hand
 sided formula giving the desired permutation/margin.}

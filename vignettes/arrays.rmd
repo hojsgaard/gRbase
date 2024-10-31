@@ -13,8 +13,6 @@ vignette: >
 ---
 
 
-
-
 ```{r include=FALSE}
 library(knitr)
 opts_chunk$set(
@@ -23,14 +21,11 @@ size="small"
 )
 ```
 
-
 ```{r echo=FALSE}
 #require( gRbase )
 prettyVersion <- packageDescription("gRbase")$Version
 prettyDate <- format(Sys.Date())
 ```
-
-
 
 ```{r echo=F}
 library(gRbase)
@@ -97,37 +92,37 @@ hec |> flat()
 An array with named dimensions is in this package called a *named array*.
 The functionality described below relies heavily on arrays having named dimensions.
 A check for an object being a named array is provided by
-is.named.array()
+is_named_array()
 ```{r }
-is.named.array(hec)
+is_named_array(hec)
 ``` 
 
 
 ## Defining arrays
 
 
-Another way is to use tabNew() from gRbase. This function is flexible wrt the input; for example:
+Another way is to use tab_new() from gRbase. This function is flexible wrt the input; for example:
 ```{r }
 dn <- list(Hair=c("Black", "Brown"), Eye=~Brown:Blue:Hazel, Sex=~Male:Female)
 counts <- c(32, 53, 11, 50, 10, 25, 36, 66, 9, 34, 5, 29)
-z3 <- tabNew(~Hair:Eye:Sex, levels=dn, value=counts) 
-z4 <- tabNew(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
+z3 <- tab_new(~Hair:Eye:Sex, levels=dn, value=counts) 
+z4 <- tab_new(c("Hair", "Eye", "Sex"), levels=dn, values=counts)
 ``` 
 
  Default
 dimnames are generated with
 ```{r }
-z5 <- tabNew(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
+z5 <- tab_new(~Hair:Eye:Sex, levels=c(2, 3, 2), values = counts)
 dimnames(z5) |> str()
 ``` 
 
 
-Using tabNew, arrays can be normalized to sum to one in two ways:
+Using tab_new, arrays can be normalized to sum to one in two ways:
 1) Normalization can be over the first variable for *each*
 configuration of all other variables and 2) over all configurations. For
 example:
 ```{r }
-z6 <- tabNew(~Hair:Eye:Sex, levels=c(2, 3, 2), values=counts, normalize="first")
+z6 <- tab_new(~Hair:Eye:Sex, levels=c(2, 3, 2), values=counts, normalize="first")
 z6 |> flat()
 ``` 
 
@@ -142,13 +137,13 @@ $(h,e,s)$-entry of $T_{HES}$ as $T_{HES}(h,e,s)$.
 
 ## Normalizing an array
 
-Normalize an array with  \rr{tabNormalize()}
+Normalize an array with  \rr{tab_normalize()}
 Entries of an array can be normalized to sum to one in two ways:
 1) Normalization can be over the first variable for *each*
 configuration of all other variables and 2) over all configurations. For
 example:
 ```{r }
-tabNormalize(z5, "first") |> flat()
+tab_normalize(z5, "first") |> flat()
 ``` 
 
 
@@ -156,8 +151,8 @@ tabNormalize(z5, "first") |> flat()
 
 We can subset arrays (this will also be called ``slicing'') in
 different ways. Notice that the result is not necessarily an
-array. Slicing can be done using standard R code or using \rr{tabSlice}.
-The virtue of tabSlice() comes from the flexibility when
+array. Slicing can be done using standard R code or using \rr{tab_slice}.
+The virtue of tab_slice() comes from the flexibility when
 specifying the slice:
 
 
@@ -166,14 +161,14 @@ array to a $2 \times 2$
 array by cutting away the Sex=Male and Eye=Brown slice of the array:
 
 ```{r results=chk}
-tabSlice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"))
+tab_slice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"))
 ## Notice: levels can be written as numerics
-## tabSlice(hec, slice=list(Eye=2:3, Sex="Female"))
+## tab_slice(hec, slice=list(Eye=2:3, Sex="Female"))
 ``` 
 
 We may also regard the result above as a $2 \times 2 \times 1$ array:
 ```{r }
-tabSlice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"), drop=FALSE)
+tab_slice(hec, slice=list(Eye=c("Blue", "Hazel"), Sex="Female"), drop=FALSE)
 ``` 
 
 If slicing leads to a one dimensional array, the output will by
@@ -182,11 +177,11 @@ the result can be forced to be a 1-dimensional array:
 
 ```{r results=chk}
 ## A vector:
-t1 <- tabSlice(hec, slice=list(Hair=1, Sex="Female")); t1
+t1 <- tab_slice(hec, slice=list(Hair=1, Sex="Female")); t1
 ## A 1-dimensional array:
-t2 <- tabSlice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); t2 
+t2 <- tab_slice(hec, slice=list(Hair=1, Sex="Female"), as.array=TRUE); t2 
 ## A higher dimensional array (in which some dimensions only have one level)
-t3 <- tabSlice(hec, slice=list(Hair=1, Sex="Female"), drop=FALSE); t3
+t3 <- tab_slice(hec, slice=list(Hair=1, Sex="Female"), drop=FALSE); t3
 ``` 
 
 The difference between the last two forms can be clarified:
@@ -197,7 +192,7 @@ t3 |> flat()
 
 
 
-## Collapsing and inflating arrays - tabMarg() and tabExpand()
+## Collapsing and inflating arrays - tab_marg() and tab_expand()
 
 
 Collapsing: The $HE$--marginal array $T_{HE}$ of $T_{HES}$ is  the array with
@@ -214,29 +209,29 @@ so $\tilde T_{SHE}(s,h,e)$ is constant as a function of $s$.
 
 With gRbase  we can collapse arrays with:
 ```{r }
-he <- tabMarg(hec, c("Hair", "Eye"))
+he <- tab_marg(hec, c("Hair", "Eye"))
 he
 ```
 
 ```{r results=chk}
 ## Alternatives
-tabMarg(hec, ~Hair:Eye)
-tabMarg(hec, c(1, 2))
+tab_marg(hec, ~Hair:Eye)
+tab_marg(hec, c(1, 2))
 hec %a_% ~Hair:Eye
 ```
 
 Notice that collapsing is a projection in the sense that applying the
 operation again does not change anything (except possibly changing the order of variables):
 ```{r }
-he1 <- tabMarg(hec, c("Hair", "Eye"))
-he2 <- tabMarg(he1, c("Eye", "Hair"))
-tabEqual(he1, he2)
+he1 <- tab_marg(hec, c("Hair", "Eye"))
+he2 <- tab_marg(he1, c("Eye", "Hair"))
+tab_equal(he1, he2)
 ``` 
 
-Expand an array by adding additional dimensions with tabExpand():
+Expand an array by adding additional dimensions with tab_expand():
 ```{r }
 extra.dim <- list(Sex=c("Male", "Female"))
-tabExpand(he, extra.dim) 
+tab_expand(he, extra.dim) 
 ``` 
 
 ```{r results=chk}
@@ -250,34 +245,34 @@ Notice that expanding and collapsing brings us back to where we started:
 ``` 
 
 
-## Permuting an array -- tabPerm()
+## Permuting an array -- tab_perm()
 
-A reorganization of the table can be made with tabPerm() (similar
-to aperm()), but tabPerm() allows for a formula and for variable abbreviation:
+A reorganization of the table can be made with tab_perm() (similar
+to aperm()), but tab_perm() allows for a formula and for variable abbreviation:
 ```{r }
-tabPerm(hec, ~Eye:Sex:Hair) |> flat()
+tab_perm(hec, ~Eye:Sex:Hair) |> flat()
 ``` 
 
 Alternative forms (the first two also works for \code{aperm}):
 ```{r results=chk}
-tabPerm(hec, c("Eye", "Sex", "Hair"))
-tabPerm(hec, c(2, 3, 1)) 
-tabPerm(hec, ~Ey:Se:Ha) 
-tabPerm(hec, c("Ey", "Se", "Ha"))
+tab_perm(hec, c("Eye", "Sex", "Hair"))
+tab_perm(hec, c(2, 3, 1)) 
+tab_perm(hec, ~Ey:Se:Ha) 
+tab_perm(hec, c("Ey", "Se", "Ha"))
 ``` 
 
 
 
 
-## Equality - tabEqual()
+## Equality - tab_equal()
 
 Two arrays are defined to be identical 1) if they have the same dimnames
 and 2) if, possibly after a permutation, all values are identical (up to
 a small numerical difference):
 
 ```{r }
-hec2 <- tabPerm(hec, 3:1)
-tabEqual(hec, hec2)
+hec2 <- tab_perm(hec, 3:1)
+tab_equal(hec, hec2)
 ``` 
 
 ```{r results=chk} 
@@ -285,17 +280,17 @@ tabEqual(hec, hec2)
 hec %a==% hec2
 ```
 
-## Aligning - tabAlign()
+## Aligning - tab_align()
 
 We can align one array according to the ordering of another:
 ```{r results=chk} 
-hec2 <- tabPerm(hec, 3:1)
-tabAlign(hec2, hec)
+hec2 <- tab_perm(hec, 3:1)
+tab_align(hec2, hec)
 ```
 
 ```{r result=chk}
 ## Alternative:
-tabAlign(hec2, dimnames(hec))
+tab_align(hec2, dimnames(hec))
 ``` 
 
 
@@ -309,20 +304,20 @@ $$
 $$
 
 The sum, difference and quotient is defined similarly: This is done
-with tabProd(), tabAdd(), tabDiff() and tabDiv():
+with tab_rod(), tab_add(), tab_diff() and tab_div():
 
 ```{r }
-hs <- tabMarg(hec, ~Hair:Eye)
-tabMult(he, hs)
+hs <- tab_marg(hec, ~Hair:Eye)
+tab_mult(he, hs)
 ``` 
 
 Available operations:
 ```{r results=chk}
-tabAdd(he, hs) 
-tabSubt(he, hs)
-tabMult(he, hs)
-tabDiv(he, hs) 
-tabDiv0(he, hs) ## Convention 0/0 = 0
+tab_add(he, hs) 
+tab_subt(he, hs)
+tab_mult(he, hs)
+tab_div(he, hs) 
+tab_div0(he, hs) ## Convention 0/0 = 0
 ``` 
 
 Shortcuts:
@@ -336,20 +331,20 @@ he %a/0% hs ## Convention 0/0 = 0
 ```
 
 Multiplication and addition of (a list of) multiple arrays is
-accomplished with tabProd() and tabSum() 
+accomplished with tab_prod() and tab_sum() 
 (much like
 prod() and sum()):
 ```{r }
-es <- tabMarg(hec, ~Eye:Sex)
-tabSum(he, hs, es)  
-## tabSum(list(he, hs, es))
+es <- tab_marg(hec, ~Eye:Sex)
+tab_sum(he, hs, es)  
+## tab_sum(list(he, hs, es))
 ``` 
 
 
 Lists of arrays are processed with
 ```{r results=chk} 
-tabListAdd(list(he, hs, es))
-tabListMult(list(he, hs, es))
+tab_list_add(list(he, hs, es))
+tab_list_mult(list(he, hs, es))
 ```
 
 ## An array as a probability density - tabDist()
@@ -364,12 +359,12 @@ tabDist(hec, cond=~Sex)
 tabDist(hec, marg=~Hair, cond=~Sex) 
 ```
 
-## Miscellaneous - tabSliceMult()
+## Miscellaneous - tab_sliceMult()
 
 Multiply values in a slice by some number and all other values by
 another number:
 ```{r  } 
-tabSliceMult(es, list(Sex="Female"), val=10, comp=0)
+tab_slice_mult(es, list(Sex="Female"), val=10, comp=0)
 ```
 
 
@@ -399,9 +394,9 @@ horizontal underscore:
 ```{r }
 yn <- c("y","n")
 lev <- list(rain=yn, sprinkler=yn, wet=yn)
-r <- tabNew(~rain, levels=lev, values=c(.2, .8))
-s_r <- tabNew(~sprinkler:rain, levels = lev, values = c(.01, .99, .4, .6))
-w_sr <- tabNew( ~wet:sprinkler:rain, levels=lev, 
+r <- tab_new(~rain, levels=lev, values=c(.2, .8))
+s_r <- tab_new(~sprinkler:rain, levels = lev, values = c(.01, .99, .4, .6))
+w_sr <- tab_new( ~wet:sprinkler:rain, levels=lev, 
              values=c(.99, .01, .8, .2, .9, .1, 0, 1))
 r 
 s_r  |> flat()
@@ -409,10 +404,10 @@ w_sr |> flat()
 ``` 
 
 The joint distribution $p(r,s,w)=p(r)p(s|r)p(w|s,r)$ can be obtained
-with tabProd():
+with tab_prod():
 
 ```{r }
-joint <- tabProd(r, s_r, w_sr); joint |> flat()
+joint <- tab_prod(r, s_r, w_sr); joint |> flat()
 ```
 
 What is the probability that it rains given that the grass is wet? We
@@ -423,15 +418,15 @@ tabDist(joint, marg=~rain, cond=~wet)
 
 ```{r results='hide'}
 ## Alternative:
-rw <- tabMarg(joint, ~rain + wet)
-tabDiv(rw, tabMarg(rw, ~wet))
+rw <- tab_marg(joint, ~rain + wet)
+tab_div(rw, tab_marg(rw, ~wet))
 ## or
 rw %a/% (rw %a_% ~wet)
 ``` 
 
 ```{r }
 ## Alternative:
-x <- tabSliceMult(rw, slice=list(wet="y")); x
+x <- tab_slice_mult(rw, slice=list(wet="y")); x
 tabDist(x, marg=~rain)
 ```
 
@@ -475,14 +470,14 @@ myips <- function(indata, glist){
     fit   <- indata
     fit[] <-  1
     ## List of sufficient marginal tables
-    md    <- lapply(glist, function(g) tabMarg(indata, g))
+    md    <- lapply(glist, function(g) tab_marg(indata, g))
     n_iter <- 4
     n_generators <- length(glist)
     for (i in 1:n_iter){
         for (j in 1:n_generators){
-            mf  <- tabMarg(fit, glist[[j]])
-            # adj <- tabDiv( md[[ j ]], mf)
-            # fit <- tabMult( fit, adj )
+            mf  <- tab_marg(fit, glist[[j]])
+            # adj <- tab_div( md[[ j ]], mf)
+            # fit <- tab_mult( fit, adj )
             ## or
             adj <- md[[ j ]] %a/% mf
             fit <- fit %a*% adj
@@ -523,7 +518,7 @@ c(hec)
 
 For illustration we do:
 ```{r }
-cell2name <- function(cell, dimnames){
+cell2name <- function(cell, dimnames) {
     unlist(lapply(1:length(cell),
                   function(m){
                       dimnames[[m]][cell[m]]
@@ -564,7 +559,6 @@ Eye=Hazel), i.e.\ cells of the form $(j,3,l)$. Given such a
 cell, what is then the next cell that also satisfies this
 constraint. This is provided by
 next\_cell\_slice(). 
-<!-- \footnote{FIXME: sliceset should be called margin.} -->
 
 ```{r }
 next_cell_slice(c(1,3,1), slice_marg=2, dim=c( 2, 3, 2 ))
@@ -623,13 +617,13 @@ do.call("[", c(list(hec), list(1, TRUE, 1), drop=FALSE))
 
 \grbase\ provides two alterntives for each of these three cases above:
 ```{r results=chk}
-tabSlicePrim(hec, slice=list(TRUE, 2:3, TRUE))  |> flat()
-tabSlice(hec, slice=list(c(2, 3)), margin=2) |> flat()
+tab_slice_prim(hec, slice=list(TRUE, 2:3, TRUE))  |> flat()
+tab_slice(hec, slice=list(c(2, 3)), margin=2) |> flat()
 
-tabSlicePrim(hec, slice=list(1, TRUE, 1))  
-tabSlice(hec, slice=list(1, 1), margin=c(1, 3)) 
+tab_slice_prim(hec, slice=list(1, TRUE, 1))  
+tab_slice(hec, slice=list(1, 1), margin=c(1, 3)) 
 
-tabSlicePrim(hec, slice=list(1, TRUE, 1), drop=FALSE)  
-tabSlice(hec, slice=list(1, 1), margin=c(1, 3), drop=FALSE) 
+tab_slice_prim(hec, slice=list(1, TRUE, 1), drop=FALSE)  
+tab_slice(hec, slice=list(1, 1), margin=c(1, 3), drop=FALSE) 
 ``` 
 
