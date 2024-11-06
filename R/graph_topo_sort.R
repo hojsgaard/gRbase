@@ -83,11 +83,5 @@ topoSortMAT <- topo_sortMAT
 
 
 
-## ## FIXME topo_sort_vparList Delete?
-## #' @export
-## topo_sort_vparList<- function(glist){
-##     topo_sortMAT(g_dagl2sm_(glist))
-## }
-
 
 

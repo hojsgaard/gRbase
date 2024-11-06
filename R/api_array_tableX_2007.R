@@ -4,7 +4,7 @@
 #' @description Array operations; created to facilitate the gRain
 #'     package in 2007. Now largely replaceable by other (often
 #'     faster) functions implemented in Rcpp.
-#' @name api-array-07
+#' @name api_array_07
 ##
 ## ###########################################################
 #'
@@ -15,11 +15,20 @@
 #'     TRUE).
 #' @param op The operation to be made.
 #' @param keep.class Obsolete argument.
-#' @details `tableOp0` is brute force implementation based on
+#'
+#' @details A multidimensional table of numbers is represented by a
+#'     multidimensional array, so we can use the terms 'table' and
+#'     'array' interchangeably. In this context, 'table' refers
+#'     specifically to numerical data structured in multiple
+#'     dimensions, similar to how arrays are used in programming. An
+#'     alternative representation of a multidimensional table would be
+#'     as a dataframe.
+#' 
+#'  `tableOp0` is brute force implementation based on
 #'     dataframes. It is very slow, but useful for error checking.
 
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE) {
   # Like aperm() but perm can be dimnames
   if (missing( perm )){
@@ -40,20 +49,20 @@ tablePerm <- function(tab, perm, resize=TRUE, keep.class=FALSE) {
 }
 
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 tableMult <- function(tab1, tab2) {
   tableOp(tab1, tab2, op="*")
 }
 
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 tableDiv <- function(tab1, tab2) {
   tableOp(tab1, tab2, op="/")
 }
 
 
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
 tableOp <- function(tab1, tab2, op="*") {
 
@@ -102,7 +111,6 @@ tableOp <- function(tab1, tab2, op="*") {
     ## Create perumation indices; first variables in vn2; then vn1\vn2
     perm  <-  c(vn2.idx, (1:length(vn.new))[-vn2.idx])
 
-
     pot1 <- op(as.numeric(aperm.default(pot1, perm, TRUE)), as.numeric(tab2))
     
     if (identical(op, `/`)) 
@@ -117,7 +125,7 @@ tableOp <- function(tab1, tab2, op="*") {
 
 
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 #' @param restore Not so clear anymore.
 tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE) {
 
@@ -153,8 +161,8 @@ tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE) {
 
 
 #' @export
-#' @rdname api-array-07
-tableOp0 <- function(tab1, tab2, op=`*`){
+#' @rdname api_array_07
+tableOp0 <- function(tab1, tab2, op=`*`) {
 
     if (!is_named_array(tab1)) {stop("'tab1' is not an array")}
     if (!is_named_array(tab2)) {stop("'tab2' is not an array")}
@@ -177,31 +185,12 @@ tableOp0 <- function(tab1, tab2, op=`*`){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 #' @param margin Index or name of margin.
 #' @param level Corresponding level of margin.
 #' @param impose Value to be imposed. 
-tableSlice <-  function (tab, margin, level, impose)
-{
+tableSlice <-  function (tab, margin, level, impose) {
     if (is.null(margin))
         return(tab)
     if (is.null(dimnames(tab)))
@@ -243,10 +232,10 @@ tableSlice <-  function (tab, margin, level, impose)
 
 ## tableSlicePrim: Works only with margin and level being indices
 #' @export
-#' @rdname api-array-07
+#' @rdname api_array_07
 #' @param mar.idx Index of margin
 #' @param lev.idx Index of level
-tableSlicePrim <- function(tab, mar.idx, lev.idx){
+tableSlicePrim <- function(tab, mar.idx, lev.idx) {
   idx         <- vector("list", length(dim(tab)))
   idx[]       <-TRUE
   idx[mar.idx] <- lev.idx
@@ -254,9 +243,8 @@ tableSlicePrim <- function(tab, mar.idx, lev.idx){
 }
 
 #' @export
-#' @rdname api-array-07
-tableMargin <- function (tab, margin, keep.class = FALSE)
-{
+#' @rdname api_array_07
+tableMargin <- function (tab, margin, keep.class = FALSE) {
 ##   cat("===== tableMargin =====\n")
 ##   print(as.data.frame.table(tab));   print(margin)
 
@@ -300,8 +288,8 @@ tableMargin <- function (tab, margin, keep.class = FALSE)
 }
 
 #' @export
-#' @rdname api-array-07
-tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
+#' @rdname api_array_07
+tableGetSliceIndex <- function(tab, margin, level, complement=FALSE) {
     di <- dim(tab)
     dn <- dimnames(tab)
     vn <- names(dn)
@@ -329,10 +317,10 @@ tableGetSliceIndex <- function(tab, margin, level, complement=FALSE){
 }
 
 #' @export
-#' @rdname api-array-07            
+#' @rdname api_array_07            
 #' @param complement Should values be set for the complement?
 #' @param value Which value should be set
-tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){
+tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0) {
     idx <- tableGetSliceIndex(tab, margin=margin, level=level, complement=complement)
     tab[ idx ] <- value
     tab
@@ -408,7 +396,7 @@ tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){
 
 
 ## #' @export
-## #' @rdname api-array-07
+## #' @rdname api_array_07
 ## #' @param restore Not so clear anymore.
 ## tableOp2 <- function (tab1, tab2, op = `*`, restore = FALSE){
 
@@ -446,7 +434,7 @@ tableSetSliceValue <- function(tab, margin, level, complement=FALSE, value=0){
 
 
 ## #' @export
-## #' @rdname api-array-07
+## #' @rdname api_array_07
 ## #' @param op The operation; choices are \code{"*"}, \code{"/"}, \code{"+"}, \code{"-"}.
 ## tableOp <- function(tab1, tab2, op="*"){
 

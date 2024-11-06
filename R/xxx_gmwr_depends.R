@@ -24,4 +24,3 @@ as.adjMAT       <- function(object) {
     as(object, "matrix")
 }
 
-## as.adjMAT       <- g_gn2xm_

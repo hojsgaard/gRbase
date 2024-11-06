@@ -2,7 +2,7 @@
 ##
 #' @title Suite of set operations
 #' @description Set operations for gRbase and related packages.
-#' @name set-operations
+#' @name set_operations
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 ##
 ## #############################################################
@@ -71,13 +71,13 @@
 
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 maximal_sets <- function(setlist, index=FALSE){
     max_set_(setlist, index=index)
 }
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 minimal_sets <- function(setlist, index=FALSE){
     min_set_(setlist, index=index)
 }
@@ -87,7 +87,7 @@ minimal_sets <- function(setlist, index=FALSE){
 ## Can be speeded up if the as.character part can be avoided...
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 remove_redundant <- function(setlist, maximal=TRUE, index=FALSE){
   if (maximal) maximal_sets(setlist, index)
   else minimal_sets(setlist, index)
@@ -95,7 +95,7 @@ remove_redundant <- function(setlist, maximal=TRUE, index=FALSE){
 
 ## Is x contained in any vector in setlist;
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 is_inset <- function(x, setlist, index=FALSE){
   .isin(setlist, x, index)
 }
@@ -106,25 +106,25 @@ is_inset <- function(x, setlist, index=FALSE){
 
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 filter_maximal_vectors <- filter_maximal_vectors_
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 get_subset <- get_subset_
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 get_superset <- get_superset_
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 is_subsetof <- is_subsetof_
 
 ## FIXME: is.subsetof : Use Rcpp implementation
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 is.subsetof <- function(x, set){
   all(match(x, set) > 0)
 }
@@ -133,7 +133,7 @@ is.subsetof <- function(x, set){
 ## FIXME: Clean subsetof-functions
 
 #' @export
-#' @rdname set-operations
+#' @rdname set_operations
 subsetof <- function(x, set){
   all(match(x, set, 0) > 0)
 }
@@ -187,22 +187,6 @@ all_subsets0 <- allSubsets0_
 }
 
 
-
-## #' @rdname all-subsets
-## #' @param g.sep Pick a value which is not in x
-## allSubsets <- function(x, g.sep="+"){
-##   if (length(x)==1)
-##     return(x)
-##   else {
-##     val <- x[1]
-##     for (i in 2:length(x)){
-##       v <- paste(val,x[i],sep=g.sep)
-##       val <- c(val,x[i],v)
-##     }
-##     val <- strsplit(val,paste("\\",g.sep,sep=""))
-##     return(val)
-##   }
-## }
 
 
 

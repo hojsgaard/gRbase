@@ -5,9 +5,17 @@
 #'     observations from the array x conditional on the variables in
 #'     margin (a vector of indices) takes values given by margin.value
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
-#' @name array-simulate
+#' @name array_simulate
 #'
 ## ##############################################################
+
+#' @details A multidimensional table of numbers is represented by a
+#'     multidimensional array, so we can use the terms 'table' and
+#'     'array' interchangeably. In this context, 'table' refers
+#'     specifically to numerical data structured in multiple
+#'     dimensions, similar to how arrays are used in programming. An
+#'     alternative representation of a multidimensional table would be
+#'     as a dataframe.
 #'
 #' @param x,object An array.
 #' @param nsim Number of cases to simulate.
@@ -27,25 +35,26 @@
 #' x <- tab_new(c("a", "b"), levels=c(2, 2), values=1:4)
 #' 
 #' ## Simulate from entire array
-#' s <- simulateArray(x, 1000)
+#' s <- simulate_array(x, 1000)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## Simulate from slice defined by that dimension 1 is fixed at level 2
-#' s <-simulateArray(x, 1000, margin=1, value.margin=2)
+#' s <-simulate_array(x, 1000, margin=1, value.margin=2)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## 2 x 2 x 2 array
 #' x <- tab_new(c("a", "b", "c"), levels=c(2, 2, 2), values=1:8)
 #' ## Simulate from entire array
-#' s <-simulateArray(x, 36000)
+#' s <-simulate_array(x, 36000)
 #' xtabs(~., as.data.frame(s))
 #' 
 #' ## Simulate from slice defined by that dimension 3 is fixed at level 1
-#' s <-simulateArray(x, 10000, 3, 1)
+#' s <-simulate_array(x, 10000, 3, 1)
 #' xtabs(~., as.data.frame(s))
 #' 
-#' @export simulateArray
-simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL) {
+NULL
+
+simulate_array_worker <- function(x, nsim=1, margin, value.margin, seed=NULL) {
     if(missing(margin)) {
         rhs       <- NULL
         lhs.dim   <- dim(x)
@@ -59,32 +68,36 @@ simulateArray <- function(x, nsim=1, margin, value.margin, seed=NULL) {
     ##cat(sprintf("rhs=%s, lhs.dim=%s, lhs.names=%s\n",
     ##            toString(rhs), toString(lhs.dim), toString(lhs.names)))
     llhs.dim <- length(lhs.dim)
-    ## FIXME: simulateArray uses tableSlice(); not a big issue but still
+    ## FIXME: tableSlice can be replaced by tab_slice
     pp   <- tableSlice(x, margin=rhs, level=value.margin)
-    ##print(pp)
 
     set.seed(seed)
     samp <- sample(length(pp), size=nsim, replace=TRUE, prob=pp)
-    ##print(samp)
     cp   <- cumprod(c(1, lhs.dim[-llhs.dim]))
     res  <- matrix(0, nrow=nsim, ncol=llhs.dim)
     for(j in 1:nsim){
-        res[j,] <- 1 + ((samp[j] - 1) %/% cp) %% lhs.dim
+        res[j, ] <- 1 + ((samp[j] - 1) %/% cp) %% lhs.dim
     }
     colnames(res) <- lhs.names
     res
 }
 
+
 #' @export
-#' @rdname array-simulate
+#' @rdname array_simulate
 simulate.table <- function(object, nsim=1, seed=NULL, margin, value.margin, ...) {
-    simulateArray(object, nsim=nsim, margin=margin, value.margin=value.margin, seed=seed)
+    simulate_array_worker(object, nsim=nsim, margin=margin, value.margin=value.margin, seed=seed)
 }
 
 #' @export
-#' @rdname array-simulate
+#' @rdname array_simulate
 simulate.xtabs  <- simulate.table
 
 #' @export
-#' @rdname array-simulate
+#' @rdname array_simulate
 simulate.array  <- simulate.table
+
+## FIXME: to deprecate
+#' @export
+#' @rdname array_simulate
+simulateArray <- simulate_array_worker

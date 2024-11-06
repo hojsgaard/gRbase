@@ -5,7 +5,7 @@
 #' @name api-cell
 ##
 ## #########################################################################
-#'
+#' 
 #' @param cell Vector giving the cell, e.g. c(1, 1, 2) in 3-way table.
 #' @param dim Vector giving array dimension, eg c(2, 2, 2).
 #' @param perm Vector giving permutaion of array, eg. c(1, 3, 2).
@@ -14,6 +14,14 @@
 #'     table, e.g. c(1, 2)
 #' @param entry An entry in an array (a number indexing a vector).
 #'
+#' @details A multidimensional table of numbers is represented by a
+#'     multidimensional array, so we can use the terms 'table' and
+#'     'array' interchangeably. In this context, 'table' refers
+#'     specifically to numerical data structured in multiple
+#'     dimensions, similar to how arrays are used in programming. An
+#'     alternative representation of a multidimensional table would be
+#'     as a dataframe.
+#' 
 #' @examples
 #'
 #' di <- c(2, 2, 3)

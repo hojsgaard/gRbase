@@ -1,14 +1,18 @@
-
-
 ##################################################################
-#' @title Create multidimensional arrays
-#' @description Alternative ways of creating arrays
+#' @title Create multidimensional tables (arrays)
+#' @description Alternative ways of creating tables (arrays)
 #' @name api_tab_new
 #' @author Søren Højsgaard, \email{sorenh@@math.aau.dk}
 ##################################################################
 #'
-#' @details
-#'
+#' @details A multidimensional table of numbers is represented by a
+#'     multidimensional array, so we can use the terms 'table' and
+#'     'array' interchangeably. In this context, 'table' refers
+#'     specifically to numerical data structured in multiple
+#'     dimensions, similar to how arrays are used in programming. An
+#'     alternative representation of a multidimensional table would be
+#'     as a dataframe.
+#' 
 #' 1. If \code{normalize="first"} then for each configuration of all
 #'     other variables than the first, the probabilities are
 #'     normalized to sum to one.  Thus f(a, b, c) becomes a
@@ -125,7 +129,7 @@ tab_new <- function(names, levels, values, normalize="none", smooth=0) {
 
 ## ####################################################################
 #'
-#' @title Interface - operations on multidimensional arrays.
+#' @title Interface - operations on multidimensional tables (arrays).
 #' @description Interface functions and minor extensions to cpp functions.
 #' @name api-tabX
 #'
@@ -310,7 +314,6 @@ tab_normalize <- function(tab, type="none") {
 #' ## We need dimnames, and names on the dimnames
 #' 
 #' ## Marginalize:
-#'tabDist(hec, marg= ~Hair + Eye)
 #'tabDist(hec, marg= ~Hair:Eye)
 #'tabDist(hec, marg= c("Hair", "Eye"))
 #'tabDist(hec, marg= 1:2)
@@ -580,58 +583,6 @@ tab_slice_to_entries <- function(tab, slice, complement=FALSE) {
 
 
 
-### COMPATIBILITY with gRain and gRim
-
-
-## FIXME used in gRain
-#' @export
-#' @rdname api_tab_new             
-tabNew <- tab_new
-
-## FIXME grain
-#' @export
-#' @rdname api_tab_slice
-tabSliceMult <- tab_slice_mult
-
-
-## FIXME gRain
-#' @export
-#' @rdname api-tabX
-tabDiv      <- tab_div_
-
-## FIXME gRain
-#' @export
-#' @rdname api-tabX
-tabDiv0     <- tab_div0_
-
-## FIXME gRain
-#' @export
-#' @rdname api_tab_slice
-tabSlice <- tab_slice
-
-## FIXME gRain
-#' @export
-#' @rdname api-tabX
-tabPerm <- tab_perm
-
-
-## FIXME gRain
-#' @export
-#' @rdname api-tabX
-tabProd <- tab_prod
-
-## FIXME gRain
-#' @export
-#' @rdname api-tabX                 
-tabNormalize <- tab_normalize
-
-
-#' @export
-#' @rdname api-tabX
-tabListMult <- tab_list_mult_
-
-
-
 
 ## ########################################################
 ##
@@ -758,3 +709,61 @@ set_spec_to_char <- function(tab, set_spec) {
 #' @export
 #' @rdname api_ops_pct
 "%amarg%" <- function(tab1, marg){tab_marg(tab1, marg)}
+
+
+
+
+
+
+### ----------------------------------------------------------
+### COMPATIBILITY with gRain and gRim
+### ----------------------------------------------------------
+
+
+## FIXME used in gRain
+#' @export
+#' @rdname api_tab_new             
+tabNew <- tab_new
+
+## FIXME grain
+#' @export
+#' @rdname api_tab_slice
+tabSliceMult <- tab_slice_mult
+
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabDiv      <- tab_div_
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabDiv0     <- tab_div0_
+
+## FIXME gRain
+#' @export
+#' @rdname api_tab_slice
+tabSlice <- tab_slice
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabPerm <- tab_perm
+
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX
+tabProd <- tab_prod
+
+## FIXME gRain
+#' @export
+#' @rdname api-tabX                 
+tabNormalize <- tab_normalize
+
+
+#' @export
+#' @rdname api-tabX
+tabListMult <- tab_list_mult_
+

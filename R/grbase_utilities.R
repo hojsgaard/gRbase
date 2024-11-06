@@ -117,18 +117,6 @@ matrix2list <- function(X, byrow=TRUE){
   else colmat2list__(X) # cpp implementation
 }
 
-## matrix2list <- function(X, MARGIN=1){
-##     if (!(MARGIN %in% c(1, 2))) stop("invalid MARGIN\n")
-
-##     if (MARGIN == 1) rowmat2list__(X) # cpp implementation
-##     else colmat2list__(X) # cpp implementation
-## }
-
-
-
-## FIXME: which.arr.ind: Fails on sparse matrices!!
-## FIXME: -> remove after check downstram!!
-## FIXME: -> which_matrix_index is Cpp implementation
 
 #' @export
 #' @rdname grbase-utilities
@@ -150,6 +138,8 @@ which.arr.index <- function(X){
 #' @export
 #' @rdname grbase-utilities
 which_matrix_index <- which_matrix_index__
+
+
 
 #' @export
 #' @rdname grbase-utilities
@@ -184,6 +174,10 @@ colSumsPrim <- function(X){
 #' @export
 colwiseProd <- function(v, X){
     .Call("R_colwiseProd", v, X, PACKAGE="gRbase")}
+
+
+
+
 
 
 #' @rdname grbase-utilities
@@ -221,8 +215,6 @@ lapplyV2I <- function(setlist, item){lapply(setlist, function(elt) match(elt, it
 #' @rdname grbase-utilities
 #' @export
 lapplyI2V <- function (setlist, item) {lapply(setlist, function(elt) item[elt])}
-
-
 
 
 #' @aliases pairs2num

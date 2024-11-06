@@ -112,7 +112,7 @@ isDecomposable <- function(x){
 #' @method isDecomposable default
 #' @export isDecomposable.default
 #' @export
-isDecomposable.default <- function( x ){
+isDecomposable.default <- function( x ) {
     if (!(inherits(x, c("formula", "list"))))
         stop("'x' must be a formula or a list of atomic vectors\n")
 
@@ -132,7 +132,7 @@ isDecomposable.default <- function( x ){
 
 
 
-.isDecomposable_glist <- function(x){
+.isDecomposable_glist <- function(x) {
     amat <- g_ugl2M_(x, vn=unique(unlist(x)))
     cliq <- max_cliqueMAT(amat)[[1]]
     ## isg <- all(unlist(lapply(cliq, function(cq) .isin(x, cq))))
@@ -146,8 +146,7 @@ isDecomposable.default <- function( x ){
 ## Issues: Fails on the "empty graph".
 
 #' @export
-isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL)
-{
+isGSD_glist <- function(glist, vn=unique(unlist(glist)), discrete=NULL) {
   ##amat <- ugList2M(glist, vn=vn)
     amat <- g_ugl2M_(glist, vn=vn)
     cliq <- max_cliqueMAT(amat)[[1]]
@@ -165,16 +164,14 @@ properties_glist <- function(glist,
                              vn=unique(unlist(glist)),
                              ##amat=ugList2M(glist,vn=vn),
                              amat=g_ugl2M_(glist, vn=vn),
-                             cliq=max_cliqueMAT(amat)[[1]], discrete=NULL){
+                             cliq=max_cliqueMAT(amat)[[1]], discrete=NULL) {
 
     ## isg <- all(unlist(lapply(cliq, function(ss) .isin(glist, ss))))
     isg <- all(unlist(lapply(cliq, function(ss) is_inset(ss, glist))))
-  if (!isg){
-    return(c(isg=FALSE, issd=FALSE))
-  } else {
-    return(c(isg=TRUE, issd=length(mcs_markedMAT(amat, discrete=discrete)) > 0))
-  }
+    if (!isg){
+        return(c(isg=FALSE, issd=FALSE))
+    } else {
+        return(c(isg=TRUE, issd=length(mcs_markedMAT(amat, discrete=discrete)) > 0))
+    }
 }
-
-## dot-functions
 
