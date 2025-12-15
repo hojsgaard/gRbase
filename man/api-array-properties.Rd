@@ -20,17 +20,26 @@ is_number_vector_(obj)
 
 is_dimnames_(obj)
 
-dimnames_match(a1, a2)
+dimnames_match(tab1, tab2)
 }
 \arguments{
 \item{obj}{Some R object.}
 
-\item{a1, a2}{Arrays with named dimnames.}
+\item{tab1, tab2}{Arrays with named dimnames.}
 }
 \description{
 Check if object is array (that it is a vector with a
 dim attribute) and that the object has dimnames and that
 dimnames are named.
+}
+\details{
+A multidimensional table of numbers is represented by a
+multidimensional array, so we can use the terms 'table' and
+'array' interchangeably. In this context, 'table' refers
+specifically to numerical data structured in multiple
+dimensions, similar to how arrays are used in programming. An
+alternative representation of a multidimensional table would be
+as a dataframe.
 }
 \examples{
 is_named_array( HairEyeColor )
@@ -40,27 +49,27 @@ is_named_array_( matrix(1:4, nrow=2) )
 is_number_vector_(1:4)
 is_number_vector_(list(1:4))
 
-ar1 = tab_new(c("a", "b"), levels=c(2, 3))
-ar2 = tab_new(c("c", "a"), levels=c(2, 2))
-ar1
-ar2
-## dimension a has levels a1,a2 in both ar1 and ar2.
+tab1 = tab_new(c("a", "b"), levels=c(2, 3))
+tab2 = tab_new(c("c", "a"), levels=c(2, 2))
+tab1
+tab2
+## dimension a has levels tab1,tab2 in both tab1 and tab2.
 # Hence we have a match.
-dimnames_match(ar1, ar2)
+dimnames_match(tab1, tab2)
 
-ar1 = tab_new(c("a", "b"), levels=c(2, 3))
-ar2 = tab_new(c("c", "a"), levels=c(2, 3))
-ar1
-ar2
-## dimension a has levels a1,a2 in ar1 and levels a1,a2,a3 in ar2.
+tab1 = tab_new(c("a", "b"), levels=c(2, 3))
+tab2 = tab_new(c("c", "a"), levels=c(2, 3))
+tab1
+tab2
+## dimension a has levels (a1,a2) in tab1 and levels (a1,a2,a3) in tab2.
 # Hence we do not have a match.
-dimnames_match(ar1, ar2)
+dimnames_match(tab1, tab2)
 
-ar2 = tab_new(c("c", "a"), levels=list(c=c("c1", "c2"), a=c("a2", "a1")))
-ar2
-## dimension a has levels a1,a2 in ar1 and levels a2,a1 in ar2.
+tab2 = tab_new(c("c", "a"), levels=list(c=c("c1", "c2"), a=c("a2", "a1")))
+tab2
+## dimension a has levels (a1,a2) in tab1 and levels (a2,a1) in tab2.
 # Hence we do not have a match.
-dimnames_match(ar1, ar2)
+dimnames_match(tab1, tab2)
 }
 \author{
 Søren Højsgaard, \email{sorenh@math.aau.dk}

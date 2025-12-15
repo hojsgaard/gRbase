@@ -26,7 +26,7 @@
 \alias{tabProd}
 \alias{tabNormalize}
 \alias{tabListMult}
-\title{Interface - operations on multidimensional arrays.}
+\title{Interface - operations on multidimensional tables (arrays).}
 \usage{
 tab_add(tab1, tab2)
 

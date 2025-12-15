@@ -4,7 +4,7 @@
 \alias{api_tab_new}
 \alias{tab_new}
 \alias{tabNew}
-\title{Create multidimensional arrays}
+\title{Create multidimensional tables (arrays)}
 \usage{
 tab_new(names, levels, values, normalize = "none", smooth = 0)
 
@@ -31,9 +31,16 @@ normalized, see 'Details' below.}
 An array.
 }
 \description{
-Alternative ways of creating arrays
+Alternative ways of creating tables (arrays)
 }
 \details{
+A multidimensional table of numbers is represented by a
+multidimensional array, so we can use the terms 'table' and
+'array' interchangeably. In this context, 'table' refers
+specifically to numerical data structured in multiple
+dimensions, similar to how arrays are used in programming. An
+alternative representation of a multidimensional table would be
+as a dataframe.
 \enumerate{
 \item If \code{normalize="first"} then for each configuration of all
 other variables than the first, the probabilities are

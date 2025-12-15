@@ -48,6 +48,15 @@ table, e.g. c(1, 2)}
 \description{
 Low level table cell operations.
 }
+\details{
+A multidimensional table of numbers is represented by a
+multidimensional array, so we can use the terms 'table' and
+'array' interchangeably. In this context, 'table' refers
+specifically to numerical data structured in multiple
+dimensions, similar to how arrays are used in programming. An
+alternative representation of a multidimensional table would be
+as a dataframe.
+}
 \examples{
 
 di <- c(2, 2, 3)

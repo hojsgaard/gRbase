@@ -37,7 +37,6 @@ is_named_array( hec )
 ## We need dimnames, and names on the dimnames
 
 ## Marginalize:
-tabDist(hec, marg= ~Hair + Eye)
 tabDist(hec, marg= ~Hair:Eye)
 tabDist(hec, marg= c("Hair", "Eye"))
 tabDist(hec, marg= 1:2)
