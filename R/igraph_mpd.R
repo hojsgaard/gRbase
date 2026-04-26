@@ -80,7 +80,7 @@ mpd <- function(object, tobject=minimal_triang(object), details=0) {
 
 #' @export
 #' @rdname graph-mpd
-mpd.default <- function(object, tobject=triangulate(object), details=0){
+mpd.default <- function(object, tobject=minimal_triang(object), details=0){
 
     graph_class <- c("igraph", "matrix", "dgCMatrix")
     chk <- inherits(object, graph_class, which=TRUE)
